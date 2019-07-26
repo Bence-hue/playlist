@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 //import PropTypes from "prop-types";
 
 import { ReactComponent as ARTleft } from "../assets/Landing-left.svg";
