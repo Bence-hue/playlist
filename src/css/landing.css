@@ -57,7 +57,7 @@
 
 #btn-wrapper {
 	position: absolute;
-	bottom: 45%;
+	bottom: 55%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
@@ -65,17 +65,60 @@
 .btn {
 	position: absolute;
 	top: 0;
-	background: pink;
-	opacity: 0.5;
-	margin: 0 50px;
+	margin: 0 30px;
 	width: 200px;
+	height: 350px;
 	text-align: center;
+	border-radius: 40px;
+	-webkit-box-shadow: 0px 0px 90px 0px rgba(0, 0, 0, 0.12);
+	-moz-box-shadow: 0px 0px 90px 0px rgba(0, 0, 0, 0.12);
+	box-shadow: 0px 0px 90px 0px rgba(0, 0, 0, 0.12);
+	cursor: pointer;
+	overflow: hidden;
+	transition: 0.2s all ease-in-out;
+}
+
+.btn:hover {
+	-webkit-box-shadow: 0px 0px 60px 0px rgba(19, 156, 97, 0.6);
+	-moz-box-shadow: 0px 0px 60px 0px rgba(19, 156, 97, 0.6);
+	box-shadow: 0px 0px 60px 0px rgba(19, 156, 97, 0.6);
+}
+
+.btn:hover > .btn-border-art {
+	transform: scale(1);
+	opacity: 1;
+}
+
+.btn h2 {
+	text-transform: uppercase;
+	font-family: "Open Sans";
+	font-weight: 600;
+	color: #707070;
+	position: absolute;
+	left: 50%;
+	top: 28%;
+	transform: translate(-50%, -50%);
 }
 
 .btn-left {
-	left: 0;
+	right: 0;
 }
 
 .btn-right {
-	right: 0;
+	left: 0;
+}
+
+.btn-icon {
+	width: 40%;
+	position: absolute;
+	left: 50%;
+	top: 70%;
+	transform: translate(-50%, -50%);
+	fill: #0f7a4c;
+}
+
+.btn-border-art {
+	transform: scale(1.7);
+	transition: 0.1s all ease-in-out;
+	opacity: 0;
 }

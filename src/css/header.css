@@ -32,6 +32,7 @@
 	font-family: "Potra";
 	font-weight: 200;
 	font-size: 4rem;
+	color: #464545;
 }
 
 .playlist-lore {
@@ -40,4 +41,5 @@
 	font-family: "Open Sans";
 	font-weight: 200;
 	font-size: 30px;
+	color: #464545;
 }

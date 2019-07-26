@@ -4,6 +4,8 @@ import React, { Component } from "react";
 import { ReactComponent as ARTleft } from "../assets/Landing-left.svg";
 import { ReactComponent as ARTright } from "../assets/Landing-right.svg";
 import { ReactComponent as ARTbtn } from "../assets/Landing-btn-border.svg";
+import { ReactComponent as MusicPlayer } from "../assets/music-player.svg";
+import { ReactComponent as AddButton } from "../assets/add-button.svg";
 
 import "../css/landing.css";
 import "../css/fonts.css";
@@ -21,10 +23,26 @@ export default class Landing extends Component {
 				</div>
 				<div id="btn-wrapper">
 					<div className="btn btn-left">
-						<h1>btn1</h1>
+						<ARTbtn className="btn-border-art" />
+						<h2>
+							Kért
+							<br />
+							zenék
+							<br />
+							mutatása
+						</h2>
+						<MusicPlayer className="btn-icon" />
 					</div>
 					<div className="btn btn-right">
-						<h1>btn2</h1>
+						<ARTbtn className="btn-border-art" />
+						<h2>
+							új
+							<br />
+							zenét
+							<br />
+							kérek!
+						</h2>
+						<AddButton className="btn-icon" />
 					</div>
 				</div>
 				<ARTleft className="art-left" />
