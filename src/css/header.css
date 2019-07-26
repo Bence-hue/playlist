@@ -8,14 +8,14 @@
 }
 
 .menu-upright {
-	color: #139c61;
+	color: #129151;
 	font-size: 40px;
 	position: absolute;
 	top: 3%;
 	right: 3%;
 }
 
-.playlist-title {
+.playlist {
 	margin: 0;
 	padding: 0;
 	position: absolute;
@@ -23,7 +23,21 @@
 	left: 50%;
 	transform: translateX(-50%);
 	text-transform: uppercase;
+	text-align: center;
+}
+
+.playlist-title {
+	margin: 0;
+	padding: 0;
 	font-family: "Potra";
 	font-weight: 200;
 	font-size: 4rem;
+}
+
+.playlist-lore {
+	margin: 0;
+	padding: 0;
+	font-family: "Open Sans";
+	font-weight: 200;
+	font-size: 30px;
 }

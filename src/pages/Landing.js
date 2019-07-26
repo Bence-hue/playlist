@@ -10,8 +10,11 @@ export default class Landing extends Component {
 	render() {
 		return (
 			<div>
-				<Header />
-				<h1>Hello World</h1>
+				<Header kolcsey={true} />
+				<div id="lastadded">
+					<h3>Legutóbb hozzáadott:</h3>
+					<h1>placeholder - original mix</h1>
+				</div>
 			</div>
 		);
 	}

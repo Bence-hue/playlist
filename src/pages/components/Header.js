@@ -7,11 +7,17 @@ import { ReactComponent as MusicPlayer } from "../../assets/music-player.svg";
 
 export default class Header extends Component {
 	render() {
+		const kolcsey = this.props.kolcsey;
 		return (
 			<div>
 				<MusicPlayer className="menu-upleft" />
 				<i class="fas fa-bars menu-upright" />
-				<h1 className="playlist-title">playlist</h1>
+				<div className="playlist">
+					<h1 className="playlist-title">playlist</h1>
+					<h3 className="playlist-lore">
+						{kolcsey ? "kölcsey ferenc gimnázium" : ""}
+					</h3>
+				</div>
 			</div>
 		);
 	}
