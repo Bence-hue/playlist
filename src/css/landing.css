@@ -1,5 +1,35 @@
 #lastadded {
-	max-width: 750px;
-	width: 20vw;
-	background: #000;
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	max-width: 650px;
+	width: 25vw;
+	height: 125px;
+	background: linear-gradient(
+		135deg,
+		rgba(19, 156, 97, 1) 0%,
+		rgba(16, 113, 72, 1) 100%
+	);
+	border-radius: 35px;
+	text-align: center;
+	text-transform: uppercase;
+	font-family: "Open Sans";
+	color: white;
+	opacity: 0.83;
+	-webkit-backdrop-filter: blur(10px);
+	backdrop-filter: blur(10px);
+}
+
+#lastadded h3 {
+	margin: 20px 0 0 0;
+	padding: 0;
+	font-weight: normal;
+	letter-spacing: 3px;
+}
+
+#lastadded h1 {
+	margin: 10px 0;
+	padding: 0;
+	font-weight: 800;
 }
