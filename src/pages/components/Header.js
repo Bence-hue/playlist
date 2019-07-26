@@ -11,7 +11,7 @@ export default class Header extends Component {
 		return (
 			<div>
 				<MusicPlayer className="menu-upleft" />
-				<i class="fas fa-bars menu-upright" />
+				<i className="fas fa-bars menu-upright" />
 				<div className="playlist">
 					<h1 className="playlist-title">playlist</h1>
 					<h3 className="playlist-lore">
