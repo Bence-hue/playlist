@@ -19,6 +19,14 @@ export default class Landing extends Component {
 					<h3>Legutóbb hozzáadott:</h3>
 					<h1>placeholder - original mix</h1>
 				</div>
+				<div id="btn-wrapper">
+					<div className="btn btn-left">
+						<h1>btn1</h1>
+					</div>
+					<div className="btn btn-right">
+						<h1>btn2</h1>
+					</div>
+				</div>
 				<ARTleft className="art-left" />
 				<ARTright className="art-right" />
 			</div>

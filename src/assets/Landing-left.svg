@@ -1,1 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 832 725"><defs><style>.cls-1{fill:url(#linear-gradient);}</style><linearGradient id="linear-gradient" x1="454.88" y1="295.15" x2="239.7" y2="667.85" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#139c61"/><stop offset="0.51" stop-color="#128855"/><stop offset="1" stop-color="#107148"/></linearGradient></defs><title>Asset 1</title><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M675,404c-24-47-73-64-126-64s-132,96-199,92S225,335,178,272,0,0,0,0V725H832s-70-86-94-136C715.72,542.59,675,404,675,404Z"/></g></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 832 725">
+    <defs>
+        <style>
+            .cls-1{fill:url(#linear-gradient);}
+        </style>
+        <linearGradient id="linear-gradient" x1="454.88" x2="239.7" y1="295.15" y2="667.85" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#139c61"/>
+            <stop offset="0.51" stop-color="#128855"/>
+            <stop offset="1" stop-color="#107148"/>
+        </linearGradient>
+    </defs>
+    <title/>
+    <g id="Layer_2" data-name="Layer 2">
+        <g id="Layer_1-2" data-name="Layer 1">
+            <path d="M675,404c-24-47-73-64-126-64s-132,96-199,92S225,335,178,272,0,0,0,0V725H832s-70-86-94-136C715.72,542.59,675,404,675,404Z" class="cls-1"/>
+        </g>
+    </g>
+</svg>
