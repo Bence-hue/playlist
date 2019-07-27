@@ -1,21 +1,24 @@
 {
   "files": {
-    "main.css": "/static/css/main.645a9a4c.chunk.css",
-    "main.js": "/static/js/main.ddf0a9fe.chunk.js",
-    "main.js.map": "/static/js/main.ddf0a9fe.chunk.js.map",
+    "main.css": "/static/css/main.21d07f96.chunk.css",
+    "main.js": "/static/js/main.0764e789.chunk.js",
+    "main.js.map": "/static/js/main.0764e789.chunk.js.map",
     "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
     "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
-    "static/js/2.ba298099.chunk.js": "/static/js/2.ba298099.chunk.js",
-    "static/js/2.ba298099.chunk.js.map": "/static/js/2.ba298099.chunk.js.map",
+    "static/js/2.9c9ea33a.chunk.js": "/static/js/2.9c9ea33a.chunk.js",
+    "static/js/2.9c9ea33a.chunk.js.map": "/static/js/2.9c9ea33a.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.869fdac38981ee1b111e990ce91d26b0.js": "/precache-manifest.869fdac38981ee1b111e990ce91d26b0.js",
+    "precache-manifest.0dfc250c02a45af8a2da5dd779d346e7.js": "/precache-manifest.0dfc250c02a45af8a2da5dd779d346e7.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/main.645a9a4c.chunk.css.map": "/static/css/main.645a9a4c.chunk.css.map",
+    "static/css/main.21d07f96.chunk.css.map": "/static/css/main.21d07f96.chunk.css.map",
     "static/media/Landing-btn-border.1e2bb52e.svg": "/static/media/Landing-btn-border.1e2bb52e.svg",
     "static/media/Landing-left.131fac17.svg": "/static/media/Landing-left.131fac17.svg",
     "static/media/Landing-right.ddaa2c55.svg": "/static/media/Landing-right.ddaa2c55.svg",
     "static/media/fonts.css": "/static/media/Potra.4c166a66.ttf",
     "static/media/add-button.8821e4bc.svg": "/static/media/add-button.8821e4bc.svg",
+    "static/media/file-invoice-solid.b5e521aa.svg": "/static/media/file-invoice-solid.b5e521aa.svg",
+    "static/media/fingerprint-solid.00a2a7e6.svg": "/static/media/fingerprint-solid.00a2a7e6.svg",
+    "static/media/lock-solid.4f14c0a6.svg": "/static/media/lock-solid.4f14c0a6.svg",
     "static/media/music-player.f03b9712.svg": "/static/media/music-player.f03b9712.svg"
   }
 }

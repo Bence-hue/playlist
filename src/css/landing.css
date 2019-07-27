@@ -4,7 +4,7 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 	max-width: 650px;
-	width: 30vw;
+	width: 40vw;
 	height: 125px;
 	background: linear-gradient(
 		135deg,
@@ -43,7 +43,8 @@
 	position: absolute;
 	bottom: 0;
 	left: 0;
-	width: 800px;
+	width: 35vw;
+	pointer-events: none;
 }
 
 .art-right {
@@ -52,7 +53,8 @@
 	position: absolute;
 	bottom: 0;
 	right: 0;
-	width: 850px;
+	width: 35vw;
+	pointer-events: none;
 }
 
 #btn-wrapper {
@@ -121,4 +123,19 @@
 	transform: scale(1.7);
 	transition: 0.1s all ease-in-out;
 	opacity: 0;
+}
+
+@media only screen and (max-width: 1400px) {
+	#lastadded h3 {
+		font-size: 1rem;
+	}
+
+	#lastadded h1 {
+		font-size: 1.8rem;
+	}
+
+	.btn {
+		width: 170px;
+		height: 300px;
+	}
 }
