@@ -55,13 +55,6 @@
 	);
 }
 
-#menu-upright .fas {
-	color: #fff;
-	font-size: 3rem;
-	position: absolute;
-	transform: translate(-50%, -50%);
-}
-
 .MU-icons {
 	color: white;
 	height: 3rem;
@@ -88,9 +81,9 @@
 	padding: 0;
 	max-width: 200px;
 	position: absolute;
-	top: 10%;
+	top: 35%;
 	left: 87%;
-	transform: translateX(-100%);
+	transform: translateX(-100%) translateY(-50%);
 	color: #fff;
 	text-transform: uppercase;
 	font-family: "Open Sans";
@@ -98,7 +91,37 @@
 	font-size: 1.5rem;
 	text-align: right;
 	line-height: 1.7rem;
+	animation: slideIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+	vertical-align: middle;
+}
+
+#menu-upright span {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	margin-top: 5px;
+	display: block;
+	height: 3px;
+	width: 40px;
+	background: #fff;
+	border-radius: 3px;
+	opacity: 0;
 	transition: 0.2s all ease-in-out;
+}
+
+#menu-upright span:nth-child(3) {
+	top: 22%;
+	left: 43%;
+	transform: translate(-50%, -50%) rotate(15deg);
+}
+#menu-upright span:nth-child(5) {
+	top: 45%;
+	left: 55%;
+	transform: translate(-50%, -50%) rotate(-38deg);
+}
+#menu-upright span:nth-child(7) {
+	top: 60%;
+	left: 78%;
+	transform: translate(-50%, -50%) rotate(90deg);
 }
 
 .playlist {
@@ -128,6 +151,15 @@
 	font-weight: 200;
 	font-size: 30px;
 	color: #464545;
+}
+
+@keyframes slideIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }
 
 @media only screen and (max-width: 1400px) {
