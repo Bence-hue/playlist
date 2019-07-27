@@ -21,17 +21,16 @@ export default class Header extends Component {
 	componentWillMount() {
 		document.addEventListener("mousedown", this.handleClick, false);
 	}
-
 	componentWillUnmount() {
 		document.removeEventListener("mousedown", this.handleClick, false);
 	}
-
+	// CLOSE MENU ON OUTER CLICK
 	handleClick = e => {
 		if (this.node.contains(e.target)) {
 			//asd
 			return;
 		}
-		this.setState({ showUpright: false });
+		this.setState({ showUpright: false, showUpleft: false });
 	};
 
 	// MENU TOGGLERS
@@ -42,31 +41,24 @@ export default class Header extends Component {
 	toggleUpleft = e => {
 		this.setState({ showUpleft: !this.state.showUpleft });
 	};
+
 	// LEFT BUTTONS
 	LOCK_onMouseHover = e => {
-		console.log(`LOCK - HOVERED`);
 		this.setState({ UprightText: "Admin belépés" });
 	};
 	LOCK_onMouseHoverStop = e => {
-		console.log("LOCK - Stopped");
 		this.setState({ UprightText: "" });
 	};
-
 	FINGER_onMouseHover = e => {
-		console.log(`FINGER - HOVERED`);
-		this.setState({ UprightText: "Sütik használata" });
+		this.setState({ UprightText: "Süti szabályzat" });
 	};
 	FINGER_onMouseHoverStop = e => {
-		console.log("FINGER - Stopped");
 		this.setState({ UprightText: "" });
 	};
-
 	INV_onMouseHover = e => {
-		console.log(`INV - HOVERED`);
 		this.setState({ UprightText: "Rólunk" });
 	};
 	INV_onMouseHoverStop = e => {
-		console.log("INV - Stopped");
 		this.setState({ UprightText: "" });
 	};
 
@@ -79,9 +71,9 @@ export default class Header extends Component {
 					onClick={this.toggleUpleft}
 				/>
 				<div className="menu-upright-toggle" onClick={this.toggleUpright}>
-					<span className="mspan" />
-					<span className="mspan" />
-					<span className="mspan" />
+					<span />
+					<span />
+					<span />
 				</div>
 				<Transition
 					native
@@ -97,29 +89,27 @@ export default class Header extends Component {
 							<animated.div style={props}>
 								<div id="menu-upright">
 									<h3 className="upright-text">{this.state.UprightText}</h3>
-									<Link exact="true" to="/admin">
-										<Lock className="MU-icons lock hvr-grow" />
-										{/* <i
-											className="fas fa-lock hvr-grow"
+									<Link exact="true" name="lock" to="/admin">
+										<Lock
+											className="MU-icons lock hvr-grow"
+											name="asd"
 											onMouseEnter={this.LOCK_onMouseHover.bind(this)}
 											onMouseLeave={this.LOCK_onMouseHoverStop.bind(this)}
-										/> */}
+										/>
 									</Link>
 									<Link exact="true" to="/cookies">
-										<Fingerprint className="MU-icons finger hvr-grow" />
-										{/* <i
-											className="fas fa-fingerprint hvr-grow"
+										<Fingerprint
+											className="MU-icons finger hvr-grow"
 											onMouseEnter={this.FINGER_onMouseHover.bind(this)}
 											onMouseLeave={this.FINGER_onMouseHoverStop.bind(this)}
-										/> */}
+										/>
 									</Link>
 									<Link exact="true" to="/about">
-										<Inv className="MU-icons inv hvr-grow" />
-										{/* <i
-											className="fas fa-file-invoice hvr-grow"
+										<Inv
+											className="MU-icons inv hvr-grow"
 											onMouseEnter={this.INV_onMouseHover.bind(this)}
 											onMouseLeave={this.INV_onMouseHoverStop.bind(this)}
-										/> */}
+										/>
 									</Link>
 								</div>
 							</animated.div>
