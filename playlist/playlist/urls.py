@@ -19,5 +19,5 @@ from list import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/',views.new_view, name="new")
+    path('api/',include('list.urls'))
 ]

@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 import requests
 from .models import Song
 from django.views.decorators.csrf import csrf_exempt
@@ -24,3 +25,4 @@ def new_view(request, *args, **kwargs):
     link='https://youtube.com/watch?v='+respons["items"][0]["id"]["videoId"]
     print(link)
     Song.objects.create(title=data["title"][0],artist=data["artist"][0],link=link,user="anyad")
+    return HttpResponse()
