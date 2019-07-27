@@ -42,24 +42,30 @@ export default class Header extends Component {
 		this.setState({ showUpleft: !this.state.showUpleft });
 	};
 
-	// LEFT BUTTONS
+	// LEFT BUTTONS HOVER CONTROLLERS
 	LOCK_onMouseHover = e => {
 		this.setState({ UprightText: "Admin belépés" });
+		document.getElementById("SPANlock").style.opacity = 1;
 	};
 	LOCK_onMouseHoverStop = e => {
 		this.setState({ UprightText: "" });
+		document.getElementById("SPANlock").style.opacity = 0;
 	};
 	FINGER_onMouseHover = e => {
-		this.setState({ UprightText: "Süti szabályzat" });
+		this.setState({ UprightText: "Sütik" });
+		document.getElementById("SPANfinger").style.opacity = 1;
 	};
 	FINGER_onMouseHoverStop = e => {
 		this.setState({ UprightText: "" });
+		document.getElementById("SPANfinger").style.opacity = 0;
 	};
 	INV_onMouseHover = e => {
 		this.setState({ UprightText: "Rólunk" });
+		document.getElementById("SPANinv").style.opacity = 1;
 	};
 	INV_onMouseHoverStop = e => {
 		this.setState({ UprightText: "" });
+		document.getElementById("SPANinv").style.opacity = 0;
 	};
 
 	render() {
@@ -89,14 +95,14 @@ export default class Header extends Component {
 							<animated.div style={props}>
 								<div id="menu-upright">
 									<h3 className="upright-text">{this.state.UprightText}</h3>
-									<Link exact="true" name="lock" to="/admin">
+									<Link exact="true" to="/admin">
 										<Lock
 											className="MU-icons lock hvr-grow"
-											name="asd"
 											onMouseEnter={this.LOCK_onMouseHover.bind(this)}
 											onMouseLeave={this.LOCK_onMouseHoverStop.bind(this)}
 										/>
 									</Link>
+									<span id="SPANlock" />
 									<Link exact="true" to="/cookies">
 										<Fingerprint
 											className="MU-icons finger hvr-grow"
@@ -104,6 +110,7 @@ export default class Header extends Component {
 											onMouseLeave={this.FINGER_onMouseHoverStop.bind(this)}
 										/>
 									</Link>
+									<span id="SPANfinger" />
 									<Link exact="true" to="/about">
 										<Inv
 											className="MU-icons inv hvr-grow"
@@ -111,6 +118,7 @@ export default class Header extends Component {
 											onMouseLeave={this.INV_onMouseHoverStop.bind(this)}
 										/>
 									</Link>
+									<span id="SPANinv" />
 								</div>
 							</animated.div>
 						))
