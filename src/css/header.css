@@ -1,13 +1,14 @@
-.menu-upleft {
+.menu-upleft-toggle {
 	fill: #139c61;
 	width: 50px;
 	height: 50px;
 	position: absolute;
 	top: 3%;
 	left: 3%;
+	cursor: pointer;
 }
 
-.menu-upright {
+.menu-upright-toggle {
 	position: absolute;
 	top: 3%;
 	right: 3%;
@@ -16,7 +17,7 @@
 	cursor: pointer;
 }
 
-.menu-upright span {
+.menu-upright-toggle span {
 	display: block;
 	margin-top: 5px;
 	width: 100%;
@@ -28,16 +29,52 @@
 	float: right;
 }
 
-.menu-upright span:nth-child(1) {
+.menu-upright-toggle span:nth-child(1) {
 	width: 85%;
 }
-.menu-upright span:nth-child(3) {
+.menu-upright-toggle span:nth-child(3) {
 	width: 65%;
 }
 
-.menu-upright:hover span:nth-child(1),
-.menu-upright:hover span:nth-child(3) {
+.menu-upright-toggle:hover span:nth-child(1),
+.menu-upright-toggle:hover span:nth-child(3) {
 	width: 100%;
+}
+
+#menu-upright {
+	width: 300px;
+	height: 300px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	border-radius: 0 0 0 300px;
+	background: linear-gradient(
+		135deg,
+		rgba(19, 156, 97, 1) 0%,
+		rgba(19, 88, 59, 1) 100%
+	);
+}
+
+#menu-upright .fas {
+	color: #fff;
+	font-size: 3rem;
+	position: absolute;
+	transform: translate(-50%, -50%);
+}
+
+.fa-lock {
+	top: 15%;
+	left: 20%;
+}
+
+.fa-fingerprint {
+	top: 55%;
+	left: 35%;
+}
+
+.fa-file-invoice {
+	bottom: 5%;
+	right: 10%;
 }
 
 .playlist {
