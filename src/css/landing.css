@@ -85,7 +85,7 @@
 }
 
 .btn:hover > .btn-border-art {
-	transform: scale(1);
+	transform: scale(1.01);
 	opacity: 0.7;
 }
 
