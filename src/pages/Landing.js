@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-
-//import PropTypes from "prop-types";
+import { Transition, animated } from "react-spring/renderprops";
 
 import { ReactComponent as ARTleft } from "../assets/Landing-left.svg";
 import { ReactComponent as ARTright } from "../assets/Landing-right.svg";
@@ -13,9 +12,27 @@ import "../css/landing.css";
 import "../css/fonts.css";
 
 import Header from "./components/Header";
+import CookiePopup from "./components/CookiePopup";
 
 export default class Landing extends Component {
+	state = {
+		cookieVisible: true,
+		viewCookie: true
+	};
+	componentWillMount() {
+		const didCookie = localStorage.getItem("didCookiePresent");
+		if (didCookie) {
+			this.setState({ viewCookie: false });
+		} else {
+			this.setState({ viewCookie: true });
+		}
+	}
+	hideCookie = () => {
+		this.setState({ cookieVisible: false });
+		localStorage.setItem("didCookiePresent", "presented");
+	};
 	render() {
+		const viewCookie = this.state.viewCookie;
 		return (
 			<React.Fragment>
 				<Header kolcsey={true} />
@@ -53,6 +70,31 @@ export default class Landing extends Component {
 				</div>
 				<ARTleft className="art-left" />
 				<ARTright className="art-right" />
+
+				{viewCookie ? (
+					<Transition
+						native
+						items={this.state.cookieVisible}
+						from={{ opacity: 1 }}
+						enter={{ opacity: 1 }}
+						leave={{ opacity: 0 }}
+						config={{ duration: 400 }}
+					>
+						{show =>
+							show &&
+							(props => (
+								<animated.div style={props}>
+									<CookiePopup
+										className="cookie-pop"
+										hideCookie={this.hideCookie}
+									/>
+								</animated.div>
+							))
+						}
+					</Transition>
+				) : (
+					""
+				)}
 			</React.Fragment>
 		);
 	}

@@ -4,15 +4,37 @@ import { Transition, animated } from "react-spring/renderprops";
 
 import "../../css/fonts.css";
 import "../../css/header.css";
+import "../../css/hover.css";
 
 import { ReactComponent as MusicPlayer } from "../../assets/music-player.svg";
+import { ReactComponent as Lock } from "../../assets/lock-solid.svg";
+import { ReactComponent as Fingerprint } from "../../assets/fingerprint-solid.svg";
+import { ReactComponent as Inv } from "../../assets/file-invoice-solid.svg";
 
 export default class Header extends Component {
 	state = {
 		showUpright: false,
-		showUpleft: false
+		showUpleft: false,
+		UprightText: ""
 	};
 
+	componentWillMount() {
+		document.addEventListener("mousedown", this.handleClick, false);
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener("mousedown", this.handleClick, false);
+	}
+
+	handleClick = e => {
+		if (this.node.contains(e.target)) {
+			//asd
+			return;
+		}
+		this.setState({ showUpright: false });
+	};
+
+	// MENU TOGGLERS
 	toggleUpright = e => {
 		this.setState({ showUpright: !this.state.showUpright });
 	};
@@ -20,11 +42,38 @@ export default class Header extends Component {
 	toggleUpleft = e => {
 		this.setState({ showUpleft: !this.state.showUpleft });
 	};
+	// LEFT BUTTONS
+	LOCK_onMouseHover = e => {
+		console.log(`LOCK - HOVERED`);
+		this.setState({ UprightText: "Admin belépés" });
+	};
+	LOCK_onMouseHoverStop = e => {
+		console.log("LOCK - Stopped");
+		this.setState({ UprightText: "" });
+	};
+
+	FINGER_onMouseHover = e => {
+		console.log(`FINGER - HOVERED`);
+		this.setState({ UprightText: "Sütik használata" });
+	};
+	FINGER_onMouseHoverStop = e => {
+		console.log("FINGER - Stopped");
+		this.setState({ UprightText: "" });
+	};
+
+	INV_onMouseHover = e => {
+		console.log(`INV - HOVERED`);
+		this.setState({ UprightText: "Rólunk" });
+	};
+	INV_onMouseHoverStop = e => {
+		console.log("INV - Stopped");
+		this.setState({ UprightText: "" });
+	};
 
 	render() {
 		const kolcsey = this.props.kolcsey;
 		return (
-			<div>
+			<div ref={node => (this.node = node)}>
 				<MusicPlayer
 					className="menu-upleft-toggle"
 					onClick={this.toggleUpleft}
@@ -47,15 +96,30 @@ export default class Header extends Component {
 						(props => (
 							<animated.div style={props}>
 								<div id="menu-upright">
-									{/* <h1>Lore text</h1> */}
-									<Link exact to="/admin">
-										<i class="fas fa-lock" />
+									<h3 className="upright-text">{this.state.UprightText}</h3>
+									<Link exact="true" to="/admin">
+										<Lock className="MU-icons lock hvr-grow" />
+										{/* <i
+											className="fas fa-lock hvr-grow"
+											onMouseEnter={this.LOCK_onMouseHover.bind(this)}
+											onMouseLeave={this.LOCK_onMouseHoverStop.bind(this)}
+										/> */}
 									</Link>
-									<Link exact to="/cookies">
-										<i class="fas fa-fingerprint" />
+									<Link exact="true" to="/cookies">
+										<Fingerprint className="MU-icons finger hvr-grow" />
+										{/* <i
+											className="fas fa-fingerprint hvr-grow"
+											onMouseEnter={this.FINGER_onMouseHover.bind(this)}
+											onMouseLeave={this.FINGER_onMouseHoverStop.bind(this)}
+										/> */}
 									</Link>
-									<Link exact to="/about">
-										<i class="fas fa-file-invoice" />
+									<Link exact="true" to="/about">
+										<Inv className="MU-icons inv hvr-grow" />
+										{/* <i
+											className="fas fa-file-invoice hvr-grow"
+											onMouseEnter={this.INV_onMouseHover.bind(this)}
+											onMouseLeave={this.INV_onMouseHoverStop.bind(this)}
+										/> */}
 									</Link>
 								</div>
 							</animated.div>

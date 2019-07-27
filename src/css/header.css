@@ -62,19 +62,43 @@
 	transform: translate(-50%, -50%);
 }
 
-.fa-lock {
-	top: 15%;
-	left: 20%;
+.MU-icons {
+	color: white;
+	height: 3rem;
+	position: absolute;
 }
 
-.fa-fingerprint {
-	top: 55%;
-	left: 35%;
+.lock {
+	top: 10%;
+	left: 15%;
 }
 
-.fa-file-invoice {
-	bottom: 5%;
-	right: 10%;
+.finger {
+	top: 50%;
+	left: 30%;
+}
+
+.inv {
+	bottom: 10%;
+	right: 15%;
+}
+
+.upright-text {
+	margin: 0;
+	padding: 0;
+	max-width: 200px;
+	position: absolute;
+	top: 10%;
+	left: 87%;
+	transform: translateX(-100%);
+	color: #fff;
+	text-transform: uppercase;
+	font-family: "Open Sans";
+	font-weight: 600;
+	font-size: 1.5rem;
+	text-align: right;
+	line-height: 1.7rem;
+	transition: 0.2s all ease-in-out;
 }
 
 .playlist {
