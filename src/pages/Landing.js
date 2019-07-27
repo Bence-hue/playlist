@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 //import PropTypes from "prop-types";
 
@@ -16,39 +17,43 @@ import Header from "./components/Header";
 export default class Landing extends Component {
 	render() {
 		return (
-			<div>
+			<React.Fragment>
 				<Header kolcsey={true} />
 				<div id="lastadded">
 					<h3>Legutóbb hozzáadott:</h3>
 					<h1>placeholder - original mix</h1>
 				</div>
 				<div id="btn-wrapper">
-					<div className="btn btn-left">
-						<ARTbtn className="btn-border-art" />
-						<h2>
-							Kért
-							<br />
-							zenék
-							<br />
-							mutatása
-						</h2>
-						<MusicPlayer className="btn-icon" />
-					</div>
-					<div className="btn btn-right">
-						<ARTbtn className="btn-border-art" />
-						<h2>
-							új
-							<br />
-							zenét
-							<br />
-							kérek!
-						</h2>
-						<AddButton className="btn-icon" />
-					</div>
+					<Link to="/songs">
+						<div className="btn btn-left">
+							<ARTbtn className="btn-border-art" />
+							<h2>
+								Kért
+								<br />
+								zenék
+								<br />
+								mutatása
+							</h2>
+							<MusicPlayer className="btn-icon" />
+						</div>
+					</Link>
+					<Link to="/new">
+						<div className="btn btn-right">
+							<ARTbtn className="btn-border-art" />
+							<h2>
+								új
+								<br />
+								zenét
+								<br />
+								kérek!
+							</h2>
+							<AddButton className="btn-icon" />
+						</div>
+					</Link>
 				</div>
 				<ARTleft className="art-left" />
 				<ARTright className="art-right" />
-			</div>
+			</React.Fragment>
 		);
 	}
 }

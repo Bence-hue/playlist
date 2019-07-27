@@ -8,11 +8,36 @@
 }
 
 .menu-upright {
-	color: #129151;
-	font-size: 40px;
 	position: absolute;
 	top: 3%;
 	right: 3%;
+	height: auto;
+	width: 35px;
+	cursor: pointer;
+}
+
+.menu-upright span {
+	display: block;
+	margin-top: 5px;
+	width: 100%;
+	border-radius: 3px;
+	height: 6px;
+	background: #108351;
+	transition: all 0.3s ease-in-out;
+	position: relative;
+	float: right;
+}
+
+.menu-upright span:nth-child(1) {
+	width: 85%;
+}
+.menu-upright span:nth-child(3) {
+	width: 65%;
+}
+
+.menu-upright:hover span:nth-child(1),
+.menu-upright:hover span:nth-child(3) {
+	width: 100%;
 }
 
 .playlist {
