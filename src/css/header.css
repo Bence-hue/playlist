@@ -44,7 +44,7 @@
 	margin: 0;
 	padding: 0;
 	position: absolute;
-	top: 5%;
+	top: 2%;
 	left: 50%;
 	transform: translateX(-50%);
 	text-transform: uppercase;
@@ -67,4 +67,14 @@
 	font-weight: 200;
 	font-size: 30px;
 	color: #464545;
+}
+
+@media only screen and (max-width: 1400px) {
+	.playlist-title {
+		font-size: 3rem;
+	}
+
+	.playlist-lore {
+		font-size: 1.7rem;
+	}
 }
