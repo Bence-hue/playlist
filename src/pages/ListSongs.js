@@ -80,7 +80,7 @@ export default class ListSongs extends Component {
 						})}
 						<div className="song-card-wrapper">
 							{otherSongs.map(sg => {
-								return <SongCard key={sg.id} song={sg} isAdmin={false} />;
+								return <SongCard key={sg.id} song={sg} />;
 							})}
 						</div>
 					</div>
