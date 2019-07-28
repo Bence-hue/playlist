@@ -14,9 +14,10 @@ export default class SongCard extends Component {
 		} = this.props.song;
 
 		return (
-			<div>
+			<div className="song-card">
 				<h1>
 					{id} {title} - {artist}
+					{this.props.isAdmin ? " asd" : ""}
 				</h1>
 			</div>
 		);

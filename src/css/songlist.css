@@ -15,7 +15,7 @@
 	box-shadow: 0px 15px 42px 0px rgba(19, 156, 97, 0.3);
 }
 
-.songs-wrapper h1 {
+.songs-wrapper-heading {
 	margin: 30px 0 0 0;
 	padding: 0;
 	text-transform: uppercase;
@@ -26,6 +26,72 @@
 	color: #202020;
 }
 
-.songs-wrapper h1 span {
+.songs-wrapper-heading span {
 	color: #139c81;
+}
+
+.list-wrapper {
+	position: absolute;
+	top: 53%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 80%;
+	height: 70%;
+}
+
+.upcoming-card {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	height: 150px;
+	width: 100%;
+	border-radius: 40px;
+	text-transform: uppercase;
+	font-family: "Open Sans";
+	font-weight: 600;
+	color: #fff;
+	background: rgb(21, 185, 115);
+	background: linear-gradient(
+		135deg,
+		rgba(21, 185, 115, 1) 0%,
+		rgba(25, 125, 83, 1) 100%
+	);
+	-webkit-box-shadow: 0px 3px 40px 0px rgba(0, 0, 0, 0.31);
+	-moz-box-shadow: 0px 3px 40px 0px rgba(0, 0, 0, 0.31);
+	box-shadow: 0px 3px 40px 0px rgba(0, 0, 0, 0.31);
+}
+
+.upcoming-card h2 {
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	top: 10%;
+	left: 5%;
+	/* transform: translate(-50%, -50%); */
+	font-size: 1rem;
+	letter-spacing: 1px;
+}
+
+.upcoming-card h1 {
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	bottom: 35%;
+	width: 48%;
+	color: white;
+	font-size: 1.5rem;
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.upcoming-card h1:nth-child(2) {
+	left: 0;
+	text-align: right;
+}
+
+.upcoming-card h1:nth-child(4) {
+	right: 0;
+	text-align-last: left;
 }

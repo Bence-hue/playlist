@@ -10,9 +10,9 @@ export default class ListSongs extends Component {
 	state = {
 		songs: [
 			{
-				id: 40,
-				title: "Faded",
-				artist: "Alan Walker",
+				id: 4,
+				title: "Ain't no rest for the wicked",
+				artist: "Cage the elephant",
 				yttitle: "Alan walker - faded (Offical video)",
 				link: "www.youtube.com",
 				user: "",
@@ -54,16 +54,16 @@ export default class ListSongs extends Component {
 			<React.Fragment>
 				<Header kolcsey={false} />
 				<div className="songs-wrapper">
-					<h1>
+					<h1 className="songs-wrapper-heading">
 						Eddig hozzáadott <span>zenék</span>
 					</h1>
 					<div className="list-wrapper">
 						{upcomingSong.map(sg => {
 							return <UpcomingCard key={sg.id} song={sg} />;
 						})}
-						{otherSongs.map(sg => {
-							return <SongCard key={sg.id} song={sg} />;
-						})}
+						{/* {otherSongs.map(sg => {
+							return <SongCard key={sg.id} song={sg} isAdmin={false} />;
+						})} */}
 					</div>
 				</div>
 			</React.Fragment>
