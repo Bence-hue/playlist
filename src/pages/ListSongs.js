@@ -3,11 +3,14 @@ import React, { Component } from "react";
 import Header from "./components/Header";
 import "../css/songlist.css";
 
+import SongCard from "./components/SongCard";
+import UpcomingCard from "./components/UpcomingCard";
+
 export default class ListSongs extends Component {
 	state = {
 		songs: [
 			{
-				id: "1",
+				id: 40,
 				title: "Faded",
 				artist: "Alan Walker",
 				yttitle: "Alan walker - faded (Offical video)",
@@ -18,7 +21,7 @@ export default class ListSongs extends Component {
 				playedAt: ""
 			},
 			{
-				id: "2",
+				id: 8,
 				title: "Hétköznapi Hősök",
 				artist: "Punnany Massif",
 				yttitle: "Punnany - Hétköznapi hősök",
@@ -36,10 +39,17 @@ export default class ListSongs extends Component {
 		const getIds = () => {
 			return songs.map(d => d.id);
 		};
-		const smallestId = () => {
-			return Math.min(...getIds());
-		};
-		console.log(smallestId());
+		const smallestId = Math.min(...getIds());
+		console.log(smallestId);
+
+		const otherSongs = songs.filter(sg => {
+			return sg.id !== smallestId;
+		});
+		const upcomingSong = songs.filter(sg => {
+			return sg.id === smallestId;
+		});
+		console.log(upcomingSong);
+
 		return (
 			<React.Fragment>
 				<Header kolcsey={false} />
@@ -48,7 +58,12 @@ export default class ListSongs extends Component {
 						Eddig hozzáadott <span>zenék</span>
 					</h1>
 					<div className="list-wrapper">
-						<div className="asd" />
+						{upcomingSong.map(sg => {
+							return <UpcomingCard key={sg.id} song={sg} />;
+						})}
+						{otherSongs.map(sg => {
+							return <SongCard key={sg.id} song={sg} />;
+						})}
 					</div>
 				</div>
 			</React.Fragment>
