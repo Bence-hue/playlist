@@ -10,9 +10,9 @@
 
 <img height="20" width="20" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/discord.svg" /> [Discord szerverünk](https://discord.gg/akeTTJy)
 
-## Lejátszási lista a Nyíregyházi Kölcsey Ferenc Gimnázium stúdiójának
+<h3> <img height="20" width="20" src="http://i.imgur.com/oeQmniz.png" /> https://playlist.jelszo.co/ </h3>
 
-![Weboldal] (https://playlist.jelszo.co/)
+## Lejátszási lista a Nyíregyházi Kölcsey Ferenc Gimnázium stúdiójának
 
 ### Tagok:
 
