@@ -12,7 +12,7 @@
 
 ## Lejátszási lista a Nyíregyházi Kölcsey Ferenc Gimnázium stúdiójának
 
-![Weboldal] (https://playlist.jelszo.co/, "Playlist")
+![Weboldal] (https://playlist.jelszo.co/)
 
 ### Tagok:
 
