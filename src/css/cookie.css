@@ -73,9 +73,8 @@
 	height: 50px;
 	border-radius: 2rem;
 	position: absolute;
-	top: 50%;
+	top: calc(50% - 30px);
 	right: 0;
-	transform: translateY(-50%);
 	background: #139c61;
 	border: none;
 	text-transform: uppercase;
