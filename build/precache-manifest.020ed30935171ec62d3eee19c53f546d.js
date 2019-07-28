@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "778f113307384b433c0a4f75764f92e3",
+    "revision": "eafb4c9a285660a85c46d35549d3be0e",
     "url": "/index.html"
   },
   {
-    "revision": "eb4a305abf167d48100d",
-    "url": "/static/css/main.21d07f96.chunk.css"
+    "revision": "2787e70911f3860d8a4d",
+    "url": "/static/css/main.7dbe7ec2.chunk.css"
   },
   {
-    "revision": "3dec71835373a00003d9",
-    "url": "/static/js/2.9c9ea33a.chunk.js"
+    "revision": "cf6d94f2cff3e9c8bfd5",
+    "url": "/static/js/2.7c89f4cd.chunk.js"
   },
   {
-    "revision": "eb4a305abf167d48100d",
-    "url": "/static/js/main.0764e789.chunk.js"
+    "revision": "2787e70911f3860d8a4d",
+    "url": "/static/js/main.98f6aac6.chunk.js"
   },
   {
     "revision": "42ac5946195a7306e2a5",
@@ -30,6 +30,30 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "ddaa2c550a2d126a7f97574b1417c579",
     "url": "/static/media/Landing-right.ddaa2c55.svg"
+  },
+  {
+    "revision": "c03b6428c614749d2054e6f735b22970",
+    "url": "/static/media/NEW-0-outer.c03b6428.svg"
+  },
+  {
+    "revision": "9e1d64372fd6f8be655beb99830461a7",
+    "url": "/static/media/NEW-1.9e1d6437.svg"
+  },
+  {
+    "revision": "5ab9f02657a411bbed6d088a1a265d17",
+    "url": "/static/media/NEW-2.5ab9f026.svg"
+  },
+  {
+    "revision": "01200e746252b118ef6d2b596f4d422b",
+    "url": "/static/media/NEW-3.01200e74.svg"
+  },
+  {
+    "revision": "541b027854ecc1224ebd310fedc434a1",
+    "url": "/static/media/NEW-4.541b0278.svg"
+  },
+  {
+    "revision": "57118da9dc0c543581383a7e3209ad75",
+    "url": "/static/media/NEW-5.57118da9.svg"
   },
   {
     "revision": "4c166a661d3763680a64c834b81ddb3b",
@@ -54,5 +78,13 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "f03b97123e53d1a655677464ac19ac4c",
     "url": "/static/media/music-player.f03b9712.svg"
+  },
+  {
+    "revision": "789f928265a6cea5dbc251d400c2375f",
+    "url": "/static/media/new-song-left.789f9282.svg"
+  },
+  {
+    "revision": "27fd692281d00b8428185b1d5b0e202f",
+    "url": "/static/media/new-song-right.27fd6922.svg"
   }
 ]);

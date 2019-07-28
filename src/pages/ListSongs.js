@@ -47,7 +47,7 @@ export default class ListSongs extends Component {
 	};
 
 	componentDidMount() {
-		let url = "http://playlist.jelszo.co/api/list";
+		let url = "/api/list/?mode=0";
 		axios.get(url).then(res => this.setState({ songs: res.data }));
 	}
 
