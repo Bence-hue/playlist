@@ -11,19 +11,19 @@ export default class ListSongs extends Component {
 	state = {
 		songs: [
 			{
-				id: 4,
-				title: "Holder",
-				artist: "Place"
+				id: 1,
+				title: "H",
+				artist: ""
 			},
 			{
-				id: 8,
-				title: "Holder",
-				artist: "Place"
+				id: 2,
+				title: "",
+				artist: ""
 			},
 			{
-				id: 10,
-				title: "Holder",
-				artist: "Place"
+				id: 3,
+				title: "",
+				artist: ""
 			}
 		]
 	};

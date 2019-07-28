@@ -20,8 +20,8 @@ export default class Landing extends Component {
 		cookieVisible: true,
 		viewCookie: true,
 		latest: {
-			artist: "Place",
-			title: "Holder"
+			artist: "",
+			title: ""
 		}
 	};
 	componentWillMount() {
@@ -31,9 +31,6 @@ export default class Landing extends Component {
 		} else {
 			this.setState({ viewCookie: true });
 		}
-	}
-
-	componentDidMount() {
 		let url = "http://46.107.123.236:8000/api/list/?mode=latest";
 		axios.get(url).then(res => this.setState({ latest: res.data }));
 	}
