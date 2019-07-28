@@ -19,10 +19,7 @@ export default class Landing extends Component {
 	state = {
 		cookieVisible: true,
 		viewCookie: true,
-		latest: {
-			artist: "",
-			title: ""
-		}
+		latest: {}
 	};
 	componentWillMount() {
 		const didCookie = localStorage.getItem("didCookiePresent");

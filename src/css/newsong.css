@@ -3,16 +3,18 @@
 	padding: 0;
 	position: absolute;
 	bottom: 0;
-	left: 0;
-	width: 350px;
+	right: 0;
+	width: 15vw;
+	transform: scaleX(-1);
 }
 .new-art-right {
 	margin: 0;
 	padding: 0;
 	position: absolute;
 	bottom: 0;
-	right: 0;
-	width: 1000px;
+	left: 0;
+	width: 55vw;
+	transform: scaleX(-1);
 }
 
 .new-song-button {

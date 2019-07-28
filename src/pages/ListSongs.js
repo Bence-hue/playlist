@@ -9,23 +9,7 @@ import UpcomingCard from "./components/UpcomingCard";
 
 export default class ListSongs extends Component {
 	state = {
-		songs: [
-			{
-				id: 1,
-				title: "H",
-				artist: ""
-			},
-			{
-				id: 2,
-				title: "",
-				artist: ""
-			},
-			{
-				id: 3,
-				title: "",
-				artist: ""
-			}
-		]
+		songs: []
 	};
 
 	componentDidMount() {
