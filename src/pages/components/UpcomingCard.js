@@ -4,16 +4,7 @@ import "../../css/songlist.css";
 
 export default class UpcomingCard extends Component {
 	render() {
-		const {
-			id,
-			title,
-			artist,
-			yttitle,
-			link,
-			createdAt,
-			played,
-			playedAt
-		} = this.props.song;
+		const { title, artist } = this.props.song;
 		return (
 			<div className="upcoming-card">
 				<h2>most következik:</h2>

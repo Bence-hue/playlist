@@ -61,9 +61,11 @@ export default class ListSongs extends Component {
 						{upcomingSong.map(sg => {
 							return <UpcomingCard key={sg.id} song={sg} />;
 						})}
-						{/* {otherSongs.map(sg => {
-							return <SongCard key={sg.id} song={sg} isAdmin={false} />;
-						})} */}
+						<div className="song-card-wrapper">
+							{otherSongs.map(sg => {
+								return <SongCard key={sg.id} song={sg} isAdmin={false} />;
+							})}
+						</div>
 					</div>
 				</div>
 			</React.Fragment>
