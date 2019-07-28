@@ -12,6 +12,8 @@
 
 ## Lejátszási lista a Nyíregyházi Kölcsey Ferenc Gimnázium stúdiójának
 
+![Weboldal] (https://playlist.jelszo.co/, "Playlist")
+
 ### Tagok:
 
 - <a href="https://github.com/Tasztalos69"> <img height="20" width="20" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg" /> </a> **Kiss Benedek Máté** - _Frontend_
@@ -20,6 +22,5 @@
  **Tóth Bence** - _Backend_
 
 - <a href="https://github.com/hydraPNG"> <img height="20" width="20" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg" /> </a> **Jóvári Norbert** - _Design_
-
 
 **Made by Jelszo.co** | *suppport@jelszo.co*
