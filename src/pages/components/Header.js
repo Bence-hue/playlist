@@ -105,7 +105,7 @@ export default class Header extends Component {
 										from={{ opacity: 0 }}
 										enter={{ opacity: 1 }}
 										leave={{ opacity: 0 }}
-										config={{ duration: 200 }}
+										config={{ duration: 150 }}
 									>
 										{show =>
 											show &&

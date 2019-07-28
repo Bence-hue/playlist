@@ -97,7 +97,6 @@
 
 #menu-upright span {
 	position: absolute;
-	transform: translate(-50%, -50%);
 	margin-top: 5px;
 	display: block;
 	height: 3px;
@@ -108,17 +107,17 @@
 	transition: 0.2s all ease-in-out;
 }
 
-#menu-upright span:nth-child(3) {
+#SPANlock {
 	top: 22%;
 	left: 43%;
 	transform: translate(-50%, -50%) rotate(15deg);
 }
-#menu-upright span:nth-child(5) {
+#SPANfinger {
 	top: 45%;
 	left: 55%;
 	transform: translate(-50%, -50%) rotate(-38deg);
 }
-#menu-upright span:nth-child(7) {
+#SPANinv {
 	top: 60%;
 	left: 78%;
 	transform: translate(-50%, -50%) rotate(90deg);

@@ -23,7 +23,6 @@ export default class ListSongs extends Component {
 			return songs.map(d => d.id);
 		};
 		const smallestId = Math.min(...getIds());
-		console.log(smallestId);
 
 		const otherSongs = songs.filter(sg => {
 			return sg.id !== smallestId;
@@ -31,7 +30,6 @@ export default class ListSongs extends Component {
 		const upcomingSong = songs.filter(sg => {
 			return sg.id === smallestId;
 		});
-		console.log(upcomingSong);
 
 		return (
 			<React.Fragment>
