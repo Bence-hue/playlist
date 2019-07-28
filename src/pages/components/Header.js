@@ -203,7 +203,9 @@ export default class Header extends Component {
 					}
 				</Transition>
 				<div className="playlist">
-					<h1 className="playlist-title">playlist</h1>
+					<Link exact="true" to="/" style={{ textDecoration: "none" }}>
+						<h1 className="playlist-title">playlist</h1>
+					</Link>
 					<h3 className="playlist-lore">
 						{kolcsey ? "kölcsey ferenc gimnázium" : ""}
 					</h3>

@@ -8,7 +8,7 @@ export default class CookiePopup extends Component {
 	render() {
 		const hideCookie = this.props.hideCookie;
 		return (
-			<Spring from={{ opacity: 0 }} to={{ opacity: 1 }}>
+			<Spring from={{ opacity: 0 }} to={{ opacity: 1 }} config={{ delay: 500 }}>
 				{props => (
 					<div style={props}>
 						<div className="cookie-popup-back">
