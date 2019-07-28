@@ -1,7 +1,7 @@
 .songs-wrapper {
 	height: 60vh;
 	max-height: 600px;
-	min-height: 400px;
+	min-height: 500px;
 	width: 45vw;
 	min-width: 600px;
 	max-width: 800px;
@@ -135,6 +135,9 @@
 	font-weight: 400;
 	text-transform: uppercase;
 	font-size: 1.5rem;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .song-card h1:nth-child(1) {

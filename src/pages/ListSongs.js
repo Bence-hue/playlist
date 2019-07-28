@@ -12,42 +12,24 @@ export default class ListSongs extends Component {
 		songs: [
 			{
 				id: 4,
-				title: "Ain't no rest for the wicked",
-				artist: "Cage the elephant",
-				yttitle: "Alan walker - faded (Offical video)",
-				link: "www.youtube.com",
-				user: "",
-				createdAt: "2019.07.21",
-				played: false,
-				playedAt: ""
+				title: "Holder",
+				artist: "Place"
 			},
 			{
 				id: 8,
-				title: "Hétköznapi Hősök",
-				artist: "Punnany Massif",
-				yttitle: "Punnany - Hétköznapi hősök",
-				link: "www.youtube.com",
-				user: "",
-				createdAt: "2019.07.28",
-				played: false,
-				playedAt: ""
+				title: "Holder",
+				artist: "Place"
 			},
 			{
 				id: 10,
-				title: "Mayday",
-				artist: "TheFatRat",
-				yttitle: "TheFatRat Offical",
-				link: "www.youtube.com",
-				user: "",
-				createdAt: "2019.07.28",
-				played: false,
-				playedAt: ""
+				title: "Holder",
+				artist: "Place"
 			}
 		]
 	};
 
 	componentDidMount() {
-		let url = "/api/list/?mode=0";
+		let url = "http://46.107.123.236:8000/api/list/?mode=unplayed";
 		axios.get(url).then(res => this.setState({ songs: res.data }));
 	}
 

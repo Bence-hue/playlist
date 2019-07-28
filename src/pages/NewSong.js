@@ -4,6 +4,7 @@ import Header from "../pages/components/Header";
 
 import "../css/newsong.css";
 
+import { ReactComponent as NEWb } from "../assets/add-button.svg";
 import { ReactComponent as NEW0 } from "../assets/NEW-0-outer.svg";
 import { ReactComponent as NEW1 } from "../assets/NEW-1.svg";
 import { ReactComponent as NEW2 } from "../assets/NEW-2.svg";
@@ -18,7 +19,14 @@ export default class NewSong extends Component {
 		return (
 			<div>
 				<Header kolcsey={false} />
-				<h1>Hello World!</h1>
+				<NEWb className="new-song-button" />
+				<h2 className="new-song-h2">Új zenét akarok!</h2>
+				<NEW0 className="ARTnew new0" />
+				<NEW1 className="ARTnew new1" />
+				<NEW2 className="ARTnew new2" />
+				<NEW3 className="ARTnew new3" />
+				<NEW4 className="ARTnew new4" />
+				<NEW5 className="ARTnew new5" />
 				<NartLeft className="new-art-left" />
 				<NartRight className="new-art-right" />
 			</div>

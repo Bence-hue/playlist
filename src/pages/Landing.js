@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Transition, animated } from "react-spring/renderprops";
+import axios from "axios";
 
 import { ReactComponent as ARTleft } from "../assets/Landing-left.svg";
 import { ReactComponent as ARTright } from "../assets/Landing-right.svg";
@@ -17,7 +18,11 @@ import CookiePopup from "./components/CookiePopup";
 export default class Landing extends Component {
 	state = {
 		cookieVisible: true,
-		viewCookie: true
+		viewCookie: true,
+		latest: {
+			artist: "Place",
+			title: "Holder"
+		}
 	};
 	componentWillMount() {
 		const didCookie = localStorage.getItem("didCookiePresent");
@@ -27,18 +32,27 @@ export default class Landing extends Component {
 			this.setState({ viewCookie: true });
 		}
 	}
+
+	componentDidMount() {
+		let url = "http://46.107.123.236:8000/api/list/?mode=latest";
+		axios.get(url).then(res => this.setState({ latest: res.data }));
+	}
+
 	hideCookie = () => {
 		this.setState({ cookieVisible: false });
 		localStorage.setItem("didCookiePresent", "presented");
 	};
 	render() {
 		const viewCookie = this.state.viewCookie;
+		const lat = this.state.latest;
 		return (
 			<React.Fragment>
 				<Header kolcsey={true} />
 				<div id="lastadded">
 					<h3>Legutóbb hozzáadott:</h3>
-					<h1>placeholder - original mix</h1>
+					<h1>
+						{lat.artist} - {lat.title}
+					</h1>
 				</div>
 				<div id="btn-wrapper">
 					<Link to="/songs">

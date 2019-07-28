@@ -12,5 +12,57 @@
 	position: absolute;
 	bottom: 0;
 	right: 0;
-	width: 800px;
+	width: 1000px;
+}
+
+.new-song-button {
+	position: absolute;
+	top: 47%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100px;
+	fill: #15a867;
+}
+
+.new-song-h2 {
+	position: absolute;
+	top: 55%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-transform: uppercase;
+	font-family: "Open Sans";
+	font-weight: 600;
+	color: #15a867;
+	letter-spacing: 2px;
+}
+
+.ARTnew {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+
+.new0 {
+	transform: translate(-50.2%, -50.3%) scale(0.8) rotate(180deg);
+	opacity: 1;
+}
+
+.new1 {
+	transform: translate(-50%, -50%) scale(0.8);
+}
+
+.new2 {
+	transform: translate(-50%, -50%) scale(0.8) rotate(35deg);
+}
+
+.new3 {
+	transform: translate(-50%, -50%) scale(0.8) rotate(70deg);
+}
+
+.new4 {
+	transform: translate(-50%, -50%) scale(0.8) rotate(90deg);
+}
+
+.new5 {
+	transform: translate(-50%, -50%) scale(0.8) rotate(0deg);
 }
