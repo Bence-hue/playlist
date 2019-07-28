@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 import Header from "./components/Header";
 import "../css/songlist.css";
@@ -30,9 +31,25 @@ export default class ListSongs extends Component {
 				createdAt: "2019.07.28",
 				played: false,
 				playedAt: ""
+			},
+			{
+				id: 10,
+				title: "Mayday",
+				artist: "TheFatRat",
+				yttitle: "TheFatRat Offical",
+				link: "www.youtube.com",
+				user: "",
+				createdAt: "2019.07.28",
+				played: false,
+				playedAt: ""
 			}
 		]
 	};
+
+	componentDidMount() {
+		let url = "http://playlist.jelszo.co/api/list";
+		axios.get(url).then(res => this.setState({ songs: res.data }));
+	}
 
 	render() {
 		const { songs } = this.state;
