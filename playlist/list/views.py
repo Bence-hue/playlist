@@ -73,16 +73,30 @@ def delete_view(request,*args,**kwargs):
 @csrf_exempt
 def list_view(request,*args,**kwargs):
     if request.method=='GET':
-        mode = int(dict(request.GET)["mode"][0])
-        if mode==0:
-            data=serializers.serialize("json",Song.objects.filter(played=False))
-            datajson=json.loads(data)
-            print(datajson)
-            newdata=[]
-            for i in datajson:
-                newdict=i["fields"]
-                newdict["id"]=i["pk"]
-                newdata.append(newdict)
-            return HttpResponse(json.dumps(newdata), content_type="application/json",status=200)
+        mode = dict(request.GET)["mode"][0]
+        if mode=="all":
+            return jsonmodifier(serializers.serialize("json", Song.objects.all()))
+        elif mode=="unplayed":
+            return jsonmodifier(serializers.serialize("json", Song.objects.filter(played=False)))
+        elif mode=="latest":
+            full = json.loads(serializers.serialize("json",Song.objects.all()))
+            latestid=full[len(full)-1]["pk"]
+            latestobject = json.loads(serializers.serialize("json", Song.objects.filter(id=latestid)))
+            print(latestobject)
+            latestjson=latestobject[0]["fields"]
+            latestjson["id"]=latestid
+            return HttpResponse(json.dumps(latestjson), content_type="application/json", status=200)
+        else:
+            return HttpResponse(status=422)
     else:
         return HttpResponse(status=405)
+
+def jsonmodifier(data):
+    datajson=json.loads(data)
+    print(datajson)
+    newdata=[]
+    for i in datajson:
+        newdict=i["fields"]
+        newdict["id"]=i["pk"]
+        newdata.append(newdict)
+    return HttpResponse(json.dumps(newdata), content_type="application/json", status=200)
