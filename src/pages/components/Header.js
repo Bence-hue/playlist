@@ -78,7 +78,7 @@ export default class Header extends Component {
 		return (
 			<div ref={node => (this.node = node)}>
 				<MusicPlayer
-					className="menu-upleft-toggle"
+					className="menu-upleft-toggle hvr-grow"
 					onClick={this.toggleUpleft}
 				/>
 				<div className="menu-upright-toggle" onClick={this.toggleUpright}>
