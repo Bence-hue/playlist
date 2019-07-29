@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "4246fc22aff9e5f16c001ced678e4504",
+    "revision": "71a0400115e162b93f841a84276d5b2a",
     "url": "/index.html"
   },
   {
-    "revision": "0ae35d41097e34d8e425",
-    "url": "/static/css/main.66ba6a19.chunk.css"
+    "revision": "15ebdd564d568991ac1f",
+    "url": "/static/css/main.b5aa4e47.chunk.css"
   },
   {
-    "revision": "a845121fcfd2b1b95c22",
-    "url": "/static/js/2.0c5baf3c.chunk.js"
+    "revision": "e1c993f29a2964d1876e",
+    "url": "/static/js/2.77007f6f.chunk.js"
   },
   {
-    "revision": "0ae35d41097e34d8e425",
-    "url": "/static/js/main.4f346edb.chunk.js"
+    "revision": "15ebdd564d568991ac1f",
+    "url": "/static/js/main.8c7983d8.chunk.js"
   },
   {
     "revision": "42ac5946195a7306e2a5",
@@ -70,6 +70,14 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "00a2a7e6f3ac4f1b7e17237d7fbdc87c",
     "url": "/static/media/fingerprint-solid.00a2a7e6.svg"
+  },
+  {
+    "revision": "fa2c07daf87d1ec998638f37e1412080",
+    "url": "/static/media/home-solid.fa2c07da.svg"
+  },
+  {
+    "revision": "97954a53c7f59975b13f1cd1002dccc4",
+    "url": "/static/media/list-ul-solid.97954a53.svg"
   },
   {
     "revision": "4f14c0a61939ca9efcf6f36d58ac1317",

@@ -10,13 +10,18 @@ import { ReactComponent as MusicPlayer } from "../../assets/music-player.svg";
 import { ReactComponent as Lock } from "../../assets/lock-solid.svg";
 import { ReactComponent as Fingerprint } from "../../assets/fingerprint-solid.svg";
 import { ReactComponent as Inv } from "../../assets/file-invoice-solid.svg";
+import { ReactComponent as Home } from "../../assets/home-solid.svg";
+import { ReactComponent as List } from "../../assets/list-ul-solid.svg";
+import { ReactComponent as AddButton } from "../../assets/add-button.svg";
 
 export default class Header extends Component {
 	state = {
 		showUpright: false,
 		showUpleft: false,
 		UprightText: "",
-		isUprightIconsVisible: false
+		UpleftText: "",
+		isUprightIconsVisible: false,
+		isUpleftIconsVisible: false
 	};
 
 	componentWillMount() {
@@ -44,16 +49,20 @@ export default class Header extends Component {
 	};
 
 	toggleUpleft = e => {
-		this.setState({ showUpleft: !this.state.showUpleft });
+		this.setState({
+			showUpleft: !this.state.showUpleft,
+			isUpleftIconsVisible: true,
+			isUpleftTextVisible: false
+		});
 	};
 
-	// LEFT BUTTONS HOVER CONTROLLERS
+	// RIGHT BUTTONS HOVER CONTROLLERS
 	LOCK_onMouseHover = e => {
 		this.setState({ UprightText: "Admin belépés", isUprightTextVisible: true });
 		document.getElementById("SPANlock").style.opacity = 1;
 	};
 	LOCK_onMouseHoverStop = e => {
-		this.setState({ UprightText: "", isUprightTextVisible: false });
+		this.setState({ isUprightTextVisible: false });
 		document.getElementById("SPANlock").style.opacity = 0;
 	};
 	FINGER_onMouseHover = e => {
@@ -61,7 +70,7 @@ export default class Header extends Component {
 		document.getElementById("SPANfinger").style.opacity = 1;
 	};
 	FINGER_onMouseHoverStop = e => {
-		this.setState({ UprightText: "", isUprightTextVisible: false });
+		this.setState({ isUprightTextVisible: false });
 		document.getElementById("SPANfinger").style.opacity = 0;
 	};
 	INV_onMouseHover = e => {
@@ -69,18 +78,167 @@ export default class Header extends Component {
 		document.getElementById("SPANinv").style.opacity = 1;
 	};
 	INV_onMouseHoverStop = e => {
-		this.setState({ UprightText: "", isUprightTextVisible: false });
+		this.setState({ isUprightTextVisible: false });
 		document.getElementById("SPANinv").style.opacity = 0;
+	};
+
+	// LEFT BUTTONS HOVER CONTROLLERS
+	HOME_onMouseHover = e => {
+		this.setState({ UpleftText: "Főoldal", isUpleftTextVisible: true });
+		document.getElementById("SPANhome").style.opacity = 1;
+	};
+	HOME_onMouseHoverStop = e => {
+		this.setState({ isUpleftTextVisible: false });
+		document.getElementById("SPANhome").style.opacity = 0;
+	};
+	LIST_onMouseHover = e => {
+		this.setState({
+			UpleftText: "Hozzáadott Zenék",
+			isUpleftTextVisible: true
+		});
+		document.getElementById("SPANlist").style.opacity = 1;
+	};
+	LIST_onMouseHoverStop = e => {
+		this.setState({ isUpleftTextVisible: false });
+		document.getElementById("SPANlist").style.opacity = 0;
+	};
+	ADD_onMouseHover = e => {
+		// prettier-ignore
+		this.setState({ UpleftText: "Új zene hozzáadása", isUpleftTextVisible: true });
+		document.getElementById("SPANadd").style.opacity = 1;
+	};
+	ADD_onMouseHoverStop = e => {
+		this.setState({ isUpleftTextVisible: false });
+		document.getElementById("SPANadd").style.opacity = 0;
 	};
 
 	render() {
 		const kolcsey = this.props.kolcsey;
 		return (
 			<div ref={node => (this.node = node)}>
+				{/* UPLEFT MENU */}
 				<MusicPlayer
 					className="menu-upleft-toggle hvr-grow"
 					onClick={this.toggleUpleft}
 				/>
+				<Transition
+					native
+					items={this.state.showUpleft}
+					from={{ opacity: 0 }}
+					enter={{ opacity: 1 }}
+					leave={{ opacity: 0 }}
+					config={{ duration: 300 }}
+				>
+					{show =>
+						show &&
+						(props => (
+							<animated.div style={props}>
+								<div id="menu-upleft">
+									<Transition
+										native
+										items={this.state.isUpleftTextVisible}
+										from={{ opacity: 0 }}
+										enter={{ opacity: 1 }}
+										leave={{ opacity: 0 }}
+										config={{ duration: 150 }}
+									>
+										{show =>
+											show &&
+											(props => (
+												<animated.div style={props}>
+													<h3 className="upleft-text">
+														{this.state.UpleftText}
+													</h3>
+												</animated.div>
+											))
+										}
+									</Transition>
+
+									<Transition
+										native
+										items={this.state.isUpleftIconsVisible}
+										from={{ opacity: 0 }}
+										enter={{ opacity: 1 }}
+										leave={{ opacity: 0 }}
+										config={{ duration: 400, delay: 200 }}
+									>
+										{show =>
+											show &&
+											(props => (
+												<animated.div style={props}>
+													<Link exact="true" to="/">
+														<Home
+															className="MUL-icons home hvr-grow"
+															onMouseEnter={this.HOME_onMouseHover.bind(this)}
+															onMouseLeave={this.HOME_onMouseHoverStop.bind(
+																this
+															)}
+														/>
+													</Link>
+												</animated.div>
+											))
+										}
+									</Transition>
+									<span id="SPANhome" />
+									<Transition
+										native
+										items={this.state.isUpleftIconsVisible}
+										from={{ opacity: 0 }}
+										enter={{ opacity: 1 }}
+										leave={{ opacity: 0 }}
+										config={{ duration: 400, delay: 400 }}
+									>
+										{show =>
+											show &&
+											(props => (
+												<animated.div style={props}>
+													<Link exact="true" to="/songs">
+														<List
+															className="MUL-icons list hvr-grow"
+															onMouseEnter={this.LIST_onMouseHover.bind(this)}
+															onMouseLeave={this.LIST_onMouseHoverStop.bind(
+																this
+															)}
+														/>
+													</Link>
+												</animated.div>
+											))
+										}
+									</Transition>
+									<span id="SPANlist" />
+									<Transition
+										native
+										items={this.state.isUpleftIconsVisible}
+										from={{ opacity: 0 }}
+										enter={{ opacity: 1 }}
+										leave={{ opacity: 0 }}
+										config={{ duration: 400, delay: 600 }}
+									>
+										{show =>
+											show &&
+											(props => (
+												<animated.div style={props}>
+													<Link exact="true" to="/new">
+														<AddButton
+															className="MUL-icons add hvr-grow"
+															onMouseEnter={this.ADD_onMouseHover.bind(this)}
+															onMouseLeave={this.ADD_onMouseHoverStop.bind(
+																this
+															)}
+														/>
+													</Link>
+												</animated.div>
+											))
+										}
+									</Transition>
+									<span id="SPANadd" />
+								</div>
+							</animated.div>
+						))
+					}
+				</Transition>
+
+				{/* UPRIGHT MENU */}
 				<div className="menu-upright-toggle" onClick={this.toggleUpright}>
 					<span />
 					<span />

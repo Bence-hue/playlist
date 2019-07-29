@@ -91,13 +91,11 @@
 	font-size: 1.5rem;
 	text-align: right;
 	line-height: 1.7rem;
-	animation: slideIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 	vertical-align: middle;
 }
 
 #menu-upright span {
 	position: absolute;
-	margin-top: 5px;
 	display: block;
 	height: 3px;
 	width: 40px;
@@ -120,6 +118,87 @@
 #SPANinv {
 	top: 60%;
 	left: 78%;
+	transform: translate(-50%, -50%) rotate(90deg);
+}
+
+#menu-upleft {
+	width: 300px;
+	height: 300px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	border-radius: 0 0 300px 0;
+	background: linear-gradient(
+		135deg,
+		rgba(19, 156, 97, 1) 0%,
+		rgba(19, 88, 59, 1) 100%
+	);
+}
+
+.MUL-icons {
+	color: white;
+	height: 3rem;
+	position: absolute;
+}
+
+.home {
+	top: 10%;
+	right: 15%;
+}
+
+.list {
+	top: 45%;
+	right: 35%;
+}
+
+.add {
+	bottom: 13%;
+	left: 13%;
+	fill: #fff;
+}
+
+.upleft-text {
+	margin: 0;
+	padding: 0;
+	max-width: 200px;
+	position: absolute;
+	top: 30%;
+	left: 5%;
+	transform: translateY(-50%);
+	color: #fff;
+	text-transform: uppercase;
+	font-family: "Open Sans";
+	font-weight: 600;
+	font-size: 1.5rem;
+	text-align: left;
+	line-height: 1.7rem;
+	vertical-align: middle;
+}
+
+#menu-upleft span {
+	position: absolute;
+	display: block;
+	height: 3px;
+	width: 40px;
+	background: #fff;
+	border-radius: 3px;
+	opacity: 0;
+	transition: 0.2s all ease-in-out;
+}
+
+#SPANhome {
+	top: 26%;
+	right: 35%;
+	transform: translate(-50%, -50%) rotate(-23deg);
+}
+#SPANlist {
+	top: 40%;
+	right: 47%;
+	transform: translate(-50%, -50%) rotate(38deg);
+}
+#SPANadd {
+	top: 55%;
+	left: 21%;
 	transform: translate(-50%, -50%) rotate(90deg);
 }
 
