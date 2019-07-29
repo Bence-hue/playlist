@@ -1,12 +1,15 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-import requests
-from .models import Song
-from django.views.decorators.csrf import csrf_exempt
 import datetime
-from django.utils import timezone
-from django.core import serializers
 import json
+
+import requests
+from django.core import serializers
+from django.http import HttpResponse
+from django.shortcuts import render
+from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
+
+from .models import Song
+
 
 @csrf_exempt
 
@@ -31,15 +34,22 @@ def new_view(request, *args, **kwargs):
         yttitle=respons["items"][0]["snippet"]["title"]
         print(link)
         user=request.COOKIES.get("userid","XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX")
-        lastrecord=Song.objects.filter(createdAt__gte=datetime.datetime.now()-datetime.timedelta(minutes=15)).filter(user=user)
-        if lastrecord.exists():
-            remaining=int((datetime.timedelta(minutes=15)-(timezone.now()-lastrecord.get().createdAt)).total_seconds())
+        
+        lastrecord=Song.objects.filter(createdAt__gte=datetime.datetime.now()-datetime.timedelta(seconds=15),user="user")
+        if not lastrecord.exists():
+            if not Song.objects.filter(link=link,played=False).exists():
+                if not Song.objects.filter(link=link,played=True, playedAt__gte=datetime.datetime.now()-datetime.timedelta(minutes=1)).exists():
+                    Song.objects.create(title=data["title"][0],artist=data["artist"][0],link=link,user=user,yttitle=yttitle)
+                    return HttpResponse(status=201)
+                else: #ha az utobbi egy hetben lett lejatszva
+                    return HttpResponse("{\"played\": True}", status=422)
+            else: #ha van meg le nem jatszott ilyen
+                return HttpResponse("{\"played\":False}",status=422)
+        else: #ha az utobbi 15 percben kuldott
+            remaining = int((datetime.timedelta(minutes=15)-(timezone.now()-lastrecord.get().createdAt)).total_seconds())
             print(remaining)
-            return HttpResponse(str(int(remaining/60))+":"+"{:02d}".format(remaining%60), status=429)
-        else:
-            Song.objects.create(title=data["title"][0],artist=data["artist"][0],link=link,user=user,yttitle=yttitle)
-            return HttpResponse(status=201)
-    else:
+            return HttpResponse(str(int(remaining/60))+":"+"{:02d}".format(remaining % 60), status=429)
+    else: # ha nem poston kuldott
         return HttpResponse(status=405)
 
 @csrf_exempt
@@ -59,7 +69,11 @@ def played_view(request,*args,**kwargs):
 @csrf_exempt
 def delete_view(request,*args,**kwargs):
     if request.method == 'POST':
-        id=int(dict(request.POST)["id"][0])
+        id=dict(request.POST)["id"][0]
+        if id is "all":
+            Song.objects.all().delete()
+        else:
+            id=int(id)
         print(id)
         object=Song.objects.filter(id=id)
         if object.exists():
@@ -86,6 +100,8 @@ def list_view(request,*args,**kwargs):
             latestjson=latestobject[0]["fields"]
             latestjson["id"]=latestid
             return HttpResponse(json.dumps(latestjson), content_type="application/json", status=200)
+        elif mode=="thisuser":
+            return jsonmodifier(serializers.serialize("json", Song.objects.filter(user=request.COOKIES.get("userid",""),played=False)))
         else:
             return HttpResponse(status=422)
     else:

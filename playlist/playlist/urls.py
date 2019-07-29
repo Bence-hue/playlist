@@ -20,5 +20,10 @@ from frontend import views
 urlpatterns = [
     path('djadmin/', admin.site.urls),
     path('api/',include('list.urls')),
-    path('',views.index_view)
+    path('',views.frontend_view),
+    path('songs', views.frontend_view),
+    path('new',views.frontend_view),
+    path('admin',views.frontend_view),
+    path('cookies',views.frontend_view),
+    path('about', views.frontend_view),
 ]
