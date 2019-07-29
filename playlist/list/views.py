@@ -10,10 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .models import Song
 
-
 @csrf_exempt
-
-# Create your views here.
 def new_view(request, *args, **kwargs):
     if request.method == 'POST':
         data=dict(request.POST)
