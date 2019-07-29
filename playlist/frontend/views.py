@@ -5,7 +5,7 @@ import datetime
 from django.views.decorators.csrf import ensure_csrf_cookie
 
 # Create your views here.
-@ensure_csrrun  f_cookie
+@ensure_csrf_cookie
 def frontend_view(request, *args,**kwargs):
     response = render(request, "index.html")
     if 'userid' not in request.COOKIES:
