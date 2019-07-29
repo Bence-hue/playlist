@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.7dbe7ec2.chunk.css",
-    "main.js": "/static/js/main.98f6aac6.chunk.js",
-    "main.js.map": "/static/js/main.98f6aac6.chunk.js.map",
+    "main.css": "/static/css/main.66ba6a19.chunk.css",
+    "main.js": "/static/js/main.4f346edb.chunk.js",
+    "main.js.map": "/static/js/main.4f346edb.chunk.js.map",
     "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
     "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
-    "static/js/2.7c89f4cd.chunk.js": "/static/js/2.7c89f4cd.chunk.js",
-    "static/js/2.7c89f4cd.chunk.js.map": "/static/js/2.7c89f4cd.chunk.js.map",
+    "static/js/2.0c5baf3c.chunk.js": "/static/js/2.0c5baf3c.chunk.js",
+    "static/js/2.0c5baf3c.chunk.js.map": "/static/js/2.0c5baf3c.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.020ed30935171ec62d3eee19c53f546d.js": "/precache-manifest.020ed30935171ec62d3eee19c53f546d.js",
+    "precache-manifest.1def24dfa9318f9a650f6071938d1f00.js": "/precache-manifest.1def24dfa9318f9a650f6071938d1f00.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/main.7dbe7ec2.chunk.css.map": "/static/css/main.7dbe7ec2.chunk.css.map",
+    "static/css/main.66ba6a19.chunk.css.map": "/static/css/main.66ba6a19.chunk.css.map",
     "static/media/Landing-btn-border.1e2bb52e.svg": "/static/media/Landing-btn-border.1e2bb52e.svg",
     "static/media/Landing-left.131fac17.svg": "/static/media/Landing-left.131fac17.svg",
     "static/media/Landing-right.ddaa2c55.svg": "/static/media/Landing-right.ddaa2c55.svg",
@@ -27,6 +27,6 @@
     "static/media/lock-solid.4f14c0a6.svg": "/static/media/lock-solid.4f14c0a6.svg",
     "static/media/music-player.f03b9712.svg": "/static/media/music-player.f03b9712.svg",
     "static/media/new-song-left.789f9282.svg": "/static/media/new-song-left.789f9282.svg",
-    "static/media/new-song-right.27fd6922.svg": "/static/media/new-song-right.27fd6922.svg"
+    "static/media/new-song-right.7cf18694.svg": "/static/media/new-song-right.7cf18694.svg"
   }
 }
