@@ -11,6 +11,7 @@
 	-webkit-box-shadow: 0px 15px 42px 0px rgba(19, 156, 97, 0.3);
 	-moz-box-shadow: 0px 15px 42px 0px rgba(19, 156, 97, 0.3);
 	box-shadow: 0px 15px 42px 0px rgba(19, 156, 97, 0.3);
+	transition: 0.2s all ease-in-out;
 }
 
 .songs-wrapper-heading {

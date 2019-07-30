@@ -28,7 +28,7 @@ export default class Landing extends Component {
 		} else {
 			this.setState({ viewCookie: true });
 		}
-		let url = "http://46.107.123.236:8000/api/list/?mode=latest";
+		let url = "http://bnctth.ml:8000/api/list/?mode=latest";
 		axios.get(url).then(res => this.setState({ latest: res.data }));
 	}
 
