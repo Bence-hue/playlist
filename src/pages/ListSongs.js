@@ -6,6 +6,7 @@ import "../css/songlist.css";
 import Header from "./components/Header";
 import SongListPage from "./components/SongListPage";
 import UpcomingCard from "./components/UpcomingCard";
+import Indicator from "./components/SongListPaginationIndicator";
 
 import { ReactComponent as ArrowUp } from "../assets/angle-up-solid.svg";
 import { ReactComponent as ArrowDown } from "../assets/angle-down-solid.svg";
@@ -106,6 +107,7 @@ export default class ListSongs extends Component {
 						style={ArrowUpStyle}
 						onClick={handleUpperClick}
 					/>
+					<Indicator currentPage={currentPage + 1} lastPage={sl_Round} />
 					<ArrowDown
 						className={
 							isLastPage
