@@ -7,6 +7,9 @@ import Header from "./components/Header";
 import SongListPage from "./components/SongListPage";
 import UpcomingCard from "./components/UpcomingCard";
 
+import { ReactComponent as ArrowUp } from "../assets/angle-up-solid.svg";
+import { ReactComponent as ArrowDown } from "../assets/angle-down-solid.svg";
+
 export default class ListSongs extends Component {
 	state = {
 		songs: [],
@@ -14,7 +17,7 @@ export default class ListSongs extends Component {
 	};
 
 	componentDidMount() {
-		let url = "http://46.107.123.236:8000/api/list/?mode=unplayed";
+		let url = "http://bnctth.ml:8000/api/list/?mode=unplayed";
 		axios.get(url).then(res => this.setState({ songs: res.data }));
 	}
 
@@ -30,6 +33,19 @@ export default class ListSongs extends Component {
 		});
 		const sl_Round = Math.ceil(songs.length / 5);
 
+		const handleUpperClick = () => {
+			if (this.state.currentPage !== 0) {
+				this.setState({ currentPage: currentPage - 1 });
+			} else {
+			}
+		};
+		const handleBottomClick = () => {
+			if (this.state.currentPage !== sl_Round - 1) {
+				this.setState({ currentPage: currentPage + 1 });
+			} else {
+			}
+		};
+
 		let songPages = [];
 		for (let i = 0; i < sl_Round; i++) {
 			if (i === 0) {
@@ -39,8 +55,15 @@ export default class ListSongs extends Component {
 				songPages.push(<SongListPage key={i + 1} id={i} isFirstPage={false} />);
 			}
 		}
-		let songCardWrapperStyle, songsWrapperStyle, songListWrapperStyle;
+		let isFirstPage = false,
+			isLastPage = false;
 		if (currentPage === 0) {
+			isFirstPage = true;
+		} else if (currentPage === sl_Round - 1) {
+			isLastPage = true;
+		}
+		let songCardWrapperStyle, songsWrapperStyle, songListWrapperStyle;
+		if (isFirstPage) {
 			songCardWrapperStyle = { marginTop: "120px" };
 			songsWrapperStyle = { height: "550px" };
 			songListWrapperStyle = { height: "360px", top: "53%" };
@@ -50,6 +73,12 @@ export default class ListSongs extends Component {
 			songListWrapperStyle = { height: "240px", top: "49%" };
 		}
 
+		let ArrowUpStyle, ArrowDownStyle;
+		if (isFirstPage) {
+			ArrowUpStyle = { color: "#D2D2D2", cursor: "default" };
+		} else if (isLastPage) {
+			ArrowDownStyle = { color: "#D2D2D2", cursor: "default" };
+		}
 		return (
 			<React.Fragment>
 				<Header kolcsey={false} />
@@ -68,6 +97,24 @@ export default class ListSongs extends Component {
 							{songPages[currentPage]}
 						</div>
 					</div>
+					<ArrowUp
+						className={
+							isFirstPage
+								? "songs-arrow songs-arrow-up"
+								: "songs-arrow songs-arrow-up hvr-grow"
+						}
+						style={ArrowUpStyle}
+						onClick={handleUpperClick}
+					/>
+					<ArrowDown
+						className={
+							isLastPage
+								? "songs-arrow songs-arrow-down"
+								: "songs-arrow songs-arrow-down hvr-grow"
+						}
+						style={ArrowDownStyle}
+						onClick={handleBottomClick}
+					/>
 				</div>
 			</React.Fragment>
 		);

@@ -31,9 +31,9 @@
 .list-wrapper {
 	position: absolute;
 	top: 53%;
-	left: 50%;
+	left: 46%;
 	transform: translate(-50%, -50%);
-	width: 80%;
+	width: 77%;
 }
 
 .upcoming-card {
@@ -157,4 +157,19 @@
 	border-radius: 10px;
 
 	background: #139c61;
+}
+
+.songs-arrow {
+	position: absolute;
+	right: 6%;
+	color: #13583b;
+	width: 50px;
+	cursor: pointer;
+}
+
+.songs-arrow-up {
+	top: 22%;
+}
+.songs-arrow-down {
+	top: 73%;
 }
