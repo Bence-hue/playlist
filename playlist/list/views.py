@@ -1,5 +1,6 @@
 import datetime
 import json
+import os
 
 import requests
 from django.core import serializers
@@ -8,18 +9,22 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import Song
+from .models import BlockedSong, BlockedUser, Song
+
 
 @csrf_exempt
 def new_view(request, *args, **kwargs):
     if request.method == 'POST':
         data=dict(request.POST)
         print(data)
+        cffile = open(os.path.join(os.path.dirname(
+            os.path.dirname(os.path.abspath(__file__))), "datas.json"), "r")
+        config=json.loads(cffile.readline())
         URL="https://www.googleapis.com/youtube/v3/search"
         song=data.get("artist","")[0]+" - "+data.get("title","")[0]
         PARAMS={
             "part":"snippet",
-            "key":"AIzaSyChwmrh7pX7jV1CXgAIq_cgLRtJ7wDTpE4",
+            "key": config.get("YTAPIKEY",""),
             "type":"video",
             "maxResults":1,
             "q":song
@@ -27,8 +32,12 @@ def new_view(request, *args, **kwargs):
         r=requests.get(url = URL, params = PARAMS)
         respons=r.json()
         print(respons)
-        link='https://youtube.com/watch?v='+respons["items"][0]["id"]["videoId"]
-        yttitle=respons["items"][0]["snippet"]["title"]
+        try:
+            link='https://youtube.com/watch?v='+respons["items"][0]["id"]["videoId"]
+            yttitle=respons["items"][0]["snippet"]["title"]
+        except:
+            link=""
+            yttitle=""
         print(link)
         user=request.COOKIES.get("userid","XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX")
         
@@ -52,7 +61,7 @@ def new_view(request, *args, **kwargs):
 @csrf_exempt
 def played_view(request,*args,**kwargs):
     if request.method == 'POST':
-        id=int(dict(request.POST)["id"][0])
+        id = dict(request.POST).get("id", [""])[0]
         print(id)
         object=Song.objects.filter(id=id)
         if object.exists():
@@ -66,7 +75,7 @@ def played_view(request,*args,**kwargs):
 @csrf_exempt
 def delete_view(request,*args,**kwargs):
     if request.method == 'POST':
-        id=dict(request.POST)["id"][0]
+        id=dict(request.POST).get("id",[""])[0]
         if id is "all":
             Song.objects.all().delete()
         else:
@@ -84,7 +93,7 @@ def delete_view(request,*args,**kwargs):
 @csrf_exempt
 def list_view(request,*args,**kwargs):
     if request.method=='GET':
-        mode = dict(request.GET)["mode"][0]
+        mode = dict(request.GET).get("mode",[""])[0]
         if mode=="all":
             return jsonmodifier(serializers.serialize("json", Song.objects.all()))
         elif mode=="unplayed":
@@ -99,6 +108,10 @@ def list_view(request,*args,**kwargs):
             return HttpResponse(json.dumps(latestjson), content_type="application/json", status=200)
         elif mode=="thisuser":
             return jsonmodifier(serializers.serialize("json", Song.objects.filter(user=request.COOKIES.get("userid",""),played=False)))
+        elif mode=="played":
+            return jsonmodifier(serializers.serialize("json", Song.objects.filter(played=True)))
+        elif mode=="blockedusers":
+            return jsonmodifier(serializers.serialize("json", BlockedUser.objects.all()))
         else:
             return HttpResponse(status=422)
     else:
@@ -113,3 +126,18 @@ def jsonmodifier(data):
         newdict["id"]=i["pk"]
         newdata.append(newdict)
     return HttpResponse(json.dumps(newdata), content_type="application/json", status=200)
+
+@csrf_exempt
+def blockuser_view(request,*args,**kwargs):
+    if request.method == 'POST':
+        userid=dict(request.POST).get("userid",[""])[0]
+        permanent=(dict(request.POST).get("permanent",["true"])[0]=="true")
+        expirein = int(dict(request.POST).get("expirein", ["0"])[0])
+        if permanent:
+           BlockedUser.objects.create(userid=userid,perma=permanent)
+        else:
+            expireAt = datetime.datetime.now()+datetime.timedelta(seconds=expirein)
+            BlockedUser.objects.create(userid=userid,perma=permanent,expireAt=expireAt) 
+        return HttpResponse(status=201)
+    else:
+        return HttpResponse(status=405)
