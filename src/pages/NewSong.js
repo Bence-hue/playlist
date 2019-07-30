@@ -22,7 +22,8 @@ export default class NewSong extends Component {
 				<NEWb className="new-song-button" />
 				<h2 className="new-song-h2">Új zenét akarok!</h2>
 				<NEW0 className="ARTnew new0" />
-				<NEW1 className="ARTnew new1" />
+				{/* <NEW1 className="ARTnew new1" /> */}
+				<NEW1 className="ARTnew new1--green" />
 				<NEW2 className="ARTnew new2" />
 				<NEW3 className="ARTnew new3" />
 				<NEW4 className="ARTnew new4" />
