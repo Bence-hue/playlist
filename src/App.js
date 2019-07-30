@@ -2,27 +2,33 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Preloader, Placeholder } from "react-preloading-screen";
 
+import loader from "./assets/Preloader2.gif";
+
 import Landing from "./pages/Landing";
 import ListSongs from "./pages/ListSongs";
 import NewSong from "./pages/NewSong";
 
+import ErrorHandler from "./pages/components/ErrorHandler";
+
 function App() {
 	return (
 		<Router>
-			<Preloader>
-				<Placeholder>
-					<h1>Loading</h1>
-				</Placeholder>
+			<ErrorHandler>
+				<Preloader>
+					<Placeholder>
+						<img src={loader} alt="Loading..." />
+					</Placeholder>
 
-				<div className="App">
-					<Switch>
-						<Route exact path="/" component={Landing} />
-						<Route exact path="/songs" component={ListSongs} />
-						<Route exact path="/new" component={NewSong} />
-						<Route component={""} />
-					</Switch>
-				</div>
-			</Preloader>
+					<div className="App">
+						<Switch>
+							<Route exact path="/" component={Landing} />
+							<Route exact path="/songs" component={ListSongs} />
+							<Route exact path="/new" component={NewSong} />
+							<Route component="" />
+						</Switch>
+					</div>
+				</Preloader>
+			</ErrorHandler>
 		</Router>
 	);
 }
