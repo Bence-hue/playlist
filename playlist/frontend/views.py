@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import uuid
 import datetime
@@ -9,7 +9,16 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 def frontend_view(request, *args,**kwargs):
     response = render(request, "index.html")
     if 'userid' not in request.COOKIES:
-        max_age = 4 * 365 * 24 * 60 * 60
-        expires = datetime.datetime.strftime(datetime.datetime.now() + datetime.timedelta(seconds=max_age), "%a, %d-%b-%Y %H:%M:%S GMT")
-        response.set_cookie('userid', str(uuid.uuid4()), max_age=max_age, expires=expires)
+        uuid = str(uuid.uuid4())
+    else:
+        uuid=request.COOKIES["userid"]
+    max_age = 12 * 7 * 24 * 60 * 60
+    expires = datetime.datetime.strftime(datetime.datetime.now() + datetime.timedelta(seconds=max_age), "%a, %d-%b-%Y %H:%M:%S GMT")
+    response.set_cookie('userid',uuid , max_age=max_age, expires=expires)
     return response
+
+def admin_view(request,*args,**kwargs):
+    if request.user.is_authenticated:
+        return render(request, "index.html")
+    else:
+        return redirect("/login")

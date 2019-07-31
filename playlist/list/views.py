@@ -8,20 +8,20 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import authenticate, login,logout
 
-from .models import BlockedSong, BlockedUser, Song
+from .models import Song
 
 
 @csrf_exempt
 def new_view(request, *args, **kwargs):
     if request.method == 'POST':
-        data=dict(request.POST)
+        data=request.POST
         print(data)
-        cffile = open(os.path.join(os.path.dirname(
-            os.path.dirname(os.path.abspath(__file__))), "datas.json"), "r")
-        config=json.loads(cffile.readline())
+        with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "datas.json"), "r") as cffile:
+            config = json.loads(cffile.readline())
         URL="https://www.googleapis.com/youtube/v3/search"
-        song=data.get("artist","")[0]+" - "+data.get("title","")[0]
+        song=data.get("artist","")+" - "+data.get("title","")
         PARAMS={
             "part":"snippet",
             "key": config.get("YTAPIKEY",""),
@@ -40,12 +40,11 @@ def new_view(request, *args, **kwargs):
             yttitle=""
         print(link)
         user=request.COOKIES.get("userid","XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX")
-        
-        lastrecord=Song.objects.filter(createdAt__gte=datetime.datetime.now()-datetime.timedelta(seconds=15),user="user")
+        lastrecord=Song.objects.filter(createdAt__gte=timezone.now()-datetime.timedelta(seconds=15),user=user)
         if not lastrecord.exists():
             if not Song.objects.filter(link=link,played=False).exists():
-                if not Song.objects.filter(link=link,played=True, playedAt__gte=datetime.datetime.now()-datetime.timedelta(minutes=1)).exists():
-                    Song.objects.create(title=data["title"][0],artist=data["artist"][0],link=link,user=user,yttitle=yttitle)
+                if not Song.objects.filter(link=link,played=True, playedAt__gte=timezone.now()-datetime.timedelta(minutes=1)).exists():
+                    Song.objects.create(title=data["title"],artist=data["artist"],link=link,user=user,yttitle=yttitle)
                     return HttpResponse(status=201)
                 else: #ha az utobbi egy hetben lett lejatszva
                     return HttpResponse("{\"played\": True}", status=422)
@@ -61,7 +60,7 @@ def new_view(request, *args, **kwargs):
 @csrf_exempt
 def played_view(request,*args,**kwargs):
     if request.method == 'POST':
-        id = dict(request.POST).get("id", [""])[0]
+        id = request.POST.get("id", [""])
         print(id)
         object=Song.objects.filter(id=id)
         if object.exists():
@@ -75,7 +74,7 @@ def played_view(request,*args,**kwargs):
 @csrf_exempt
 def delete_view(request,*args,**kwargs):
     if request.method == 'POST':
-        id=dict(request.POST).get("id",[""])[0]
+        id=request.POST.get("id",[""])
         if id is "all":
             Song.objects.all().delete()
         else:
@@ -93,7 +92,7 @@ def delete_view(request,*args,**kwargs):
 @csrf_exempt
 def list_view(request,*args,**kwargs):
     if request.method=='GET':
-        mode = dict(request.GET).get("mode",[""])[0]
+        mode = request.GET.get("mode",[""])
         if mode=="all":
             return jsonmodifier(serializers.serialize("json", Song.objects.all()))
         elif mode=="unplayed":
@@ -110,8 +109,6 @@ def list_view(request,*args,**kwargs):
             return jsonmodifier(serializers.serialize("json", Song.objects.filter(user=request.COOKIES.get("userid",""),played=False)))
         elif mode=="played":
             return jsonmodifier(serializers.serialize("json", Song.objects.filter(played=True)))
-        elif mode=="blockedusers":
-            return jsonmodifier(serializers.serialize("json", BlockedUser.objects.all()))
         else:
             return HttpResponse(status=422)
     else:
@@ -127,17 +124,21 @@ def jsonmodifier(data):
         newdata.append(newdict)
     return HttpResponse(json.dumps(newdata), content_type="application/json", status=200)
 
-@csrf_exempt
-def blockuser_view(request,*args,**kwargs):
+
+# @csrf_exempt
+def adminlogin_view(request, *args, **kwargs): 
     if request.method == 'POST':
-        userid=dict(request.POST).get("userid",[""])[0]
-        permanent=(dict(request.POST).get("permanent",["true"])[0]=="true")
-        expirein = int(dict(request.POST).get("expirein", ["0"])[0])
-        if permanent:
-           BlockedUser.objects.create(userid=userid,perma=permanent)
+        username = request.POST.get('username',"")
+        password = request.POST.get('password',"")
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request,user)
+            return HttpResponse(status=200)
         else:
-            expireAt = datetime.datetime.now()+datetime.timedelta(seconds=expirein)
-            BlockedUser.objects.create(userid=userid,perma=permanent,expireAt=expireAt) 
-        return HttpResponse(status=201)
+            return HttpResponse(status=403)
     else:
         return HttpResponse(status=405)
+
+def adminlogout_view(request, *args, **kwargs):
+    logout(request)
+    return HttpResponse(status=200)

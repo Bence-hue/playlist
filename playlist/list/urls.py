@@ -6,5 +6,6 @@ urlpatterns=[
     path('played/',views.played_view,name="played"),
     path('delete/',views.delete_view,name="delete"),
     path('list/',views.list_view,name='list'),
-    path('blockuser/', views.blockuser_view, name='blockuser')
+    path('login/',views.adminlogin_view,name="login"),
+    path('logout/', views.adminlogout_view, name="logout")
 ]
