@@ -11,9 +11,7 @@
 
 <h3> <img height="20" width="20" src="http://i.imgur.com/oeQmniz.png" /> https://playlist.jelszo.co/ </h3>
 
-## Lejátszási lista a Nyíregyházi Kölcsey Ferenc Gimnázium stúdiójának
-
-### Tagok:
+### Készítők:
 
 - <h4 title="Kiss Benedek Máté - Frontend, Design"> Kiss Benedek Máté - <i> Frontend, Design </i> </h4>
 
@@ -21,4 +19,4 @@
 
 - <h4 title="Jóvári Norbert - Design">Jóvári Norbert - <i> Design </i> </h4>
 
-**Made by Jelszo.co** | *suppport@jelszo.co*
+**Made by Jelszo.co** | *support@jelszo.co*
