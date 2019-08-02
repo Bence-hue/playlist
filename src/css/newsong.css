@@ -51,10 +51,12 @@
 
 .new1 {
 	transform: translate(-50%, -50%) scale(0.8);
+	stroke: #cfcfcf;
 	opacity: 0;
 }
 .new1--green {
 	transform: translate(-50%, -50%) scale(0.8);
+	stroke: #139c61;
 	opacity: 1;
 }
 
