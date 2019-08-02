@@ -22,3 +22,4 @@ def admin_view(request,*args,**kwargs):
         return render(request, "index.html")
     else:
         return redirect("/login")
+ 
