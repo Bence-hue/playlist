@@ -23,7 +23,8 @@ urlpatterns = [
     path('',views.frontend_view),
     path('songs', views.frontend_view),
     path('new',views.frontend_view),
-    path('admin',views.frontend_view),
     path('cookies',views.frontend_view),
     path('about', views.frontend_view),
+    path('login',views.frontend_view),
+    path('admin',views.admin_view),
 ]
