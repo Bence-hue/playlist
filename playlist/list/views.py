@@ -12,13 +12,12 @@ from django.contrib.auth import authenticate, login,logout
 
 from .models import Song
 
-with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "datas.json"), "r") as cffile:
-    config = json.loads(cffile.readline())
-
 
 @csrf_exempt
 def new_view(request, *args, **kwargs):
     if request.method == 'POST':
+        with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "datas.json"), "r") as cffile:
+            config = json.loads(cffile.readline())
         if request.POST.get("token", "") == config["token"]:
             data=request.POST
             print(data)
