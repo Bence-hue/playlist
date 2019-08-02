@@ -9,12 +9,12 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 def frontend_view(request, *args,**kwargs):
     response = render(request, "index.html")
     if 'userid' not in request.COOKIES:
-        uuid = str(uuid.uuid4())
+        userid = str(uuid.uuid4())
     else:
-        uuid=request.COOKIES["userid"]
+        userid=request.COOKIES["userid"]
     max_age = 12 * 7 * 24 * 60 * 60
     expires = datetime.datetime.strftime(datetime.datetime.now() + datetime.timedelta(seconds=max_age), "%a, %d-%b-%Y %H:%M:%S GMT")
-    response.set_cookie('userid',uuid , max_age=max_age, expires=expires)
+    response.set_cookie('userid',userid , max_age=max_age, expires=expires)
     return response
 
 def admin_view(request,*args,**kwargs):
