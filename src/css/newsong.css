@@ -20,10 +20,16 @@
 .new-song-button {
 	position: absolute;
 	top: 47%;
-	left: 50%;
+	left: 49.8%;
 	transform: translate(-50%, -50%);
+	z-index: 12;
 	width: 100px;
 	fill: #15a867;
+	cursor: pointer;
+}
+
+.new-song-button:hover > .svg-animated {
+	stroke-dasharray: 100 10;
 }
 
 .new-song-h2 {
@@ -39,14 +45,67 @@
 }
 
 img {
-	background: pink;
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	opacity: 0;
+}
+
+.new-svg {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.new-0 {
+	position: absolute;
+	top: 50.8%;
+	left: 50%;
+	transform: translate(-50%, -49.6%);
+	z-index: 11;
 }
 
 .dash1 {
+	z-index: 10;
+}
+.svg1 {
+	z-index: 9;
+}
+.dash2 {
+	z-index: 8;
+}
+.svg2 {
+	z-index: 7;
+}
+.dash3 {
+	z-index: 6;
+}
+.svg3 {
+	z-index: 5;
+}
+.dash4 {
+	z-index: 4;
+}
+.svg4 {
+	z-index: 3;
+}
+.dash5 {
+	z-index: 2;
+}
+.svg5 {
+	z-index: 1;
+}
+
+.new-button-wrapper {
+	transform: scale(0.75);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+
+.svg-animated {
+	stroke-dasharray: 0 1000;
+	stroke-dashoffset: 0;
 	opacity: 1;
 }
