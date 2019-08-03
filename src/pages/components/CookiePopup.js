@@ -11,7 +11,7 @@ export default class CookiePopup extends Component {
 			<Spring from={{ opacity: 0 }} to={{ opacity: 1 }} config={{ delay: 500 }}>
 				{props => (
 					<div style={props}>
-						<div className="cookie-popup-back">
+						<div className="cookie-back">
 							<div className="cookie-popup">
 								<div className="cookie-wrapper">
 									<h1>

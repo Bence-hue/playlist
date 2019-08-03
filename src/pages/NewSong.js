@@ -16,11 +16,16 @@ import { ReactComponent as NartLeft } from "../assets/new-song-left.svg";
 import { ReactComponent as NartRight } from "../assets/new-song-right.svg";
 
 export default class NewSong extends Component {
+	fillButton = () => {
+		const dashes = document.getElementsByTagName("circle");
+		dashes.classList.add("")
+	};
 	render() {
+		const opacity = 1;
 		return (
 			<div>
 				<Header kolcsey={false} />
-				<NEWb className="new-song-button" />
+				<NEWb className="new-song-button" onMouseOver={this.fillButton} />
 				<h2 className="new-song-h2">Új zenét akarok!</h2>
 				<div className="new-button-wrapper">
 					<NEW0 className="new-0" />
@@ -61,6 +66,7 @@ export default class NewSong extends Component {
 								strokeLinecap="round"
 								strokeLinejoin="round"
 								strokeWidth="10"
+								opacity={opacity}
 								fill="none"
 							/>
 						</g>
