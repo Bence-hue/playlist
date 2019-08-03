@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import "../css/cookiespage.css";
 
@@ -15,6 +16,9 @@ const CookiesPage = () => {
 					sütiket használunk. Ha nem szeretnéd ezt, kérlek hagyd el az oldalt.
 				</p>
 			</div>
+			<Link exact="true" to="/">
+				<button title="">Értem!</button>
+			</Link>
 		</div>
 	);
 };
