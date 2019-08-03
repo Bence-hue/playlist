@@ -73,24 +73,28 @@ img {
 }
 .svg2 {
 	z-index: 7;
+	transform: translate(-50%, -50%) rotate(90deg);
 }
 .dash3 {
 	z-index: 6;
 }
 .svg3 {
 	z-index: 5;
+	transform: translate(-50%, -50%) rotate(270deg);
 }
 .dash4 {
 	z-index: 4;
 }
 .svg4 {
 	z-index: 3;
+	transform: translate(-50%, -50%) rotate(180deg);
 }
 .dash5 {
 	z-index: 2;
 }
 .svg5 {
 	z-index: 1;
+	transform: translate(-50%, -50%) rotate(45deg);
 }
 
 .new-button-wrapper {
@@ -101,5 +105,17 @@ img {
 }
 
 .svg-animated {
-	opacity: 1;
+	transition: 1s all ease-in-out;
+	stroke-dasharray: 2200;
+	stroke-dashoffset: 2200;
+}
+
+.fill33 {
+	stroke-dashoffset: 1466;
+}
+.fill66 {
+	stroke-dashoffset: 733.3;
+}
+.fill100 {
+	stroke-dashoffset: 0;
 }

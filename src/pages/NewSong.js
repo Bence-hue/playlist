@@ -16,16 +16,23 @@ import { ReactComponent as NartLeft } from "../assets/new-song-left.svg";
 import { ReactComponent as NartRight } from "../assets/new-song-right.svg";
 
 export default class NewSong extends Component {
-	fillButton = () => {
-		const dashes = document.getElementsByTagName("circle");
-		dashes.classList.add("")
+	state = {
+		fill: ""
+	};
+	fillButton = percent => {
+		this.setState({ fill: percent });
+		console.log(this.state.fill);
 	};
 	render() {
-		const opacity = 1;
+		const { fill } = this.state;
 		return (
 			<div>
 				<Header kolcsey={false} />
-				<NEWb className="new-song-button" onMouseOver={this.fillButton} />
+				<NEWb
+					className="new-song-button"
+					onMouseEnter={this.fillButton.bind(this, 100)}
+					onMouseLeave={this.fillButton.bind(this, 0)}
+				/>
 				<h2 className="new-song-h2">Új zenét akarok!</h2>
 				<div className="new-button-wrapper">
 					<NEW0 className="new-0" />
@@ -54,7 +61,9 @@ export default class NewSong extends Component {
 						xmlns="http://www.w3.org/2000/svg"
 						width="700.05"
 						height="700.05"
-						className="new-svg svg1 svg-animated"
+						className={`new-svg svg1 svg-animated ${
+							fill === 33 ? "fill33 " : ""
+						}${fill === 66 ? "fill66 " : ""}${fill === 100 ? "fill100 " : ""}`}
 					>
 						<g transform="translate(-619.143 -262.094)">
 							<circle
@@ -66,7 +75,6 @@ export default class NewSong extends Component {
 								strokeLinecap="round"
 								strokeLinejoin="round"
 								strokeWidth="10"
-								opacity={opacity}
 								fill="none"
 							/>
 						</g>
@@ -96,7 +104,9 @@ export default class NewSong extends Component {
 						xmlns="http://www.w3.org/2000/svg"
 						width="690.014"
 						height="690.014"
-						className="new-svg svg2 svg-animated"
+						className={`new-svg svg2 svg-animated ${
+							fill === 33 ? "fill33 " : ""
+						}${fill === 66 ? "fill66 " : ""}${fill === 100 ? "fill100 " : ""}`}
 					>
 						<g transform="matrix(0.819, 0.574, -0.574, 0.819, 12.247, -559.303)">
 							<circle
@@ -139,7 +149,9 @@ export default class NewSong extends Component {
 						width="705.296"
 						height="705.296"
 						viewBox="0 0 805.296 805.296"
-						className="new-svg svg3 svg-animated"
+						className={`new-svg svg3 svg-animated ${
+							fill === 33 ? "fill33 " : ""
+						}${fill === 66 ? "fill66 " : ""}${fill === 100 ? "fill100 " : ""}`}
 					>
 						<g transform="matrix(0.342, 0.94, -0.94, 0.342, 602.886, -624.163)">
 							<circle
@@ -182,7 +194,9 @@ export default class NewSong extends Component {
 						width="760.465"
 						height="760.465"
 						viewBox="0 0 760.465 760.465"
-						className="new-svg svg4 svg-animated"
+						className={`new-svg svg4 svg-animated ${
+							fill === 33 ? "fill33 " : ""
+						}${fill === 66 ? "fill66 " : ""}${fill === 100 ? "fill100 " : ""}`}
 					>
 						<g transform="translate(884.673 -481.257) rotate(90)">
 							<circle
@@ -225,7 +239,9 @@ export default class NewSong extends Component {
 						width="687.394"
 						height="687.395"
 						viewBox="0 0 687.394 687.395"
-						className="new-svg svg5 svg-animated"
+						className={`new-svg svg5 svg-animated ${
+							fill === 33 ? "fill33 " : ""
+						}${fill === 66 ? "fill66 " : ""}${fill === 100 ? "fill100 " : ""}`}
 					>
 						<g transform="translate(1257.407 91.743) rotate(135)">
 							<circle
