@@ -21,7 +21,9 @@ export default class NewSong extends Component {
 	};
 	fillButton = percent => {
 		this.setState({ fill: percent });
-		console.log(this.state.fill);
+	};
+	initQuery = () => {
+		console.log("Initialized");
 	};
 	render() {
 		const { fill } = this.state;
@@ -32,6 +34,7 @@ export default class NewSong extends Component {
 					className="new-song-button"
 					onMouseEnter={this.fillButton.bind(this, 100)}
 					onMouseLeave={this.fillButton.bind(this, 0)}
+					onClick={this.initQuery}
 				/>
 				<h2 className="new-song-h2">Új zenét akarok!</h2>
 				<div className="new-button-wrapper">

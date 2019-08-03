@@ -26,6 +26,10 @@
 	width: 100px;
 	fill: #15a867;
 	cursor: pointer;
+	transition: 0.2s all ease-in-out;
+}
+.new-song-button:hover {
+	transform: translate(-50%, -50%) scale(1.1);
 }
 
 .new-song-h2 {
