@@ -1,7 +1,6 @@
 import datetime
 import json
 import os
-import random
 
 import requests
 from django.core import serializers
@@ -157,6 +156,7 @@ def question_view(request, *args, **kwargs):
     if request.method == 'GET':
         questions = Question.objects.all()
         id=random.randrange(len(questions))
+        
         q = json.loads(serializers.serialize("json", Question.objects.get(id=id)))
         print(q)
         qjson=q[0]["fields"]
