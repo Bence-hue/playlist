@@ -141,11 +141,13 @@ img {
 	.new-button-wrapper {
 		transform: scale(0.5);
 	}
-	.new-song-button,
 	.new-song-h2 {
 		transform: translate(-50%, -50%) scale(0.6);
 	}
+	.new-song-button {
+		transform: translate(-50%, -50%) scale(0.8);
+	}
 	.new-song-button:hover {
-		transform: translate(-50%, -50%) scale(0.7);
+		transform: translate(-50%, -50%) scale(0.9);
 	}
 }
