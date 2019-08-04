@@ -51,7 +51,7 @@
 	width: 300px;
 	height: 60px;
 	position: absolute;
-	bottom: 20%;
+	bottom: 10%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	border: none;
@@ -70,4 +70,13 @@
 
 .cookies-page-wrapper button:hover {
 	transform: translate(-50%, -50%) scale(1.1);
+}
+
+@media only screen and (max-width: 1400px) {
+	.cookies-page-wrapper__content-wrapper {
+		top: 5%;
+	}
+	.cookies-page-wrapper button {
+		bottom: 5%;
+	}
 }
