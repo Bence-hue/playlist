@@ -123,3 +123,29 @@ img {
 .fill100 {
 	stroke-dashoffset: 0;
 }
+
+@media only screen and (max-width: 1400px) {
+	.svg-animated {
+		stroke-dasharray: 2200;
+		stroke-dashoffset: 2250;
+	}
+	.fill33 {
+		stroke-dashoffset: 1466;
+	}
+	.fill66 {
+		stroke-dashoffset: 733.3;
+	}
+	.fill100 {
+		stroke-dashoffset: 0;
+	}
+	.new-button-wrapper {
+		transform: scale(0.5);
+	}
+	.new-song-button,
+	.new-song-h2 {
+		transform: translate(-50%, -50%) scale(0.6);
+	}
+	.new-song-button:hover {
+		transform: translate(-50%, -50%) scale(0.7);
+	}
+}
