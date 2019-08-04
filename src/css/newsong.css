@@ -124,6 +124,29 @@ img {
 	stroke-dashoffset: 0;
 }
 
+/* NEW SONG QUERY */
+.songquery {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 15;
+	font-family: "Open Sans";
+}
+
+.songquery h1 {
+	text-transform: uppercase;
+}
+
+.final-wrapper {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 15;
+	font-family: "Open Sans";
+}
+
 @media only screen and (max-width: 1400px) {
 	.svg-animated {
 		stroke-dasharray: 2200;
