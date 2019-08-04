@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { Transition, animated } from "react-spring/renderprops";
 
 import Header from "../pages/components/Header";
+import NewSongQuery from "../pages/components/NewSongQuery";
 
 import "../css/newsong.css";
 
@@ -17,26 +19,64 @@ import { ReactComponent as NartRight } from "../assets/new-song-right.svg";
 
 export default class NewSong extends Component {
 	state = {
-		fill: ""
+		fill: "",
+		isButtonVisible: true,
+		isFormVisible: false
 	};
 	fillButton = percent => {
 		this.setState({ fill: percent });
 	};
 	initQuery = () => {
+		this.fillButton.bind(this, 0);
+		this.setState({ isButtonVisible: false, isFormVisible: true });
 		console.log("Initialized");
 	};
 	render() {
 		const { fill } = this.state;
 		return (
-			<div>
+			<React.Fragment>
 				<Header kolcsey={false} />
-				<NEWb
-					className="new-song-button"
-					onMouseEnter={this.fillButton.bind(this, 100)}
-					onMouseLeave={this.fillButton.bind(this, 0)}
-					onClick={this.initQuery}
-				/>
-				<h2 className="new-song-h2">Új zenét akarok!</h2>
+				<Transition
+					native
+					items={this.state.isButtonVisible}
+					from={{ opacity: 1 }}
+					enter={{ opacity: 1 }}
+					leave={{ opacity: 0 }}
+					config={{ duration: 600 }}
+				>
+					{show =>
+						show &&
+						(props => (
+							<animated.div style={props}>
+								<NEWb
+									className="new-song-button"
+									onMouseEnter={this.fillButton.bind(this, 100)}
+									onMouseLeave={this.fillButton.bind(this, 0)}
+									onClick={this.initQuery}
+								/>
+								<h2 className="new-song-h2">Új zenét akarok!</h2>
+							</animated.div>
+						))
+					}
+				</Transition>
+
+				<Transition
+					native
+					items={this.state.isFormVisible}
+					from={{ opacity: 0 }}
+					enter={{ opacity: 1 }}
+					leave={{ opacity: 1 }}
+					config={{ duration: 400, delay: 1600 }}
+				>
+					{show =>
+						show &&
+						(props => (
+							<animated.div style={props}>
+								<NewSongQuery />
+							</animated.div>
+						))
+					}
+				</Transition>
 				<div className="new-button-wrapper">
 					<NEW0 className="new-0" />
 					<img src={dash1} alt="dash1" className="dash1" />
@@ -263,7 +303,7 @@ export default class NewSong extends Component {
 				</div>
 				<NartLeft className="new-art-left" />
 				<NartRight className="new-art-right" />
-			</div>
+			</React.Fragment>
 		);
 	}
 }
