@@ -3,6 +3,7 @@
 ![Website](https://img.shields.io/website/https/playlist.jelszo.co?down_message=offline&label=Website&up_message=online)
 ![GitHub last commit](https://img.shields.io/github/last-commit/tasztalos69/playlist?logo=git&logoColor=white)
 ![GitHub language count](https://img.shields.io/github/languages/count/tasztalos69/playlist?logo=visual%20studio%20code)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9e9795bb33684fceab718f899fbd476c)](https://app.codacy.com/app/Tasztalos69/playlist?utm_source=github.com&utm_medium=referral&utm_content=Tasztalos69/playlist&utm_campaign=Badge_Grade_Settings)
 ![GitHub License](https://img.shields.io/github/license/Tasztalos69/playlist)
 ![GitHub contributors](https://img.shields.io/github/contributors/tasztalos69/playlist?label=Contributors&logo=github&style=social)
 
