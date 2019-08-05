@@ -27,9 +27,11 @@ export default class NewSong extends Component {
 		this.setState({ fill: percent });
 	};
 	initQuery = () => {
-		this.fillButton.bind(this, 0);
 		this.setState({ isButtonVisible: false, isFormVisible: true });
 		console.log("Initialized");
+		setTimeout(() => {
+			this.setState({ fill: 33 });
+		}, 1400);
 	};
 	render() {
 		const { fill } = this.state;
@@ -72,7 +74,7 @@ export default class NewSong extends Component {
 						show &&
 						(props => (
 							<animated.div style={props}>
-								<NewSongQuery />
+								<NewSongQuery fill={this.fillButton} />
 							</animated.div>
 						))
 					}

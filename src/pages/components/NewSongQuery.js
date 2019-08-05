@@ -18,6 +18,7 @@ export default class NewSongQuery extends Component {
 			this.setState({
 				toggleAnim: false
 			});
+			this.props.fill(66);
 			setTimeout(() => {
 				this.setState({
 					flavortext: "add meg2",
@@ -28,6 +29,7 @@ export default class NewSongQuery extends Component {
 		} else {
 			console.log(this.state.artist, this.state.title);
 			this.setState({ toggleAnim: false });
+			this.props.fill(100);
 			setTimeout(() => {
 				this.setState({
 					title: "",
@@ -36,7 +38,7 @@ export default class NewSongQuery extends Component {
 					flavortext: "Add meg1",
 					toggleFinal: true
 				});
-			}, 600);
+			}, 1000);
 		}
 	};
 
