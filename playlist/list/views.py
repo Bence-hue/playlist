@@ -46,7 +46,7 @@ def new_view(request, *args, **kwargs):
         if not lastrecord.exists():
             if not Song.objects.filter(link=link,played=False).exists():
                 if not Song.objects.filter(link=link,played=True, playedAt__gte=timezone.now()-datetime.timedelta(minutes=1)).exists():
-                    Song.objects.create(title=data["title"],artist=data["artist"],link=link,user=user,yttitle=yttitle)
+                    Song.objects.create(title=data.get("title"),artist=data.get("artist"),link=link,user=user,yttitle=yttitle)
                     return HttpResponse(status=201)
                 else: #ha az utobbi egy hetben lett lejatszva
                     return HttpResponse("{\"played\": True}", status=422)
