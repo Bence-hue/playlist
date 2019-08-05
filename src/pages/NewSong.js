@@ -12,7 +12,7 @@ import dash3 from "../assets/Dash-trans-3_cut.png";
 import dash4 from "../assets/Dash-trans-4_cut.png";
 import dash5 from "../assets/Dash-trans-5_cut.png";
 
-import { ReactComponent as NEW0 } from "../assets/NEW-0-outer.svg";
+import { ReactComponent as NEW0 } from "../assets/NEW-0.svg";
 import { ReactComponent as NEWb } from "../assets/add-button.svg";
 import { ReactComponent as NartLeft } from "../assets/new-song-left.svg";
 import { ReactComponent as NartRight } from "../assets/new-song-right.svg";
@@ -82,7 +82,7 @@ export default class NewSong extends Component {
 					}
 				</Transition>
 				<div className="new-button-wrapper">
-					<NEW0 className="new-0" />
+					<NEW0 className={`new-0 ${isDashRed ? "new-svg-red" : ""}`} />
 					<img src={dash1} alt="dash1" className="dash1" />
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -155,7 +155,9 @@ export default class NewSong extends Component {
 						height="690.014"
 						className={`new-svg svg2 svg-animated ${
 							fill === 33 ? "fill33 " : ""
-						}${fill === 66 ? "fill66 " : ""}${fill === 100 ? "fill100 " : ""}`}
+						}${fill === 66 ? "fill66 " : ""}${fill === 100 ? "fill100 " : ""}${
+							isDashRed ? "new-svg-red" : ""
+						}`}
 					>
 						<g transform="matrix(0.819, 0.574, -0.574, 0.819, 12.247, -559.303)">
 							<circle
@@ -200,7 +202,9 @@ export default class NewSong extends Component {
 						viewBox="0 0 805.296 805.296"
 						className={`new-svg svg3 svg-animated ${
 							fill === 33 ? "fill33 " : ""
-						}${fill === 66 ? "fill66 " : ""}${fill === 100 ? "fill100 " : ""}`}
+						}${fill === 66 ? "fill66 " : ""}${fill === 100 ? "fill100 " : ""}${
+							isDashRed ? "new-svg-red" : ""
+						}`}
 					>
 						<g transform="matrix(0.342, 0.94, -0.94, 0.342, 602.886, -624.163)">
 							<circle
@@ -245,7 +249,9 @@ export default class NewSong extends Component {
 						viewBox="0 0 760.465 760.465"
 						className={`new-svg svg4 svg-animated ${
 							fill === 33 ? "fill33 " : ""
-						}${fill === 66 ? "fill66 " : ""}${fill === 100 ? "fill100 " : ""}`}
+						}${fill === 66 ? "fill66 " : ""}${fill === 100 ? "fill100 " : ""}${
+							isDashRed ? "new-svg-red" : ""
+						}`}
 					>
 						<g transform="translate(884.673 -481.257) rotate(90)">
 							<circle
@@ -290,7 +296,9 @@ export default class NewSong extends Component {
 						viewBox="0 0 687.394 687.395"
 						className={`new-svg svg5 svg-animated ${
 							fill === 33 ? "fill33 " : ""
-						}${fill === 66 ? "fill66 " : ""}${fill === 100 ? "fill100 " : ""}`}
+						}${fill === 66 ? "fill66 " : ""}${fill === 100 ? "fill100 " : ""}${
+							isDashRed ? "new-svg-red" : ""
+						}`}
 					>
 						<g transform="translate(1257.407 91.743) rotate(135)">
 							<circle

@@ -1,1 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 750"><defs><style>.cls-1{fill:none;stroke:#138051;stroke-linecap:round;stroke-miterlimit:10;stroke-width:10px;stroke-dasharray:281.8 50.32;}</style></defs><title>Asset 11</title><g id="Layer_2" data-name="Layer 2"><g id="a4"><circle class="cls-1" cx="375" cy="375" r="370"/></g></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 750">
+    <g id="Layer_2" data-name="Layer 2">
+        <g id="a4">
+            <circle cx="375" cy="375" r="370" class="new-0-inline"/>
+        </g>
+    </g>
+</svg>

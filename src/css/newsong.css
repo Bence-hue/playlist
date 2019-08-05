@@ -59,11 +59,20 @@ img {
 }
 
 .new-0 {
+	display: block;
 	position: absolute;
 	top: 50.8%;
 	left: 50%;
-	transform: translate(-50%, -49.6%);
+	transform: translate(-50%, -50%);
+	width: 750px;
+	height: 750px;
 	z-index: 11;
+	stroke: #138051;
+	fill: none;
+	stroke-linecap: round;
+	stroke-miterlimit: 10;
+	stroke-width: 10px;
+	stroke-dasharray: 281.8 50.32;
 }
 
 .dash1 {
@@ -109,9 +118,17 @@ img {
 }
 
 .svg-animated {
-	transition: 1s all ease-in-out;
 	stroke-dasharray: 2200;
 	stroke-dashoffset: 2200;
+}
+
+.svg-animated g circle,
+.new-0 g g circle {
+	transition: 1s all ease-in-out;
+}
+
+.new-svg-red g circle {
+	stroke: #d20022;
 }
 
 .fill33 {
@@ -191,8 +208,88 @@ img {
 	font-family: "Open Sans";
 }
 
-.new-dash-red {
-	stroke: #d20022;
+.error-wrapper {
+	width: 340px;
+	height: 290px;
+	position: absolute;
+	top: 51%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 15;
+	font-family: "Open Sans";
+}
+
+.error-wrapper .err-svg {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 75px;
+	height: 75px;
+	color: #d20022;
+}
+
+.error-wrapper .err-svg:nth-child(2) {
+	top: 7%;
+	width: 35px;
+	height: 35px;
+	color: #92031b;
+}
+
+.error-wrapper h1 {
+	width: 100%;
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	text-transform: uppercase;
+	color: #303030;
+}
+
+.error-wrapper p {
+	width: 100%;
+	position: absolute;
+	top: 52%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	text-transform: uppercase;
+	font-weight: 600;
+	color: #303030;
+	line-height: 17px;
+}
+
+.error-wrapper button {
+	position: absolute;
+	bottom: 11%;
+	left: 50%;
+	transform: translateX(-50%);
+	background: rgb(19, 156, 97);
+	background: linear-gradient(
+		90deg,
+		rgba(19, 156, 97, 1) 0%,
+		rgba(10, 78, 49, 1) 100%
+	);
+	backdrop-filter: blur(10px);
+	opacity: 0.9;
+	border: none;
+	border-radius: 20px;
+	font-family: "Open Sans";
+	color: #fff;
+	text-transform: uppercase;
+	font-weight: 600;
+	font-size: 1.3rem;
+	padding: 5px 25px;
+	-webkit-box-shadow: 0px 15px 45px 0px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0px 15px 45px 0px rgba(0, 0, 0, 0.3);
+	box-shadow: 0px 15px 45px 0px rgba(0, 0, 0, 0.3);
+	cursor: pointer;
+	transition: 0.2s all ease-in-out;
+}
+
+.error-wrapper button:hover {
+	transform: translateX(-50%) scale(1.1);
 }
 
 @media only screen and (max-width: 1400px) {

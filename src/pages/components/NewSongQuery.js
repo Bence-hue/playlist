@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import { Transition, animated } from "react-spring/renderprops";
 import axios from "axios";
 import cookie from "react-cookies";
+import { Link } from "react-router-dom";
+
+import { ReactComponent as ExCircle } from "../../assets/circle-notch-solid.svg";
+import { ReactComponent as ExMark } from "../../assets/exclamation-solid.svg";
 
 export default class NewSongQuery extends Component {
 	state = {
@@ -11,7 +15,14 @@ export default class NewSongQuery extends Component {
 		artist: "",
 		title: "",
 		toggleAnim: true,
-		toggleFinal: false
+		toggleFinal: false,
+		toggleErr: false,
+		err: {
+			code: "",
+			title: "",
+			flavor: "",
+			remTime: ""
+		}
 	};
 
 	componentWillMount() {
@@ -51,12 +62,8 @@ export default class NewSongQuery extends Component {
 							title: "",
 							artist: "",
 							active: "artist",
-							flavortext: "Add meg1",
-							toggleFinal: true,
-							errServer: false,
-							errTime: false,
-							errForb: false,
-							errExist: false
+							flavortext: "",
+							toggleFinal: true
 						});
 					}, 1000);
 				})
@@ -69,17 +76,56 @@ export default class NewSongQuery extends Component {
 						console.log(err.response.data);
 						console.log(err.response.status);
 						if (err.response.status === 422) {
-							this.setState({ errExist: true });
+							this.setState({
+								err: {
+									code: 422,
+									title: "Hopsz..",
+									flavor: "Ez a szám már hozzá lett adva."
+								},
+								toggleAnim: false,
+								toggleErr: true
+							});
 							this.props.dashRed();
+							this.props.fill(100);
 						} else if (err.response.status === 403) {
-							this.setState({ errForb: true });
+							this.setState({
+								err: {
+									code: 403,
+									title: "Hopsz..",
+									flavor:
+										"Valami nem stimmel az azonosítóddal. Ugye nem vagy hacker?"
+								},
+								toggleAnim: false,
+								toggleErr: true
+							});
 							this.props.dashRed();
+							this.props.fill(100);
 						} else if (err.response.status === 429) {
-							this.setState({ errTime: true });
+							this.setState({
+								err: {
+									code: 429,
+									title: "Woah lassíts!",
+									flavor: `Elérted a kérési limitet. Legközelebb ${
+										err.response.status
+									} múlva kérhetsz újra.`
+								},
+								toggleAnim: false,
+								toggleErr: true
+							});
 							this.props.dashRed();
+							this.props.fill(100);
 						} else {
-							this.setState({ errServer: true, toggleAnim: false });
+							this.setState({
+								err: {
+									title: "Szerverhiba!",
+									flavor:
+										"Ezt elrontottunk. Valami nem stimmel nálunk. Próbáld újra!"
+								},
+								toggleAnim: false,
+								toggleErr: true
+							});
 							this.props.dashRed();
+							this.props.fill(100);
 						}
 					} else if (err.request) {
 						/* The request was made but no response was received */
@@ -112,6 +158,7 @@ export default class NewSongQuery extends Component {
 								>
 									<h1>{this.state.flavortext}</h1>
 									<input
+										autoFocus
 										required
 										type="text"
 										name={this.state.active}
@@ -150,18 +197,24 @@ export default class NewSongQuery extends Component {
 				</Transition>
 				<Transition
 					native
-					items={this.state.errServer}
+					items={this.state.toggleErr}
 					from={{ opacity: 0 }}
 					enter={{ opacity: 1 }}
 					leave={{ opacity: 0 }}
-					config={{ duration: 400 }}
+					config={{ duration: 400, delay: 400 }}
 				>
 					{show =>
 						show &&
 						(props => (
 							<animated.div style={props}>
-								<div className="error-wrapper__serv">
-									<h1>Szerverhiba!</h1>
+								<div className="error-wrapper">
+									<ExCircle className="err-svg" />
+									<ExMark className="err-svg" />
+									<h1>{this.state.err.title}</h1>
+									<p>{this.state.err.flavor}</p>
+									<Link to="/">
+										<button>kezdőlap</button>
+									</Link>
 								</div>
 							</animated.div>
 						))
