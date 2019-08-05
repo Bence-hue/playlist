@@ -57,7 +57,7 @@ def new_view(request, *args, **kwargs):
                 print(remaining)
                 return HttpResponse(str(int(remaining/60))+":"+"{:02d}".format(remaining % 60), status=429)
         else:
-            return HttpResponse("INVALID TOKEN",status=403)
+            return HttpResponse("INVALID TOKEN",status=401)
     else: # ha nem poston kuldott
         return HttpResponse(status=405)
 
