@@ -13,12 +13,12 @@ from django.contrib.auth import authenticate, login,logout
 
 from .models import Song, Question
 
+with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "datas.json"), "r") as cffile:
+    config = json.loads(cffile.readline())
 
-@csrf_exempt
+# @csrf_exempt
 def new_view(request, *args, **kwargs):
     if request.method == 'POST':
-        with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "datas.json"), "r") as cffile:
-            config = json.loads(cffile.readline())
         if request.POST.get("token", "") == config["token"]:
             data=request.POST
             print(data)
@@ -61,7 +61,7 @@ def new_view(request, *args, **kwargs):
     else: # ha nem poston kuldott
         return HttpResponse(status=405)
 
-@csrf_exempt
+# @csrf_exempt
 def played_view(request,*args,**kwargs):
     if request.method == 'POST':
         if request.POST.get("token", "") == config["token"]:
@@ -78,7 +78,7 @@ def played_view(request,*args,**kwargs):
     else:
         return HttpResponse(status=405)
 
-@csrf_exempt
+# @csrf_exempt
 def delete_view(request,*args,**kwargs):
     if request.method == 'POST':
         if request.POST.get("token", "") == config["token"]:
@@ -99,7 +99,7 @@ def delete_view(request,*args,**kwargs):
     else:
         return HttpResponse(status=405)
 
-@csrf_exempt
+
 def list_view(request,*args,**kwargs):
     if request.method=='GET':
         mode = request.GET.get("mode",[""])
@@ -160,7 +160,7 @@ def question_view(request, *args, **kwargs):
         q = json.loads(serializers.serialize("json", Question.objects.get(id=id)))
         print(q)
         qjson=q[0]["fields"]
-        qjson["id"]=latestid
+        qjson["id"]=id
         return HttpResponse(json.dumps(qjson), content_type="application/json", status=200)
     else:
         return HttpResponse(status=405)
