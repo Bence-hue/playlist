@@ -14,10 +14,10 @@
 
 ### Készítők:
 
-- <h4 title="Kiss Benedek Máté - Frontend, Design"> Kiss Benedek Máté - <i> Frontend, Design </i> </h4>
+- **Kiss Benedek Máté** - <i> Frontend, Design </i>
 
-- <h4 title="Tóth Bence - Backend"> Tóth Bence - <i> Backend </i> </h4>
+- **Tóth Bence** - <i> Backend </i>
 
-- <h4 title="Jóvári Norbert - Design">Jóvári Norbert - <i> Design </i> </h4>
+- **Jóvári Norbert** - <i> Design </i>
 
 **Made by Jelszo.co** | *support@jelszo.co*
