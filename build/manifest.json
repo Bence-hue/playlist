@@ -3,9 +3,9 @@
 	"name": "Playlist app",
 	"icons": [
 		{
-			"src": "favicon.ico",
-			"sizes": "512x512 192x192 150x150 32x32 16x16",
-			"type": "image/x-icon",
+			"src": "Logo_trans.png",
+			"sizes": "1080x1080 512x512 64x64 32x32 24x24 16x16",
+			"type": "image/png",
 			"purpose": "any"
 		}
 	],
