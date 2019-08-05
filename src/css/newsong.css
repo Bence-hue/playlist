@@ -126,6 +126,7 @@ img {
 
 /* NEW SONG QUERY */
 .songquery {
+	width: 290px;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -135,7 +136,49 @@ img {
 }
 
 .songquery h1 {
+	margin: 0 0 30px 0;
+	padding: 0 34px;
+	font-size: 1.3rem;
+	letter-spacing: 1px;
 	text-transform: uppercase;
+	font-weight: 600;
+	text-align: center;
+	color: #13583b;
+}
+
+.songquery input[type="text"] {
+	width: 80%;
+	height: 40px;
+	margin: 0 5%;
+	padding: 0 4%;
+	border: 4px solid #139c61;
+	border-radius: 20px;
+}
+
+.songquery input[type="submit"] {
+	margin: 5% 30%;
+	padding: 0;
+	border: none;
+	border-radius: 13px;
+	background: rgb(19, 156, 97);
+	background: linear-gradient(
+		135deg,
+		rgba(19, 156, 97, 1) 0%,
+		rgba(19, 88, 59, 1) 100%
+	);
+	color: white;
+	text-transform: uppercase;
+	font-family: "Open Sans";
+	font-weight: 600;
+	font-size: 1rem;
+	width: 40%;
+	height: 35px;
+	cursor: pointer;
+	transition: 0.1s all ease-in-out;
+}
+
+.songquery input[type="submit"]:hover {
+	transform: scale(1.1);
 }
 
 .final-wrapper {

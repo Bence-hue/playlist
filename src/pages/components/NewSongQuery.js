@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { Transition, animated } from "react-spring/renderprops";
+import axios from "axios";
 
 export default class NewSongQuery extends Component {
 	state = {
 		active: "artist",
-		flavortext: "add meg1",
+		flavortext: "Először add meg a szám előadóját!",
 		artist: "",
 		title: "",
 		toggleAnim: true,
@@ -21,13 +22,15 @@ export default class NewSongQuery extends Component {
 			this.props.fill(66);
 			setTimeout(() => {
 				this.setState({
-					flavortext: "add meg2",
+					flavortext: "Most írd be a zene címét!",
 					active: "title",
 					toggleAnim: true
 				});
 			}, 400);
 		} else {
 			console.log(this.state.artist, this.state.title);
+			let url = "";
+			axios.post(url, { title: this.state.title, artist: this.state.artist });
 			this.setState({ toggleAnim: false });
 			this.props.fill(100);
 			setTimeout(() => {
@@ -60,6 +63,7 @@ export default class NewSongQuery extends Component {
 								<form className="songquery" onSubmit={this.onSubmit}>
 									<h1>{this.state.flavortext}</h1>
 									<input
+										required
 										type="text"
 										name={this.state.active}
 										value={
