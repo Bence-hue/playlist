@@ -17,6 +17,10 @@ export default class ListSongs extends Component {
 		currentPage: 0
 	};
 
+	// componentWillMount() {
+	// 	this.setState({ currentPage: localStorage.getItem("currentPage") });
+	// }
+
 	componentDidMount() {
 		let url = "https://playlist.jelszo.co/api/list/?mode=unplayed";
 		axios.get(url).then(res => this.setState({ songs: res.data }));
@@ -37,12 +41,14 @@ export default class ListSongs extends Component {
 		const handleUpperClick = () => {
 			if (this.state.currentPage !== 0) {
 				this.setState({ currentPage: currentPage - 1 });
+				// localStorage.setItem("currentPage", currentPage);
 			} else {
 			}
 		};
 		const handleBottomClick = () => {
 			if (this.state.currentPage !== sl_Round - 1) {
 				this.setState({ currentPage: currentPage + 1 });
+				// localStorage.setItem("currentPage", currentPage);
 			} else {
 			}
 		};
