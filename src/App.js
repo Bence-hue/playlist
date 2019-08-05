@@ -25,7 +25,6 @@ function App() {
 							<Route exact path="/" component={Landing} />
 							<Route exact path="/songs" component={ListSongs} />
 							<Route exact path="/new" component={NewSong} />
-							{/* <Route exact path="/new" component={NewSong} /> */}
 							<Route exact path="/cookies" component={CookiesPage} />
 							<Route component="" />
 						</Switch>

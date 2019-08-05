@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 import { ReactComponent as ExCircle } from "../../assets/circle-notch-solid.svg";
 import { ReactComponent as ExMark } from "../../assets/exclamation-solid.svg";
+import { ReactComponent as CheckCircle } from "../../assets/check-circle-regular.svg";
 
 export default class NewSongQuery extends Component {
 	state = {
@@ -79,7 +80,7 @@ export default class NewSongQuery extends Component {
 							this.setState({
 								err: {
 									code: 422,
-									title: "Hopsz..",
+									title: "Hupsz..",
 									flavor: "Ez a szám már hozzá lett adva."
 								},
 								toggleAnim: false,
@@ -91,7 +92,7 @@ export default class NewSongQuery extends Component {
 							this.setState({
 								err: {
 									code: 403,
-									title: "Hopsz..",
+									title: "Hupsz..",
 									flavor:
 										"Valami nem stimmel az azonosítóddal. Ugye nem vagy hacker?"
 								},
@@ -189,7 +190,11 @@ export default class NewSongQuery extends Component {
 						(props => (
 							<animated.div style={props}>
 								<div className="final-wrapper">
+									<CheckCircle className="final-svg" />
 									<h1>Kész!</h1>
+									<Link to="/">
+										<button>kezdőlap</button>
+									</Link>
 								</div>
 							</animated.div>
 						))
