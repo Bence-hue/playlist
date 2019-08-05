@@ -34,14 +34,14 @@ export default class NewSongQuery extends Component {
 				});
 			}, 400);
 		} else {
-			let url = "https://playlist.jelszo.co/api/new/";
-			let data = {
-				title: this.state.title,
-				artist: this.state.artist,
-				"X-CSRFToken": this.state.csrfToken
-			};
+			const url = "https://playlist.jelszo.co/api/new/";
+			const params = new URLSearchParams();
+			params.append("title", this.state.title);
+			params.append("artist", this.state.artist);
+			params.append("token", "ffhPRx4Aql5G7jOCNxZDw6ZjMnD4BdWR");
+			params.append("X-CSRFToken", cookie.load("csrftoken"));
 			axios
-				.post(url, data)
+				.post(url, params)
 				.then(res => {
 					this.setState({ toggleAnim: false });
 					this.props.fill(100);
@@ -63,10 +63,12 @@ export default class NewSongQuery extends Component {
 						 * The request was made and the server responded with a
 						 * status code that falls out of the range of 2xx
 						 */
+						console.log(err.response.data);
+						console.log(err.response.status);
 						if (err.response.status === 422) {
 							this.setState({ errTime: true });
 						} else {
-							this.setState({ errServer: true });
+							this.setState({ errServer: true, toggleAnim: false });
 						}
 					} else if (err.request) {
 						/*
@@ -98,7 +100,12 @@ export default class NewSongQuery extends Component {
 						show &&
 						(props => (
 							<animated.div style={props}>
-								<form className="songquery" onSubmit={this.onSubmit}>
+								<form
+									className="songquery"
+									onSubmit={this.onSubmit}
+									autoComplete="off"
+									title=""
+								>
 									<h1>{this.state.flavortext}</h1>
 									<input
 										required

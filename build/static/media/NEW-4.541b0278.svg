@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="890.014" height="890.014" viewBox="0 0 890.014 890.014">
-  <g id="Dash_pattern" data-name="Dash pattern" transform="matrix(0.819, 0.574, -0.574, 0.819, 12.247, -559.303)">
-    <circle id="Big_dash" data-name="Big dash" cx="314.522" cy="314.522" r="314.522" transform="translate(616.023 259.94)" stroke-dasharray="250 130" stroke="#cfcfcf" stroke-linecap="round" stroke-linejoin="round" stroke-width="10" fill="none"/>
-    <circle id="Small_dash" data-name="Small dash" cx="314.522" cy="314.522" r="314.522" transform="translate(969.927 131.003) rotate(50)" stroke-dasharray="40 340" stroke="#cfcfcf" stroke-linecap="round" stroke-linejoin="round" stroke-width="10" fill="none"/>
-  </g>
-</svg>
