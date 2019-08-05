@@ -43,7 +43,7 @@ def new_view(request, *args, **kwargs):
             print(link)
             user=request.COOKIES.get("userid","XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX")
             lastrecord=Song.objects.filter(createdAt__gte=timezone.now()-datetime.timedelta(seconds=15),user="user")
-            if not lastrecord.exists():
+            if  len(lastrecord)<7:
                 if not Song.objects.filter(link=link,played=False).exists():
                     if not Song.objects.filter(link=link,played=True, playedAt__gte=timezone.now()-datetime.timedelta(minutes=1)).exists():
                         Song.objects.create(title=data.get("title"),artist=data.get("artist"),link=link,user=user,yttitle=yttitle)
@@ -53,11 +53,11 @@ def new_view(request, *args, **kwargs):
                 else: #ha van meg le nem jatszott ilyen
                     return HttpResponse("{\"played\":False}",status=422)
             else: #ha az utobbi 15 percben kuldott
-                remaining = int((datetime.timedelta(minutes=15)-(timezone.now()-lastrecord.get().createdAt)).total_seconds())
+                remaining = int((datetime.timedelta(minutes=15)-(timezone.now()-lastrecord[0].createdAt)).total_seconds())
                 print(remaining)
                 return HttpResponse(str(int(remaining/60))+":"+"{:02d}".format(remaining % 60), status=429)
         else:
-            return HttpResponse("INVALID TOKEN",status=401)
+            return HttpResponse("INVALID TOKEN",status=403)
     else: # ha nem poston kuldott
         return HttpResponse(status=405)
 
