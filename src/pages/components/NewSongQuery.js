@@ -55,7 +55,8 @@ export default class NewSongQuery extends Component {
 							toggleFinal: true,
 							errServer: false,
 							errTime: false,
-							errForb: false
+							errForb: false,
+							errExist: false
 						});
 					}, 1000);
 				})
@@ -68,22 +69,21 @@ export default class NewSongQuery extends Component {
 						console.log(err.response.data);
 						console.log(err.response.status);
 						if (err.response.status === 422) {
-							this.setState({ errTime: true });
+							this.setState({ errExist: true });
+							this.props.dashRed();
 						} else if (err.response.status === 403) {
 							this.setState({ errForb: true });
+							this.props.dashRed();
+						} else if (err.response.status === 429) {
+							this.setState({ errTime: true });
+							this.props.dashRed();
 						} else {
 							this.setState({ errServer: true, toggleAnim: false });
+							this.props.dashRed();
 						}
 					} else if (err.request) {
-						/*
-						 * The request was made but no response was received, `error.request`
-						 * is an instance of XMLHttpRequest in the browser and an instance
-						 * of http.ClientRequest in Node.js
-						 */
+						/* The request was made but no response was received */
 						console.log(err.request);
-					} else {
-						// Something happened in setting up the request and triggered an Error
-						console.log("Error", err.message);
 					}
 				});
 		}

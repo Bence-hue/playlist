@@ -191,6 +191,10 @@ img {
 	font-family: "Open Sans";
 }
 
+.new-dash-red {
+	stroke: #d20022;
+}
+
 @media only screen and (max-width: 1400px) {
 	.svg-animated {
 		stroke-dasharray: 2200;

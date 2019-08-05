@@ -26,6 +26,9 @@ export default class NewSong extends Component {
 	fillButton = percent => {
 		this.setState({ fill: percent });
 	};
+	dashRed = () => {
+		this.setState({ isDashRed: true });
+	};
 	initQuery = () => {
 		this.setState({ isButtonVisible: false, isFormVisible: true });
 		setTimeout(() => {
@@ -33,7 +36,7 @@ export default class NewSong extends Component {
 		}, 1400);
 	};
 	render() {
-		const { fill } = this.state;
+		const { fill, isDashRed } = this.state;
 		return (
 			<React.Fragment>
 				<Header kolcsey={false} />
@@ -73,7 +76,7 @@ export default class NewSong extends Component {
 						show &&
 						(props => (
 							<animated.div style={props}>
-								<NewSongQuery fill={this.fillButton} />
+								<NewSongQuery fill={this.fillButton} dashRed={this.dashRed} />
 							</animated.div>
 						))
 					}
@@ -107,7 +110,9 @@ export default class NewSong extends Component {
 						height="700.05"
 						className={`new-svg svg1 svg-animated ${
 							fill === 33 ? "fill33 " : ""
-						}${fill === 66 ? "fill66 " : ""}${fill === 100 ? "fill100 " : ""}`}
+						}${fill === 66 ? "fill66 " : ""}${fill === 100 ? "fill100 " : ""}${
+							isDashRed ? "new-svg-red" : ""
+						}`}
 					>
 						<g transform="translate(-619.143 -262.094)">
 							<circle
