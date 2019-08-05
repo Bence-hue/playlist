@@ -36,12 +36,16 @@ export default class NewSongQuery extends Component {
 		} else {
 			const url = "https://playlist.jelszo.co/api/new/";
 			const params = new URLSearchParams();
-			const headers = params.append("title", this.state.title);
+			const headers = {
+				"X-CSRFToken": cookie.load("csrftoken")
+			};
+			params.append("title", this.state.title);
 			params.append("artist", this.state.artist);
 			params.append("token", "ffhPRx4Aql5G7jOCNxZDw6ZjMnD4BdWR");
-			params.append("X-CSRFToken", cookie.load("csrftoken"));
 			axios
-				.post(url, params)
+				.post(url, params, {
+					headers: headers
+				})
 				.then(res => {
 					this.setState({ toggleAnim: false });
 					this.props.fill(100);
