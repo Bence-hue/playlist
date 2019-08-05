@@ -1,23 +1,43 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "57a45b17dce3b1331fb208414ddb90b7",
+    "revision": "2f09f427b49f3223466521cd4c9dca78",
     "url": "/index.html"
   },
   {
-    "revision": "9371d3a6c5f4bc91a576",
-    "url": "/static/css/main.c5f0b75f.chunk.css"
+    "revision": "fec85d4ebb2ce5fbe57f",
+    "url": "/static/css/main.901534ea.chunk.css"
   },
   {
-    "revision": "64d366170134dcb29609",
-    "url": "/static/js/2.c942256c.chunk.js"
+    "revision": "e9cf7791fa3178843d94",
+    "url": "/static/js/2.21c8bd00.chunk.js"
   },
   {
-    "revision": "9371d3a6c5f4bc91a576",
-    "url": "/static/js/main.7cded607.chunk.js"
+    "revision": "fec85d4ebb2ce5fbe57f",
+    "url": "/static/js/main.86203093.chunk.js"
   },
   {
     "revision": "42ac5946195a7306e2a5",
     "url": "/static/js/runtime~main.a8a9905a.js"
+  },
+  {
+    "revision": "588951ee99d406f43cc609f0b98d3b98",
+    "url": "/static/media/Dash-trans-1_cut.588951ee.png"
+  },
+  {
+    "revision": "b4e517361dcf4e0dc6d3e11eebef54ab",
+    "url": "/static/media/Dash-trans-2_cut.b4e51736.png"
+  },
+  {
+    "revision": "3a182a49dfd228efabe199ad8ca9cc10",
+    "url": "/static/media/Dash-trans-3_cut.3a182a49.png"
+  },
+  {
+    "revision": "f2d6a03600986e6007be4ceba89a1eb5",
+    "url": "/static/media/Dash-trans-4_cut.f2d6a036.png"
+  },
+  {
+    "revision": "24b65d04240dc3d2757376a1151aeb4e",
+    "url": "/static/media/Dash-trans-5_cut.24b65d04.png"
   },
   {
     "revision": "1e2bb52e60c1dd5b38db308f0bf049ea",
@@ -34,26 +54,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "c03b6428c614749d2054e6f735b22970",
     "url": "/static/media/NEW-0-outer.c03b6428.svg"
-  },
-  {
-    "revision": "9e1d64372fd6f8be655beb99830461a7",
-    "url": "/static/media/NEW-1.9e1d6437.svg"
-  },
-  {
-    "revision": "5ab9f02657a411bbed6d088a1a265d17",
-    "url": "/static/media/NEW-2.5ab9f026.svg"
-  },
-  {
-    "revision": "01200e746252b118ef6d2b596f4d422b",
-    "url": "/static/media/NEW-3.01200e74.svg"
-  },
-  {
-    "revision": "541b027854ecc1224ebd310fedc434a1",
-    "url": "/static/media/NEW-4.541b0278.svg"
-  },
-  {
-    "revision": "57118da9dc0c543581383a7e3209ad75",
-    "url": "/static/media/NEW-5.57118da9.svg"
   },
   {
     "revision": "4c166a661d3763680a64c834b81ddb3b",
