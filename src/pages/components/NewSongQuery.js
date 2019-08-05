@@ -34,9 +34,11 @@ export default class NewSongQuery extends Component {
 				});
 			}, 400);
 		} else {
+			axios.defaults.xsrfCookieName = "csrftoken";
+			axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 			axios({
 				method: "post",
-				url: "/api/new/",
+				url: "https://playlist.jelszo.co/api/new/",
 				data: {
 					title: this.state.title,
 					artist: this.state.artist,
@@ -72,6 +74,7 @@ export default class NewSongQuery extends Component {
 							this.setState({ errTime: true });
 						} else if (err.response.status === 403) {
 							this.setState({ errForb: true });
+							console.log(cookie.load("csrftoken"));
 						} else {
 							this.setState({ errServer: true, toggleAnim: false });
 						}
