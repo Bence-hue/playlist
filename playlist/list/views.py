@@ -44,8 +44,8 @@ def new_view(request, *args, **kwargs):
             user=request.COOKIES.get("userid","XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX")
             lastrecord=Song.objects.filter(createdAt__gte=timezone.now()-datetime.timedelta(seconds=15),user=user)
             if  len(lastrecord)<7:
-                if not Song.objects.filter(link=link,played=False).exists():
-                    if not Song.objects.filter(link=link,played=True, playedAt__gte=timezone.now()-datetime.timedelta(minutes=1)).exists():
+                if not Song.objects.filter(link=link,played=False).exclude(link="").exists():
+                    if not Song.objects.filter(link=link,played=True, playedAt__gte=timezone.now()-datetime.timedelta(minutes=1)).exclude(link="").exists():
                         Song.objects.create(title=data.get("title"),artist=data.get("artist"),link=link,user=user,yttitle=yttitle)
                         return HttpResponse(status=201)
                     else: #ha az utobbi egy hetben lett lejatszva
