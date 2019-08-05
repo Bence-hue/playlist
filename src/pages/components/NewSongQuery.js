@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { Transition, animated } from "react-spring/renderprops";
 import axios from "axios";
+import cookie from "react-cookies";
 
 export default class NewSongQuery extends Component {
 	state = {
+		csrfToken: "",
 		active: "artist",
 		flavortext: "Először add meg a szám előadóját!",
 		artist: "",
@@ -11,6 +13,10 @@ export default class NewSongQuery extends Component {
 		toggleAnim: true,
 		toggleFinal: false
 	};
+
+	componentWillMount() {
+		this.setState({ csrfToken: cookie.load("csrftoken") });
+	}
 
 	onChange = e => this.setState({ [e.target.name]: e.target.value });
 	onSubmit = e => {
@@ -28,20 +34,52 @@ export default class NewSongQuery extends Component {
 				});
 			}, 400);
 		} else {
-			console.log(this.state.artist, this.state.title);
-			let url = "";
-			axios.post(url, { title: this.state.title, artist: this.state.artist });
-			this.setState({ toggleAnim: false });
-			this.props.fill(100);
-			setTimeout(() => {
-				this.setState({
-					title: "",
-					artist: "",
-					active: "artist",
-					flavortext: "Add meg1",
-					toggleFinal: true
+			let url = "https://playlist.jelszo.co/api/new/";
+			let data = {
+				title: this.state.title,
+				artist: this.state.artist,
+				"X-CSRFToken": this.state.csrfToken
+			};
+			axios
+				.post(url, data)
+				.then(res => {
+					this.setState({ toggleAnim: false });
+					this.props.fill(100);
+					setTimeout(() => {
+						this.setState({
+							title: "",
+							artist: "",
+							active: "artist",
+							flavortext: "Add meg1",
+							toggleFinal: true,
+							errServer: false,
+							errTime: false
+						});
+					}, 1000);
+				})
+				.catch(err => {
+					if (err.response) {
+						/*
+						 * The request was made and the server responded with a
+						 * status code that falls out of the range of 2xx
+						 */
+						if (err.response.status === 422) {
+							this.setState({ errTime: true });
+						} else {
+							this.setState({ errServer: true });
+						}
+					} else if (err.request) {
+						/*
+						 * The request was made but no response was received, `error.request`
+						 * is an instance of XMLHttpRequest in the browser and an instance
+						 * of http.ClientRequest in Node.js
+						 */
+						console.log(err.request);
+					} else {
+						// Something happened in setting up the request and triggered an Error
+						console.log("Error", err.message);
+					}
 				});
-			}, 1000);
 		}
 	};
 

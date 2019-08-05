@@ -28,7 +28,6 @@ export default class NewSong extends Component {
 	};
 	initQuery = () => {
 		this.setState({ isButtonVisible: false, isFormVisible: true });
-		console.log("Initialized");
 		setTimeout(() => {
 			this.setState({ fill: 33 });
 		}, 1400);
