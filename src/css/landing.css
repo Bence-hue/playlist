@@ -33,8 +33,11 @@
 
 #lastadded h1 {
 	margin: 10px 0;
-	padding: 0;
+	padding: 0 10px;
 	font-weight: 800;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .art-left {
