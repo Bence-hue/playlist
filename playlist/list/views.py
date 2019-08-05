@@ -26,7 +26,7 @@ def new_view(request, *args, **kwargs):
             song=data.get("artist","")+" - "+data.get("title","")
             PARAMS={
                 "part":"snippet",
-                "key": config.get("YTAPIKEY",""),
+                "key": config.get("YTAPIKEY1",""),
                 "type":"video",
                 "maxResults":1,
                 "q":song
@@ -38,8 +38,24 @@ def new_view(request, *args, **kwargs):
                 link='https://youtube.com/watch?v='+respons["items"][0]["id"]["videoId"]
                 yttitle=respons["items"][0]["snippet"]["title"]
             except:
-                link=""
-                yttitle=""
+                PARAMS["key"]=config.get("YTAPIKEY2","")
+                r = requests.get(url=URL, params=PARAMS)
+                respons = r.json()
+                try:
+                    link = 'https://youtube.com/watch?v=' + \
+                    respons["items"][0]["id"]["videoId"]
+                    yttitle = respons["items"][0]["snippet"]["title"]
+                except:
+                    PARAMS["key"] = config.get("YTAPIKEY3", "")
+                    r = requests.get(url=URL, params=PARAMS)
+                    respons = r.json()
+                    try:
+                        link = 'https://youtube.com/watch?v=' + \
+                        respons["items"][0]["id"]["videoId"]
+                        yttitle = respons["items"][0]["snippet"]["title"]
+                    except:
+                        link=""
+                        yttitle=""
             print(link)
             user=request.COOKIES.get("userid","XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX")
             lastrecord=Song.objects.filter(createdAt__gte=timezone.now()-datetime.timedelta(seconds=15),user=user)
