@@ -42,7 +42,7 @@ def new_view(request, *args, **kwargs):
                 yttitle=""
             print(link)
             user=request.COOKIES.get("userid","XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX")
-            lastrecord=Song.objects.filter(createdAt__gte=timezone.now()-datetime.timedelta(seconds=15),user=user)
+            lastrecord=Song.objects.filter(createdAt__gte=timezone.now()-datetime.timedelta(seconds=15),user="user")
             if not lastrecord.exists():
                 if not Song.objects.filter(link=link,played=False).exists():
                     if not Song.objects.filter(link=link,played=True, playedAt__gte=timezone.now()-datetime.timedelta(minutes=1)).exists():
