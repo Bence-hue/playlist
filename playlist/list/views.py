@@ -8,7 +8,7 @@ from django.core import serializers
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
-from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login,logout
 
 from .models import Song, Question
@@ -17,7 +17,6 @@ with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
     config = json.loads(cffile.readline())
 
 # @csrf_exempt
-@csrf_protect
 def new_view(request, *args, **kwargs):
     if request.method == 'POST':
         if request.POST.get("token", "") == config["token"]:
@@ -62,8 +61,7 @@ def new_view(request, *args, **kwargs):
     else: # ha nem poston kuldott
         return HttpResponse(status=405)
 
-# @csrf_exempt
-@csrf_protect
+@csrf_exempt
 def played_view(request,*args,**kwargs):
     if request.method == 'POST':
         if request.POST.get("token", "") == config["token"]:
@@ -80,8 +78,7 @@ def played_view(request,*args,**kwargs):
     else:
         return HttpResponse(status=405)
 
-# @csrf_exemp
-@csrf_protect
+@csrf_exempt
 def delete_view(request,*args,**kwargs):
     if request.method == 'POST':
         if request.POST.get("token", "") == config["token"]:
@@ -138,8 +135,7 @@ def jsonmodifier(data):
     return HttpResponse(json.dumps(newdata), content_type="application/json", status=200)
 
 
-# @csrf_exempt
-@csrf_protect
+@csrf_exempt
 def adminlogin_view(request, *args, **kwargs): 
     if request.method == 'POST':
         username = request.POST.get('username',"")

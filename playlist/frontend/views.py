@@ -2,11 +2,10 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import uuid
 import datetime
-from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 # Create your views here.
 @ensure_csrf_cookie
-@csrf_protect
 def frontend_view(request, *args,**kwargs):
     response = render(request, "index.html")
     if 'userid' not in request.COOKIES:
@@ -18,8 +17,6 @@ def frontend_view(request, *args,**kwargs):
     response.set_cookie('userid',userid , max_age=max_age, expires=expires)
     return response
 
-
-@csrf_protect
 def admin_view(request,*args,**kwargs):
     if request.user.is_authenticated:
         return render(request, "index.html")
