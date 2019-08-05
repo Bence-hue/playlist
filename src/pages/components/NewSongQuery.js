@@ -34,17 +34,18 @@ export default class NewSongQuery extends Component {
 				});
 			}, 400);
 		} else {
-			const url = "https://playlist.jelszo.co/api/new/";
-			const params = new URLSearchParams();
-			const headers = new URLSearchParams();
-			params.append("title", this.state.title);
-			params.append("artist", this.state.artist);
-			params.append("token", "ffhPRx4Aql5G7jOCNxZDw6ZjMnD4BdWR");
-			headers.append("X-CSRFToken", cookie.load("csrftoken"));
-			axios
-				.post(url, params, {
-					headers: headers
-				})
+			axios.defaults.xsrfCookieName = "csrftoken";
+			axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+			axios({
+				method: "post",
+				url: "https://playlist.jelszo.co/api/new/",
+				data: {
+					title: this.state.title,
+					artist: this.state.artist,
+					token: "ffhPRx4Aql5G7jOCNxZDw6ZjMnD4BdWR"
+				},
+				headers: { "X-CSRFToken": cookie.load("csrftoken") }
+			})
 				.then(res => {
 					this.setState({ toggleAnim: false });
 					this.props.fill(100);
@@ -56,7 +57,8 @@ export default class NewSongQuery extends Component {
 							flavortext: "Add meg1",
 							toggleFinal: true,
 							errServer: false,
-							errTime: false
+							errTime: false,
+							errForb: false
 						});
 					}, 1000);
 				})
@@ -70,6 +72,9 @@ export default class NewSongQuery extends Component {
 						console.log(err.response.status);
 						if (err.response.status === 422) {
 							this.setState({ errTime: true });
+						} else if (err.response.status === 403) {
+							this.setState({ errForb: true });
+							console.log(cookie.load("csrftoken"));
 						} else {
 							this.setState({ errServer: true, toggleAnim: false });
 						}
@@ -142,6 +147,25 @@ export default class NewSongQuery extends Component {
 							<animated.div style={props}>
 								<div className="final-wrapper">
 									<h1>Kész!</h1>
+								</div>
+							</animated.div>
+						))
+					}
+				</Transition>
+				<Transition
+					native
+					items={this.state.errServer}
+					from={{ opacity: 0 }}
+					enter={{ opacity: 1 }}
+					leave={{ opacity: 0 }}
+					config={{ duration: 400 }}
+				>
+					{show =>
+						show &&
+						(props => (
+							<animated.div style={props}>
+								<div className="error-wrapper__serv">
+									<h1>Szerverhiba!</h1>
 								</div>
 							</animated.div>
 						))
