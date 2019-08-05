@@ -57,7 +57,7 @@ def new_view(request, *args, **kwargs):
                 print(remaining)
                 return HttpResponse(str(int(remaining/60))+":"+"{:02d}".format(remaining % 60), status=429)
         else:
-            return HttpResponse(status=403)
+            return HttpResponse("INVALID TOKEN",status=403)
     else: # ha nem poston kuldott
         return HttpResponse(status=405)
 
@@ -74,7 +74,7 @@ def played_view(request,*args,**kwargs):
             else:
                 return HttpResponse(status=422)
         else:
-            return HttpResponse(status=403)
+            return HttpResponse("INVALID TOKEN",status=403)
     else:
         return HttpResponse(status=405)
 
@@ -95,7 +95,7 @@ def delete_view(request,*args,**kwargs):
             else:
                 return HttpResponse(status=422)
         else:
-            return HttpResponse(status=403)
+            return HttpResponse("",status=403)
     else:
         return HttpResponse(status=405)
 
