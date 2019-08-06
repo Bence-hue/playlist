@@ -22,21 +22,25 @@ export default class ListSongs extends Component {
 	componentDidMount() {
 		let url = "https://playlist.jelszo.co/api/list/?mode=unplayed";
 		axios.get(url).then(res => this.setState({ songs: res.data }));
-		this.setState({ ww: window.innerWidth });
 	}
 
 	render() {
 		const { songs, currentPage, currentPageMobile } = this.state;
+
+		// Get smallest id of received songs + return upcoming song
 		const getIds = () => {
 			return songs.map(d => d.id);
 		};
 		const smallestId = Math.min(...getIds());
-
 		const upcomingSong = songs.filter(sg => {
 			return sg.id === smallestId;
 		});
-		const sl_Round = Math.ceil(songs.length / 5);
 
+		// Count pages
+		const sl_Round = Math.ceil(songs.length / 5);
+		const sl_Round_Mobile = Math.ceil(songs.length / 25);
+
+		// Handle desktop pagination clicks
 		const handleUpperClick = () => {
 			if (this.state.currentPage !== 0) {
 				this.setState({ currentPage: currentPage - 1 });
@@ -49,6 +53,8 @@ export default class ListSongs extends Component {
 			} else {
 			}
 		};
+
+		// Desktop pages
 		let songPages = [];
 		for (let i = 0; i < sl_Round; i++) {
 			if (i === 0) {
@@ -58,6 +64,23 @@ export default class ListSongs extends Component {
 				songPages.push(<SongListPage key={i + 1} id={i} isFirstPage={false} />);
 			}
 		}
+		// Mobile pages
+		let songPagesMobile = [];
+		for (let i = 0; i < 2; i++) {
+			if (i === 0) {
+				songPagesMobile.push(
+					<SongListPage key={i} id={i} isFirstPage={true} isMobile={true} />
+				);
+			}
+			if (i !== 0) {
+				songPagesMobile.push(
+					// prettier-ignore
+					<SongListPage key={i + 1} id={i} isFirstPage={false} isMobile={true} />
+				);
+			}
+		}
+
+		// detect firstPage
 		let isFirstPage = false,
 			isLastPage = false;
 		if (currentPage === 0) {
@@ -65,6 +88,8 @@ export default class ListSongs extends Component {
 		} else if (currentPage === sl_Round - 1) {
 			isLastPage = true;
 		}
+
+		// style desktop pages based on firstPage
 		let songCardWrapperStyle, songsWrapperStyle, songListWrapperStyle;
 		if (isFirstPage) {
 			// First page on desktop
@@ -123,6 +148,8 @@ export default class ListSongs extends Component {
 						/>
 					</div>
 				</Breakpoint>
+
+				{/* Mobile DOM */}
 				<Breakpoint tabletp down>
 					<h1 className="songs-wrapper-heading">
 						Eddig hozzáadott <span>zenék</span>
@@ -135,7 +162,11 @@ export default class ListSongs extends Component {
 								}
 								return null;
 							})}
-							<div className="song-card-wrapper">{songPages[currentPage]}</div>
+							<div className="song-card-wrapper">
+								{console.log(sl_Round_Mobile)}
+								{console.log(songPagesMobile)}
+								{songPagesMobile[currentPageMobile]}
+							</div>
 						</div>
 					</div>
 				</Breakpoint>
