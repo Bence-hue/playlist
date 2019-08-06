@@ -17,13 +17,10 @@ export default class ListSongs extends Component {
 		currentPage: 0
 	};
 
-	// componentWillMount() {
-	// 	this.setState({ currentPage: localStorage.getItem("currentPage") });
-	// }
-
 	componentDidMount() {
 		let url = "https://playlist.jelszo.co/api/list/?mode=unplayed";
 		axios.get(url).then(res => this.setState({ songs: res.data }));
+		this.setState({ ww: window.innerWidth });
 	}
 
 	render() {
@@ -41,18 +38,15 @@ export default class ListSongs extends Component {
 		const handleUpperClick = () => {
 			if (this.state.currentPage !== 0) {
 				this.setState({ currentPage: currentPage - 1 });
-				// localStorage.setItem("currentPage", currentPage);
 			} else {
 			}
 		};
 		const handleBottomClick = () => {
 			if (this.state.currentPage !== sl_Round - 1) {
 				this.setState({ currentPage: currentPage + 1 });
-				// localStorage.setItem("currentPage", currentPage);
 			} else {
 			}
 		};
-
 		let songPages = [];
 		for (let i = 0; i < sl_Round; i++) {
 			if (i === 0) {
@@ -71,15 +65,16 @@ export default class ListSongs extends Component {
 		}
 		let songCardWrapperStyle, songsWrapperStyle, songListWrapperStyle;
 		if (isFirstPage) {
+			// First page on desktop
 			songCardWrapperStyle = { marginTop: "120px" };
 			songsWrapperStyle = { height: "550px" };
 			songListWrapperStyle = { height: "360px", top: "53%" };
 		} else {
+			// Other pages on desktop
 			songCardWrapperStyle = { marginTop: "0" };
 			songsWrapperStyle = { height: "500px" };
 			songListWrapperStyle = { height: "240px", top: "49%" };
 		}
-
 		let ArrowUpStyle, ArrowDownStyle;
 		if (isFirstPage) {
 			ArrowUpStyle = { color: "#D2D2D2", cursor: "default" };

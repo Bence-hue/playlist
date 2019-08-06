@@ -20,7 +20,7 @@ function App() {
 						<img src={loader} alt="Loading..." />
 					</Placeholder>
 
-					<div className="App">
+					<div className="App" style={{ overscrollBehavior: "none" }}>
 						<Switch>
 							<Route exact path="/" component={Landing} />
 							<Route exact path="/songs" component={ListSongs} />
