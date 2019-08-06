@@ -176,6 +176,46 @@
 	top: 73%;
 }
 
+.song-card__arrow {
+	background: rgb(21, 185, 115);
+	background: linear-gradient(
+		135deg,
+		rgba(21, 185, 115, 1) 0%,
+		rgba(25, 125, 83, 1) 100%
+	);
+	color: #fff;
+	z-index: 16;
+}
+
+.song-card__arrow h1:nth-child(1) {
+	width: 80%;
+	left: 5%;
+	text-align: center;
+	font-weight: 600;
+}
+
+.song-card__arrow h1:nth-child(2) {
+	width: 80%;
+	right: 5%;
+	text-align: center;
+	font-weight: 600;
+}
+
+.song-card__arrow-component:nth-child(2) {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%) rotate(90deg);
+	right: 12%;
+	height: 2rem;
+}
+.song-card__arrow-component:nth-child(1) {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%) rotate(90deg);
+	left: 14%;
+	height: 2rem;
+}
+
 @media only screen and (max-width: 900px) {
 	.songs-wrapper {
 		width: 80vw;
@@ -250,9 +290,5 @@
 		height: 28px;
 		position: absolute;
 		top: 50%;
-	}
-
-	.song-card-wrapper {
-		margin-top: 100px;
 	}
 }

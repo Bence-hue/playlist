@@ -54,6 +54,22 @@ export default class ListSongs extends Component {
 			}
 		};
 
+		// Handle mobile pagination links
+		const handleMobilePrevClick = () => {
+			console.log("next-click");
+			if (this.state.currentPageMobile !== 0) {
+				this.setState({ currentPageMobile: currentPageMobile - 1 });
+			} else {
+			}
+		};
+		const handleMobileNextClick = () => {
+			console.log("prev-click");
+			if (this.state.currentPageMobile !== sl_Round_Mobile - 1) {
+				this.setState({ currentPageMobile: currentPageMobile + 1 });
+			} else {
+			}
+		};
+
 		// Desktop pages
 		let songPages = [];
 		for (let i = 0; i < sl_Round; i++) {
@@ -64,23 +80,31 @@ export default class ListSongs extends Component {
 				songPages.push(<SongListPage key={i + 1} id={i} isFirstPage={false} />);
 			}
 		}
+
+		// Detect first and last page on mobile
+		let isLastPageMobile = false;
+		if (currentPageMobile === sl_Round_Mobile - 1) {
+			isLastPageMobile = true;
+		}
+
 		// Mobile pages
 		let songPagesMobile = [];
 		for (let i = 0; i < 2; i++) {
 			if (i === 0) {
 				songPagesMobile.push(
-					<SongListPage key={i} id={i} isFirstPage={true} isMobile={true} />
+					// prettier-ignore
+					<SongListPage key={i} id={i} isFirstPage={true} isMobile={true} isLastPageMobile={isLastPageMobile} handleNextClick={handleMobileNextClick}/>
 				);
 			}
 			if (i !== 0) {
 				songPagesMobile.push(
 					// prettier-ignore
-					<SongListPage key={i + 1} id={i} isFirstPage={false} isMobile={true} />
+					<SongListPage key={i + 1} id={i} isFirstPage={false} isMobile={true} isLastPageMobile={isLastPageMobile} handleNextClick={handleMobileNextClick} handlePrevClick={handleMobilePrevClick}/>
 				);
 			}
 		}
 
-		// detect firstPage
+		// detect firstPage on desktop
 		let isFirstPage = false,
 			isLastPage = false;
 		if (currentPage === 0) {
@@ -91,16 +115,31 @@ export default class ListSongs extends Component {
 
 		// style desktop pages based on firstPage
 		let songCardWrapperStyle, songsWrapperStyle, songListWrapperStyle;
+		let mobileSongCardWrapperStyle;
 		if (isFirstPage) {
 			// First page on desktop
 			songCardWrapperStyle = { marginTop: "120px" };
 			songsWrapperStyle = { height: "550px" };
 			songListWrapperStyle = { height: "360px", top: "53%" };
-		} else {
+			} else {
 			// Other pages on desktop
 			songCardWrapperStyle = { marginTop: "0" };
 			songsWrapperStyle = { height: "500px" };
 			songListWrapperStyle = { height: "240px", top: "49%" };
+			}
+
+		// detect firstPage on mobile
+		let isFirstPageMobile = false;
+	if (currentPageMobile === 0) {
+		isFirstPageMobile = true; }
+		if (isFirstPageMobile) {
+// First page on mobile
+mobileSongCardWrapperStyle = { marginTop: "100px" }
+		
+		} else {
+// Other pages on mobile
+mobileSongCardWrapperStyle = { marginTop: "0" }
+		
 		}
 		let ArrowUpStyle, ArrowDownStyle;
 		if (isFirstPage) {
@@ -162,9 +201,7 @@ export default class ListSongs extends Component {
 								}
 								return null;
 							})}
-							<div className="song-card-wrapper">
-								{console.log(sl_Round_Mobile)}
-								{console.log(songPagesMobile)}
+							<div className="song-card-wrapper" style={mobileSongCardWrapperStyle}>
 								{songPagesMobile[currentPageMobile]}
 							</div>
 						</div>

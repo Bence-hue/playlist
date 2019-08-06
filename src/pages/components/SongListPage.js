@@ -14,7 +14,13 @@ export default class SongListPage extends Component {
 	}
 	render() {
 		const { songs } = this.state;
-		const { isMobile } = this.props;
+		const {
+			isMobile,
+			isFirstPage,
+			isLastPageMobile,
+			handleNextClick,
+			handlePrevClick
+		} = this.props;
 		const getIds = () => {
 			return songs.map(d => d.id);
 		};
@@ -46,9 +52,19 @@ export default class SongListPage extends Component {
 			return (
 				<div>
 					{/* <h1>{`${mSliceStart} ${mSliceStop}`}</h1> */}
+					{!isFirstPage ? (
+						<SongCard isPrevArrow={true} handlePrevClick={handlePrevClick} />
+					) : (
+						""
+					)}
 					{otherSongs.slice(mSliceStart, mSliceStop).map(sg => {
-						return <SongCard key={sg.id} song={sg} />;
+						return <SongCard key={sg.id} id={sg.id} song={sg} />;
 					})}
+					{!isLastPageMobile ? (
+						<SongCard isNextArrow={true} handleNextClick={handleNextClick} />
+					) : (
+						""
+					)}
 				</div>
 			);
 		} else {
