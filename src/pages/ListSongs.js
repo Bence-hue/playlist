@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Breakpoint } from "react-socks";
 
 import "../css/songlist.css";
 
@@ -14,7 +15,8 @@ import { ReactComponent as ArrowDown } from "../assets/angle-down-solid.svg";
 export default class ListSongs extends Component {
 	state = {
 		songs: [],
-		currentPage: 0
+		currentPage: 0,
+		currentPageMobile: 0
 	};
 
 	componentDidMount() {
@@ -24,7 +26,7 @@ export default class ListSongs extends Component {
 	}
 
 	render() {
-		const { songs, currentPage } = this.state;
+		const { songs, currentPage, currentPageMobile } = this.state;
 		const getIds = () => {
 			return songs.map(d => d.id);
 		};
@@ -84,41 +86,59 @@ export default class ListSongs extends Component {
 		return (
 			<React.Fragment>
 				<Header kolcsey={false} />
-				<div className="songs-wrapper" style={songsWrapperStyle}>
+				<Breakpoint tabletl up>
+					<div className="songs-wrapper" style={songsWrapperStyle}>
+						<h1 className="songs-wrapper-heading">
+							Eddig hozzáadott <span>zenék</span>
+						</h1>
+						<div className="list-wrapper" style={songListWrapperStyle}>
+							{upcomingSong.map(sg => {
+								if (currentPage === 0) {
+									return <UpcomingCard key={sg.id} song={sg} />;
+								}
+								return null;
+							})}
+							<div className="song-card-wrapper" style={songCardWrapperStyle}>
+								{songPages[currentPage]}
+							</div>
+						</div>
+						<ArrowUp
+							className={
+								isFirstPage
+									? "songs-arrow songs-arrow-up"
+									: "songs-arrow songs-arrow-up hvr-grow"
+							}
+							style={ArrowUpStyle}
+							onClick={handleUpperClick}
+						/>
+						<Indicator currentPage={currentPage + 1} lastPage={sl_Round} />
+						<ArrowDown
+							className={
+								isLastPage
+									? "songs-arrow songs-arrow-down"
+									: "songs-arrow songs-arrow-down hvr-grow"
+							}
+							style={ArrowDownStyle}
+							onClick={handleBottomClick}
+						/>
+					</div>
+				</Breakpoint>
+				<Breakpoint tabletp down>
 					<h1 className="songs-wrapper-heading">
 						Eddig hozzáadott <span>zenék</span>
 					</h1>
-					<div className="list-wrapper" style={songListWrapperStyle}>
-						{upcomingSong.map(sg => {
-							if (currentPage === 0) {
-								return <UpcomingCard key={sg.id} song={sg} />;
-							}
-							return null;
-						})}
-						<div className="song-card-wrapper" style={songCardWrapperStyle}>
-							{songPages[currentPage]}
+					<div className="songs-wrapper">
+						<div className="list-wrapper">
+							{upcomingSong.map(sg => {
+								if (currentPageMobile === 0) {
+									return <UpcomingCard key={sg.id} song={sg} />;
+								}
+								return null;
+							})}
+							<div className="song-card-wrapper">{songPages[currentPage]}</div>
 						</div>
 					</div>
-					<ArrowUp
-						className={
-							isFirstPage
-								? "songs-arrow songs-arrow-up"
-								: "songs-arrow songs-arrow-up hvr-grow"
-						}
-						style={ArrowUpStyle}
-						onClick={handleUpperClick}
-					/>
-					<Indicator currentPage={currentPage + 1} lastPage={sl_Round} />
-					<ArrowDown
-						className={
-							isLastPage
-								? "songs-arrow songs-arrow-down"
-								: "songs-arrow songs-arrow-down hvr-grow"
-						}
-						style={ArrowDownStyle}
-						onClick={handleBottomClick}
-					/>
-				</div>
+				</Breakpoint>
 			</React.Fragment>
 		);
 	}
