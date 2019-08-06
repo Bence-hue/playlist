@@ -1,0 +1,4 @@
+/* BREAKPOINTS FILE */
+
+--------------600---------------------900----------------------1200-----------------1800-------------------->
+    mobile          tablet-portrait         tablet-landscape             laptop             HD screen
