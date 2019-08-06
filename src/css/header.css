@@ -251,6 +251,9 @@
 }
 
 @media only screen and (max-width: 600px) {
+	.playlist {
+		top: 3%;
+	}
 	.playlist-title {
 		font-size: 2.5rem;
 	}
