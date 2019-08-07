@@ -28,7 +28,7 @@ SECRET_KEY = config.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["46.107.123.236","127.0.0.1","192.168.1.71","bnctth.ml","playlist.jelszo.co"]
+ALLOWED_HOSTS = ["46.107.123.236","127.0.0.1","192.168.1.71","bnctth.ml","playlist.jelszo.co","217.144.54.230"]
 
 
 # Application definition
