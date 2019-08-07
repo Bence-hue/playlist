@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'list',
     'frontend',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -130,3 +131,4 @@ STATICFILES_DIRS = (
 )
 STATIC_ROOT=os.path.join(BASE_DIR,"static")
 
+CORS_ORIGIN_ALLOW_ALL=True
