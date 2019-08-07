@@ -128,6 +128,7 @@ export default class NewSong extends Component {
 							/>
 						</g>
 					</svg>
+
 					<img src={dash2} alt="dash2" className="dash2" />
 					<svg
 						xmlns="http://www.w3.org/2000/svg"

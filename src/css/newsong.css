@@ -107,7 +107,7 @@ img {
 }
 .svg5 {
 	z-index: 1;
-	transform: translate(-50%, -50%) rotate(45deg);
+	transform: translate(-50%, -50%) rotate(90deg);
 }
 
 .new-button-wrapper {
@@ -348,7 +348,7 @@ img {
 	transform: translateX(-50%) scale(1.1);
 }
 
-@media only screen and (max-width: 1400px) {
+@media only screen and (max-width: 1200px) {
 	.svg-animated {
 		stroke-dasharray: 2200;
 		stroke-dashoffset: 2250;
@@ -373,5 +373,51 @@ img {
 	}
 	.new-song-button:hover {
 		transform: translate(-50%, -50%) scale(0.9);
+	}
+}
+
+@media only screen and (max-width: 900px) {
+	.new-button-wrapper {
+		transform: scale(0.42);
+		left: 50.2%;
+	}
+
+	.new-song-button {
+		top: 47%;
+		left: 50%;
+		transform: translate(-50%, -50%) scale(0.7);
+	}
+
+	.new-song-button:hover {
+		transform: translate(-50%, -50%) scale(0.8);
+	}
+
+	.new-song-h2 {
+		top: 53%;
+		left: 50%;
+		letter-spacing: 1px;
+		font-size: 1.5rem;
+		width: 100%;
+		text-align: center;
+	}
+
+	.svg5 {
+		transform: translate(-50%, -50%) rotate(0deg);
+	}
+
+	.songquery {
+		transform: translate(-50%, -50%) scale(0.6);
+		top: 50%;
+		left: 50%;
+	}
+
+	.final-wrapper {
+		left: 51%;
+		transform: translate(-50%, -50%) scale(0.6);
+	}
+
+	.error-wrapper {
+		left: 51%;
+		transform: translate(-50%, -50%) scale(0.6);
 	}
 }
