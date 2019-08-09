@@ -30,7 +30,11 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: npm install
+      - run:
+          name: npm install
+          command: |
+            npm install
+            npm install -g codeclimate-test-reporter
 
       - save_cache:
           paths:
@@ -38,17 +42,15 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
-        name: Chown repo
-        command: sudo chown -R circleci:circleci ~/repo
+          name: Chown repo
+          command: sudo chown -R circleci:circleci ~/repo
 
       # run tests!
       - run: sudo npm run test
 
       - run:
           name: Upload Results
-          command: |
-            sudo npm install -g codeclimate-test-reporter
-            sudo codeclimate-test-reporter < coverage/lcov.info
+          command: codeclimate-test-reporter < coverage/lcov.info
 
   test-server:
     docker:
