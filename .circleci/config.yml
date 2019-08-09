@@ -44,8 +44,6 @@ jobs:
   test-server:
     docker:
       - image: circleci/python:3.7.3
-        environment:
-          PIPENV_VENV_IN_PROJECT: true
 
     # Set Working directory
     working_directory: ~/repo/playlist
@@ -63,7 +61,6 @@ jobs:
       - save_cache:
           key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:
-            - ".venv"
             - "/usr/local/bin"
             - "/usr/local/lib/python3.7/site-packages"
       - run:
@@ -76,7 +73,7 @@ jobs:
           destination: tr1
 
 workflows:
-  version: 2.2
+  version: 2.1
   test_react_django:
     jobs:
       - test-react
