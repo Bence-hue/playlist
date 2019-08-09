@@ -54,10 +54,6 @@ jobs:
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.7/site-packages
       - restore_cache:
           key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-      - run:
-          command: |
-            sudo pip install pipenv
-            pipenv install
       - save_cache:
           key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:
@@ -65,7 +61,7 @@ jobs:
             - "/usr/local/lib/python3.7/site-packages"
       - run:
           command: |
-            pipenv run python manage.py test
+            python manage.py test
       - store_test_results:
           path: test-results
       - store_artifacts:
@@ -76,5 +72,7 @@ workflows:
   version: 2.1
   test_react_django:
     jobs:
-      - test-react
       - test-server
+      - test-react:
+          requires:
+            - test-server
