@@ -77,36 +77,36 @@ jobs:
           destination: tr1
 
 deploy:
-    docker:
-      - image: circleci/node:7.10
+  docker:
+    - image: circleci/node:7.10
 
-    working_directory: ~/repo
+  working_directory: ~/repo
 
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
+  steps:
+    - checkout
+    - restore_cache:
+        keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
 
-      - run: npm install
+    - run: npm install
 
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+    - save_cache:
+        paths:
+          - node_modules
+        key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run:
-          name: Build react page
-          command: npm run build
-      - run:
-          name: Copy Build folder to server static folder
-          command: |
-            rm -R ./playlist/frontend/build
-            cp ./build ./playlist/frontend/build
-      - run:
-          name: Commit build
-          command: git add .
+    - run:
+        name: Build react page
+        command: npm run build
+    - run:
+        name: Copy Build folder to server static folder
+        command: |
+          rm -R ./playlist/frontend/build
+          cp ./build ./playlist/frontend/build
+    - run:
+        name: Commit build
+        command: git add .
 
 workflows:
   version: 2.1
@@ -116,7 +116,7 @@ workflows:
       - test-react
         # requires:
         #   - test-server
-      - deploy
+      - deploy:
           requires:
             - test-server
             - test-react
