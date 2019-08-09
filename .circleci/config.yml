@@ -105,8 +105,7 @@ jobs:
           name: Build react page
           command: |
           #npm run build
-          git add .
-          
+
       - run:
           name: Copy Build folder to server static folder
           command: |
