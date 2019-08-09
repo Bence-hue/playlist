@@ -42,9 +42,12 @@ jobs:
 
       # run tests!
       - run: npm run test
-      post:
-        - npm install -g codeclimate-test-reporter
-        - codeclimate-test-reporter < coverage/lcov.info
+
+      - run:
+          name: Upload Results
+          command: |
+            npm install -g codeclimate-test-reporter
+            codeclimate-test-reporter < coverage/lcov.info
 
   test-server:
     docker:
