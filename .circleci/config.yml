@@ -46,7 +46,7 @@ jobs:
           command: sudo chown -R circleci:circleci ~/repo
 
       # run tests!
-      - run: sudo npm run test
+      - run: npm run test
 
       - run:
           name: Upload Results
