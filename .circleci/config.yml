@@ -41,13 +41,12 @@ jobs:
       - codecov/upload:
           file: "coverage/coverage-final.json"
 
-
   test-server:
     docker:
       - image: circleci/python:3.7.3
-      environment:
+        environment:
           PIPENV_VENV_IN_PROJECT: true
-    
+
     # Set Working directory
     working_directory: ~/repo/playlist
 
@@ -64,9 +63,9 @@ jobs:
       - save_cache:
           key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:
-            - '.venv'
-            - '/usr/local/bin'
-            - '/usr/local/lib/python3.7/site-packages'
+            - ".venv"
+            - "/usr/local/bin"
+            - "/usr/local/lib/python3.7/site-packages"
       - run:
           command: |
             pipenv run python manage.py test
