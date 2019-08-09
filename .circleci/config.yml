@@ -106,8 +106,7 @@ deploy:
             cp ./build ./playlist/frontend/build
       - run:
           name: Commit build
-          command: |
-          echo "anyád"
+          command: git add .
 
 workflows:
   version: 2.1
