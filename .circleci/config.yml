@@ -81,6 +81,6 @@ workflows:
   test_react_django:
     jobs:
       - test-server
-      - test-react:
-          requires:
-            - test-server
+      - test-react
+        # requires:
+        #   - test-server
