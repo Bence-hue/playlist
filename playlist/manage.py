@@ -16,11 +16,6 @@ def main():
         ) from exc
     execute_from_command_line(sys.argv)
 
-def test():
-    print("Tested")
 
 if __name__ == '__main__':
     main()
-
-if __name__ == '__test__':
-    test()
