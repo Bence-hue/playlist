@@ -10,9 +10,9 @@ jobs:
   test-react:
     docker:
       - image: circleci/node:7.10
-      environment:
-        - CC_TEST_REPORTER_ID: 0d48f6d1d4eccb4397f928c0d69485f389357a28de8fcbe4abca4cea9971f8df
-    
+        environment:
+          CC_TEST_REPORTER_ID: 0d48f6d1d4eccb4397f928c0d69485f389357a28de8fcbe4abca4cea9971f8df
+
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
