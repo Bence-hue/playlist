@@ -142,3 +142,48 @@
 		height: 300px;
 	}
 }
+
+@media only screen and (max-width: 600px) {
+	#lastadded {
+		top: 30%;
+		width: 85vw;
+		height: 90px;
+		border-radius: 35px;
+		opacity: 0.9;
+	}
+
+	#lastadded h3 {
+		margin: 12px 0 0 0;
+		letter-spacing: 2px;
+	}
+
+	#lastadded h1 {
+		margin: 5px 0;
+		font-size: 1.7rem;
+	}
+
+	.art-left {
+		width: 30vw;
+	}
+
+	.art-right {
+		width: 50vw;
+	}
+	#btn-wrapper {
+		bottom: 53%;
+	}
+	.btn {
+		margin: 0 11px;
+		width: 140px;
+		height: 230px;
+	}
+
+	.btn h2 {
+		font-size: 1.3rem;
+	}
+
+	.btn-icon {
+		width: 35%;
+		top: 75%;
+	}
+}

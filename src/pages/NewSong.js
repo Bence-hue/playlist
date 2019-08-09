@@ -39,7 +39,9 @@ export default class NewSong extends Component {
 		const { fill, isDashRed } = this.state;
 		return (
 			<React.Fragment>
-				<Header kolcsey={false} />
+				<div className="new-header">
+					<Header kolcsey={false} />
+				</div>
 				<Transition
 					native
 					items={this.state.isButtonVisible}
@@ -128,6 +130,7 @@ export default class NewSong extends Component {
 							/>
 						</g>
 					</svg>
+
 					<img src={dash2} alt="dash2" className="dash2" />
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
