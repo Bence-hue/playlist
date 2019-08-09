@@ -7,7 +7,7 @@ orbs:
   codecov: codecov/codecov@1.0.2
 
 jobs:
-  build:
+  test-react:
     docker:
       # specify the version you desire here
       - image: circleci/node:7.10
@@ -40,3 +40,38 @@ jobs:
       - run: npm run test
       - codecov/upload:
           file: "coverage/coverage-final.json"
+
+
+  test-server:
+    docker:
+      - image: circleci/python:3.7.3
+      environment:
+          PIPENV_VENV_IN_PROJECT: true
+    
+    # Set Working directory
+    working_directory: ~/repo/playlist
+
+    steps:
+      - checkout
+      - run: sudo chown -R circleci:circleci /usr/local/bin
+      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.7/site-packages
+      - restore_cache:
+          key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+      - run:
+          command: |
+            sudo pip install pipenv
+            pipenv install
+      - save_cache:
+          key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          paths:
+            - '.venv'
+            - '/usr/local/bin'
+            - '/usr/local/lib/python3.7/site-packages'
+      - run:
+          command: |
+            pipenv run python manage.py test
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: test-results
+          destination: tr1
