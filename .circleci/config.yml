@@ -74,3 +74,10 @@ jobs:
       - store_artifacts:
           path: test-results
           destination: tr1
+
+workflows:
+  version: 2.2
+  test_react_django:
+    jobs:
+      - test-react
+      - test-server
