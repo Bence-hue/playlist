@@ -61,7 +61,7 @@ jobs:
             - "/usr/local/lib/python3.7/site-packages"
       - run:
           command: |
-            python manage.py test
+            python ./manage.py test
       - store_test_results:
           path: test-results
       - store_artifacts:
