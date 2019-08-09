@@ -43,7 +43,7 @@ jobs:
 
       - run:
           name: Chown repo
-          command: sudo chown -R circleci:circleci ~/repo
+          command: sudo chown -R circleci:circleci ~/repo/*
 
       # run tests!
       - run: npm run test
