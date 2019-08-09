@@ -36,6 +36,8 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
+      - run: sudo chown -R circleci:circleci ../*
+
       # run tests!
       - run: npm run test
       - codecov/upload:
