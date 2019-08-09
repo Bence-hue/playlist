@@ -427,3 +427,14 @@ img {
 		display: none;
 	}
 }
+
+@media only screen and (max-height: 370px) {
+	.new-art-left,
+	.new-art-right {
+		display: none;
+	}
+	.new-button-wrapper {
+		transform: scale(0.38);
+		left: 50.2%;
+	}
+}
