@@ -421,3 +421,20 @@ img {
 		transform: translate(-50%, -50%) scale(0.6);
 	}
 }
+
+@media only screen and (max-height: 450px) {
+	.new-header {
+		display: none;
+	}
+}
+
+@media only screen and (max-height: 370px) {
+	.new-art-left,
+	.new-art-right {
+		display: none;
+	}
+	.new-button-wrapper {
+		transform: scale(0.38);
+		left: 50.2%;
+	}
+}

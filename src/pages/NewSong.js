@@ -39,7 +39,9 @@ export default class NewSong extends Component {
 		const { fill, isDashRed } = this.state;
 		return (
 			<React.Fragment>
-				<Header kolcsey={false} />
+				<div className="new-header">
+					<Header kolcsey={false} />
+				</div>
 				<Transition
 					native
 					items={this.state.isButtonVisible}
