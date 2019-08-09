@@ -105,15 +105,14 @@ jobs:
       #name: Build react page
       #command: |
       #npm run build
-
-      - run:
-          name: Copy Build folder to server static folder
-          command: |
-            rm -R ./playlist/frontend/build
-            cp ./build ./playlist/frontend/build
-      - run:
-          name: Commit build
-          command: git add .
+      # - run:
+      #     name: Copy Build folder to server static folder
+      #     command: |
+      #       rm -R ./playlist/frontend/build
+      #       cp ./build ./playlist/frontend/build
+      # - run:
+      #     name: Commit build
+      #     command: git add .
 
 workflows:
   version: 2.1
