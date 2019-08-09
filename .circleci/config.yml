@@ -8,6 +8,8 @@ orbs:
 
 jobs:
   test-react:
+    enviroment:
+      CC_TEST_REPORTER_ID: 0d48f6d1d4eccb4397f928c0d69485f389357a28de8fcbe4abca4cea9971f8df
     docker:
       # specify the version you desire here
       - image: circleci/node:7.10
@@ -36,12 +38,13 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: sudo chown -R circleci:circleci ../*
+      - run: sudo chown -R circleci:circleci ~/repo
 
       # run tests!
       - run: npm run test
-      - codecov/upload:
-          file: "coverage/coverage-final.json"
+      post:
+        - npm install -g codeclimate-test-reporter
+        - codeclimate-test-reporter < coverage/lcov.info
 
   test-server:
     docker:
