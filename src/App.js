@@ -12,6 +12,8 @@ import CookiesPage from "./pages/CookiesPage";
 
 import ErrorHandler from "./pages/components/ErrorHandler";
 
+import "./css/app.css";
+
 function App() {
 	setDefaultBreakpoints([
 		{ mobile: 0 },
@@ -25,11 +27,11 @@ function App() {
 			<ErrorHandler>
 				<Preloader>
 					<Placeholder>
-						<img src={loader} alt="Loading..." />
+						<img src={loader} alt="Loading..." className="preloader-img" />
 					</Placeholder>
 
 					<BreakpointProvider>
-						<div className="App" style={{ overscrollBehavior: "none" }}>
+						<div className="App">
 							<Switch>
 								<Route exact path="/" component={Landing} />
 								<Route exact path="/songs" component={ListSongs} />
