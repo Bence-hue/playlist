@@ -4,17 +4,16 @@
 	width: 45%;
 	height: 60vh;
 	position: absolute;
-	left: 0;
+	left: 3%;
 	top: 45%;
 	transform: translateY(-50%);
-	border: 2px dashed #000;
 	font-family: "Open Sans";
 	color: #464545;
 }
 
 #feedback h1,
 #about-us h1 {
-	margin: 5px 0 0 0;
+	margin: 15px 0 0 0;
 	padding: 0;
 	font-size: 4rem;
 	font-weight: 400;
@@ -25,6 +24,7 @@
 	margin: 10px 0;
 	padding: 10px 15px;
 	width: 70%;
+	font-size: 1rem;
 	font-family: "Open Sans";
 	resize: none;
 	border: 3px solid #139c61;
@@ -35,6 +35,33 @@
 #feedback form textarea {
 	width: 90%;
 	height: 180px;
+}
+
+#feedback form input[type="submit"] {
+	margin: 10px 0 0 0;
+	padding: 7px 40px;
+	border: none;
+	font-family: "Open Sans";
+	text-transform: uppercase;
+	font-weight: 600;
+	color: white;
+	font-size: 1.2rem;
+	background: rgb(19, 156, 97);
+	background: linear-gradient(
+		135deg,
+		rgba(19, 156, 97, 1) 0%,
+		rgba(10, 78, 49, 1) 100%
+	);
+	border-radius: 20px;
+	transition: 0.2s all ease-in-out;
+	-webkit-box-shadow: 0px 15px 40px 0px rgba(0, 0, 0, 0.41);
+	-moz-box-shadow: 0px 15px 40px 0px rgba(0, 0, 0, 0.41);
+	box-shadow: 0px 15px 40px 0px rgba(0, 0, 0, 0.41);
+	cursor: pointer;
+}
+
+#feedback form input[type="submit"]:hover {
+	transform: scale(1.1);
 }
 
 #about-us {

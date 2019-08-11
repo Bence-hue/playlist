@@ -1,10 +1,43 @@
 import React, { Component } from "react";
 import Header from "../pages/components/Header";
+import axios from "axios";
 
 import "../css/about.css";
 
 export default class About extends Component {
+	state = {
+		name: "",
+		email: "",
+		msg: "",
+		toggleSuccess: false,
+		toggleErr: false
+	};
+
+	onSubmit = e => {
+		e.preventDefault();
+		let url = "";
+		let content = {
+			name: this.state.name,
+			email: this.state.email,
+			message: this.state.msg
+		};
+		axios
+			.post(url, content)
+			.then(this.setState({ toggleSuccess: true }))
+			.catch(err => {
+				this.setState({ toggleErr: true });
+				console.log(err);
+			});
+		console.log(this.state);
+		this.setState({ name: "", email: "", msg: "" });
+	};
+
+	onChange = e => {
+		this.setState({ [e.target.name]: e.target.value });
+	};
+
 	render() {
+		const { name, email, msg } = this.state;
 		return (
 			<div>
 				<Header kolcsey={false} />
@@ -14,18 +47,24 @@ export default class About extends Component {
 						<input
 							type="text"
 							name="name"
+							value={name}
 							placeholder="Írd ide a neved..."
+							onChange={this.onChange}
 							required
 						/>
 						<input
 							type="text"
 							name="email"
+							value={email}
 							placeholder="Írd be a Te e-mail címed..."
+							onChange={this.onChange}
 							required
 						/>
 						<textarea
-							name="name"
+							name="msg"
+							value={msg}
 							placeholder="Ide írhatod a javaslataid, észrevételeid..."
+							onChange={this.onChange}
 							maxLength="200"
 							required
 						/>
