@@ -1,0 +1,25 @@
+#error-handler {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -100%);
+	font-family: "Open Sans";
+	text-align: center;
+	width: 90%;
+}
+
+#error-handler h1 {
+	text-transform: uppercase;
+	font-weight: 100;
+	letter-spacing: 4px;
+	margin-bottom: 40px;
+}
+
+#error-handler h1 span {
+	color: hsl(5, 70%, 55%);
+}
+
+#error-handler p span {
+	font-style: italic;
+	font-weight: 100;
+}
