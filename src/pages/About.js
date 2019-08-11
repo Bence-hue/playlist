@@ -8,7 +8,7 @@ export default class About extends Component {
 		return (
 			<div>
 				<Header kolcsey={false} />
-				<div className="feedback">
+				<div id="feedback">
 					<h1>Írj nekünk...</h1>
 					<form onSubmit={this.onSubmit}>
 						<input
@@ -26,13 +26,14 @@ export default class About extends Component {
 						<textarea
 							name="name"
 							placeholder="Ide írhatod a javaslataid, észrevételeid..."
-							maxlength="200"
+							maxLength="200"
 							required
 						/>
 						<input type="submit" value="Küldés!" />
 					</form>
 				</div>
-				<div className="about-us">
+				<span className="about__hr" />
+				<div id="about-us">
 					<h1>Rólunk...</h1>
 					<p>
 						A Playlistet 3 Kölcsey-s diák fejleszti, annak reményében, hogy
@@ -57,18 +58,18 @@ export default class About extends Component {
 						</div>
 					</div>
 				</div>
-				<div className="jszc-modal">
+				<div id="jszc-modal">
 					<a href="/" className="jszc__links">
-						<i class="fab fa-facebook" />
+						<i className="fab fa-facebook" />
 						Facebook
 					</a>
 					<a href="/" className="jszc__links">
-						<i class="fab fa-github" />
+						<i className="fab fa-github" />
 						GitHub
 					</a>
 					<span className="jszc__hr" />
 					<h1>Made by jelszo co.</h1>
-					<a class="jszc__mail" href="mailto:support@jelszo.co">
+					<a className="jszc__mail" href="mailto:support@jelszo.co">
 						support@jelszo.co
 					</a>
 				</div>

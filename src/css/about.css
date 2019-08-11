@@ -1,0 +1,43 @@
+#feedback {
+	margin: 0;
+	padding: 0;
+	width: 47%;
+	position: absolute;
+	left: 0;
+	top: 45%;
+	transform: translateY(-50%);
+	border: 2px dashed #000;
+}
+
+#about-us {
+	margin: 0;
+	padding: 0;
+	width: 47%;
+	position: absolute;
+	right: 0;
+	top: 45%;
+	transform: translateY(-50%);
+	border: 2px dashed #000;
+}
+
+.about__hr {
+	position: absolute;
+	top: 45%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: block;
+	width: 5px;
+	height: 60vh;
+	background: #139c61;
+	border-radius: 50px;
+	-webkit-box-shadow: 0px 10px 30px 0px rgba(19, 156, 97, 0.75);
+	-moz-box-shadow: 0px 10px 30px 0px rgba(19, 156, 97, 0.75);
+	box-shadow: 0px 10px 30px 0px rgba(19, 156, 97, 0.75);
+}
+
+#jszc-modal {
+	position: absolute;
+	bottom: -2%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
