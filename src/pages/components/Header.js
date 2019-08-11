@@ -8,8 +8,8 @@ import "../../css/hover.css";
 
 import { ReactComponent as MusicPlayer } from "../../assets/music-player.svg";
 import { ReactComponent as Lock } from "../../assets/lock-solid.svg";
-import { ReactComponent as Fingerprint } from "../../assets/fingerprint-solid.svg";
-import { ReactComponent as Inv } from "../../assets/file-invoice-solid.svg";
+import { ReactComponent as Fingerprint } from "../../assets/cookie-bite-solid.svg";
+import { ReactComponent as Inv } from "../../assets/question-circle-regular.svg";
 import { ReactComponent as Home } from "../../assets/home-solid.svg";
 import { ReactComponent as List } from "../../assets/list-ul-solid.svg";
 import { ReactComponent as AddButton } from "../../assets/add-button.svg";
