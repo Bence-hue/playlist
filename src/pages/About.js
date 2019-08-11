@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Header from "../pages/components/Header";
 
+import "../css/about.css";
+
 export default class About extends Component {
 	render() {
 		return (
@@ -8,7 +10,7 @@ export default class About extends Component {
 				<Header kolcsey={false} />
 				<div className="feedback">
 					<h1>Írj nekünk...</h1>
-					<form>
+					<form onSubmit={this.onSubmit}>
 						<input
 							type="text"
 							name="name"
@@ -25,21 +27,43 @@ export default class About extends Component {
 							name="name"
 							placeholder="Ide írhatod a javaslataid, észrevételeid..."
 							maxlength="200"
-							rows="10"
-							cols="20"
 							required
 						/>
 						<input type="submit" value="Küldés!" />
 					</form>
 				</div>
 				<div className="about-us">
-					<h1>About us</h1>
+					<h1>Rólunk...</h1>
+					<p>
+						A Playlistet 3 Kölcsey-s diák fejleszti, annak reményében, hogy
+						jobbá tegyék az iskolarádiót, és így valamennyire megkönnyítsék az
+						iskolás diákok mindennapjait. Az ötlet saját, továbbá az iskolától
+						semmilyen jutalmat nem kapunk a projekt fenntartásáért. Ha bármilyen
+						kérdésed van, vagy bármilyen hibát tapasztalsz, nyugodtan lépj
+						kapcsolatba velünk.
+					</p>
+					<div className="roster">
+						<div className="roster__card">
+							<h3>Jóvári Norbert</h3>
+							<h4>Designer</h4>
+						</div>
+						<div className="roster__card">
+							<h3>Kiss Benedek Máté</h3>
+							<h4>Frontend, Designer</h4>
+						</div>
+						<div className="roster__card">
+							<h3>Tóth Bence</h3>
+							<h4>Backend</h4>
+						</div>
+					</div>
 				</div>
 				<div className="jszc-modal">
 					<a href="/" className="jszc__links">
+						<i class="fab fa-facebook" />
 						Facebook
 					</a>
 					<a href="/" className="jszc__links">
+						<i class="fab fa-github" />
 						GitHub
 					</a>
 					<span className="jszc__hr" />
