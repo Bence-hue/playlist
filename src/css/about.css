@@ -1,23 +1,54 @@
 #feedback {
 	margin: 0;
-	padding: 0;
-	width: 47%;
+	padding: 0 20px;
+	width: 45%;
+	height: 60vh;
 	position: absolute;
 	left: 0;
 	top: 45%;
 	transform: translateY(-50%);
 	border: 2px dashed #000;
+	font-family: "Open Sans";
+	color: #464545;
+}
+
+#feedback h1,
+#about-us h1 {
+	margin: 5px 0 0 0;
+	padding: 0;
+	font-size: 4rem;
+	font-weight: 400;
+}
+
+#feedback form input[type="text"],
+#feedback form textarea {
+	margin: 10px 0;
+	padding: 10px 15px;
+	width: 70%;
+	font-family: "Open Sans";
+	resize: none;
+	border: 3px solid #139c61;
+	border-radius: 15px;
+	overflow: hidden;
+}
+
+#feedback form textarea {
+	width: 90%;
+	height: 180px;
 }
 
 #about-us {
 	margin: 0;
-	padding: 0;
-	width: 47%;
+	padding: 0 20px;
+	width: 45%;
+	height: 60vh;
 	position: absolute;
 	right: 0;
 	top: 45%;
 	transform: translateY(-50%);
 	border: 2px dashed #000;
+	font-family: "Open Sans";
+	color: #464545;
 }
 
 .about__hr {
@@ -37,7 +68,7 @@
 
 #jszc-modal {
 	position: absolute;
-	bottom: -2%;
+	bottom: -3%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
