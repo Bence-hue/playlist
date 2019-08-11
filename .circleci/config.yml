@@ -35,6 +35,10 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
+      - run:
+          name: Delete old coverage map
+          command: rm -R ~/repo/coverage
+
       # run tests!
       - run: npm run test
 
