@@ -104,16 +104,14 @@ export default class About extends Component {
 					</div>
 				</div>
 				<div id="jszc-modal">
-					<a href="/" className="jszc__links">
-						<i className="fab fa-facebook" />
-						Facebook
+					<a href="https://fb.me/jelszoco" className="jszc__links">
+						<i className="fab fa-facebook" /> Facebook
 					</a>
-					<a href="/" className="jszc__links">
-						<i className="fab fa-github" />
-						GitHub
+					<a href="https://git.io/fj53j" className="jszc__links">
+						<i className="fab fa-github" /> GitHub
 					</a>
 					<span className="jszc__hr" />
-					<h1>Made by jelszo co.</h1>
+					<h2>Made by jelszo co.</h2>
 					<a className="jszc__mail" href="mailto:support@jelszo.co">
 						support@jelszo.co
 					</a>
