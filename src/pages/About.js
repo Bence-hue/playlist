@@ -6,9 +6,11 @@ import "../css/about.css";
 
 export default class About extends Component {
 	state = {
-		name: "",
-		email: "",
-		msg: "",
+		fb: {
+			name: "",
+			email: "",
+			msg: ""
+		},
 		toggleSuccess: false,
 		toggleErr: false
 	};
@@ -17,27 +19,31 @@ export default class About extends Component {
 		e.preventDefault();
 		let url = "";
 		let content = {
-			name: this.state.name,
-			email: this.state.email,
-			message: this.state.msg
+			name: this.state.fb.name,
+			email: this.state.fb.email,
+			message: this.state.fb.msg
 		};
 		axios
 			.post(url, content)
-			.then(this.setState({ toggleSuccess: true }))
+			.then(res => {
+				this.setState({ toggleSuccess: true });
+				this.setState({ fb: { name: "", email: "", msg: "" } });
+			})
 			.catch(err => {
 				this.setState({ toggleErr: true });
 				console.log(err);
 			});
-		console.log(this.state);
-		this.setState({ name: "", email: "", msg: "" });
+		console.log(this.state.fb);
 	};
 
 	onChange = e => {
-		this.setState({ [e.target.name]: e.target.value });
+		this.setState({
+			fb: { ...this.state.fb, [e.target.name]: e.target.value }
+		});
 	};
 
 	render() {
-		const { name, email, msg } = this.state;
+		const { name, email, msg } = this.state.fb;
 		return (
 			<div>
 				<Header kolcsey={false} />
@@ -53,7 +59,7 @@ export default class About extends Component {
 							required
 						/>
 						<input
-							type="text"
+							type="email"
 							name="email"
 							value={email}
 							placeholder="Írd be a Te e-mail címed..."
@@ -65,13 +71,13 @@ export default class About extends Component {
 							value={msg}
 							placeholder="Ide írhatod a javaslataid, észrevételeid..."
 							onChange={this.onChange}
-							maxLength="200"
+							maxLength="300"
 							required
 						/>
 						<input type="submit" value="Küldés!" />
 					</form>
 				</div>
-				<span className="about__hr" />
+				<span className="about__page-hr" />
 				<div id="about-us">
 					<h1>Rólunk...</h1>
 					<p>
