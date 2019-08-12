@@ -118,7 +118,7 @@ jobs:
 
 workflows:
   version: 2.1
-  playlist/main:
+  playlist_ci:
     jobs:
       - test-server
       - test-react
