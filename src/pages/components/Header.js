@@ -289,7 +289,7 @@ export default class Header extends Component {
 											show &&
 											(props => (
 												<animated.div style={props}>
-													<a href="https://playlist.jelszo.co/admin">
+													<a href="https://playlist.jelszo.co/admin/dashboard">
 														<Lock
 															className="MU-icons lock hvr-grow"
 															onMouseEnter={this.LOCK_onMouseHover.bind(this)}
