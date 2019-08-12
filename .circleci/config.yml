@@ -118,7 +118,7 @@ jobs:
 
 workflows:
   version: 2.1
-  test_react_django:
+  playlist/main:
     jobs:
       - test-server
       - test-react
