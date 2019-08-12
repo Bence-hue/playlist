@@ -1,5 +1,11 @@
 header {
-    background-color:#15A867;
+	background-color: #15a867;
+}
+
+*::selection,
+*::-moz-selection {
+	background: #139c81;
+	color: white;
 }
 
 @media only screen and (max-width: 900px) {
