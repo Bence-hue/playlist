@@ -189,3 +189,102 @@
 .jszc__links:hover {
 	text-decoration: underline;
 }
+
+@media only screen and (max-width: 900px) {
+	#feedback {
+		padding: 0 20px;
+		width: 90%;
+		height: auto;
+		position: relative;
+		left: 0;
+		top: 0;
+		transform: none;
+	}
+	#feedback h1 {
+		margin: 15px 0;
+		padding: 0;
+		font-size: 3.2rem;
+	}
+	.about__page-hr {
+		margin: 30px 0;
+		padding: 0;
+		position: relative;
+		top: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		display: block;
+		width: 90vw;
+		height: 4px;
+	}
+	#about-us {
+		margin-top: 80px;
+		padding: 0 20px;
+		width: 90%;
+		height: auto;
+		position: relative;
+		right: 0;
+		top: 0;
+		transform: none;
+	}
+	#about-us h1 {
+		font-size: 3.5rem;
+	}
+	#about-us p {
+		font-size: 1.3rem;
+		letter-spacing: 0.5px;
+		line-height: 30px;
+	}
+	.roster {
+		position: relative;
+		bottom: 0;
+		left: 0;
+		transform: none;
+		width: 100%;
+	}
+	.roster__card {
+		margin: 3% 0;
+		width: 80%;
+		display: inline-block;
+	}
+
+	.roster__card h4 {
+		margin-top: 1px;
+	}
+	#jszc-modal {
+		margin: 50px 0 30px 0;
+		position: relative;
+		bottom: 0;
+		left: 0;
+		transform: none;
+	}
+
+	.jszc__hr {
+		display: block;
+		height: 2px;
+		width: 90%;
+		margin: 10px 5%;
+		background: #464545;
+		border-radius: 50px;
+	}
+
+	#jszc-modal h2 {
+		margin: 0;
+		margin-bottom: 5px;
+		padding: 0;
+		text-transform: uppercase;
+		font-size: 1.2rem;
+		letter-spacing: 1.5px;
+		color: #464545;
+		font-style: italic;
+		font-weight: 700;
+	}
+
+	.jszc__mail {
+		margin: 0;
+		color: #202020;
+		text-decoration: none;
+		font-style: italic;
+		font-weight: 400;
+		letter-spacing: 1px;
+	}
+}

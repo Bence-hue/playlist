@@ -47,6 +47,32 @@ export default class About extends Component {
 		return (
 			<div>
 				<Header kolcsey={false} />
+				<div id="about-us">
+					<h1>Rólunk...</h1>
+					<p>
+						A Playlistet 3 Kölcsey-s diák fejleszti, annak reményében, hogy
+						jobbá tegyék az iskolarádiót, és így valamennyire megkönnyítsék az
+						iskolás diákok mindennapjait. Az ötlet saját, továbbá az iskolától
+						semmilyen jutalmat nem kapunk a projekt fenntartásáért. Ha bármilyen
+						kérdésed van, vagy bármilyen hibát tapasztalsz, nyugodtan lépj
+						kapcsolatba velünk.
+					</p>
+					<div className="roster">
+						<div className="roster__card">
+							<h3>Jóvári Norbert</h3>
+							<h4>Designer</h4>
+						</div>
+						<div className="roster__card">
+							<h3>Kiss Benedek Máté</h3>
+							<h4>Frontend, Designer</h4>
+						</div>
+						<div className="roster__card">
+							<h3>Tóth Bence</h3>
+							<h4>Backend</h4>
+						</div>
+					</div>
+				</div>
+				<span className="about__page-hr" />
 				<div id="feedback">
 					<h1>Írj nekünk...</h1>
 					<form onSubmit={this.onSubmit}>
@@ -77,32 +103,7 @@ export default class About extends Component {
 						<input type="submit" value="Küldés!" />
 					</form>
 				</div>
-				<span className="about__page-hr" />
-				<div id="about-us">
-					<h1>Rólunk...</h1>
-					<p>
-						A Playlistet 3 Kölcsey-s diák fejleszti, annak reményében, hogy
-						jobbá tegyék az iskolarádiót, és így valamennyire megkönnyítsék az
-						iskolás diákok mindennapjait. Az ötlet saját, továbbá az iskolától
-						semmilyen jutalmat nem kapunk a projekt fenntartásáért. Ha bármilyen
-						kérdésed van, vagy bármilyen hibát tapasztalsz, nyugodtan lépj
-						kapcsolatba velünk.
-					</p>
-					<div className="roster">
-						<div className="roster__card">
-							<h3>Jóvári Norbert</h3>
-							<h4>Designer</h4>
-						</div>
-						<div className="roster__card">
-							<h3>Kiss Benedek Máté</h3>
-							<h4>Frontend, Designer</h4>
-						</div>
-						<div className="roster__card">
-							<h3>Tóth Bence</h3>
-							<h4>Backend</h4>
-						</div>
-					</div>
-				</div>
+				
 				<div id="jszc-modal">
 					<a href="https://fb.me/jelszoco" className="jszc__links">
 						<i className="fab fa-facebook" /> Facebook
