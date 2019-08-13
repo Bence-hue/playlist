@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Header from "../pages/components/Header";
 import axios from "axios";
+import { Transition, animated } from "react-spring/renderprops";
 
 import "../css/about.css";
 
@@ -11,13 +12,14 @@ export default class About extends Component {
 			email: "",
 			msg: ""
 		},
+		toggleButton: true,
 		toggleSuccess: false,
 		toggleErr: false
 	};
 
 	onSubmit = e => {
 		e.preventDefault();
-		let url = "";
+		let url = "/feedback";
 		let content = {
 			name: this.state.fb.name,
 			email: this.state.fb.email,
@@ -26,11 +28,11 @@ export default class About extends Component {
 		axios
 			.post(url, content)
 			.then(res => {
-				this.setState({ toggleSuccess: true });
+				this.setState({ toggleButton: false, toggleSuccess: true });
 				this.setState({ fb: { name: "", email: "", msg: "" } });
 			})
 			.catch(err => {
-				this.setState({ toggleErr: true });
+				this.setState({ toggleButton: false, toggleErr: true });
 				console.log(err);
 			});
 		console.log(this.state.fb);
@@ -100,10 +102,68 @@ export default class About extends Component {
 							maxLength="300"
 							required
 						/>
-						<input type="submit" value="Küldés!" />
+						<Transition
+							native
+							items={this.state.toggleButton}
+							from={{ opacity: 1 }}
+							enter={{ opacity: 1 }}
+							leave={{ opacity: 0 }}
+							config={{ duration: 200 }}
+						>
+							{show =>
+								show &&
+								(props => (
+									<animated.div style={props}>
+										<input type="submit" value="Küldés!" />
+									</animated.div>
+								))
+							}
+						</Transition>
+						<Transition
+							native
+							items={this.state.toggleSuccess}
+							from={{ opacity: 0 }}
+							enter={{ opacity: 1 }}
+							leave={{ opacity: 0 }}
+							config={{ duration: 200, delay: 300 }}
+						>
+							{show =>
+								show &&
+								(props => (
+									<animated.div style={props}>
+										<div className="sccont">
+											<p>
+												<i class="far fa-check-circle" /> Siker!
+											</p>
+										</div>
+									</animated.div>
+								))
+							}
+						</Transition>
+						<Transition
+							native
+							items={this.state.toggleErr}
+							from={{ opacity: 0 }}
+							enter={{ opacity: 1 }}
+							leave={{ opacity: 0 }}
+							config={{ duration: 200, delay: 300 }}
+						>
+							{show =>
+								show &&
+								(props => (
+									<animated.div style={props}>
+										<div className="errcont">
+											<p>
+												<i class="far fa-times-circle" /> Hiba!
+											</p>
+										</div>
+									</animated.div>
+								))
+							}
+						</Transition>
 					</form>
 				</div>
-				
+
 				<div id="jszc-modal">
 					<a href="https://fb.me/jelszoco" className="jszc__links">
 						<i className="fab fa-facebook" /> Facebook

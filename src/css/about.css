@@ -66,6 +66,51 @@
 	cursor: pointer;
 }
 
+.errcont p {
+	margin: 10px 0 0 0;
+	padding: 7.5px 40px;
+	width: 80px;
+	border: none;
+	font-family: "Open Sans";
+	text-transform: uppercase;
+	font-weight: 600;
+	color: white;
+	font-size: 1.2rem;
+	background: rgb(228, 67, 94);
+	background: linear-gradient(
+		135deg,
+		rgba(228, 67, 94, 1) 0%,
+		rgba(114, 34, 47, 1) 100%
+	);
+	border-radius: 20px;
+	transition: 0.2s all ease-in-out;
+	-webkit-box-shadow: 0px 15px 40px 0px rgba(0, 0, 0, 0.41);
+	-moz-box-shadow: 0px 15px 40px 0px rgba(0, 0, 0, 0.41);
+	box-shadow: 0px 15px 40px 0px rgba(0, 0, 0, 0.41);
+}
+.sccont p {
+	margin: 10px 0 0 0;
+	padding: 7.5px 40px;
+	width: 80px;
+	border: none;
+	font-family: "Open Sans";
+	text-transform: uppercase;
+	font-weight: 600;
+	color: white;
+	font-size: 1.2rem;
+	background: rgb(19, 156, 97);
+	background: linear-gradient(
+		135deg,
+		rgba(19, 156, 97, 1) 0%,
+		rgba(10, 78, 49, 1) 100%
+	);
+	border-radius: 20px;
+	transition: 0.2s all ease-in-out;
+	-webkit-box-shadow: 0px 15px 40px 0px rgba(0, 0, 0, 0.41);
+	-moz-box-shadow: 0px 15px 40px 0px rgba(0, 0, 0, 0.41);
+	box-shadow: 0px 15px 40px 0px rgba(0, 0, 0, 0.41);
+}
+
 #feedback form input[type="submit"]:hover {
 	transform: scale(1.1);
 }
