@@ -1,0 +1,14 @@
+header {
+	background-color: #15a867;
+}
+
+*::selection {
+	background: #139c81;
+	color: white;
+}
+
+@media only screen and (max-width: 900px) {
+	.preloader-img {
+		transform: translate(-50%, -65%) scale(0.6);
+	}
+}

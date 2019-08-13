@@ -121,25 +121,24 @@ export default class ListSongs extends Component {
 			songCardWrapperStyle = { marginTop: "120px" };
 			songsWrapperStyle = { height: "550px" };
 			songListWrapperStyle = { height: "360px", top: "53%" };
-			} else {
+		} else {
 			// Other pages on desktop
 			songCardWrapperStyle = { marginTop: "0" };
 			songsWrapperStyle = { height: "500px" };
 			songListWrapperStyle = { height: "240px", top: "49%" };
-			}
+		}
 
 		// detect firstPage on mobile
 		let isFirstPageMobile = false;
-	if (currentPageMobile === 0) {
-		isFirstPageMobile = true; }
+		if (currentPageMobile === 0) {
+			isFirstPageMobile = true;
+		}
 		if (isFirstPageMobile) {
-// First page on mobile
-mobileSongCardWrapperStyle = { marginTop: "100px" }
-		
+			// First page on mobile
+			mobileSongCardWrapperStyle = { marginTop: "100px" };
 		} else {
-// Other pages on mobile
-mobileSongCardWrapperStyle = { marginTop: "0" }
-		
+			// Other pages on mobile
+			mobileSongCardWrapperStyle = { marginTop: "0" };
 		}
 		let ArrowUpStyle, ArrowDownStyle;
 		if (isFirstPage) {
@@ -201,7 +200,10 @@ mobileSongCardWrapperStyle = { marginTop: "0" }
 								}
 								return null;
 							})}
-							<div className="song-card-wrapper" style={mobileSongCardWrapperStyle}>
+							<div
+								className="song-card-wrapper"
+								style={mobileSongCardWrapperStyle}
+							>
 								{songPagesMobile[currentPageMobile]}
 							</div>
 						</div>

@@ -9,8 +9,11 @@ import Landing from "./pages/Landing";
 import ListSongs from "./pages/ListSongs";
 import NewSong from "./pages/NewSong";
 import CookiesPage from "./pages/CookiesPage";
+import About from "./pages/About";
 
 import ErrorHandler from "./pages/components/ErrorHandler";
+
+import "./css/app.css";
 
 function App() {
 	setDefaultBreakpoints([
@@ -25,16 +28,17 @@ function App() {
 			<ErrorHandler>
 				<Preloader>
 					<Placeholder>
-						<img src={loader} alt="Loading..." />
+						<img src={loader} alt="Loading..." className="preloader-img" />
 					</Placeholder>
 
 					<BreakpointProvider>
-						<div className="App" style={{ overscrollBehavior: "none" }}>
+						<div className="App">
 							<Switch>
 								<Route exact path="/" component={Landing} />
 								<Route exact path="/songs" component={ListSongs} />
 								<Route exact path="/new" component={NewSong} />
 								<Route exact path="/cookies" component={CookiesPage} />
+								<Route exact path="/about" component={About} />
 								<Route component="" />
 							</Switch>
 						</div>

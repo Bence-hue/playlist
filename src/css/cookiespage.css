@@ -80,3 +80,21 @@
 		bottom: 5%;
 	}
 }
+
+@media only screen and (max-width: 900px) {
+	.cookies-page-wrapper__content-wrapper {
+		width: 85%;
+		top: 5%;
+		transform: translateX(-50%);
+	}
+	.cookies-page-wrapper__content-wrapper h1 {
+		font-size: 3.5rem;
+	}
+	.cookies-page-wrapper__content-wrapper p {
+		margin: 30px 0;
+		font-size: 1.5rem;
+	}
+	.cookies-page-wrapper button {
+		bottom: 15%;
+	}
+}
