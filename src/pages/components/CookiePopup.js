@@ -9,18 +9,18 @@ export default class CookiePopup extends Component {
 		const hideCookie = this.props.hideCookie;
 		return (
 			<Spring from={{ opacity: 0 }} to={{ opacity: 1 }} config={{ delay: 500 }}>
-				{props => (
+				{(props) => (
 					<div style={props}>
 						<div className="cookie-back">
 							<div className="cookie-popup">
 								<div className="cookie-wrapper">
 									<h1>
-										<span>Süti beállítások. - </span>Unalmas. Fárasztó. De
-										kötelező.
+										<span>Süti beállítások. - </span>Unalmas. Fárasztó. De kötelező.
 									</h1>
+									<span className="mb-hr" />
 									<p>
-										Az oldal használatával elfogadod azt, hogy mi az oldal
-										üzemeltetéséhez Sütiket (cookie-kat) használunk.
+										Az oldal használatával elfogadod azt, hogy mi az oldal üzemeltetéséhez
+										<span> Sütiket (cookie-kat)</span> használunk.
 									</p>
 									<button onClick={hideCookie} className="hvr-grow">
 										Értem!

@@ -87,29 +87,42 @@
 @media only screen and (max-width: 600px) {
 	.cookie-back,
 	.cookie-popup {
-		height: 200px;
+		height: 150px;
 	}
 	.cookie-wrapper {
 		width: 93%;
 	}
 
 	.cookie-wrapper h1 {
-		top: 20%;
-		font-size: 1.2rem;
+		display: none;
 	}
 
 	.cookie-wrapper p {
-		bottom: -20%;
-		max-width: 55%;
-		text-align: right;
-		left: 45%;
+		bottom: 93%;
+		max-width: 98%;
+		text-align: center;
+		left: 0;
+		transform: translateY(100%);
+		color: #139c61;
+		font-weight: 400;
+	}
+
+	.mb-hr {
+		display: block;
+		position: absolute;
+		top: 72%;
+		left: 10%;
+		width: 40%;
+		height: 4px;
+		background: #139c61;
+		border-radius: 50px;
 	}
 
 	.cookie-wrapper button {
 		width: 8rem;
-		left: 3%;
+		right: 5%;
 		height: 45px;
-		top: 50%;
+		top: 60%;
 		font-size: 1.2rem;
 	}
 }
