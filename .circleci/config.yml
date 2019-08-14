@@ -77,7 +77,7 @@ jobs:
           name: Running tests
           command: |
             . venv/bin/activate
-            pipenv run python3 manage.py test
+            pipenv run python3 playlist/manage.py test
       - store_test_results:
           path: test-results
       - store_artifacts:
