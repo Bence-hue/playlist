@@ -202,6 +202,9 @@ export default class ListSongs extends Component {
 							</div>
 						</div>
 					</div>
+					<h6 className="noresponse">
+						A kért zenékért <span className="no">nem</span> vállalunk felelősséget.
+					</h6>
 				</Breakpoint>
 			</React.Fragment>
 		);
