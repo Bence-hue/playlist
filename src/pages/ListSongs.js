@@ -179,6 +179,9 @@ export default class ListSongs extends Component {
 							onClick={handleBottomClick}
 						/>
 					</div>
+					<h6 className="noresponse">
+						A kért zenékért <span className="no">nem</span> vállalunk felelősséget.
+					</h6>
 				</Breakpoint>
 
 				{/* Mobile DOM */}
