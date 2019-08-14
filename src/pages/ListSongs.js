@@ -21,7 +21,7 @@ export default class ListSongs extends Component {
 
 	componentDidMount() {
 		let url = "https://playlist.jelszo.co/api/list/?mode=unplayed";
-		axios.get(url).then(res => this.setState({ songs: res.data }));
+		axios.get(url).then((res) => this.setState({ songs: res.data }));
 	}
 
 	render() {
@@ -29,16 +29,16 @@ export default class ListSongs extends Component {
 
 		// Get smallest id of received songs + return upcoming song
 		const getIds = () => {
-			return songs.map(d => d.id);
+			return songs.map((d) => d.id);
 		};
 		const smallestId = Math.min(...getIds());
-		const upcomingSong = songs.filter(sg => {
+		const upcomingSong = songs.filter((sg) => {
 			return sg.id === smallestId;
 		});
 
 		// Count pages
-		const sl_Round = Math.ceil(songs.length / 5);
-		const sl_Round_Mobile = Math.ceil(songs.length / 25);
+		const Sl_Round = Math.ceil(songs.length / 5);
+		const Sl_Round_Mobile = Math.ceil(songs.length / 25);
 
 		// Handle desktop pagination clicks
 		const handleUpperClick = () => {
@@ -48,7 +48,7 @@ export default class ListSongs extends Component {
 			}
 		};
 		const handleBottomClick = () => {
-			if (this.state.currentPage !== sl_Round - 1) {
+			if (this.state.currentPage !== Sl_Round - 1) {
 				this.setState({ currentPage: currentPage + 1 });
 			} else {
 			}
@@ -56,23 +56,19 @@ export default class ListSongs extends Component {
 
 		// Handle mobile pagination links
 		const handleMobilePrevClick = () => {
-			console.log("next-click");
 			if (this.state.currentPageMobile !== 0) {
 				this.setState({ currentPageMobile: currentPageMobile - 1 });
-			} else {
 			}
 		};
 		const handleMobileNextClick = () => {
-			console.log("prev-click");
-			if (this.state.currentPageMobile !== sl_Round_Mobile - 1) {
+			if (this.state.currentPageMobile !== Sl_Round_Mobile - 1) {
 				this.setState({ currentPageMobile: currentPageMobile + 1 });
-			} else {
 			}
 		};
 
 		// Desktop pages
 		let songPages = [];
-		for (let i = 0; i < sl_Round; i++) {
+		for (let i = 0; i < Sl_Round; i++) {
 			if (i === 0) {
 				songPages.push(<SongListPage key={i} id={i} isFirstPage={true} />);
 			}
@@ -83,7 +79,7 @@ export default class ListSongs extends Component {
 
 		// Detect first and last page on mobile
 		let isLastPageMobile = false;
-		if (currentPageMobile === sl_Round_Mobile - 1) {
+		if (currentPageMobile === Sl_Round_Mobile - 1) {
 			isLastPageMobile = true;
 		}
 
@@ -109,7 +105,7 @@ export default class ListSongs extends Component {
 			isLastPage = false;
 		if (currentPage === 0) {
 			isFirstPage = true;
-		} else if (currentPage === sl_Round - 1) {
+		} else if (currentPage === Sl_Round - 1) {
 			isLastPage = true;
 		}
 
@@ -155,7 +151,7 @@ export default class ListSongs extends Component {
 							Eddig hozzáadott <span>zenék</span>
 						</h1>
 						<div className="list-wrapper" style={songListWrapperStyle}>
-							{upcomingSong.map(sg => {
+							{upcomingSong.map((sg) => {
 								if (currentPage === 0) {
 									return <UpcomingCard key={sg.id} song={sg} />;
 								}
@@ -167,14 +163,12 @@ export default class ListSongs extends Component {
 						</div>
 						<ArrowUp
 							className={
-								isFirstPage
-									? "songs-arrow songs-arrow-up"
-									: "songs-arrow songs-arrow-up hvr-grow"
+								isFirstPage ? "songs-arrow songs-arrow-up" : "songs-arrow songs-arrow-up hvr-grow"
 							}
 							style={ArrowUpStyle}
 							onClick={handleUpperClick}
 						/>
-						<Indicator currentPage={currentPage + 1} lastPage={sl_Round} />
+						<Indicator currentPage={currentPage + 1} lastPage={Sl_Round} />
 						<ArrowDown
 							className={
 								isLastPage
@@ -194,16 +188,13 @@ export default class ListSongs extends Component {
 					</h1>
 					<div className="songs-wrapper">
 						<div className="list-wrapper">
-							{upcomingSong.map(sg => {
+							{upcomingSong.map((sg) => {
 								if (currentPageMobile === 0) {
 									return <UpcomingCard key={sg.id} song={sg} />;
 								}
 								return null;
 							})}
-							<div
-								className="song-card-wrapper"
-								style={mobileSongCardWrapperStyle}
-							>
+							<div className="song-card-wrapper" style={mobileSongCardWrapperStyle}>
 								{songPagesMobile[currentPageMobile]}
 							</div>
 						</div>
