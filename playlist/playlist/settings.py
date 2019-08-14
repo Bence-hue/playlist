@@ -26,7 +26,7 @@ with open(os.path.join(BASE_DIR,"datas.json"), "r") as cffile:
 SECRET_KEY = config.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["46.107.123.236","127.0.0.1","192.168.1.71","bnctth.ml","playlist.jelszo.co","217.144.54.230"]
 
@@ -132,3 +132,14 @@ STATICFILES_DIRS = (
 STATIC_ROOT=os.path.join(BASE_DIR,"static")
 
 CORS_ORIGIN_ALLOW_ALL=True
+
+EMAIL_HOST="mail.privateemail.com"
+
+EMAIL_PORT=587
+
+EMAIL_USE_TLS=True
+
+EMAIL_HOST_USER=config["username"]
+
+EMAIL_HOST_PASSWORD=config["password"]
+

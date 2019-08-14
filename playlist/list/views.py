@@ -10,6 +10,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login,logout
+from django.core.mail import EmailMessage
 
 from .models import Song, Question
 
@@ -161,7 +162,7 @@ def adminlogin_view(request, *args, **kwargs):
             login(request,user)
             return HttpResponse(status=200)
         else:
-            return HttpResponse(status=403)
+            return HttpResponse(status=401)
     else:
         return HttpResponse(status=405)
 
@@ -178,5 +179,21 @@ def question_view(request, *args, **kwargs):
         qjson=q[0]["fields"]
         qjson["id"]=id
         return HttpResponse(json.dumps(qjson), content_type="application/json", status=200)
+    else:
+        return HttpResponse(status=405)
+
+@csrf_exempt
+def email_view(request, *args, **kwargs):
+    if request.method == 'POST':
+        data=request.POST
+        mail=EmailMessage(
+            subject=data.get("name","")+" (playlist feedback)",
+            body=data.get("message","message"),
+            from_email="support@jelszo.co",
+            to=["support@jelszo.co"],
+            reply_to=[data.get("email","support@jelszo.co")]
+        )
+        mail.send()
+        return HttpResponse(status=200)
     else:
         return HttpResponse(status=405)
