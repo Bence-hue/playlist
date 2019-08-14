@@ -113,7 +113,7 @@ export default class Header extends Component {
 	};
 
 	render() {
-		const kolcsey = this.props.kolcsey;
+		const { kolcsey } = this.props;
 		return (
 			<div ref={node => (this.node = node)}>
 				{/* UPLEFT MENU */}

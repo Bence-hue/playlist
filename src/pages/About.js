@@ -13,11 +13,11 @@ export default class About extends Component {
 			msg: ""
 		},
 		toggleButton: true,
-		toggleSuccess: false,
-		toggleErr: false
+		toggleRes: false,
+		isErr: false
 	};
 
-	onSubmit = e => {
+	onSubmit = (e) => {
 		e.preventDefault();
 		let url = "/feedback";
 		let content = {
@@ -27,18 +27,17 @@ export default class About extends Component {
 		};
 		axios
 			.post(url, content)
-			.then(res => {
-				this.setState({ toggleButton: false, toggleSuccess: true });
+			.then((res) => {
+				this.setState({ toggleButton: false, toggleRes: true });
 				this.setState({ fb: { name: "", email: "", msg: "" } });
 			})
-			.catch(err => {
-				this.setState({ toggleButton: false, toggleErr: true });
-				console.log(err);
+			.catch((err) => {
+				this.setState({ toggleButton: false, toggleRes: true, isErr: true });
+				console.error(err);
 			});
-		console.log(this.state.fb);
 	};
 
-	onChange = e => {
+	onChange = (e) => {
 		this.setState({
 			fb: { ...this.state.fb, [e.target.name]: e.target.value }
 		});
@@ -46,18 +45,18 @@ export default class About extends Component {
 
 	render() {
 		const { name, email, msg } = this.state.fb;
+		const { isErr } = this.state;
 		return (
 			<div>
 				<Header kolcsey={false} />
 				<div id="about-us">
 					<h1>Rólunk...</h1>
 					<p>
-						A Playlistet 3 Kölcsey-s diák fejleszti, annak reményében, hogy
-						jobbá tegyék az iskolarádiót, és így valamennyire megkönnyítsék az
-						iskolás diákok mindennapjait. Az ötlet saját, továbbá az iskolától
-						semmilyen jutalmat nem kapunk a projekt fenntartásáért. Ha bármilyen
-						kérdésed van, vagy bármilyen hibát tapasztalsz, nyugodtan lépj
-						kapcsolatba velünk.
+						A Playlistet 3 Kölcsey-s diák fejleszti, annak reményében, hogy jobbá tegyék az
+						iskolarádiót, és így valamennyire megkönnyítsék az iskolás diákok mindennapjait. Az
+						ötlet saját, továbbá az iskolától semmilyen jutalmat nem kapunk a projekt
+						fenntartásáért. Ha bármilyen kérdésed van, vagy bármilyen hibát tapasztalsz, nyugodtan
+						lépj kapcsolatba velünk.
 					</p>
 					<div className="roster">
 						<div className="roster__card">
@@ -110,9 +109,9 @@ export default class About extends Component {
 							leave={{ opacity: 0 }}
 							config={{ duration: 200 }}
 						>
-							{show =>
+							{(show) =>
 								show &&
-								(props => (
+								((props) => (
 									<animated.div style={props}>
 										<input type="submit" value="Küldés!" />
 									</animated.div>
@@ -121,40 +120,20 @@ export default class About extends Component {
 						</Transition>
 						<Transition
 							native
-							items={this.state.toggleSuccess}
+							items={this.state.toggleRes}
 							from={{ opacity: 0 }}
 							enter={{ opacity: 1 }}
 							leave={{ opacity: 0 }}
 							config={{ duration: 200, delay: 300 }}
 						>
-							{show =>
+							{(show) =>
 								show &&
-								(props => (
+								((props) => (
 									<animated.div style={props}>
-										<div className="sccont">
+										<div className={isErr ? "errcont" : "sccont"}>
 											<p>
-												<i class="far fa-check-circle" /> Siker!
-											</p>
-										</div>
-									</animated.div>
-								))
-							}
-						</Transition>
-						<Transition
-							native
-							items={this.state.toggleErr}
-							from={{ opacity: 0 }}
-							enter={{ opacity: 1 }}
-							leave={{ opacity: 0 }}
-							config={{ duration: 200, delay: 300 }}
-						>
-							{show =>
-								show &&
-								(props => (
-									<animated.div style={props}>
-										<div className="errcont">
-											<p>
-												<i class="far fa-times-circle" /> Hiba!
+												<i class={isErr ? "far fa-times-circle" : "far fa-check-circle"} />
+												{isErr ? " Hiba!" : " Siker!"}
 											</p>
 										</div>
 									</animated.div>
