@@ -16,7 +16,7 @@ from .models import Song, Question
 with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "datas.json"), "r") as cffile:
     config = json.loads(cffile.readline())
 
-@csrf_exempt
+# @csrf_exempt
 def new_view(request, *args, **kwargs):
     if request.method == 'POST':
         if request.POST.get("token", "") == config["token"]:
@@ -77,7 +77,7 @@ def new_view(request, *args, **kwargs):
     else: # ha nem poston kuldott
         return HttpResponse(status=405)
 
-@csrf_exempt
+# @csrf_exempt
 def played_view(request,*args,**kwargs):
     if request.method == 'POST':
         if request.POST.get("token", "") == config["token"]:
@@ -94,7 +94,7 @@ def played_view(request,*args,**kwargs):
     else:
         return HttpResponse(status=405)
 
-@csrf_exempt
+# @csrf_exempt
 def delete_view(request,*args,**kwargs):
     if request.method == 'POST':
         if request.POST.get("token", "") == config["token"]:
@@ -151,8 +151,8 @@ def jsonmodifier(data):
     return HttpResponse(json.dumps(newdata), content_type="application/json", status=200)
 
 
-@csrf_exempt
-def adminlogin_view(request, *args, **kwargs): 
+# @csrf_exempt
+def adminlogin_view(request, *args, **kwargs):
     if request.method == 'POST':
         username = request.POST.get('username',"")
         password = request.POST.get('password',"")
