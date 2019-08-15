@@ -6,7 +6,7 @@ import random
 import requests
 from django.core import serializers
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login,logout
@@ -159,7 +159,7 @@ def adminlogin_view(request, *args, **kwargs):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request,user)
-            return HttpResponse(status=200)
+            return redirect("/admin/dashboard")
         else:
             return HttpResponse(status=403)
     else:
@@ -167,7 +167,7 @@ def adminlogin_view(request, *args, **kwargs):
 
 def adminlogout_view(request, *args, **kwargs):
     logout(request)
-    return HttpResponse(status=200)
+    return redirect("/")
 
 def question_view(request, *args, **kwargs):
     if request.method == 'GET':
