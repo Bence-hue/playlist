@@ -147,7 +147,7 @@ def jsonmodifier(data):
     for i in datajson:
         newdict=i["fields"]
         newdict["id"]=i["pk"]
-        newdata.append(newdict)
+        newdata.append(newdict) 
     return HttpResponse(json.dumps(newdata), content_type="application/json", status=200)
 
 
