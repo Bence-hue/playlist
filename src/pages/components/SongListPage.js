@@ -9,8 +9,8 @@ export default class SongListPage extends Component {
 	};
 
 	componentDidMount() {
-		let url = "https://playlist.jelszo.co/api/list/?mode=unplayed";
-		axios.get(url).then(res => this.setState({ songs: res.data }));
+		let url = "/api/list/?mode=unplayed";
+		axios.get(url).then((res) => this.setState({ songs: res.data }));
 	}
 	render() {
 		const { songs } = this.state;
@@ -22,11 +22,11 @@ export default class SongListPage extends Component {
 			handlePrevClick
 		} = this.props;
 		const getIds = () => {
-			return songs.map(d => d.id);
+			return songs.map((d) => d.id);
 		};
 		const smallestId = Math.min(...getIds());
 
-		const otherSongs = songs.filter(sg => {
+		const otherSongs = songs.filter((sg) => {
 			return sg.id !== smallestId;
 		});
 
@@ -52,12 +52,8 @@ export default class SongListPage extends Component {
 			return (
 				<div>
 					{/* <h1>{`${mSliceStart} ${mSliceStop}`}</h1> */}
-					{!isFirstPage ? (
-						<SongCard isPrevArrow={true} handlePrevClick={handlePrevClick} />
-					) : (
-						""
-					)}
-					{otherSongs.slice(mSliceStart, mSliceStop).map(sg => {
+					{!isFirstPage ? <SongCard isPrevArrow={true} handlePrevClick={handlePrevClick} /> : ""}
+					{otherSongs.slice(mSliceStart, mSliceStop).map((sg) => {
 						return <SongCard key={sg.id} id={sg.id} song={sg} />;
 					})}
 					{!isLastPageMobile ? (
@@ -71,7 +67,7 @@ export default class SongListPage extends Component {
 			return (
 				<div>
 					{/* <h1>{`${sliceStart} ${sliceStop}`}</h1> */}
-					{otherSongs.slice(sliceStart, sliceStop).map(sg => {
+					{otherSongs.slice(sliceStart, sliceStop).map((sg) => {
 						return <SongCard key={sg.id} song={sg} />;
 					})}
 				</div>

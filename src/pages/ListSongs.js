@@ -20,7 +20,7 @@ export default class ListSongs extends Component {
 	};
 
 	componentDidMount() {
-		let url = "https://playlist.jelszo.co/api/list/?mode=unplayed";
+		let url = "/api/list/?mode=unplayed";
 		axios.get(url).then((res) => this.setState({ songs: res.data }));
 	}
 

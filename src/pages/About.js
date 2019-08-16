@@ -19,7 +19,7 @@ export default class About extends Component {
 
 	onSubmit = (e) => {
 		e.preventDefault();
-		let url = "/feedback";
+		let url = "/feedback/";
 		let content = {
 			name: this.state.fb.name,
 			email: this.state.fb.email,

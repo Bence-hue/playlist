@@ -46,7 +46,7 @@ export default class NewSongQuery extends Component {
 				});
 			}, 400);
 		} else {
-			const url = "https://playlist.jelszo.co/api/new/";
+			const url = "/api/new/";
 			const params = new URLSearchParams();
 			params.append("title", this.state.title);
 			params.append("artist", this.state.artist);

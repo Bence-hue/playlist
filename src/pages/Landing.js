@@ -28,8 +28,8 @@ export default class Landing extends Component {
 		} else {
 			this.setState({ viewCookie: true });
 		}
-		let url = "https://playlist.jelszo.co/api/list/?mode=latest";
-		axios.get(url).then(res => this.setState({ latest: res.data }));
+		let url = "/api/list/?mode=latest";
+		axios.get(url).then((res) => this.setState({ latest: res.data }));
 	}
 
 	hideCookie = () => {
@@ -88,14 +88,11 @@ export default class Landing extends Component {
 						leave={{ opacity: 0 }}
 						config={{ duration: 400 }}
 					>
-						{show =>
+						{(show) =>
 							show &&
-							(props => (
+							((props) => (
 								<animated.div style={props}>
-									<CookiePopup
-										className="cookie-pop"
-										hideCookie={this.hideCookie}
-									/>
+									<CookiePopup className="cookie-pop" hideCookie={this.hideCookie} />
 								</animated.div>
 							))
 						}
