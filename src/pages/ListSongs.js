@@ -67,6 +67,17 @@ export default class ListSongs extends Component {
 			}
 		};
 
+		// Handle wheel events
+		const handleWheel = (e) => {
+			if (e.deltaY < 0) {
+				// Scroll up
+				handleUpperClick();
+			} else {
+				// Scroll down
+				handleBottomClick();
+			}
+		};
+
 		// Handle mobile pagination links
 		const handleMobilePrevClick = () => {
 			if (this.state.currentPageMobile !== 0) {
@@ -166,7 +177,7 @@ export default class ListSongs extends Component {
 			<React.Fragment>
 				<Header kolcsey={false} />
 				<Breakpoint tabletl up>
-					<div className="songs-wrapper" style={songsWrapperStyle}>
+					<div className="songs-wrapper" style={songsWrapperStyle} onWheel={handleWheel}>
 						<h1 className="songs-wrapper-heading">
 							Eddig hozzáadott <span>zenék</span>
 						</h1>
