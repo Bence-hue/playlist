@@ -21,8 +21,7 @@
 }
 
 #feedback form input[type="text"],
-#feedback form input[type="email"],
-#feedback form textarea {
+#feedback form input[type="email"] {
 	margin: 10px 0;
 	padding: 10px 15px;
 	width: 70%;
@@ -34,16 +33,37 @@
 	overflow: hidden;
 }
 
+#feedback form textarea {
+	padding: 10px 15px;
+	font-size: 1rem;
+	font-family: "Open Sans";
+	resize: none;
+	border: 3px solid #139c61;
+	border-radius: 15px;
+	overflow: hidden;
+	width: calc(100% - 34px);
+	height: 180px;
+}
+
 #feedback input:invalid,
 #feedback textarea:invalid {
 	box-shadow: none;
 }
 
-#feedback form textarea {
-	width: 90%;
-	height: 180px;
+.txt-wrapper {
+	margin: 10px 0;
+	position: relative;
+	width: calc(90% + 30px);
 }
 
+.txt-wrapper p {
+	position: absolute;
+	bottom: 0;
+	right: 3%;
+	letter-spacing: 1px;
+	font-weight: 400;
+	color: #464545;
+}
 #feedback form input[type="submit"] {
 	margin: 10px 0 0 0;
 	padding: 7px 40px;

@@ -12,10 +12,16 @@ export default class About extends Component {
 			email: "",
 			msg: ""
 		},
+		charlimit: 300,
+		remlength: null,
 		toggleButton: true,
 		toggleRes: false,
 		isErr: false
 	};
+
+	UNSAFE_componentWillMount() {
+		this.setState({ remlength: this.state.charlimit });
+	}
 
 	onSubmit = (e) => {
 		e.preventDefault();
@@ -41,6 +47,14 @@ export default class About extends Component {
 		this.setState({
 			fb: { ...this.state.fb, [e.target.name]: e.target.value }
 		});
+	};
+	onChangeTextarea = (e) => {
+		this.setState({
+			fb: { ...this.state.fb, [e.target.name]: e.target.value }
+		});
+		setTimeout(() => {
+			this.setState({ remlength: this.state.charlimit - this.state.fb.msg.length });
+		}, 50);
 	};
 
 	render() {
@@ -93,14 +107,19 @@ export default class About extends Component {
 							onChange={this.onChange}
 							required
 						/>
-						<textarea
-							name="msg"
-							value={msg}
-							placeholder="Ide írhatod a javaslataid, észrevételeid..."
-							onChange={this.onChange}
-							maxLength="300"
-							required
-						/>
+						<div className="txt-wrapper">
+							<textarea
+								name="msg"
+								value={msg}
+								placeholder="Ide írhatod a javaslataid, észrevételeid..."
+								onChange={this.onChangeTextarea}
+								maxLength={this.state.charlimit}
+								required
+							/>
+							<p className="length">
+								{this.state.remlength}/{this.state.charlimit}
+							</p>
+						</div>
 						<Transition
 							native
 							items={this.state.toggleButton}
