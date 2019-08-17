@@ -7,8 +7,12 @@ import { ReactComponent as LoginBanner } from "../../assets/Login-art.svg";
 
 export default class AdminLogin extends Component {
 	state = {
-		name: null,
-		pass: null
+		name: "",
+		pass: ""
+	};
+
+	onChange = (e) => {
+		this.setState({ [e.target.name]: e.target.value });
 	};
 
 	onSubmit = (e) => {
@@ -32,6 +36,7 @@ export default class AdminLogin extends Component {
 							name="name"
 							value={name}
 							placeholder="Felhasználónév"
+							onChange={this.onChange}
 							required
 						/>
 						<input
@@ -39,6 +44,7 @@ export default class AdminLogin extends Component {
 							name="pass"
 							value={pass}
 							placeholder="Jelszó"
+							onChange={this.onChange}
 							required
 						/>
 						<div className="submit">
