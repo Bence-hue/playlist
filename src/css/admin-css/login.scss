@@ -1,12 +1,21 @@
 $green: #139c61;
 
-#login-wrapper {
+%posac {
 	position: absolute;
-	top: 50%;
+	top: 55%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+}
 
-	background: pink;
+.login-banner {
+	width: 50%;
+	@extend %posac;
+}
+
+#login-wrapper {
+	@extend %posac;
+	height: 40%;
+	width: 23%;
 
 	h1 {
 		font-family: "Open Sans";
@@ -19,6 +28,73 @@ $green: #139c61;
 
 		span {
 			color: $green;
+		}
+	}
+
+	form {
+		position: absolute;
+		top: 40%;
+		left: 50%;
+		transform: translateX(-52%);
+		width: 100%;
+
+		input {
+			margin: 7px 0;
+			padding: 10px 10px;
+			border: 4px solid $green;
+			border-radius: 17px;
+			font-family: "Open Sans";
+
+			&[type="text"] {
+				width: 100%;
+			}
+
+			&[type="password"] {
+				width: 80%;
+			}
+		}
+
+		.submit {
+			position: absolute;
+			right: -4%;
+			bottom: 0;
+			width: 12%;
+			height: 62px;
+			cursor: pointer;
+			* {
+				cursor: pointer;
+				transition: 0.2s all ease-in-out;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				margin: 0;
+				padding: 0;
+				width: 140%;
+				text-align: center;
+			}
+
+			input {
+				padding: 13px 10px;
+				background: rgb(19, 156, 97);
+				background: linear-gradient(
+					-45deg,
+					rgba(19, 156, 97, 1) 0%,
+					rgba(19, 88, 59, 1) 100%
+				);
+				border: none;
+			}
+
+			i {
+				font-size: 1.75rem;
+				color: white;
+			}
+
+			&:hover {
+				* {
+					transform: translate(-50%, -50%) scale(1.1);
+				}
+			}
 		}
 	}
 }
