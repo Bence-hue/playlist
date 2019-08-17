@@ -50,6 +50,11 @@
 	box-shadow: none;
 }
 
+#feedback input:focus,
+#feedback textarea:focus {
+	outline: none;
+}
+
 .txt-wrapper {
 	margin: 10px 0;
 	position: relative;
