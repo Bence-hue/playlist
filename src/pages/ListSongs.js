@@ -27,6 +27,13 @@ export default class ListSongs extends Component {
 	render() {
 		const { songs, currentPage, currentPageMobile } = this.state;
 
+		let noData;
+		if (songs.length === 0) {
+			noData = true;
+		} else {
+			noData = false;
+		}
+
 		// Get smallest id of received songs + return upcoming song
 		const getIds = () => {
 			return songs.map((d) => d.id);
@@ -42,15 +49,21 @@ export default class ListSongs extends Component {
 
 		// Handle desktop pagination clicks
 		const handleUpperClick = () => {
-			if (this.state.currentPage !== 0) {
-				this.setState({ currentPage: currentPage - 1 });
+			if (noData) {
 			} else {
+				if (this.state.currentPage !== 0) {
+					this.setState({ currentPage: currentPage - 1 });
+				} else {
+				}
 			}
 		};
 		const handleBottomClick = () => {
-			if (this.state.currentPage !== Sl_Round - 1) {
-				this.setState({ currentPage: currentPage + 1 });
+			if (noData) {
 			} else {
+				if (this.state.currentPage !== Sl_Round - 1) {
+					this.setState({ currentPage: currentPage + 1 });
+				} else {
+				}
 			}
 		};
 
@@ -136,11 +149,18 @@ export default class ListSongs extends Component {
 			// Other pages on mobile
 			mobileSongCardWrapperStyle = { marginTop: "0" };
 		}
+
+		// Desktop arrow styles
 		let ArrowUpStyle, ArrowDownStyle;
-		if (isFirstPage) {
-			ArrowUpStyle = { color: "#D2D2D2", cursor: "default" };
-		} else if (isLastPage) {
+		if (noData) {
 			ArrowDownStyle = { color: "#D2D2D2", cursor: "default" };
+			ArrowUpStyle = { color: "#D2D2D2", cursor: "default" };
+		} else {
+			if (isFirstPage) {
+				ArrowUpStyle = { color: "#D2D2D2", cursor: "default" };
+			} else if (isLastPage) {
+				ArrowDownStyle = { color: "#D2D2D2", cursor: "default" };
+			}
 		}
 		return (
 			<React.Fragment>
@@ -163,15 +183,21 @@ export default class ListSongs extends Component {
 						</div>
 						<ArrowUp
 							className={
-								isFirstPage ? "songs-arrow songs-arrow-up" : "songs-arrow songs-arrow-up hvr-grow"
+								noData
+									? "songs-arrow songs-arrow-up"
+									: isFirstPage
+									? "songs-arrow songs-arrow-up"
+									: "songs-arrow songs-arrow-up hvr-grow"
 							}
 							style={ArrowUpStyle}
 							onClick={handleUpperClick}
 						/>
-						<Indicator currentPage={currentPage + 1} lastPage={Sl_Round} />
+						<Indicator currentPage={noData ? currentPage : currentPage + 1} lastPage={Sl_Round} />
 						<ArrowDown
 							className={
-								isLastPage
+								noData
+									? "songs-arrow songs-arrow-down"
+									: isLastPage
 									? "songs-arrow songs-arrow-down"
 									: "songs-arrow songs-arrow-down hvr-grow"
 							}

@@ -21,6 +21,14 @@ export default class SongListPage extends Component {
 			handleNextClick,
 			handlePrevClick
 		} = this.props;
+
+		let noData;
+		if (songs.length === 0) {
+			noData = true;
+		} else {
+			noData = false;
+		}
+
 		const getIds = () => {
 			return songs.map((d) => d.id);
 		};
@@ -52,11 +60,19 @@ export default class SongListPage extends Component {
 			return (
 				<div>
 					{/* <h1>{`${mSliceStart} ${mSliceStop}`}</h1> */}
-					{!isFirstPage ? <SongCard isPrevArrow={true} handlePrevClick={handlePrevClick} /> : ""}
+					{noData ? (
+						""
+					) : !isFirstPage ? (
+						<SongCard isPrevArrow={true} handlePrevClick={handlePrevClick} />
+					) : (
+						""
+					)}
 					{otherSongs.slice(mSliceStart, mSliceStop).map((sg) => {
 						return <SongCard key={sg.id} id={sg.id} song={sg} />;
 					})}
-					{!isLastPageMobile ? (
+					{noData ? (
+						""
+					) : !isLastPageMobile ? (
 						<SongCard isNextArrow={true} handleNextClick={handleNextClick} />
 					) : (
 						""
