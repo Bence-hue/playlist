@@ -7,8 +7,12 @@ import { ReactComponent as PrevArrow } from "../../assets/angle-down-solid.svg";
 import { ReactComponent as NextArrow } from "../../assets/angle-up-solid.svg";
 import { ReactComponent as Check } from "../../assets/check-solid.svg";
 import { ReactComponent as Times } from "../../assets/times-solid.svg";
+import { ReactComponent as Dots } from "../../assets/ellipsis-h-solid.svg";
 
 export default class SongCardAdmin extends Component {
+	state = {
+		collapsed: true
+	};
 	handlePlayed = () => {
 		let url = "/api/played/";
 		let params = new URLSearchParams();
@@ -41,6 +45,9 @@ export default class SongCardAdmin extends Component {
 				console.error(err);
 			});
 	};
+	toggleCollapse = () => {
+		this.setState({ collapsed: !this.state.collapsed });
+	};
 	render() {
 		const {
 			isNextArrow,
@@ -49,9 +56,16 @@ export default class SongCardAdmin extends Component {
 			handleNextClick
 		} = this.props;
 		const { id } = this.props;
+		const { collapsed } = this.state;
 		const zIndex = {
 			zIndex: id * -1
 		};
+		let songCardStyle;
+		if (collapsed) {
+			songCardStyle = { height: "60px" };
+		} else {
+			songCardStyle = { height: "120px" };
+		}
 		if (isNextArrow) {
 			return (
 				<div className="song-card song-card__arrow" onClick={handleNextClick}>
@@ -69,7 +83,10 @@ export default class SongCardAdmin extends Component {
 		} else {
 			const { title, artist } = this.props.song;
 			return (
-				<div className="song-card song-card-admin" style={zIndex}>
+				<div
+					className="song-card song-card-admin"
+					style={(zIndex, songCardStyle)}
+				>
 					<h1>{artist}</h1>
 					<span />
 					<h1>{title}</h1>
@@ -77,6 +94,7 @@ export default class SongCardAdmin extends Component {
 						<Check className="sc-icons sc-check" onClick={this.handlePlayed} />
 						<Times className="sc-icons sc-times" onClick={this.handleDelete} />
 					</div>
+					<Dots className="dots" onClick={this.toggleCollapse} />
 				</div>
 			);
 		}
