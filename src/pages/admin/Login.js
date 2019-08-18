@@ -7,7 +7,7 @@ import { ReactComponent as LoginBanner } from "../../assets/Login-art.svg";
 
 export default class AdminLogin extends Component {
 	state = {
-		name: "",
+		username: "",
 		password: ""
 	};
 
@@ -29,7 +29,7 @@ export default class AdminLogin extends Component {
 					<form action="/api/login/" method="post">
 						<input
 							type="text"
-							name="name"
+							name="username"
 							placeholder="Felhasználónév"
 							required
 						/>
