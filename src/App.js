@@ -12,6 +12,7 @@ import CookiesPage from "./pages/CookiesPage";
 import About from "./pages/About";
 import AdminLogin from "./pages/admin/Login";
 import AdminDashboard from "./pages/admin/Dashboard";
+import ListSongsAdmin from "./pages/admin/ListSongsAdmin";
 
 import ErrorHandler from "./pages/components/ErrorHandler";
 
@@ -48,6 +49,7 @@ function App() {
 									path="/admin/dashboard"
 									component={AdminDashboard}
 								/>
+								<Route exact path="/admin/songs" component={ListSongsAdmin} />
 
 								<Route component="" />
 							</Switch>

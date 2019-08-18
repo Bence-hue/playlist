@@ -2,17 +2,17 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Breakpoint } from "react-socks";
 
-import "../css/songlist.css";
+import "../../css/songlist.css";
 
-import Header from "./components/Header";
-import SongListPage from "./components/SongListPage";
-import UpcomingCard from "./components/UpcomingCard";
-import Indicator from "./components/SongListPaginationIndicator";
+import Header from "../components/Header";
+import SongListPageAdmin from "./SongListPageAdmin";
+import UpcomingCardAdmin from "./UpcomingCardAdmin";
+import Indicator from "../components/SongListPaginationIndicator";
 
-import { ReactComponent as ArrowUp } from "../assets/angle-up-solid.svg";
-import { ReactComponent as ArrowDown } from "../assets/angle-down-solid.svg";
+import { ReactComponent as ArrowUp } from "../../assets/angle-up-solid.svg";
+import { ReactComponent as ArrowDown } from "../../assets/angle-down-solid.svg";
 
-export default class ListSongs extends Component {
+export default class ListSongsAdmin extends Component {
 	state = {
 		songs: [],
 		currentPage: 0,
@@ -20,7 +20,7 @@ export default class ListSongs extends Component {
 	};
 
 	componentDidMount() {
-		let url = "/api/list/?mode=unplayed";
+		let url = "http://playlist.jelszo.co:8000/api/list/?mode=unplayed";
 		axios.get(url).then((res) => this.setState({ songs: res.data }));
 	}
 
@@ -94,10 +94,12 @@ export default class ListSongs extends Component {
 		let songPages = [];
 		for (let i = 0; i < Sl_Round; i++) {
 			if (i === 0) {
-				songPages.push(<SongListPage key={i} id={i} isFirstPage={true} />);
+				songPages.push(<SongListPageAdmin key={i} id={i} isFirstPage={true} />);
 			}
 			if (i !== 0) {
-				songPages.push(<SongListPage key={i + 1} id={i} isFirstPage={false} />);
+				songPages.push(
+					<SongListPageAdmin key={i + 1} id={i} isFirstPage={false} />
+				);
 			}
 		}
 
@@ -113,13 +115,13 @@ export default class ListSongs extends Component {
 			if (i === 0) {
 				songPagesMobile.push(
 					// prettier-ignore
-					<SongListPage key={i} id={i} isFirstPage={true} isMobile={true} isLastPageMobile={isLastPageMobile} handleNextClick={handleMobileNextClick}/>
+					<SongListPageAdmin key={i} id={i} isFirstPage={true} isMobile={true} isLastPageMobile={isLastPageMobile} handleNextClick={handleMobileNextClick}/>
 				);
 			}
 			if (i !== 0) {
 				songPagesMobile.push(
 					// prettier-ignore
-					<SongListPage key={i + 1} id={i} isFirstPage={false} isMobile={true} isLastPageMobile={isLastPageMobile} handleNextClick={handleMobileNextClick} handlePrevClick={handleMobilePrevClick}/>
+					<SongListPageAdmin key={i + 1} id={i} isFirstPage={false} isMobile={true} isLastPageMobile={isLastPageMobile} handleNextClick={handleMobileNextClick} handlePrevClick={handleMobilePrevClick}/>
 				);
 			}
 		}
@@ -139,12 +141,20 @@ export default class ListSongs extends Component {
 		if (isFirstPage) {
 			// First page on desktop
 			songCardWrapperStyle = { marginTop: "120px" };
-			songsWrapperStyle = { height: "550px" };
+			songsWrapperStyle = {
+				height: "550px",
+				width: "1100px",
+				maxWidth: "2000px"
+			};
 			songListWrapperStyle = { height: "360px", top: "53%" };
 		} else {
 			// Other pages on desktop
 			songCardWrapperStyle = { marginTop: "0" };
-			songsWrapperStyle = { height: "500px" };
+			songsWrapperStyle = {
+				height: "500px",
+				width: "1100px",
+				maxWidth: "2000px"
+			};
 			songListWrapperStyle = { height: "240px", top: "49%" };
 		}
 
@@ -177,14 +187,18 @@ export default class ListSongs extends Component {
 			<React.Fragment>
 				<Header kolcsey={false} />
 				<Breakpoint tabletl up>
-					<div className="songs-wrapper" style={songsWrapperStyle} onWheel={handleWheel}>
+					<div
+						className="songs-wrapper"
+						style={songsWrapperStyle}
+						onWheel={handleWheel}
+					>
 						<h1 className="songs-wrapper-heading">
 							Eddig hozzáadott <span>zenék</span>
 						</h1>
 						<div className="list-wrapper" style={songListWrapperStyle}>
 							{upcomingSong.map((sg) => {
 								if (currentPage === 0) {
-									return <UpcomingCard key={sg.id} song={sg} />;
+									return <UpcomingCardAdmin key={sg.id} song={sg} />;
 								}
 								return null;
 							})}
@@ -203,7 +217,10 @@ export default class ListSongs extends Component {
 							style={ArrowUpStyle}
 							onClick={handleUpperClick}
 						/>
-						<Indicator currentPage={noData ? currentPage : currentPage + 1} lastPage={Sl_Round} />
+						<Indicator
+							currentPage={noData ? currentPage : currentPage + 1}
+							lastPage={Sl_Round}
+						/>
 						<ArrowDown
 							className={
 								noData
@@ -216,9 +233,6 @@ export default class ListSongs extends Component {
 							onClick={handleBottomClick}
 						/>
 					</div>
-					<h6 className="noresponse">
-						A kért zenékért <span className="no">nem</span> vállalunk felelősséget.
-					</h6>
 				</Breakpoint>
 
 				{/* Mobile DOM */}
@@ -230,18 +244,18 @@ export default class ListSongs extends Component {
 						<div className="list-wrapper">
 							{upcomingSong.map((sg) => {
 								if (currentPageMobile === 0) {
-									return <UpcomingCard key={sg.id} song={sg} />;
+									return <UpcomingCardAdmin key={sg.id} song={sg} />;
 								}
 								return null;
 							})}
-							<div className="song-card-wrapper" style={mobileSongCardWrapperStyle}>
+							<div
+								className="song-card-wrapper"
+								style={mobileSongCardWrapperStyle}
+							>
 								{songPagesMobile[currentPageMobile]}
 							</div>
 						</div>
 					</div>
-					<h6 className="noresponse">
-						A kért zenékért <span className="no">nem</span> vállalunk felelősséget.
-					</h6>
 				</Breakpoint>
 			</React.Fragment>
 		);

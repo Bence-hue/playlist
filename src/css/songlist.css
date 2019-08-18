@@ -50,7 +50,11 @@
 	font-weight: 600;
 	color: #fff;
 	background: rgb(21, 185, 115);
-	background: linear-gradient(135deg, rgba(21, 185, 115, 1) 0%, rgba(25, 125, 83, 1) 100%);
+	background: linear-gradient(
+		135deg,
+		rgba(21, 185, 115, 1) 0%,
+		rgba(25, 125, 83, 1) 100%
+	);
 	-webkit-box-shadow: 0px 3px 40px 0px rgba(0, 0, 0, 0.31);
 	-moz-box-shadow: 0px 3px 40px 0px rgba(0, 0, 0, 0.31);
 	box-shadow: 0px 3px 40px 0px rgba(0, 0, 0, 0.31);
@@ -84,10 +88,16 @@
 	left: 0;
 	text-align: right;
 }
+.upcoming-card-admin h1:nth-child(2) {
+	left: -5%;
+}
 
 .upcoming-card h1:nth-child(4) {
 	right: 0;
 	text-align: left;
+}
+.upcoming-card-admin h1:nth-child(4) {
+	right: 5%;
 }
 
 .upcoming-card span {
@@ -100,6 +110,10 @@
 	transform: translateY(-50%);
 	border-radius: 10px;
 	background: #fff;
+}
+
+.upcoming-card-admin span {
+	left: 45%;
 }
 
 .song-card-wrapper * {
@@ -138,10 +152,16 @@
 	left: 0;
 	text-align: right;
 }
+.song-card-admin h1:nth-child(1) {
+	left: -5%;
+}
 
 .song-card h1:nth-child(3) {
 	right: 0;
 	text-align: left;
+}
+.song-card-admin h1:nth-child(3) {
+	right: 5%;
 }
 
 .song-card span {
@@ -155,6 +175,10 @@
 	border-radius: 10px;
 
 	background: #139c61;
+}
+
+.song-card-admin span {
+	left: 45%;
 }
 
 .songs-arrow {
@@ -174,7 +198,11 @@
 
 .song-card__arrow {
 	background: rgb(21, 185, 115);
-	background: linear-gradient(135deg, rgba(21, 185, 115, 1) 0%, rgba(25, 125, 83, 1) 100%);
+	background: linear-gradient(
+		135deg,
+		rgba(21, 185, 115, 1) 0%,
+		rgba(25, 125, 83, 1) 100%
+	);
 	color: #fff;
 	z-index: 16;
 }
@@ -226,6 +254,38 @@
 	font-weight: 400;
 }
 
+.upc-control-wrapper,
+.sc-control-wrapper {
+	margin: 0;
+	padding: 0 10px;
+	position: absolute;
+	top: 50%;
+	right: 0;
+	transform: translateY(-50%);
+}
+
+.upc-icons,
+.sc-icons {
+	width: 40px;
+	height: 40px;
+	margin: 0 5px;
+	cursor: pointer;
+	transition: 0.1s all ease-in-out;
+}
+
+.sc-check {
+	color: rgb(19, 156, 97);
+}
+
+.sc-times {
+	color: rgb(206, 55, 80);
+}
+
+.upc-icons:hover,
+.sc-icons:hover {
+	transform: scale(1.1);
+}
+
 @media only screen and (max-width: 900px) {
 	.songs-wrapper {
 		width: 80vw;
@@ -258,7 +318,11 @@
 	.upcoming-card {
 		height: 100px;
 		border-radius: 25px;
-		background: linear-gradient(135deg, rgba(21, 185, 115, 1) 0%, rgba(25, 125, 83, 1) 100%);
+		background: linear-gradient(
+			135deg,
+			rgba(21, 185, 115, 1) 0%,
+			rgba(25, 125, 83, 1) 100%
+		);
 		backdrop-filter: blur(10px);
 		opacity: 0.91;
 	}

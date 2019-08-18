@@ -1,0 +1,84 @@
+import React, { Component } from "react";
+import axios from "axios";
+
+import "../../css/songlist.css";
+
+import { ReactComponent as PrevArrow } from "../../assets/angle-down-solid.svg";
+import { ReactComponent as NextArrow } from "../../assets/angle-up-solid.svg";
+import { ReactComponent as Check } from "../../assets/check-solid.svg";
+import { ReactComponent as Times } from "../../assets/times-solid.svg";
+
+export default class SongCardAdmin extends Component {
+	handlePlayed = () => {
+		let url = "/api/played/";
+		let params = new URLSearchParams();
+		params.append("id", this.props.song.id);
+		params.append("token", "ffhPRx4Aql5G7jOCNxZDw6ZjMnD4BdWR");
+		axios.defaults.xsrfCookieName = "csrftoken";
+		axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+		axios
+			.post(url, params)
+			.then((res) => {
+				window.location.reload();
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+	};
+	handleDelete = () => {
+		let url = "/api/delete/";
+		let params = new URLSearchParams();
+		params.append("id", this.props.song.id);
+		params.append("token", "ffhPRx4Aql5G7jOCNxZDw6ZjMnD4BdWR");
+		axios.defaults.xsrfCookieName = "csrftoken";
+		axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+		axios
+			.post(url, params)
+			.then((res) => {
+				window.location.reload();
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+	};
+	render() {
+		const {
+			isNextArrow,
+			isPrevArrow,
+			handlePrevClick,
+			handleNextClick
+		} = this.props;
+		const { id } = this.props;
+		const zIndex = {
+			zIndex: id * -1
+		};
+		if (isNextArrow) {
+			return (
+				<div className="song-card song-card__arrow" onClick={handleNextClick}>
+					<h1>Következő oldal</h1>
+					<NextArrow className="song-card__arrow-component song-card__arrow-next" />
+				</div>
+			);
+		} else if (isPrevArrow) {
+			return (
+				<div className="song-card song-card__arrow" onClick={handlePrevClick}>
+					<PrevArrow className="song-card__arrow-component song_card__arrow-prev" />
+					<h1>Előző oldal</h1>
+				</div>
+			);
+		} else {
+			const { title, artist } = this.props.song;
+			return (
+				<div className="song-card song-card-admin" style={zIndex}>
+					<h1>{artist}</h1>
+					<span />
+					<h1>{title}</h1>
+					<div className="sc-control-wrapper">
+						<Check className="sc-icons sc-check" onClick={this.handlePlayed} />
+						<Times className="sc-icons sc-times" onClick={this.handleDelete} />
+					</div>
+				</div>
+			);
+		}
+	}
+}
