@@ -143,3 +143,4 @@ EMAIL_HOST_USER=config["username"]
 
 EMAIL_HOST_PASSWORD=config["password"]
 
+APPEND_SLASH=False
