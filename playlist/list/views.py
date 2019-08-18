@@ -128,7 +128,6 @@ def list_view(request,*args,**kwargs):
             full = json.loads(serializers.serialize("json",Song.objects.all()))
             latestid=full[len(full)-1]["pk"]
             latestobject = json.loads(serializers.serialize("json", Song.objects.filter(id=latestid)))
-            print(latestobject)
             latestjson=latestobject[0]["fields"]
             latestjson["id"]=latestid
             return HttpResponse(json.dumps(latestjson), content_type="application/json", status=200)
