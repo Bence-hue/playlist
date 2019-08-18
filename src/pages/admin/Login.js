@@ -26,7 +26,7 @@ export default class AdminLogin extends Component {
 						<br />
 						Bejelentkezés
 					</h1>
-					<form action="/api/login" method="post">
+					<form action="/api/login/" method="post">
 						<input
 							type="text"
 							name="name"
