@@ -8,7 +8,7 @@ import { ReactComponent as LoginBanner } from "../../assets/Login-art.svg";
 export default class AdminLogin extends Component {
 	state = {
 		name: "",
-		pass: ""
+		password: ""
 	};
 
 	onChange = (e) => {
@@ -16,10 +16,10 @@ export default class AdminLogin extends Component {
 	};
 
 	onSubmit = (e) => {
-		e.preventDefault();
+		// e.preventDefault();
 	};
 	render() {
-		const { name, pass } = this.state;
+		const { name, password } = this.state;
 		return (
 			<div>
 				<Header kolcsey={true} />
@@ -30,21 +30,25 @@ export default class AdminLogin extends Component {
 						<br />
 						Bejelentkezés
 					</h1>
-					<form onSubmit={this.onSubmit}>
+					<form
+						// onSubmit={this.onSubmit}
+						action="/api/login"
+						method="post"
+					>
 						<input
 							type="text"
 							name="name"
-							value={name}
+							// value={name}
 							placeholder="Felhasználónév"
-							onChange={this.onChange}
+							// onChange={this.onChange}
 							required
 						/>
 						<input
 							type="password"
-							name="pass"
-							value={pass}
+							name="password"
+							// value={password}
 							placeholder="Jelszó"
-							onChange={this.onChange}
+							// onChange={this.onChange}
 							required
 						/>
 						<div className="submit">
