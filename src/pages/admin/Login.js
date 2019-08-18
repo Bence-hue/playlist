@@ -15,11 +15,7 @@ export default class AdminLogin extends Component {
 		this.setState({ [e.target.name]: e.target.value });
 	};
 
-	onSubmit = (e) => {
-		// e.preventDefault();
-	};
 	render() {
-		const { name, password } = this.state;
 		return (
 			<div>
 				<Header kolcsey={true} />
@@ -30,31 +26,22 @@ export default class AdminLogin extends Component {
 						<br />
 						Bejelentkezés
 					</h1>
-					<form
-						// onSubmit={this.onSubmit}
-						action="/api/login"
-						method="post"
-					>
+					<form action="/api/login" method="post">
 						<input
 							type="text"
 							name="name"
-							// value={name}
 							placeholder="Felhasználónév"
-							// onChange={this.onChange}
 							required
 						/>
 						<input
 							type="password"
 							name="password"
-							// value={password}
 							placeholder="Jelszó"
-							// onChange={this.onChange}
 							required
 						/>
-						<div className="submit">
-							<input type="submit" value="" />
+						<button type="submit" value="">
 							<i className="fas fa-arrow-right" />
-						</div>
+						</button>
 					</form>
 				</div>
 			</div>
