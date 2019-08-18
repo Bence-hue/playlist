@@ -143,7 +143,6 @@ def list_view(request,*args,**kwargs):
 
 def jsonmodifier(data):
     datajson=json.loads(data)
-    print(datajson)
     newdata=[]
     for i in datajson:
         newdict=i["fields"]

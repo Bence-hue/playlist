@@ -30,8 +30,8 @@ export default class NewSongQuery extends Component {
 		this.setState({ csrfToken: cookie.load("csrftoken") });
 	}
 
-	onChange = e => this.setState({ [e.target.name]: e.target.value });
-	onSubmit = e => {
+	onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+	onSubmit = (e) => {
 		e.preventDefault();
 		if (this.state.title === "") {
 			this.setState({
@@ -55,7 +55,7 @@ export default class NewSongQuery extends Component {
 			axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 			axios
 				.post(url, params)
-				.then(res => {
+				.then((res) => {
 					this.setState({ toggleAnim: false });
 					this.props.fill(100);
 					setTimeout(() => {
@@ -68,13 +68,12 @@ export default class NewSongQuery extends Component {
 						});
 					}, 1000);
 				})
-				.catch(err => {
+				.catch((err) => {
 					if (err.response) {
 						/*
 						 * The request was made and the server responded with a
 						 * status code that falls out of the range of 2xx
 						 */
-						console.log(err.response.data);
 						console.log(err.response.status);
 						if (err.response.status === 422) {
 							this.setState({
@@ -147,9 +146,9 @@ export default class NewSongQuery extends Component {
 					leave={{ opacity: 0 }}
 					config={{ duration: 200 }}
 				>
-					{show =>
+					{(show) =>
 						show &&
-						(props => (
+						((props) => (
 							<animated.div style={props}>
 								<form
 									className="songquery"
@@ -185,9 +184,9 @@ export default class NewSongQuery extends Component {
 					leave={{ opacity: 0 }}
 					config={{ duration: 300 }}
 				>
-					{show =>
+					{(show) =>
 						show &&
-						(props => (
+						((props) => (
 							<animated.div style={props}>
 								<div className="final-wrapper">
 									<CheckCircle className="final-svg" />
@@ -208,9 +207,9 @@ export default class NewSongQuery extends Component {
 					leave={{ opacity: 0 }}
 					config={{ duration: 400, delay: 400 }}
 				>
-					{show =>
+					{(show) =>
 						show &&
-						(props => (
+						((props) => (
 							<animated.div style={props}>
 								<div className="error-wrapper">
 									<ExCircle className="err-svg" />
