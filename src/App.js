@@ -10,6 +10,7 @@ import ListSongs from "./pages/ListSongs";
 import NewSong from "./pages/NewSong";
 import CookiesPage from "./pages/CookiesPage";
 import About from "./pages/About";
+import AdminLogin from "./pages/admin/Login";
 
 import ErrorHandler from "./pages/components/ErrorHandler";
 
@@ -39,6 +40,9 @@ function App() {
 								<Route exact path="/new" component={NewSong} />
 								<Route exact path="/cookies" component={CookiesPage} />
 								<Route exact path="/about" component={About} />
+
+								<Route exact path="/admin/login" component={AdminLogin} />
+
 								<Route component="" />
 							</Switch>
 						</div>
