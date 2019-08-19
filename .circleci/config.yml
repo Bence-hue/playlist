@@ -73,15 +73,15 @@ jobs:
             - "venv"
             - "/usr/local/bin"
             - "/usr/local/lib/python3.7/site-packages"
-      - run:
-          name: Create phantom database
-          command: echo {"SECRET_KEY": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","YTAPIKEY1": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","YTAPIKEY2": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","YTAPIKEY3": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","username":"support@jelszo.co","password":"xxxxxxxxxxxxxx"} > /playlist/datas.json
+      # - run:
+      #     name: Create phantom database
+      #     command: echo {"SECRET_KEY": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","YTAPIKEY1": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","YTAPIKEY2": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","YTAPIKEY3": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","username":"support@jelszo.co","password":"xxxxxxxxxxxxxx"} > /playlist/datas.json
       - run:
           name: Running tests
           command: |
             . venv/bin/activate
             #pipenv run python3 playlist/playlist/test.py
-            pipenv run python3 playlist/manage.py check
+            # pipenv run python3 playlist/manage.py check
       - store_test_results:
           path: test-results
       - store_artifacts:
