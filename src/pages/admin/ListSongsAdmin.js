@@ -83,7 +83,7 @@ export default class ListSongsAdmin extends Component {
 			}
 		};
 		const handleMobileNextClick = () => {
-			if (this.state.currentPageMobile !== SlRound_Mobile - 1) {
+			if (this.state.currentPageMobile !== SlRoundMobile - 1) {
 				this.setState({ currentPageMobile: currentPageMobile + 1 });
 			}
 		};
@@ -103,7 +103,7 @@ export default class ListSongsAdmin extends Component {
 
 		// Detect first and last page on mobile
 		let isLastPageMobile = false;
-		if (currentPageMobile === SlRound_Mobile - 1) {
+		if (currentPageMobile === SlRoundMobile - 1) {
 			isLastPageMobile = true;
 		}
 
