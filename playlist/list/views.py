@@ -203,7 +203,7 @@ def email_view(request, *args, **kwargs):
     else:
         return HttpResponse(status=405)
 
-@csrf_exempt
+#@csrf_exempt
 def blockuser_view(request, *args, **kwargs):
     if request.method == 'POST':
         if request.user.is_authenticated:
