@@ -22,3 +22,9 @@ def admin_view(request,*args,**kwargs):
         return render(request, "index.html")
     else:
         return redirect("/admin/login")
+
+def login_view(request,*args,**kwargs):
+    if request.user.is_authenticated:
+        return redirect("/admin/dashboard")
+    else:
+        return render(request, "index.html")

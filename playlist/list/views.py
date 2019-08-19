@@ -166,7 +166,7 @@ def adminlogin_view(request, *args, **kwargs):
 
 def adminlogout_view(request, *args, **kwargs):
     logout(request)
-    return HttpResponse(status=200)
+    return redirect('/')
 
 def question_view(request, *args, **kwargs):
     if request.method == 'GET':
