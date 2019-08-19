@@ -243,4 +243,4 @@ def username_view(request, *args, **kwargs):
         else:
             return HttpResponse("PERMISSION DENIED",status=403)
     else:
-        return HttpResponse(status=405)
+        return HttpResponse(status=405) 
