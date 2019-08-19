@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import ReactHtmlParser from "react-html-parser";
 
 import { ReactComponent as Check } from "../../assets/check-solid.svg";
 import { ReactComponent as Times } from "../../assets/times-solid.svg";
@@ -51,7 +52,7 @@ export default class UpcomingCard extends Component {
 					<i className="fab fa-youtube" />
 					<i className="fas fa-circle" />{" "}
 					<a href={link} target="_blank" rel="noopener noreferrer">
-						{yttitle}
+						{ReactHtmlParser(yttitle)}
 					</a>
 				</div>
 				<div className="upc-control-wrapper">
