@@ -118,7 +118,7 @@ export default class NewSongQuery extends Component {
 							});
 							this.props.dashRed();
 							this.props.fill(100);
-						} else if (418 === 418) {
+						} else if (err.response.status === 418) {
 							// Permaban
 							this.setState({
 								err: {
@@ -133,7 +133,7 @@ export default class NewSongQuery extends Component {
 							});
 							this.props.dashRed();
 							this.props.fill(100);
-						} else if (401 === 401) {
+						} else if (err.response.status === 401) {
 							// Timeout
 							this.setState({
 								err: {
