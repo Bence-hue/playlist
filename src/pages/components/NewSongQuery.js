@@ -106,7 +106,7 @@ export default class NewSongQuery extends Component {
 									code: 429,
 									title: "Woah lassíts!",
 									flavor: `Elérted a kérési limitet. Legközelebb ${
-										err.response.status
+										err.response.data
 									} múlva kérhetsz újra.`
 								},
 								toggleAnim: false,
