@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import cookie from "react-cookies";
 
 import "../../css/songlist.css";
 
@@ -17,12 +16,7 @@ export default class SongCardAdmin extends Component {
 	};
 	handlePlayed = () => {
 		let url = "http://playlist.jelszo.co:8000/api/played/";
-		let params =
-			// {
-			// 	id: this.props.song.id,
-			// 	token: "ffhPRx4Aql5G7jOCNxZDw6ZjMnD4BdWR"
-			// };
-			new URLSearchParams();
+		let params = new URLSearchParams();
 		params.append("id", this.props.song.id);
 		axios.defaults.xsrfCookieName = "csrftoken";
 		axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
@@ -31,7 +25,6 @@ export default class SongCardAdmin extends Component {
 				url: url,
 				method: "post",
 				data: params
-				// headers: { Cookie: `sessionid=${cookie.load("sessionid")}` }
 			})
 			.then((res) => {
 				window.location.reload();
