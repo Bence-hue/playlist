@@ -13,14 +13,8 @@ import { ReactComponent as Dots } from "../../assets/ellipsis-h-solid.svg";
 export default class SongCardAdmin extends Component {
 	state = {
 		collapsed: true,
-		sesionid: ""
+		sessionid: ""
 	};
-	componentDidMount() {
-		this.setState({
-			sessionid: cookie.load("sessionid")
-		});
-		console.log(cookie.load("sessionid"));
-	}
 	handlePlayed = () => {
 		let url = "http://playlist.jelszo.co:8000/api/played/";
 		let params =
@@ -36,8 +30,8 @@ export default class SongCardAdmin extends Component {
 			.request({
 				url: url,
 				method: "post",
-				data: params,
-				headers: { Cookie: `sessionid=${this.state.sessionid}` }
+				data: params
+				// headers: { Cookie: `sessionid=${cookie.load("sessionid")}` }
 			})
 			.then((res) => {
 				window.location.reload();
