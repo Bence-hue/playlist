@@ -40,13 +40,20 @@ export default class UpcomingCard extends Component {
 			});
 	};
 	render() {
-		const { title, artist } = this.props.song;
+		const { title, artist, yttitle, link } = this.props.song;
 		return (
 			<div className="upcoming-card upcoming-card-admin">
 				<h2>most következik:</h2>
 				<h1>{artist}</h1>
 				<span />
 				<h1>{title}</h1>
+				<div className="upc-yt-wrapper">
+					<i className="fab fa-youtube" />
+					<i className="fas fa-circle" />{" "}
+					<a href={link} target="_blank" rel="noopener noreferrer">
+						{yttitle}
+					</a>
+				</div>
 				<div className="upc-control-wrapper">
 					<Check className="upc-icons" onClick={this.handlePlayed} />
 					<Times className="upc-icons" onClick={this.handleDelete} />

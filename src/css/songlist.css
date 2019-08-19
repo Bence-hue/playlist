@@ -88,16 +88,10 @@
 	left: 0;
 	text-align: right;
 }
-.upcoming-card-admin h1:nth-child(2) {
-	left: -5%;
-}
 
 .upcoming-card h1:nth-child(4) {
 	right: 0;
 	text-align: left;
-}
-.upcoming-card-admin h1:nth-child(4) {
-	right: 5%;
 }
 
 .upcoming-card span {
@@ -112,8 +106,54 @@
 	background: #fff;
 }
 
+.upcoming-card-admin h2 {
+	font-size: 0.8rem;
+}
+
+.upcoming-card-admin h1 {
+	bottom: 50%;
+}
+
+.upcoming-card-admin h1:nth-child(2) {
+	left: -5%;
+}
+.upcoming-card-admin h1:nth-child(4) {
+	right: 5%;
+}
 .upcoming-card-admin span {
 	left: 45%;
+	height: 40px;
+	top: 37%;
+}
+
+.upc-yt-wrapper {
+	position: absolute;
+	bottom: 15%;
+	left: 45%;
+	transform: translateX(-50%);
+}
+
+.upc-yt-wrapper a {
+	vertical-align: middle;
+	color: white;
+	font-size: 1.2rem;
+	letter-spacing: 0.5px;
+	margin-left: 25px;
+	text-transform: none;
+}
+
+.upc-yt-wrapper .fa-youtube {
+	position: relative;
+	vertical-align: middle;
+	font-size: 1.5rem;
+	color: #e20303;
+	z-index: 2;
+}
+
+.upc-yt-wrapper i {
+	vertical-align: middle;
+	font-size: 0.9rem;
+	letter-spacing: -22px;
 }
 
 .song-card-wrapper * {

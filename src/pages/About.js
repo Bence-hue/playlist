@@ -25,7 +25,7 @@ export default class About extends Component {
 
 	onSubmit = (e) => {
 		e.preventDefault();
-		let url = "/feedback/";
+		let url = "/api/feedback/";
 		let content = {
 			name: this.state.fb.name,
 			email: this.state.fb.email,
@@ -53,7 +53,9 @@ export default class About extends Component {
 			fb: { ...this.state.fb, [e.target.name]: e.target.value }
 		});
 		setTimeout(() => {
-			this.setState({ remlength: this.state.charlimit - this.state.fb.msg.length });
+			this.setState({
+				remlength: this.state.charlimit - this.state.fb.msg.length
+			});
 		}, 50);
 	};
 
@@ -66,11 +68,12 @@ export default class About extends Component {
 				<div id="about-us">
 					<h1>Rólunk...</h1>
 					<p>
-						A Playlistet 3 Kölcsey-s diák fejleszti, annak reményében, hogy jobbá tegyék az
-						iskolarádiót, és így valamennyire megkönnyítsék az iskolás diákok mindennapjait. Az
-						ötlet saját, továbbá az iskolától semmilyen jutalmat nem kapunk a projekt
-						fenntartásáért. Ha bármilyen kérdésed van, vagy bármilyen hibát tapasztalsz, nyugodtan
-						lépj kapcsolatba velünk.
+						A Playlistet 3 Kölcsey-s diák fejleszti, annak reményében, hogy
+						jobbá tegyék az iskolarádiót, és így valamennyire megkönnyítsék az
+						iskolás diákok mindennapjait. Az ötlet saját, továbbá az iskolától
+						semmilyen jutalmat nem kapunk a projekt fenntartásáért. Ha bármilyen
+						kérdésed van, vagy bármilyen hibát tapasztalsz, nyugodtan lépj
+						kapcsolatba velünk.
 					</p>
 					<div className="roster">
 						<div className="roster__card">
@@ -151,7 +154,13 @@ export default class About extends Component {
 									<animated.div style={props}>
 										<div className={isErr ? "errcont" : "sccont"}>
 											<p>
-												<i class={isErr ? "far fa-times-circle" : "far fa-check-circle"} />
+												<i
+													class={
+														isErr
+															? "far fa-times-circle"
+															: "far fa-check-circle"
+													}
+												/>
 												{isErr ? " Hiba!" : " Siker!"}
 											</p>
 										</div>
