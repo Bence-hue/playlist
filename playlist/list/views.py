@@ -20,26 +20,33 @@ with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 @csrf_exempt
 def new_view(request, *args, **kwargs):
     if request.method == 'POST':
-        if request.POST.get("token", "") == config["token"]:
-            data=request.POST
-            print(data)
-            URL="https://www.googleapis.com/youtube/v3/search"
-            song=data.get("artist","")+" - "+data.get("title","")
-            PARAMS={
-                "part":"snippet",
-                "key": config.get("YTAPIKEY1",""),
-                "type":"video",
-                "maxResults":1,
-                "q":song
-            }
-            r=requests.get(url = URL, params = PARAMS)
-            respons=r.json()
-            print(respons)
+        data=request.POST
+        print(data)
+        URL="https://www.googleapis.com/youtube/v3/search"
+        song=data.get("artist","")+" - "+data.get("title","")
+        PARAMS={
+            "part":"snippet",
+            "key": config.get("YTAPIKEY1",""),
+            "type":"video",
+            "maxResults":1,
+            "q":song
+        }
+        r=requests.get(url = URL, params = PARAMS)
+        respons=r.json()
+        print(respons)
+        try:
+            link='https://youtube.com/watch?v='+respons["items"][0]["id"]["videoId"]
+            yttitle=respons["items"][0]["snippet"]["title"]
+        except:
+            PARAMS["key"]=config.get("YTAPIKEY2","")
+            r = requests.get(url=URL, params=PARAMS)
+            respons = r.json()
             try:
-                link='https://youtube.com/watch?v='+respons["items"][0]["id"]["videoId"]
-                yttitle=respons["items"][0]["snippet"]["title"]
+                link = 'https://youtube.com/watch?v=' + \
+                respons["items"][0]["id"]["videoId"]
+                yttitle = respons["items"][0]["snippet"]["title"]
             except:
-                PARAMS["key"]=config.get("YTAPIKEY2","")
+                PARAMS["key"] = config.get("YTAPIKEY3", "")
                 r = requests.get(url=URL, params=PARAMS)
                 respons = r.json()
                 try:
@@ -47,34 +54,24 @@ def new_view(request, *args, **kwargs):
                     respons["items"][0]["id"]["videoId"]
                     yttitle = respons["items"][0]["snippet"]["title"]
                 except:
-                    PARAMS["key"] = config.get("YTAPIKEY3", "")
-                    r = requests.get(url=URL, params=PARAMS)
-                    respons = r.json()
-                    try:
-                        link = 'https://youtube.com/watch?v=' + \
-                        respons["items"][0]["id"]["videoId"]
-                        yttitle = respons["items"][0]["snippet"]["title"]
-                    except:
-                        link=""
-                        yttitle=""
-            print(link)
-            user=request.COOKIES.get("userid","XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX")
-            lastrecord=Song.objects.filter(createdAt__gte=timezone.now()-datetime.timedelta(seconds=15),user=user)
-            if  len(lastrecord)<7:
-                if not Song.objects.filter(link=link,played=False).exclude(link="").exists():
-                    if not Song.objects.filter(link=link,played=True, playedAt__gte=timezone.now()-datetime.timedelta(minutes=1)).exclude(link="").exists():
-                        Song.objects.create(title=data.get("title"),artist=data.get("artist"),link=link,user=user,yttitle=yttitle)
-                        return HttpResponse(status=201)
-                    else: #ha az utobbi egy hetben lett lejatszva
-                        return HttpResponse("{\"played\": True}", status=422)
-                else: #ha van meg le nem jatszott ilyen
-                    return HttpResponse("{\"played\":False}",status=422)
-            else: #ha az utobbi 15 percben kuldott
-                remaining = int((datetime.timedelta(minutes=15)-(timezone.now()-lastrecord[0].createdAt)).total_seconds())
-                print(remaining)
-                return HttpResponse(str(int(remaining/60))+":"+"{:02d}".format(remaining % 60), status=429)
-        else:
-            return HttpResponse("INVALID TOKEN",status=403)
+                    link=""
+                    yttitle=""
+        print(link)
+        user=request.COOKIES.get("userid","XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX")
+        lastrecord=Song.objects.filter(createdAt__gte=timezone.now()-datetime.timedelta(seconds=15),user=user)
+        if  len(lastrecord)<7:
+            if not Song.objects.filter(link=link,played=False).exclude(link="").exists():
+                if not Song.objects.filter(link=link,played=True, playedAt__gte=timezone.now()-datetime.timedelta(minutes=1)).exclude(link="").exists():
+                    Song.objects.create(title=data.get("title"),artist=data.get("artist"),link=link,user=user,yttitle=yttitle)
+                    return HttpResponse(status=201)
+                else: #ha az utobbi egy hetben lett lejatszva
+                    return HttpResponse("{\"played\": True}", status=422)
+            else: #ha van meg le nem jatszott ilyen
+                return HttpResponse("{\"played\":False}",status=422)
+        else: #ha az utobbi 15 percben kuldott
+            remaining = int((datetime.timedelta(minutes=15)-(timezone.now()-lastrecord[0].createdAt)).total_seconds())
+            print(remaining)
+            return HttpResponse(str(int(remaining/60))+":"+"{:02d}".format(remaining % 60), status=429)
     else: # ha nem poston kuldott
         return HttpResponse(status=405)
 
@@ -91,14 +88,14 @@ def played_view(request,*args,**kwargs):
             else:
                 return HttpResponse(status=422)
         else:
-            return HttpResponse("INVALID TOKEN",status=403)
+            return HttpResponse("PERMISSION DENIED",status=403)
     else:
         return HttpResponse(status=405)
 
 @csrf_exempt
 def delete_view(request,*args,**kwargs):
     if request.method == 'POST':
-        if request.POST.get("token", "") == config["token"]:
+        if request.user.is_authenticated:
             id=request.POST.get("id",[""])
             if id is "all":
                 Song.objects.all().delete()
@@ -112,7 +109,7 @@ def delete_view(request,*args,**kwargs):
             else:
                 return HttpResponse(status=422)
         else:
-            return HttpResponse("",status=403)
+            return HttpResponse("PERMISSION DENIED",status=403)
     else:
         return HttpResponse(status=405)
 
