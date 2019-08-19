@@ -6,7 +6,7 @@ version: 2.1
 jobs:
   test-react:
     docker:
-      - image: circleci/node:7.10
+      - image: circleci/node:lts
         environment:
           CODECLIMATE_REPO_TOKEN: 0d48f6d1d4eccb4397f928c0d69485f389357a28de8fcbe4abca4cea9971f8df
           CI: true
@@ -93,17 +93,8 @@ jobs:
 
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
 
       - run: npm install
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
           name: Build react page
