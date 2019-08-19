@@ -25,6 +25,7 @@ export default class About extends Component {
 
 	onSubmit = (e) => {
 		e.preventDefault();
+		this.setState({ toggleButton: false });
 		let url = "/api/feedback/";
 		// let content = {
 		// 	name: this.state.fb.name,
@@ -40,11 +41,11 @@ export default class About extends Component {
 			.then((res) => {
 				console.log(this.state.fb.name, this.state.fb.email, this.state.fb.msg);
 
-				this.setState({ toggleButton: false, toggleRes: true });
+				this.setState({ toggleRes: true });
 				this.setState({ fb: { name: "", email: "", msg: "" } });
 			})
 			.catch((err) => {
-				this.setState({ toggleButton: false, toggleRes: true, isErr: true });
+				this.setState({ toggleRes: true, isErr: true });
 				console.error(err);
 			});
 	};
