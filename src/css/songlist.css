@@ -187,6 +187,7 @@
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	transition: 0.1s all ease-in-out;
 }
 
 .song-card h1:nth-child(1) {
@@ -220,6 +221,7 @@
 
 .song-card-admin span {
 	left: 45%;
+	transition: 0.1s all ease-in-out;
 }
 
 .songs-arrow {
@@ -275,6 +277,34 @@
 	transform: translateY(-50%) rotate(90deg);
 	left: 14%;
 	height: 2rem;
+}
+
+.sc-yt-wrapper {
+	width: 80%;
+	position: absolute;
+	bottom: 25%;
+	left: 45%;
+	transform: translateX(-50%);
+	transition: 0.2s all ease-in-out;
+	text-align: center;
+}
+
+.sc-yt-wrapper a {
+	vertical-align: middle;
+	color: #065fd4;
+	font-size: 1.2rem;
+	letter-spacing: 0.5px;
+	margin-left: 5px;
+	text-transform: none;
+	font-family: "Open Sans";
+}
+
+.sc-yt-wrapper .fa-youtube {
+	position: relative;
+	vertical-align: middle;
+	font-size: 1.5rem;
+	color: #e20303;
+	z-index: 2;
 }
 
 .noresponse {
