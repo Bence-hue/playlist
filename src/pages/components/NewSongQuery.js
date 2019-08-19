@@ -30,8 +30,8 @@ export default class NewSongQuery extends Component {
 		this.setState({ csrfToken: cookie.load("csrftoken") });
 	}
 
-	onChange = e => this.setState({ [e.target.name]: e.target.value });
-	onSubmit = e => {
+	onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+	onSubmit = (e) => {
 		e.preventDefault();
 		if (this.state.title === "") {
 			this.setState({
@@ -46,7 +46,7 @@ export default class NewSongQuery extends Component {
 				});
 			}, 400);
 		} else {
-			const url = "https://playlist.jelszo.co/api/new/";
+			const url = "/api/new/";
 			const params = new URLSearchParams();
 			params.append("title", this.state.title);
 			params.append("artist", this.state.artist);
@@ -55,7 +55,7 @@ export default class NewSongQuery extends Component {
 			axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 			axios
 				.post(url, params)
-				.then(res => {
+				.then((res) => {
 					this.setState({ toggleAnim: false });
 					this.props.fill(100);
 					setTimeout(() => {
@@ -64,19 +64,20 @@ export default class NewSongQuery extends Component {
 							artist: "",
 							active: "artist",
 							flavortext: "",
-							toggleFinal: true
+							toggleFinal: false,
+							toggleErr: false
 						});
 					}, 1000);
 				})
-				.catch(err => {
+				.catch((err) => {
 					if (err.response) {
 						/*
 						 * The request was made and the server responded with a
 						 * status code that falls out of the range of 2xx
 						 */
-						console.log(err.response.data);
 						console.log(err.response.status);
 						if (err.response.status === 422) {
+							// Duplicate
 							this.setState({
 								err: {
 									code: 422,
@@ -89,12 +90,13 @@ export default class NewSongQuery extends Component {
 							this.props.dashRed();
 							this.props.fill(100);
 						} else if (err.response.status === 403) {
+							// CSRF error
 							this.setState({
 								err: {
 									code: 403,
 									title: "Hupsz..",
 									flavor:
-										"Valami nem stimmel az azonosítóddal. Ugye nem vagy hacker?"
+										"Valami nem stimmel az azonosítóddal. Ha többször látod ezt a hibát, kérlek vedd fel velünk a kapcsolatot."
 								},
 								toggleAnim: false,
 								toggleErr: true
@@ -102,12 +104,13 @@ export default class NewSongQuery extends Component {
 							this.props.dashRed();
 							this.props.fill(100);
 						} else if (err.response.status === 429) {
+							// Time limit
 							this.setState({
 								err: {
 									code: 429,
 									title: "Woah lassíts!",
 									flavor: `Elérted a kérési limitet. Legközelebb ${
-										err.response.status
+										err.response.data
 									} múlva kérhetsz újra.`
 								},
 								toggleAnim: false,
@@ -115,7 +118,36 @@ export default class NewSongQuery extends Component {
 							});
 							this.props.dashRed();
 							this.props.fill(100);
+						} else if (err.response.status === 418) {
+							// Permaban
+							this.setState({
+								err: {
+									code: 418,
+									title: "Ejnye...",
+									flavor: `Valamit nagyon elszúrhattál, ugyanis még ${
+										err.response.data
+									} el vagy tiltva a zenekéréstől.`
+								},
+								toggleAnim: false,
+								toggleErr: true
+							});
+							this.props.dashRed();
+							this.props.fill(100);
+						} else if (err.response.status === 401) {
+							// Timeout
+							this.setState({
+								err: {
+									code: 401,
+									title: "Ejnye...",
+									flavor: `Valamit nagyon elszúrhattál. Sajnos te már nem kérhetsz nálunk zenét.`
+								},
+								toggleAnim: false,
+								toggleErr: true
+							});
+							this.props.dashRed();
+							this.props.fill(100);
 						} else {
+							// Server error
 							this.setState({
 								err: {
 									title: "Szerverhiba!",
@@ -147,9 +179,9 @@ export default class NewSongQuery extends Component {
 					leave={{ opacity: 0 }}
 					config={{ duration: 200 }}
 				>
-					{show =>
+					{(show) =>
 						show &&
-						(props => (
+						((props) => (
 							<animated.div style={props}>
 								<form
 									className="songquery"
@@ -185,9 +217,9 @@ export default class NewSongQuery extends Component {
 					leave={{ opacity: 0 }}
 					config={{ duration: 300 }}
 				>
-					{show =>
+					{(show) =>
 						show &&
-						(props => (
+						((props) => (
 							<animated.div style={props}>
 								<div className="final-wrapper">
 									<CheckCircle className="final-svg" />
@@ -208,9 +240,9 @@ export default class NewSongQuery extends Component {
 					leave={{ opacity: 0 }}
 					config={{ duration: 400, delay: 400 }}
 				>
-					{show =>
+					{(show) =>
 						show &&
-						(props => (
+						((props) => (
 							<animated.div style={props}>
 								<div className="error-wrapper">
 									<ExCircle className="err-svg" />

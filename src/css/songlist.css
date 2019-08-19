@@ -106,6 +106,56 @@
 	background: #fff;
 }
 
+.upcoming-card-admin h2 {
+	font-size: 0.8rem;
+}
+
+.upcoming-card-admin h1 {
+	bottom: 50%;
+}
+
+.upcoming-card-admin h1:nth-child(2) {
+	left: -5%;
+}
+.upcoming-card-admin h1:nth-child(4) {
+	right: 5%;
+}
+.upcoming-card-admin span {
+	left: 45%;
+	height: 40px;
+	top: 37%;
+}
+
+.upc-yt-wrapper {
+	position: absolute;
+	bottom: 15%;
+	left: 45%;
+	transform: translateX(-50%);
+}
+
+.upc-yt-wrapper a {
+	vertical-align: middle;
+	color: white;
+	font-size: 1.2rem;
+	letter-spacing: 0.5px;
+	margin-left: 25px;
+	text-transform: none;
+}
+
+.upc-yt-wrapper .fa-youtube {
+	position: relative;
+	vertical-align: middle;
+	font-size: 1.5rem;
+	color: #e20303;
+	z-index: 2;
+}
+
+.upc-yt-wrapper i {
+	vertical-align: middle;
+	font-size: 0.9rem;
+	letter-spacing: -22px;
+}
+
 .song-card-wrapper * {
 	position: relative;
 }
@@ -120,6 +170,7 @@
 	-moz-box-shadow: 0px 3px 40px 0px rgba(0, 0, 0, 0.3);
 	box-shadow: 0px 15px 40px 0px rgba(0, 0, 0, 0.23);
 	border-radius: 50px;
+	transition: 0.2s all ease-in-out;
 }
 
 .song-card h1 {
@@ -136,16 +187,23 @@
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	transition: 0.1s all ease-in-out;
 }
 
 .song-card h1:nth-child(1) {
 	left: 0;
 	text-align: right;
 }
+.song-card-admin h1:nth-child(1) {
+	left: -5%;
+}
 
 .song-card h1:nth-child(3) {
 	right: 0;
 	text-align: left;
+}
+.song-card-admin h1:nth-child(3) {
+	right: 5%;
 }
 
 .song-card span {
@@ -159,6 +217,11 @@
 	border-radius: 10px;
 
 	background: #139c61;
+}
+
+.song-card-admin span {
+	left: 45%;
+	transition: 0.1s all ease-in-out;
 }
 
 .songs-arrow {
@@ -214,6 +277,99 @@
 	transform: translateY(-50%) rotate(90deg);
 	left: 14%;
 	height: 2rem;
+}
+
+.sc-yt-wrapper {
+	width: 80%;
+	position: absolute;
+	bottom: 25%;
+	left: 45%;
+	transform: translateX(-50%);
+	transition: 0.2s all ease-in-out;
+	text-align: center;
+}
+
+.sc-yt-wrapper a {
+	vertical-align: middle;
+	color: #065fd4;
+	font-size: 1.2rem;
+	letter-spacing: 0.5px;
+	margin-left: 5px;
+	text-transform: none;
+	font-family: "Open Sans";
+}
+
+.sc-yt-wrapper .fa-youtube {
+	position: relative;
+	vertical-align: middle;
+	font-size: 1.5rem;
+	color: #e20303;
+	z-index: 2;
+}
+
+.noresponse {
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	bottom: 3%;
+	left: 2%;
+	font-family: "Open Sans";
+	text-transform: uppercase;
+	font-weight: 300;
+	letter-spacing: 1px;
+	font-size: 1rem;
+}
+
+.noresponse span {
+	color: hsl(5, 70%, 55%);
+	font-weight: 400;
+}
+
+.upc-control-wrapper,
+.sc-control-wrapper {
+	margin: 0;
+	padding: 0 10px;
+	position: absolute;
+	top: 50%;
+	right: 0;
+	transform: translateY(-50%);
+}
+
+.upc-icons,
+.sc-icons {
+	width: 40px;
+	height: 40px;
+	margin: 0 5px;
+	cursor: pointer;
+	transition: 0.1s all ease-in-out;
+}
+
+.sc-check {
+	color: rgb(19, 156, 97);
+}
+
+.sc-times {
+	color: rgb(206, 55, 80);
+}
+
+.upc-icons:hover,
+.sc-icons:hover {
+	transform: scale(1.1);
+}
+
+.dots {
+	width: 35px;
+	position: absolute;
+	top: 50%;
+	left: 5%;
+	transform: translateY(-50%);
+	fill: rgb(17, 126, 79);
+	cursor: pointer;
+	transition: 0.1s all ease-in-out;
+}
+
+.dots:hover {
+	transform: translateY(-50%) scale(1.1);
 }
 
 @media only screen and (max-width: 900px) {
@@ -290,5 +446,14 @@
 		height: 28px;
 		position: absolute;
 		top: 50%;
+	}
+	.noresponse {
+		width: 100%;
+		text-align: center;
+		position: absolute;
+		bottom: 1%;
+		left: 0;
+		letter-spacing: 0.5px;
+		font-size: 0.8rem;
 	}
 }

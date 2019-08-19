@@ -20,70 +20,90 @@ export default class ListSongs extends Component {
 	};
 
 	componentDidMount() {
-		let url = "https://playlist.jelszo.co/api/list/?mode=unplayed";
-		axios.get(url).then(res => this.setState({ songs: res.data }));
+		let url = "/api/list/?mode=unplayed";
+		axios.get(url).then((res) => this.setState({ songs: res.data }));
 	}
 
 	render() {
 		const { songs, currentPage, currentPageMobile } = this.state;
 
+		let noData;
+		if (songs.length === 0) {
+			noData = true;
+		} else {
+			noData = false;
+		}
+
 		// Get smallest id of received songs + return upcoming song
 		const getIds = () => {
-			return songs.map(d => d.id);
+			return songs.map((d) => d.id);
 		};
 		const smallestId = Math.min(...getIds());
-		const upcomingSong = songs.filter(sg => {
+		const upcomingSong = songs.filter((sg) => {
 			return sg.id === smallestId;
 		});
 
 		// Count pages
-		const sl_Round = Math.ceil(songs.length / 5);
-		const sl_Round_Mobile = Math.ceil(songs.length / 25);
+		const Sl_Round = Math.ceil(songs.length / 5);
+		const Sl_Round_Mobile = Math.ceil(songs.length / 25);
 
 		// Handle desktop pagination clicks
 		const handleUpperClick = () => {
-			if (this.state.currentPage !== 0) {
-				this.setState({ currentPage: currentPage - 1 });
+			if (noData) {
 			} else {
+				if (this.state.currentPage !== 0) {
+					this.setState({ currentPage: currentPage - 1 });
+				} else {
+				}
 			}
 		};
 		const handleBottomClick = () => {
-			if (this.state.currentPage !== sl_Round - 1) {
-				this.setState({ currentPage: currentPage + 1 });
+			if (noData) {
 			} else {
+				if (this.state.currentPage !== Sl_Round - 1) {
+					this.setState({ currentPage: currentPage + 1 });
+				} else {
+				}
+			}
+		};
+
+		// Handle wheel events
+		const handleWheel = (e) => {
+			if (e.deltaY < 0) {
+				// Scroll up
+				handleUpperClick();
+			} else {
+				// Scroll down
+				handleBottomClick();
 			}
 		};
 
 		// Handle mobile pagination links
 		const handleMobilePrevClick = () => {
-			console.log("next-click");
 			if (this.state.currentPageMobile !== 0) {
 				this.setState({ currentPageMobile: currentPageMobile - 1 });
-			} else {
 			}
 		};
 		const handleMobileNextClick = () => {
-			console.log("prev-click");
-			if (this.state.currentPageMobile !== sl_Round_Mobile - 1) {
+			if (this.state.currentPageMobile !== Sl_Round_Mobile - 1) {
 				this.setState({ currentPageMobile: currentPageMobile + 1 });
-			} else {
 			}
 		};
 
 		// Desktop pages
 		let songPages = [];
-		for (let i = 0; i < sl_Round; i++) {
+		for (let i = 0; i < Sl_Round; i++) {
 			if (i === 0) {
-				songPages.push(<SongListPage key={i} id={i} isFirstPage={true} />);
+				songPages.push(<SongListPage key={i} id={i} songs={songs} isFirstPage={true} />);
 			}
 			if (i !== 0) {
-				songPages.push(<SongListPage key={i + 1} id={i} isFirstPage={false} />);
+				songPages.push(<SongListPage key={i + 1} id={i} songs={songs} isFirstPage={false} />);
 			}
 		}
 
 		// Detect first and last page on mobile
 		let isLastPageMobile = false;
-		if (currentPageMobile === sl_Round_Mobile - 1) {
+		if (currentPageMobile === Sl_Round_Mobile - 1) {
 			isLastPageMobile = true;
 		}
 
@@ -93,13 +113,13 @@ export default class ListSongs extends Component {
 			if (i === 0) {
 				songPagesMobile.push(
 					// prettier-ignore
-					<SongListPage key={i} id={i} isFirstPage={true} isMobile={true} isLastPageMobile={isLastPageMobile} handleNextClick={handleMobileNextClick}/>
+					<SongListPage key={i} id={i} songs={songs} isFirstPage={true} isMobile={true} isLastPageMobile={isLastPageMobile} handleNextClick={handleMobileNextClick}/>
 				);
 			}
 			if (i !== 0) {
 				songPagesMobile.push(
 					// prettier-ignore
-					<SongListPage key={i + 1} id={i} isFirstPage={false} isMobile={true} isLastPageMobile={isLastPageMobile} handleNextClick={handleMobileNextClick} handlePrevClick={handleMobilePrevClick}/>
+					<SongListPage key={i + 1} id={i} songs={songs} isFirstPage={false} isMobile={true} isLastPageMobile={isLastPageMobile} handleNextClick={handleMobileNextClick} handlePrevClick={handleMobilePrevClick}/>
 				);
 			}
 		}
@@ -109,7 +129,7 @@ export default class ListSongs extends Component {
 			isLastPage = false;
 		if (currentPage === 0) {
 			isFirstPage = true;
-		} else if (currentPage === sl_Round - 1) {
+		} else if (currentPage === Sl_Round - 1) {
 			isLastPage = true;
 		}
 
@@ -140,22 +160,29 @@ export default class ListSongs extends Component {
 			// Other pages on mobile
 			mobileSongCardWrapperStyle = { marginTop: "0" };
 		}
+
+		// Desktop arrow styles
 		let ArrowUpStyle, ArrowDownStyle;
-		if (isFirstPage) {
-			ArrowUpStyle = { color: "#D2D2D2", cursor: "default" };
-		} else if (isLastPage) {
+		if (noData) {
 			ArrowDownStyle = { color: "#D2D2D2", cursor: "default" };
+			ArrowUpStyle = { color: "#D2D2D2", cursor: "default" };
+		} else {
+			if (isFirstPage) {
+				ArrowUpStyle = { color: "#D2D2D2", cursor: "default" };
+			} else if (isLastPage) {
+				ArrowDownStyle = { color: "#D2D2D2", cursor: "default" };
+			}
 		}
 		return (
 			<React.Fragment>
 				<Header kolcsey={false} />
 				<Breakpoint tabletl up>
-					<div className="songs-wrapper" style={songsWrapperStyle}>
+					<div className="songs-wrapper" style={songsWrapperStyle} onWheel={handleWheel}>
 						<h1 className="songs-wrapper-heading">
 							Eddig hozzáadott <span>zenék</span>
 						</h1>
 						<div className="list-wrapper" style={songListWrapperStyle}>
-							{upcomingSong.map(sg => {
+							{upcomingSong.map((sg) => {
 								if (currentPage === 0) {
 									return <UpcomingCard key={sg.id} song={sg} />;
 								}
@@ -167,17 +194,21 @@ export default class ListSongs extends Component {
 						</div>
 						<ArrowUp
 							className={
-								isFirstPage
+								noData
+									? "songs-arrow songs-arrow-up"
+									: isFirstPage
 									? "songs-arrow songs-arrow-up"
 									: "songs-arrow songs-arrow-up hvr-grow"
 							}
 							style={ArrowUpStyle}
 							onClick={handleUpperClick}
 						/>
-						<Indicator currentPage={currentPage + 1} lastPage={sl_Round} />
+						<Indicator currentPage={noData ? currentPage : currentPage + 1} lastPage={Sl_Round} />
 						<ArrowDown
 							className={
-								isLastPage
+								noData
+									? "songs-arrow songs-arrow-down"
+									: isLastPage
 									? "songs-arrow songs-arrow-down"
 									: "songs-arrow songs-arrow-down hvr-grow"
 							}
@@ -185,6 +216,9 @@ export default class ListSongs extends Component {
 							onClick={handleBottomClick}
 						/>
 					</div>
+					<h6 className="noresponse">
+						A kért zenékért <span className="no">nem</span> vállalunk felelősséget.
+					</h6>
 				</Breakpoint>
 
 				{/* Mobile DOM */}
@@ -194,20 +228,20 @@ export default class ListSongs extends Component {
 					</h1>
 					<div className="songs-wrapper">
 						<div className="list-wrapper">
-							{upcomingSong.map(sg => {
+							{upcomingSong.map((sg) => {
 								if (currentPageMobile === 0) {
 									return <UpcomingCard key={sg.id} song={sg} />;
 								}
 								return null;
 							})}
-							<div
-								className="song-card-wrapper"
-								style={mobileSongCardWrapperStyle}
-							>
+							<div className="song-card-wrapper" style={mobileSongCardWrapperStyle}>
 								{songPagesMobile[currentPageMobile]}
 							</div>
 						</div>
 					</div>
+					<h6 className="noresponse">
+						A kért zenékért <span className="no">nem</span> vállalunk felelősséget.
+					</h6>
 				</Breakpoint>
 			</React.Fragment>
 		);

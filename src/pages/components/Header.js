@@ -31,7 +31,7 @@ export default class Header extends Component {
 		document.removeEventListener("mousedown", this.handleClick, false);
 	}
 	// CLOSE MENU ON OUTER CLICK
-	handleClick = e => {
+	handleClick = (e) => {
 		if (this.node.contains(e.target)) {
 			//asd
 			return;
@@ -40,7 +40,7 @@ export default class Header extends Component {
 	};
 
 	// MENU TOGGLERS
-	toggleUpright = e => {
+	toggleUpright = (e) => {
 		this.setState({
 			showUpright: !this.state.showUpright,
 			isUprightIconsVisible: true,
@@ -48,7 +48,7 @@ export default class Header extends Component {
 		});
 	};
 
-	toggleUpleft = e => {
+	toggleUpleft = (e) => {
 		this.setState({
 			showUpleft: !this.state.showUpleft,
 			isUpleftIconsVisible: true,
@@ -57,70 +57,67 @@ export default class Header extends Component {
 	};
 
 	// RIGHT BUTTONS HOVER CONTROLLERS
-	LOCK_onMouseHover = e => {
+	LOCK_onMouseHover = (e) => {
 		this.setState({ UprightText: "Admin belépés", isUprightTextVisible: true });
 		document.getElementById("SPANlock").style.opacity = 1;
 	};
-	LOCK_onMouseHoverStop = e => {
+	LOCK_onMouseHoverStop = (e) => {
 		this.setState({ isUprightTextVisible: false });
 		document.getElementById("SPANlock").style.opacity = 0;
 	};
-	FINGER_onMouseHover = e => {
+	FINGER_onMouseHover = (e) => {
 		this.setState({ UprightText: "Sütik", isUprightTextVisible: true });
 		document.getElementById("SPANfinger").style.opacity = 1;
 	};
-	FINGER_onMouseHoverStop = e => {
+	FINGER_onMouseHoverStop = (e) => {
 		this.setState({ isUprightTextVisible: false });
 		document.getElementById("SPANfinger").style.opacity = 0;
 	};
-	INV_onMouseHover = e => {
+	INV_onMouseHover = (e) => {
 		this.setState({ UprightText: "Rólunk", isUprightTextVisible: true });
 		document.getElementById("SPANinv").style.opacity = 1;
 	};
-	INV_onMouseHoverStop = e => {
+	INV_onMouseHoverStop = (e) => {
 		this.setState({ isUprightTextVisible: false });
 		document.getElementById("SPANinv").style.opacity = 0;
 	};
 
 	// LEFT BUTTONS HOVER CONTROLLERS
-	HOME_onMouseHover = e => {
+	HOME_onMouseHover = (e) => {
 		this.setState({ UpleftText: "Főoldal", isUpleftTextVisible: true });
 		document.getElementById("SPANhome").style.opacity = 1;
 	};
-	HOME_onMouseHoverStop = e => {
+	HOME_onMouseHoverStop = (e) => {
 		this.setState({ isUpleftTextVisible: false });
 		document.getElementById("SPANhome").style.opacity = 0;
 	};
-	LIST_onMouseHover = e => {
+	LIST_onMouseHover = (e) => {
 		this.setState({
 			UpleftText: "Hozzáadott Zenék",
 			isUpleftTextVisible: true
 		});
 		document.getElementById("SPANlist").style.opacity = 1;
 	};
-	LIST_onMouseHoverStop = e => {
+	LIST_onMouseHoverStop = (e) => {
 		this.setState({ isUpleftTextVisible: false });
 		document.getElementById("SPANlist").style.opacity = 0;
 	};
-	ADD_onMouseHover = e => {
+	ADD_onMouseHover = (e) => {
 		// prettier-ignore
 		this.setState({ UpleftText: "Új zene hozzáadása", isUpleftTextVisible: true });
 		document.getElementById("SPANadd").style.opacity = 1;
 	};
-	ADD_onMouseHoverStop = e => {
+	ADD_onMouseHoverStop = (e) => {
 		this.setState({ isUpleftTextVisible: false });
 		document.getElementById("SPANadd").style.opacity = 0;
 	};
 
 	render() {
-		const kolcsey = this.props.kolcsey;
+		const { kolcsey } = this.props;
 		return (
-			<div ref={node => (this.node = node)}>
+			<div ref={(node) => (this.node = node)}>
 				{/* UPLEFT MENU */}
-				<MusicPlayer
-					className="menu-upleft-toggle hvr-grow"
-					onClick={this.toggleUpleft}
-				/>
+				<MusicPlayer className="menu-upleft-toggle hvr-grow" onClick={this.toggleUpleft} />
 				<Transition
 					native
 					items={this.state.showUpleft}
@@ -129,9 +126,9 @@ export default class Header extends Component {
 					leave={{ opacity: 0 }}
 					config={{ duration: 300 }}
 				>
-					{show =>
+					{(show) =>
 						show &&
-						(props => (
+						((props) => (
 							<animated.div style={props}>
 								<div id="menu-upleft">
 									<Transition
@@ -142,13 +139,11 @@ export default class Header extends Component {
 										leave={{ opacity: 0 }}
 										config={{ duration: 150 }}
 									>
-										{show =>
+										{(show) =>
 											show &&
-											(props => (
+											((props) => (
 												<animated.div style={props}>
-													<h3 className="upleft-text">
-														{this.state.UpleftText}
-													</h3>
+													<h3 className="upleft-text">{this.state.UpleftText}</h3>
 												</animated.div>
 											))
 										}
@@ -162,17 +157,15 @@ export default class Header extends Component {
 										leave={{ opacity: 0 }}
 										config={{ duration: 400, delay: 200 }}
 									>
-										{show =>
+										{(show) =>
 											show &&
-											(props => (
+											((props) => (
 												<animated.div style={props}>
 													<Link exact="true" to="/">
 														<Home
 															className="MUL-icons home hvr-grow"
 															onMouseEnter={this.HOME_onMouseHover.bind(this)}
-															onMouseLeave={this.HOME_onMouseHoverStop.bind(
-																this
-															)}
+															onMouseLeave={this.HOME_onMouseHoverStop.bind(this)}
 														/>
 													</Link>
 												</animated.div>
@@ -188,17 +181,15 @@ export default class Header extends Component {
 										leave={{ opacity: 0 }}
 										config={{ duration: 400, delay: 400 }}
 									>
-										{show =>
+										{(show) =>
 											show &&
-											(props => (
+											((props) => (
 												<animated.div style={props}>
 													<Link exact="true" to="/songs">
 														<List
 															className="MUL-icons list hvr-grow"
 															onMouseEnter={this.LIST_onMouseHover.bind(this)}
-															onMouseLeave={this.LIST_onMouseHoverStop.bind(
-																this
-															)}
+															onMouseLeave={this.LIST_onMouseHoverStop.bind(this)}
 														/>
 													</Link>
 												</animated.div>
@@ -214,17 +205,15 @@ export default class Header extends Component {
 										leave={{ opacity: 0 }}
 										config={{ duration: 400, delay: 600 }}
 									>
-										{show =>
+										{(show) =>
 											show &&
-											(props => (
+											((props) => (
 												<animated.div style={props}>
 													<Link exact="true" to="/new">
 														<AddButton
 															className="MUL-icons add hvr-grow"
 															onMouseEnter={this.ADD_onMouseHover.bind(this)}
-															onMouseLeave={this.ADD_onMouseHoverStop.bind(
-																this
-															)}
+															onMouseLeave={this.ADD_onMouseHoverStop.bind(this)}
 														/>
 													</Link>
 												</animated.div>
@@ -252,9 +241,9 @@ export default class Header extends Component {
 					leave={{ opacity: 0 }}
 					config={{ duration: 300 }}
 				>
-					{show =>
+					{(show) =>
 						show &&
-						(props => (
+						((props) => (
 							<animated.div style={props}>
 								<div id="menu-upright">
 									<Transition
@@ -265,13 +254,11 @@ export default class Header extends Component {
 										leave={{ opacity: 0 }}
 										config={{ duration: 150 }}
 									>
-										{show =>
+										{(show) =>
 											show &&
-											(props => (
+											((props) => (
 												<animated.div style={props}>
-													<h3 className="upright-text">
-														{this.state.UprightText}
-													</h3>
+													<h3 className="upright-text">{this.state.UprightText}</h3>
 												</animated.div>
 											))
 										}
@@ -285,17 +272,15 @@ export default class Header extends Component {
 										leave={{ opacity: 0 }}
 										config={{ duration: 400, delay: 200 }}
 									>
-										{show =>
+										{(show) =>
 											show &&
-											(props => (
+											((props) => (
 												<animated.div style={props}>
 													<a href="https://playlist.jelszo.co/admin/dashboard">
 														<Lock
 															className="MU-icons lock hvr-grow"
 															onMouseEnter={this.LOCK_onMouseHover.bind(this)}
-															onMouseLeave={this.LOCK_onMouseHoverStop.bind(
-																this
-															)}
+															onMouseLeave={this.LOCK_onMouseHoverStop.bind(this)}
 														/>
 													</a>
 												</animated.div>
@@ -311,17 +296,15 @@ export default class Header extends Component {
 										leave={{ opacity: 0 }}
 										config={{ duration: 400, delay: 400 }}
 									>
-										{show =>
+										{(show) =>
 											show &&
-											(props => (
+											((props) => (
 												<animated.div style={props}>
 													<Link exact="true" to="/cookies">
 														<Fingerprint
 															className="MU-icons finger hvr-grow"
 															onMouseEnter={this.FINGER_onMouseHover.bind(this)}
-															onMouseLeave={this.FINGER_onMouseHoverStop.bind(
-																this
-															)}
+															onMouseLeave={this.FINGER_onMouseHoverStop.bind(this)}
 														/>
 													</Link>
 												</animated.div>
@@ -337,17 +320,15 @@ export default class Header extends Component {
 										leave={{ opacity: 0 }}
 										config={{ duration: 400, delay: 600 }}
 									>
-										{show =>
+										{(show) =>
 											show &&
-											(props => (
+											((props) => (
 												<animated.div style={props}>
 													<Link exact="true" to="/about">
 														<Inv
 															className="MU-icons inv hvr-grow"
 															onMouseEnter={this.INV_onMouseHover.bind(this)}
-															onMouseLeave={this.INV_onMouseHoverStop.bind(
-																this
-															)}
+															onMouseLeave={this.INV_onMouseHoverStop.bind(this)}
 														/>
 													</Link>
 												</animated.div>
@@ -364,9 +345,7 @@ export default class Header extends Component {
 					<Link exact="true" to="/" style={{ textDecoration: "none" }}>
 						<h1 className="playlist-title">playlist</h1>
 					</Link>
-					<h3 className="playlist-lore">
-						{kolcsey ? "kölcsey ferenc gimnázium" : ""}
-					</h3>
+					<h3 className="playlist-lore">{kolcsey ? "kölcsey ferenc gimnázium" : ""}</h3>
 				</div>
 			</div>
 		);

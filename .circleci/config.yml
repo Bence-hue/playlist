@@ -6,7 +6,7 @@ version: 2.1
 jobs:
   test-react:
     docker:
-      - image: circleci/node:7.10
+      - image: circleci/node:lts
         environment:
           CODECLIMATE_REPO_TOKEN: 0d48f6d1d4eccb4397f928c0d69485f389357a28de8fcbe4abca4cea9971f8df
           CI: true
@@ -46,6 +46,7 @@ jobs:
           name: Upload Results
           command: codeclimate-test-reporter < coverage/lcov.info
 
+  # BRNCE INNEN NÉZD
   test-server:
     docker:
       - image: circleci/python:3.7.3
@@ -72,11 +73,16 @@ jobs:
             - "venv"
             - "/usr/local/bin"
             - "/usr/local/lib/python3.7/site-packages"
+      # - run:
+      #     name: Create phantom database
+      #     command: |
+      #       git add .
       - run:
           name: Running tests
           command: |
             . venv/bin/activate
             pipenv run python3 playlist/playlist/test.py
+            # pipenv run python3 playlist/manage.py check
       - store_test_results:
           path: test-results
       - store_artifacts:
@@ -85,28 +91,18 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/node:7.10
+      - image: circleci/node:lts
 
     working_directory: ~/repo
 
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
 
       - run: npm install
 
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
-      #- run:
-      #name: Build react page
-      #command: |
-      #npm run build
+      - run:
+          name: Build react page
+          command: npm run build
       # - run:
       #     name: Copy Build folder to server static folder
       #     command: |

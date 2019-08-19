@@ -1,32 +1,31 @@
 import React, { Component } from "react";
-import axios from "axios";
 
 import SongCard from "./SongCard";
 
 export default class SongListPage extends Component {
-	state = {
-		songs: []
-	};
-
-	componentDidMount() {
-		let url = "https://playlist.jelszo.co/api/list/?mode=unplayed";
-		axios.get(url).then(res => this.setState({ songs: res.data }));
-	}
 	render() {
-		const { songs } = this.state;
 		const {
+			songs,
 			isMobile,
 			isFirstPage,
 			isLastPageMobile,
 			handleNextClick,
 			handlePrevClick
 		} = this.props;
+
+		let noData;
+		if (songs.length === 0) {
+			noData = true;
+		} else {
+			noData = false;
+		}
+
 		const getIds = () => {
-			return songs.map(d => d.id);
+			return songs.map((d) => d.id);
 		};
 		const smallestId = Math.min(...getIds());
 
-		const otherSongs = songs.filter(sg => {
+		const otherSongs = songs.filter((sg) => {
 			return sg.id !== smallestId;
 		});
 
@@ -52,15 +51,19 @@ export default class SongListPage extends Component {
 			return (
 				<div>
 					{/* <h1>{`${mSliceStart} ${mSliceStop}`}</h1> */}
-					{!isFirstPage ? (
+					{noData ? (
+						""
+					) : !isFirstPage ? (
 						<SongCard isPrevArrow={true} handlePrevClick={handlePrevClick} />
 					) : (
 						""
 					)}
-					{otherSongs.slice(mSliceStart, mSliceStop).map(sg => {
+					{otherSongs.slice(mSliceStart, mSliceStop).map((sg) => {
 						return <SongCard key={sg.id} id={sg.id} song={sg} />;
 					})}
-					{!isLastPageMobile ? (
+					{noData ? (
+						""
+					) : !isLastPageMobile ? (
 						<SongCard isNextArrow={true} handleNextClick={handleNextClick} />
 					) : (
 						""
@@ -71,7 +74,7 @@ export default class SongListPage extends Component {
 			return (
 				<div>
 					{/* <h1>{`${sliceStart} ${sliceStop}`}</h1> */}
-					{otherSongs.slice(sliceStart, sliceStop).map(sg => {
+					{otherSongs.slice(sliceStart, sliceStop).map((sg) => {
 						return <SongCard key={sg.id} song={sg} />;
 					})}
 				</div>

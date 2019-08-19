@@ -19,11 +19,11 @@ import { ReactComponent as NartRight } from "../assets/new-song-right.svg";
 
 export default class NewSong extends Component {
 	state = {
-		fill: "",
+		fill: null,
 		isButtonVisible: true,
 		isFormVisible: false
 	};
-	fillButton = percent => {
+	fillButton = (percent) => {
 		this.setState({ fill: percent });
 	};
 	dashRed = () => {
@@ -50,9 +50,9 @@ export default class NewSong extends Component {
 					leave={{ opacity: 0 }}
 					config={{ duration: 600 }}
 				>
-					{show =>
+					{(show) =>
 						show &&
-						(props => (
+						((props) => (
 							<animated.div style={props}>
 								<NEWb
 									className="new-song-button"
@@ -74,9 +74,9 @@ export default class NewSong extends Component {
 					leave={{ opacity: 1 }}
 					config={{ duration: 400, delay: 1600 }}
 				>
-					{show =>
+					{(show) =>
 						show &&
-						(props => (
+						((props) => (
 							<animated.div style={props}>
 								<NewSongQuery fill={this.fillButton} dashRed={this.dashRed} />
 							</animated.div>
@@ -110,11 +110,9 @@ export default class NewSong extends Component {
 						xmlns="http://www.w3.org/2000/svg"
 						width="700.05"
 						height="700.05"
-						className={`new-svg svg1 svg-animated ${
-							fill === 33 ? "fill33 " : ""
-						}${fill === 66 ? "fill66 " : ""}${fill === 100 ? "fill100 " : ""}${
-							isDashRed ? "new-svg-red" : ""
-						}`}
+						className={`new-svg svg1 svg-animated ${fill === 33 ? "fill33 " : ""}${
+							fill === 66 ? "fill66 " : ""
+						}${fill === 100 ? "fill100 " : ""}${isDashRed ? "new-svg-red" : ""}`}
 					>
 						<g transform="translate(-619.143 -262.094)">
 							<circle
@@ -156,11 +154,9 @@ export default class NewSong extends Component {
 						xmlns="http://www.w3.org/2000/svg"
 						width="690.014"
 						height="690.014"
-						className={`new-svg svg2 svg-animated ${
-							fill === 33 ? "fill33 " : ""
-						}${fill === 66 ? "fill66 " : ""}${fill === 100 ? "fill100 " : ""}${
-							isDashRed ? "new-svg-red" : ""
-						}`}
+						className={`new-svg svg2 svg-animated ${fill === 33 ? "fill33 " : ""}${
+							fill === 66 ? "fill66 " : ""
+						}${fill === 100 ? "fill100 " : ""}${isDashRed ? "new-svg-red" : ""}`}
 					>
 						<g transform="matrix(0.819, 0.574, -0.574, 0.819, 12.247, -559.303)">
 							<circle
@@ -203,11 +199,9 @@ export default class NewSong extends Component {
 						width="705.296"
 						height="705.296"
 						viewBox="0 0 805.296 805.296"
-						className={`new-svg svg3 svg-animated ${
-							fill === 33 ? "fill33 " : ""
-						}${fill === 66 ? "fill66 " : ""}${fill === 100 ? "fill100 " : ""}${
-							isDashRed ? "new-svg-red" : ""
-						}`}
+						className={`new-svg svg3 svg-animated ${fill === 33 ? "fill33 " : ""}${
+							fill === 66 ? "fill66 " : ""
+						}${fill === 100 ? "fill100 " : ""}${isDashRed ? "new-svg-red" : ""}`}
 					>
 						<g transform="matrix(0.342, 0.94, -0.94, 0.342, 602.886, -624.163)">
 							<circle
@@ -250,11 +244,9 @@ export default class NewSong extends Component {
 						width="760.465"
 						height="760.465"
 						viewBox="0 0 760.465 760.465"
-						className={`new-svg svg4 svg-animated ${
-							fill === 33 ? "fill33 " : ""
-						}${fill === 66 ? "fill66 " : ""}${fill === 100 ? "fill100 " : ""}${
-							isDashRed ? "new-svg-red" : ""
-						}`}
+						className={`new-svg svg4 svg-animated ${fill === 33 ? "fill33 " : ""}${
+							fill === 66 ? "fill66 " : ""
+						}${fill === 100 ? "fill100 " : ""}${isDashRed ? "new-svg-red" : ""}`}
 					>
 						<g transform="translate(884.673 -481.257) rotate(90)">
 							<circle
@@ -297,11 +289,9 @@ export default class NewSong extends Component {
 						width="687.394"
 						height="687.395"
 						viewBox="0 0 687.394 687.395"
-						className={`new-svg svg5 svg-animated ${
-							fill === 33 ? "fill33 " : ""
-						}${fill === 66 ? "fill66 " : ""}${fill === 100 ? "fill100 " : ""}${
-							isDashRed ? "new-svg-red" : ""
-						}`}
+						className={`new-svg svg5 svg-animated ${fill === 33 ? "fill33 " : ""}${
+							fill === 66 ? "fill66 " : ""
+						}${fill === 100 ? "fill100 " : ""}${isDashRed ? "new-svg-red" : ""}`}
 					>
 						<g transform="translate(1257.407 91.743) rotate(135)">
 							<circle

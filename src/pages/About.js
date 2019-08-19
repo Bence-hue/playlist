@@ -12,40 +12,62 @@ export default class About extends Component {
 			email: "",
 			msg: ""
 		},
+		charlimit: 300,
+		remlength: null,
 		toggleButton: true,
-		toggleSuccess: false,
-		toggleErr: false
+		toggleRes: false,
+		isErr: false
 	};
 
-	onSubmit = e => {
+	UNSAFE_componentWillMount() {
+		this.setState({ remlength: this.state.charlimit });
+	}
+
+	onSubmit = (e) => {
 		e.preventDefault();
-		let url = "/feedback";
-		let content = {
-			name: this.state.fb.name,
-			email: this.state.fb.email,
-			message: this.state.fb.msg
-		};
+		this.setState({ toggleButton: false });
+		let url = "/api/feedback/";
+		// let content = {
+		// 	name: this.state.fb.name,
+		// 	email: this.state.fb.email,
+		// 	message: this.state.fb.msg
+		// };
+		let content = new URLSearchParams();
+		content.append("name", this.state.fb.name);
+		content.append("email", this.state.fb.email);
+		content.append("message", this.state.fb.msg);
 		axios
 			.post(url, content)
-			.then(res => {
-				this.setState({ toggleButton: false, toggleSuccess: true });
+			.then((res) => {
+
+				this.setState({ toggleRes: true });
 				this.setState({ fb: { name: "", email: "", msg: "" } });
 			})
-			.catch(err => {
-				this.setState({ toggleButton: false, toggleErr: true });
-				console.log(err);
+			.catch((err) => {
+				this.setState({ toggleRes: true, isErr: true });
+				console.error(err);
 			});
-		console.log(this.state.fb);
 	};
 
-	onChange = e => {
+	onChange = (e) => {
 		this.setState({
 			fb: { ...this.state.fb, [e.target.name]: e.target.value }
 		});
 	};
+	onChangeTextarea = (e) => {
+		this.setState({
+			fb: { ...this.state.fb, [e.target.name]: e.target.value }
+		});
+		setTimeout(() => {
+			this.setState({
+				remlength: this.state.charlimit - this.state.fb.msg.length
+			});
+		}, 50);
+	};
 
 	render() {
 		const { name, email, msg } = this.state.fb;
+		const { isErr } = this.state;
 		return (
 			<div>
 				<Header kolcsey={false} />
@@ -94,14 +116,19 @@ export default class About extends Component {
 							onChange={this.onChange}
 							required
 						/>
-						<textarea
-							name="msg"
-							value={msg}
-							placeholder="Ide írhatod a javaslataid, észrevételeid..."
-							onChange={this.onChange}
-							maxLength="300"
-							required
-						/>
+						<div className="txt-wrapper">
+							<textarea
+								name="msg"
+								value={msg}
+								placeholder="Ide írhatod a javaslataid, észrevételeid..."
+								onChange={this.onChangeTextarea}
+								maxLength={this.state.charlimit}
+								required
+							/>
+							<p className="length">
+								{this.state.remlength}/{this.state.charlimit}
+							</p>
+						</div>
 						<Transition
 							native
 							items={this.state.toggleButton}
@@ -110,9 +137,9 @@ export default class About extends Component {
 							leave={{ opacity: 0 }}
 							config={{ duration: 200 }}
 						>
-							{show =>
+							{(show) =>
 								show &&
-								(props => (
+								((props) => (
 									<animated.div style={props}>
 										<input type="submit" value="Küldés!" />
 									</animated.div>
@@ -121,40 +148,26 @@ export default class About extends Component {
 						</Transition>
 						<Transition
 							native
-							items={this.state.toggleSuccess}
+							items={this.state.toggleRes}
 							from={{ opacity: 0 }}
 							enter={{ opacity: 1 }}
 							leave={{ opacity: 0 }}
 							config={{ duration: 200, delay: 300 }}
 						>
-							{show =>
+							{(show) =>
 								show &&
-								(props => (
+								((props) => (
 									<animated.div style={props}>
-										<div className="sccont">
+										<div className={isErr ? "errcont" : "sccont"}>
 											<p>
-												<i class="far fa-check-circle" /> Siker!
-											</p>
-										</div>
-									</animated.div>
-								))
-							}
-						</Transition>
-						<Transition
-							native
-							items={this.state.toggleErr}
-							from={{ opacity: 0 }}
-							enter={{ opacity: 1 }}
-							leave={{ opacity: 0 }}
-							config={{ duration: 200, delay: 300 }}
-						>
-							{show =>
-								show &&
-								(props => (
-									<animated.div style={props}>
-										<div className="errcont">
-											<p>
-												<i class="far fa-times-circle" /> Hiba!
+												<i
+													class={
+														isErr
+															? "far fa-times-circle"
+															: "far fa-check-circle"
+													}
+												/>
+												{isErr ? " Hiba!" : " Siker!"}
 											</p>
 										</div>
 									</animated.div>
@@ -165,8 +178,8 @@ export default class About extends Component {
 				</div>
 
 				<div id="jszc-modal">
-					<a href="https://fb.me/jelszoco" className="jszc__links">
-						<i className="fab fa-facebook" /> Facebook
+					<a href="https://m.me/jelszoco" className="jszc__links">
+						<i className="fab fa-facebook-messenger" /> Messenger
 					</a>
 					<a href="https://git.io/fj53j" className="jszc__links">
 						<i className="fab fa-github" /> GitHub
