@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import cookie from "react-cookies";
 
 import "../../css/songlist.css";
 
@@ -13,22 +12,11 @@ import { ReactComponent as Dots } from "../../assets/ellipsis-h-solid.svg";
 export default class SongCardAdmin extends Component {
 	state = {
 		collapsed: true,
-		sesionid: ""
+		sessionid: ""
 	};
-	componentDidMount() {
-		this.setState({
-			sessionid: cookie.load("sessionid")
-		});
-		console.log(cookie.load("sessionid"));
-	}
 	handlePlayed = () => {
 		let url = "http://playlist.jelszo.co:8000/api/played/";
-		let params =
-			// {
-			// 	id: this.props.song.id,
-			// 	token: "ffhPRx4Aql5G7jOCNxZDw6ZjMnD4BdWR"
-			// };
-			new URLSearchParams();
+		let params = new URLSearchParams();
 		params.append("id", this.props.song.id);
 		axios.defaults.xsrfCookieName = "csrftoken";
 		axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
@@ -36,8 +24,7 @@ export default class SongCardAdmin extends Component {
 			.request({
 				url: url,
 				method: "post",
-				data: params,
-				headers: { Cookie: `sessionid=${this.state.sessionid}` }
+				data: params
 			})
 			.then((res) => {
 				window.location.reload();
