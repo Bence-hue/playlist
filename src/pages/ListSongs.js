@@ -44,25 +44,21 @@ export default class ListSongs extends Component {
 		});
 
 		// Count pages
-		const Sl_Round = Math.ceil(songs.length / 5);
-		const Sl_Round_Mobile = Math.ceil(songs.length / 25);
+		const SlRound = Math.ceil(songs.length / 5);
+		const SlRoundMobile = Math.ceil(songs.length / 25);
 
 		// Handle desktop pagination clicks
 		const handleUpperClick = () => {
-			if (noData) {
-			} else {
+			if (!noData) {
 				if (this.state.currentPage !== 0) {
 					this.setState({ currentPage: currentPage - 1 });
-				} else {
 				}
 			}
 		};
 		const handleBottomClick = () => {
-			if (noData) {
-			} else {
-				if (this.state.currentPage !== Sl_Round - 1) {
+			if (!noData) {
+				if (this.state.currentPage !== SlRound - 1) {
 					this.setState({ currentPage: currentPage + 1 });
-				} else {
 				}
 			}
 		};
@@ -85,25 +81,29 @@ export default class ListSongs extends Component {
 			}
 		};
 		const handleMobileNextClick = () => {
-			if (this.state.currentPageMobile !== Sl_Round_Mobile - 1) {
+			if (this.state.currentPageMobile !== SlRoundMobile - 1) {
 				this.setState({ currentPageMobile: currentPageMobile + 1 });
 			}
 		};
 
 		// Desktop pages
 		let songPages = [];
-		for (let i = 0; i < Sl_Round; i++) {
+		for (let i = 0; i < SlRound; i++) {
 			if (i === 0) {
-				songPages.push(<SongListPage key={i} id={i} songs={songs} isFirstPage={true} />);
+				songPages.push(
+					<SongListPage key={i} id={i} songs={songs} isFirstPage={true} />
+				);
 			}
 			if (i !== 0) {
-				songPages.push(<SongListPage key={i + 1} id={i} songs={songs} isFirstPage={false} />);
+				songPages.push(
+					<SongListPage key={i + 1} id={i} songs={songs} isFirstPage={false} />
+				);
 			}
 		}
 
 		// Detect first and last page on mobile
 		let isLastPageMobile = false;
-		if (currentPageMobile === Sl_Round_Mobile - 1) {
+		if (currentPageMobile === SlRoundMobile - 1) {
 			isLastPageMobile = true;
 		}
 
@@ -129,7 +129,7 @@ export default class ListSongs extends Component {
 			isLastPage = false;
 		if (currentPage === 0) {
 			isFirstPage = true;
-		} else if (currentPage === Sl_Round - 1) {
+		} else if (currentPage === SlRound - 1) {
 			isLastPage = true;
 		}
 
@@ -177,7 +177,11 @@ export default class ListSongs extends Component {
 			<React.Fragment>
 				<Header kolcsey={false} />
 				<Breakpoint tabletl up>
-					<div className="songs-wrapper" style={songsWrapperStyle} onWheel={handleWheel}>
+					<div
+						className="songs-wrapper"
+						style={songsWrapperStyle}
+						onWheel={handleWheel}
+					>
 						<h1 className="songs-wrapper-heading">
 							Eddig hozzáadott <span>zenék</span>
 						</h1>
@@ -203,7 +207,10 @@ export default class ListSongs extends Component {
 							style={ArrowUpStyle}
 							onClick={handleUpperClick}
 						/>
-						<Indicator currentPage={noData ? currentPage : currentPage + 1} lastPage={Sl_Round} />
+						<Indicator
+							currentPage={noData ? currentPage : currentPage + 1}
+							lastPage={SlRound}
+						/>
 						<ArrowDown
 							className={
 								noData
@@ -217,7 +224,8 @@ export default class ListSongs extends Component {
 						/>
 					</div>
 					<h6 className="noresponse">
-						A kért zenékért <span className="no">nem</span> vállalunk felelősséget.
+						A kért zenékért <span className="no">nem</span> vállalunk
+						felelősséget.
 					</h6>
 				</Breakpoint>
 
@@ -234,13 +242,17 @@ export default class ListSongs extends Component {
 								}
 								return null;
 							})}
-							<div className="song-card-wrapper" style={mobileSongCardWrapperStyle}>
+							<div
+								className="song-card-wrapper"
+								style={mobileSongCardWrapperStyle}
+							>
 								{songPagesMobile[currentPageMobile]}
 							</div>
 						</div>
 					</div>
 					<h6 className="noresponse">
-						A kért zenékért <span className="no">nem</span> vállalunk felelősséget.
+						A kért zenékért <span className="no">nem</span> vállalunk
+						felelősséget.
 					</h6>
 				</Breakpoint>
 			</React.Fragment>

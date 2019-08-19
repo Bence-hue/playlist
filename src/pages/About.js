@@ -19,7 +19,7 @@ export default class About extends Component {
 		isErr: false
 	};
 
-	UNSAFE_componentWillMount() {
+	componentWillMount() {
 		this.setState({ remlength: this.state.charlimit });
 	}
 
@@ -27,25 +27,20 @@ export default class About extends Component {
 		e.preventDefault();
 		this.setState({ toggleButton: false });
 		let url = "/api/feedback/";
-		// let content = {
-		// 	name: this.state.fb.name,
-		// 	email: this.state.fb.email,
-		// 	message: this.state.fb.msg
-		// };
 		let content = new URLSearchParams();
 		content.append("name", this.state.fb.name);
 		content.append("email", this.state.fb.email);
 		content.append("message", this.state.fb.msg);
+		axios.defaults.xsrfCookieName = "csrftoken";
+		axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 		axios
 			.post(url, content)
 			.then((res) => {
-
 				this.setState({ toggleRes: true });
 				this.setState({ fb: { name: "", email: "", msg: "" } });
 			})
 			.catch((err) => {
 				this.setState({ toggleRes: true, isErr: true });
-				console.error(err);
 			});
 	};
 
