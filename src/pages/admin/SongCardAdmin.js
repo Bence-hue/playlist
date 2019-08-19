@@ -23,7 +23,7 @@ export default class SongCardAdmin extends Component {
 		axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 		axios
 			.request({
-				url: url,
+				url,
 				method: "post",
 				data: params
 			})

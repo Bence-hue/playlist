@@ -58,11 +58,9 @@ export default class ListSongsAdmin extends Component {
 			}
 		};
 		const handleBottomClick = () => {
-			if (noData) {
-			} else {
+			if (!noData) {
 				if (this.state.currentPage !== Sl_Round - 1) {
 					this.setState({ currentPage: currentPage + 1 });
-				} else {
 				}
 			}
 		};

@@ -19,7 +19,7 @@ export default class About extends Component {
 		isErr: false
 	};
 
-	UNSAFE_componentWillMount() {
+	componentWillMount() {
 		this.setState({ remlength: this.state.charlimit });
 	}
 
@@ -39,13 +39,11 @@ export default class About extends Component {
 		axios
 			.post(url, content)
 			.then((res) => {
-
 				this.setState({ toggleRes: true });
 				this.setState({ fb: { name: "", email: "", msg: "" } });
 			})
 			.catch((err) => {
 				this.setState({ toggleRes: true, isErr: true });
-				console.error(err);
 			});
 	};
 
