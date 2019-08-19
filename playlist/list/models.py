@@ -14,3 +14,13 @@ class Song(models.Model):
 class Question(models.Model):
     question=models.CharField(max_length=100)
     answer=models.CharField(max_length=20)
+
+class BlockedUser(models.Model):
+    userid=models.UUIDField()
+    permanent=models.BooleanField(default=False)
+    expireAt=models.DateTimeField(blank=True,null=True)
+
+class BlockedSong(models.Model):
+    title=models.CharField(max_length=100)
+    artist=models.CharField(max_length=100)
+    link=models.URLField()
