@@ -198,7 +198,7 @@ def blockuser_view(request, *args, **kwargs):
     if request.method == 'POST':
         if request.user.is_authenticated:
             data=request.POST
-            if data.get("permanent",True):
+            if data.get("permanent",true)=="true":
                 BlockedUser.objects.create(userid=data.get("userid"),permanent=True)
                 return HttpResponse(status=201)
             else:
