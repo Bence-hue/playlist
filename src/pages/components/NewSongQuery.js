@@ -77,6 +77,7 @@ export default class NewSongQuery extends Component {
 						 */
 						console.log(err.response.status);
 						if (err.response.status === 422) {
+							// Duplicate
 							this.setState({
 								err: {
 									code: 422,
@@ -89,6 +90,7 @@ export default class NewSongQuery extends Component {
 							this.props.dashRed();
 							this.props.fill(100);
 						} else if (err.response.status === 403) {
+							// CSRF error
 							this.setState({
 								err: {
 									code: 403,
@@ -102,6 +104,7 @@ export default class NewSongQuery extends Component {
 							this.props.dashRed();
 							this.props.fill(100);
 						} else if (err.response.status === 429) {
+							// Time limit
 							this.setState({
 								err: {
 									code: 429,
@@ -115,7 +118,36 @@ export default class NewSongQuery extends Component {
 							});
 							this.props.dashRed();
 							this.props.fill(100);
+						} else if (err.response.status === 418) {
+							// Permaban
+							this.setState({
+								err: {
+									code: 418,
+									title: "Ejnye...",
+									flavor: `Valamit nagyon elszúrhattál, ugyanis még ${
+										err.response.data
+									} el vagy tiltva a zenekéréstől.`
+								},
+								toggleAnim: false,
+								toggleErr: true
+							});
+							this.props.dashRed();
+							this.props.fill(100);
+						} else if (err.response.status === 401) {
+							// Timeout
+							this.setState({
+								err: {
+									code: 401,
+									title: "Ejnye...",
+									flavor: `Valamit nagyon elszúrhattál. Sajnos te már nem kérhetsz nálunk zenét.`
+								},
+								toggleAnim: false,
+								toggleErr: true
+							});
+							this.props.dashRed();
+							this.props.fill(100);
 						} else {
+							// Server error
 							this.setState({
 								err: {
 									title: "Szerverhiba!",
