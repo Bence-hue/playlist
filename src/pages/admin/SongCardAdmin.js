@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import ReactHtmlParser from "react-html-parser";
 
 import "../../css/songlist.css";
 
@@ -64,11 +65,15 @@ export default class SongCardAdmin extends Component {
 		const zIndex = {
 			zIndex: id * -1
 		};
-		let songCardStyle;
+		let songCard, songCardMove, songCardYt;
 		if (collapsed) {
-			songCardStyle = { height: "60px" };
+			songCard = { height: "60px" };
+			songCardMove = { top: "50%" };
+			songCardYt = { opacity: "0", display: "none" };
 		} else {
-			songCardStyle = { height: "120px" };
+			songCard = { height: "120px" };
+			songCardMove = { top: "25%" };
+			songCardYt = { display: "block", opacity: "1" };
 		}
 		if (isNextArrow) {
 			return (
@@ -85,20 +90,27 @@ export default class SongCardAdmin extends Component {
 				</div>
 			);
 		} else {
-			const { title, artist } = this.props.song;
+			const { title, artist, yttitle, link } = this.props.song;
 			return (
-				<div
-					className="song-card song-card-admin"
-					style={(zIndex, songCardStyle)}
-				>
-					<h1>{artist}</h1>
-					<span />
-					<h1>{title}</h1>
+				<div className="song-card song-card-admin" style={(zIndex, songCard)}>
+					<h1 style={songCardMove}>{artist}</h1>
+					<span style={songCardMove} />
+					<h1 style={songCardMove}>{title}</h1>
 					<div className="sc-control-wrapper">
 						<Check className="sc-icons sc-check" onClick={this.handlePlayed} />
 						<Times className="sc-icons sc-times" onClick={this.handleDelete} />
 					</div>
-					<Dots className="dots" onClick={this.toggleCollapse} />
+					<Dots
+						className="dots"
+						onClick={this.toggleCollapse}
+						style={songCardMove}
+					/>
+					<div className="sc-yt-wrapper" style={songCardYt}>
+						<i className="fab fa-youtube" />{" "}
+						<a href={link} target="_blank" rel="noopener noreferrer">
+							{ReactHtmlParser(yttitle)}
+						</a>
+					</div>
 				</div>
 			);
 		}

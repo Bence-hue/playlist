@@ -12,6 +12,7 @@ export default class SongListPage extends Component {
 		let url = "http://playlist.jelszo.co:8000/api/list/?mode=unplayed";
 		axios.get(url).then((res) => this.setState({ songs: res.data }));
 	}
+
 	render() {
 		const { songs } = this.state;
 		const {
