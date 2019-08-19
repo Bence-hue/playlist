@@ -1,20 +1,11 @@
 import React, { Component } from "react";
-import axios from "axios";
 
 import SongCard from "./SongCard";
 
 export default class SongListPage extends Component {
-	state = {
-		songs: []
-	};
-
-	componentDidMount() {
-		let url = "/api/list/?mode=unplayed";
-		axios.get(url).then((res) => this.setState({ songs: res.data }));
-	}
 	render() {
-		const { songs } = this.state;
 		const {
+			songs,
 			isMobile,
 			isFirstPage,
 			isLastPageMobile,

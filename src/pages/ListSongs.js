@@ -94,10 +94,10 @@ export default class ListSongs extends Component {
 		let songPages = [];
 		for (let i = 0; i < Sl_Round; i++) {
 			if (i === 0) {
-				songPages.push(<SongListPage key={i} id={i} isFirstPage={true} />);
+				songPages.push(<SongListPage key={i} id={i} songs={songs} isFirstPage={true} />);
 			}
 			if (i !== 0) {
-				songPages.push(<SongListPage key={i + 1} id={i} isFirstPage={false} />);
+				songPages.push(<SongListPage key={i + 1} id={i} songs={songs} isFirstPage={false} />);
 			}
 		}
 
@@ -113,13 +113,13 @@ export default class ListSongs extends Component {
 			if (i === 0) {
 				songPagesMobile.push(
 					// prettier-ignore
-					<SongListPage key={i} id={i} isFirstPage={true} isMobile={true} isLastPageMobile={isLastPageMobile} handleNextClick={handleMobileNextClick}/>
+					<SongListPage key={i} id={i} songs={songs} isFirstPage={true} isMobile={true} isLastPageMobile={isLastPageMobile} handleNextClick={handleMobileNextClick}/>
 				);
 			}
 			if (i !== 0) {
 				songPagesMobile.push(
 					// prettier-ignore
-					<SongListPage key={i + 1} id={i} isFirstPage={false} isMobile={true} isLastPageMobile={isLastPageMobile} handleNextClick={handleMobileNextClick} handlePrevClick={handleMobilePrevClick}/>
+					<SongListPage key={i + 1} id={i} songs={songs} isFirstPage={false} isMobile={true} isLastPageMobile={isLastPageMobile} handleNextClick={handleMobileNextClick} handlePrevClick={handleMobilePrevClick}/>
 				);
 			}
 		}
