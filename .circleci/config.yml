@@ -105,10 +105,9 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      #- run:
-      #name: Build react page
-      #command: |
-      #npm run build
+      - run:
+          name: Build react page
+          command: npm run build
       # - run:
       #     name: Copy Build folder to server static folder
       #     command: |
