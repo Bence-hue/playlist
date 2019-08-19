@@ -78,7 +78,10 @@ def new_view(request, *args, **kwargs):
             else: # ha blokkolva van idore
                 ei=(blocks.filter(expireAt__gt=timezone.now())[0].expireAt-timezone.now()).days+1
                 if ei>7:
-                    return HttpResponse(str(int(ei/7))+" hétig és "+str(ei%7)+" napig", status=401)
+                    if ei%7==0:
+                        return HttpResponse(str(int(ei/7))+" hétig", status=401)
+                    else:
+                        return HttpResponse(str(int(ei/7))+" hétig és "+str(ei%7)+" napig", status=401)
                 else:
                     return HttpResponse(str(ei)+" napig",status=401)
         else: # ha blokkolva van az user orokre
