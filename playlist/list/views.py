@@ -12,7 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login,logout
 from django.core.mail import EmailMessage
 
-from .models import Song, Question
+from .models import Song, Question, BlockedUser, BlockedSong
 
 with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "datas.json"), "r") as cffile:
     config = json.loads(cffile.readline())
@@ -190,5 +190,21 @@ def email_view(request, *args, **kwargs):
         )
         mail.send()
         return HttpResponse(status=200)
+    else:
+        return HttpResponse(status=405)
+
+@csrf_exempt
+def blockuser_view(request, *args, **kwargs):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            data=request.POST
+            if data.get("permanent","true")=="true":
+                BlockedUser.objects.create(userid=data.get("userid"),permanent=True)
+                return HttpResponse(status=201)
+            else:
+                BlockedUser.objects.create(userid=data.get("userid"),permanent=False,expireAt=datetime.datetime.now()+datetime.timedelta(weeks=int(data.get("expirein"))))
+                return HttpResponse(status=201)
+        else:
+            return HttpResponse("PERMISSION DENIED",status=403)
     else:
         return HttpResponse(status=405)
