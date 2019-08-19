@@ -33,7 +33,7 @@ def new_view(request, *args, **kwargs):
         }
         r=requests.get(url = URL, params = PARAMS)
         respons=r.json()
-        print(respons)
+        # print(respons)
         try:
             link='https://youtube.com/watch?v='+respons["items"][0]["id"]["videoId"]
             yttitle=respons["items"][0]["snippet"]["title"]
@@ -59,23 +59,30 @@ def new_view(request, *args, **kwargs):
         print(link)
         user=request.COOKIES.get("userid","XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX")
         blocks=BlockedUser.objects.filter(userid=user)
-        if not blocks.filter(permanent=True).exists() and blocks.filter(expireAt__lt=timezone.now()).exists():
-            lastrecord=Song.objects.filter(createdAt__gte=timezone.now()-datetime.timedelta(minutes=15),user=user)
-            if  len(lastrecord)<1:
-                if not Song.objects.filter(link=link,played=False).exclude(link="").exists():
-                    if not Song.objects.filter(link=link,played=True, playedAt__gte=timezone.now()-datetime.timedelta(minutes=1)).exclude(link="").exists():
-                        Song.objects.create(title=data.get("title"),artist=data.get("artist"),link=link,user=user,yttitle=yttitle)
-                        return HttpResponse(status=201)
-                    else: #ha az utobbi egy hetben lett lejatszva
-                        return HttpResponse("{\"played\": True}", status=422)
-                else: #ha van meg le nem jatszott ilyen
-                    return HttpResponse("{\"played\":False}",status=422)
-            else: #ha az utobbi 15 percben kuldott
-                remaining = int((datetime.timedelta(minutes=15)-(timezone.now()-lastrecord[0].createdAt)).total_seconds())
-                print(remaining)
-                return HttpResponse(str(int(remaining/60))+":"+"{:02d}".format(remaining % 60), status=429)
-        else: # ha blokkolva van az user
-            return HttpResponse(status=401)
+        if not blocks.filter(permanent=True).exists():
+            if blocks.filter(expireAt__lt=timezone.now()).exists():
+                lastrecord=Song.objects.filter(createdAt__gte=timezone.now()-datetime.timedelta(minutes=15),user=user)
+                if  len(lastrecord)<1:
+                    if not Song.objects.filter(link=link,played=False).exclude(link="").exists():
+                        if not Song.objects.filter(link=link,played=True, playedAt__gte=timezone.now()-datetime.timedelta(minutes=1)).exclude(link="").exists():
+                            Song.objects.create(title=data.get("title"),artist=data.get("artist"),link=link,user=user,yttitle=yttitle)
+                            return HttpResponse(status=201)
+                        else: #ha az utobbi egy hetben lett lejatszva
+                            return HttpResponse("{\"played\": True}", status=422)
+                    else: #ha van meg le nem jatszott ilyen
+                        return HttpResponse("{\"played\":False}",status=422)
+                else: #ha az utobbi 15 percben kuldott
+                    remaining = int((datetime.timedelta(minutes=15)-(timezone.now()-lastrecord[0].createdAt)).total_seconds())
+                    print(remaining)
+                    return HttpResponse(str(int(remaining/60))+":"+"{:02d}".format(remaining % 60), status=429)
+            else: # ha blokkolva van idore
+                ei=(blocks.filter(expireAt__gt=timezone.now())[0].expireAt-timezone.now()).days+1
+                if ei>7:
+                    return HttpResponse(str(int(ei/7))+" hétig és "+str(ei%7)+" napig", status=401)
+                else:
+                    return HttpResponse(str(ei)+" napig",status=401)
+        else: # ha blokkolva van az user orokre
+            return HttpResponse(status=418)
     else: # ha nem poston kuldott
         return HttpResponse(status=405)
 
