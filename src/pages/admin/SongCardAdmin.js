@@ -12,13 +12,14 @@ import { ReactComponent as Dots } from "../../assets/ellipsis-h-solid.svg";
 
 export default class SongCardAdmin extends Component {
 	state = {
-		collapsed: true
+		collapsed: true,
+		sesionid: ""
 	};
 	componentDidMount() {
 		this.setState({
 			sessionid: cookie.load("sessionid")
 		});
-		console.log(this.state.sessionid);
+		console.log(cookie.load("sessionid"));
 	}
 	handlePlayed = () => {
 		let url = "http://playlist.jelszo.co:8000/api/played/";
