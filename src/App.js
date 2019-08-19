@@ -11,6 +11,8 @@ import NewSong from "./pages/NewSong";
 import CookiesPage from "./pages/CookiesPage";
 import About from "./pages/About";
 import AdminLogin from "./pages/admin/Login";
+import AdminDashboard from "./pages/admin/Dashboard";
+import ListSongsAdmin from "./pages/admin/ListSongsAdmin";
 
 import ErrorHandler from "./pages/components/ErrorHandler";
 
@@ -42,6 +44,12 @@ function App() {
 								<Route exact path="/about" component={About} />
 
 								<Route exact path="/admin/login" component={AdminLogin} />
+								<Route
+									exact
+									path="/admin/dashboard"
+									component={AdminDashboard}
+								/>
+								<Route exact path="/admin/songs" component={ListSongsAdmin} />
 
 								<Route component="" />
 							</Switch>
