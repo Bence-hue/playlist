@@ -5,4 +5,4 @@ from .models import Song,Question,BlockedUser,BlockedSong
 admin.site.register(Song)
 admin.site.register(Question)
 admin.site.register(BlockedUser)
-admin.site.regist(BlockedSong)
+admin.site.register(BlockedSong)
