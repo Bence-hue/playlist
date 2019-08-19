@@ -60,7 +60,7 @@ def new_view(request, *args, **kwargs):
         user=request.COOKIES.get("userid","XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX")
         blocks=BlockedUser.objects.filter(userid=user)
         if not blocks.filter(permanent=True).exists():
-            if blocks.filter(expireAt__lt=timezone.now()).exists():
+            if not blocks.filter(expireAt__gte=timezone.now()).exists():
                 lastrecord=Song.objects.filter(createdAt__gte=timezone.now()-datetime.timedelta(minutes=15),user=user)
                 if  len(lastrecord)<1:
                     if not Song.objects.filter(link=link,played=False).exclude(link="").exists():
@@ -76,7 +76,7 @@ def new_view(request, *args, **kwargs):
                     print(remaining)
                     return HttpResponse(str(int(remaining/60))+":"+"{:02d}".format(remaining % 60), status=429)
             else: # ha blokkolva van idore
-                ei=(blocks.filter(expireAt__gt=timezone.now())[0].expireAt-timezone.now()).days+1
+                ei=(blocks.filter(expireAt__gte=timezone.now())[len(blocks.filter(expireAt__gte=timezone.now())-1].expireAt-timezone.now()).days+1
                 if ei>7:
                     if ei%7==0:
                         return HttpResponse(str(int(ei/7))+" hétig", status=401)
