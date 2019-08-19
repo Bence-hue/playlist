@@ -76,7 +76,7 @@ def new_view(request, *args, **kwargs):
                     print(remaining)
                     return HttpResponse(str(int(remaining/60))+":"+"{:02d}".format(remaining % 60), status=429)
             else: # ha blokkolva van idore
-                ei=(blocks.filter(expireAt__gte=timezone.now())[len(blocks.filter(expireAt__gte=timezone.now())-1].expireAt-timezone.now()).days+1
+                ei=(blocks.filter(expireAt__gte=timezone.now())[len(blocks.filter(expireAt__gte=timezone.now()))-1].expireAt-timezone.now()).days+1
                 if ei>7:
                     if ei%7==0:
                         return HttpResponse(str(int(ei/7))+" hétig", status=401)
