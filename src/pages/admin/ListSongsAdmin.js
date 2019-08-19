@@ -44,8 +44,8 @@ export default class ListSongsAdmin extends Component {
 		});
 
 		// Count pages
-		const Sl_Round = Math.ceil(songs.length / 5);
-		const Sl_Round_Mobile = Math.ceil(songs.length / 25);
+		const SlRound = Math.ceil(songs.length / 5);
+		const SlRoundMobile = Math.ceil(songs.length / 25);
 
 		// Handle desktop pagination clicks
 		const handleUpperClick = () => {
@@ -59,7 +59,7 @@ export default class ListSongsAdmin extends Component {
 		};
 		const handleBottomClick = () => {
 			if (!noData) {
-				if (this.state.currentPage !== Sl_Round - 1) {
+				if (this.state.currentPage !== SlRound - 1) {
 					this.setState({ currentPage: currentPage + 1 });
 				}
 			}
@@ -83,14 +83,14 @@ export default class ListSongsAdmin extends Component {
 			}
 		};
 		const handleMobileNextClick = () => {
-			if (this.state.currentPageMobile !== Sl_Round_Mobile - 1) {
+			if (this.state.currentPageMobile !== SlRound_Mobile - 1) {
 				this.setState({ currentPageMobile: currentPageMobile + 1 });
 			}
 		};
 
 		// Desktop pages
 		let songPages = [];
-		for (let i = 0; i < Sl_Round; i++) {
+		for (let i = 0; i < SlRound; i++) {
 			if (i === 0) {
 				songPages.push(<SongListPageAdmin key={i} id={i} isFirstPage={true} />);
 			}
@@ -103,7 +103,7 @@ export default class ListSongsAdmin extends Component {
 
 		// Detect first and last page on mobile
 		let isLastPageMobile = false;
-		if (currentPageMobile === Sl_Round_Mobile - 1) {
+		if (currentPageMobile === SlRound_Mobile - 1) {
 			isLastPageMobile = true;
 		}
 
@@ -129,7 +129,7 @@ export default class ListSongsAdmin extends Component {
 			isLastPage = false;
 		if (currentPage === 0) {
 			isFirstPage = true;
-		} else if (currentPage === Sl_Round - 1) {
+		} else if (currentPage === SlRound - 1) {
 			isLastPage = true;
 		}
 
@@ -217,7 +217,7 @@ export default class ListSongsAdmin extends Component {
 						/>
 						<Indicator
 							currentPage={noData ? currentPage : currentPage + 1}
-							lastPage={Sl_Round}
+							lastPage={SlRound}
 						/>
 						<ArrowDown
 							className={
