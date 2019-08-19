@@ -158,7 +158,7 @@ def jsonmodifier(data):
     return HttpResponse(json.dumps(newdata), content_type="application/json", status=200)
 
 
-# @csrf_exempt
+@csrf_exempt
 def adminlogin_view(request, *args, **kwargs):
     if request.method == 'POST':
         username = request.POST.get('username',"")
@@ -188,7 +188,6 @@ def question_view(request, *args, **kwargs):
     else:
         return HttpResponse(status=405)
 
-@csrf_exempt
 def email_view(request, *args, **kwargs):
     if request.method == 'POST':
         data=request.POST
