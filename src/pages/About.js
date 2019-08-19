@@ -26,11 +26,15 @@ export default class About extends Component {
 	onSubmit = (e) => {
 		e.preventDefault();
 		let url = "/api/feedback/";
-		let content = {
-			name: this.state.fb.name,
-			email: this.state.fb.email,
-			message: this.state.fb.msg
-		};
+		// let content = {
+		// 	name: this.state.fb.name,
+		// 	email: this.state.fb.email,
+		// 	message: this.state.fb.msg
+		// };
+		let content = new URLSearchParams();
+		content.append("name", this.state.fb.name);
+		content.append("email", this.state.fb.email);
+		content.append("message", this.state.fb.msg);
 		axios
 			.post(url, content)
 			.then((res) => {

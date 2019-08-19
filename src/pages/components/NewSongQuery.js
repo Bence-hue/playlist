@@ -64,7 +64,8 @@ export default class NewSongQuery extends Component {
 							artist: "",
 							active: "artist",
 							flavortext: "",
-							toggleFinal: true
+							toggleFinal: false,
+							toggleErr: false
 						});
 					}, 1000);
 				})
@@ -93,7 +94,7 @@ export default class NewSongQuery extends Component {
 									code: 403,
 									title: "Hupsz..",
 									flavor:
-										"Valami nem stimmel az azonosítóddal. Ugye nem vagy hacker?"
+										"Valami nem stimmel az azonosítóddal. Ha többször látod ezt a hibát, kérlek vedd fel velünk a kapcsolatot."
 								},
 								toggleAnim: false,
 								toggleErr: true
