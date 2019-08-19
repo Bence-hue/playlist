@@ -63,7 +63,7 @@ export default class NewSongQuery extends Component {
 							artist: "",
 							active: "artist",
 							flavortext: "",
-							toggleFinal: false,
+							toggleFinal: true,
 							toggleErr: false
 						});
 					}, 1000);
