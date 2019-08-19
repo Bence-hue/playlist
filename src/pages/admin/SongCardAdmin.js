@@ -16,7 +16,7 @@ export default class SongCardAdmin extends Component {
 		sessionid: ""
 	};
 	handlePlayed = () => {
-		let url = "http://playlist.jelszo.co:8000/api/played/";
+		let url = "/api/played/";
 		let params = new URLSearchParams();
 		params.append("id", this.props.song.id);
 		axios.defaults.xsrfCookieName = "csrftoken";
