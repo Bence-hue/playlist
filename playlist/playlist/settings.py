@@ -132,3 +132,13 @@ STATICFILES_DIRS = (
 STATIC_ROOT=os.path.join(BASE_DIR,"static")
 
 CORS_ORIGIN_ALLOW_ALL=True
+
+EMAIL_HOST="mail.privateemail.com"
+
+EMAIL_PORT=587
+
+EMAIL_USE_TLS=True
+
+EMAIL_HOST_USER=config["username"]
+
+EMAIL_HOST_PASSWORD=config["password"]

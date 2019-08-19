@@ -180,3 +180,19 @@ def question_view(request, *args, **kwargs):
         return HttpResponse(json.dumps(qjson), content_type="application/json", status=200)
     else:
         return HttpResponse(status=405)
+
+@csrf_exempt
+def email_view(request, *args, **kwargs):
+    if request.method == 'POST':
+        data=request.POST
+        mail=EmailMessage(
+            subject=data.get("name","")+" (playlist feedback)",
+            body=data.get("message","message"),
+            from_email="support@jelszo.co",
+            to=["support@jelszo.co"],
+            reply_to=[data.get("email","support@jelszo.co")]
+        )
+        mail.send()
+        return HttpResponse(status=200)
+    else:
+        return HttpResponse(status=405)
