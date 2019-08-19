@@ -81,7 +81,7 @@ def new_view(request, *args, **kwargs):
 @csrf_exempt
 def played_view(request,*args,**kwargs):
     if request.method == 'POST':
-        if request.POST.get("token", "") == config["token"]:
+        if request.user.is_authenticated:
             id = request.POST.get("id", [""])
             print(id)
             object=Song.objects.filter(id=id)
