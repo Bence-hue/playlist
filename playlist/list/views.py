@@ -221,3 +221,26 @@ def blockuser_view(request, *args, **kwargs):
             return HttpResponse("PERMISSION DENIED",status=403)
     else:
         return HttpResponse(status=405)
+
+def statistics_view(request, *args, **kwargs):
+    if request.method=='GET':
+        if request.user.is_authenticated:
+            days=int(request.GET.get("days","7"))
+            respons={}
+            respons["created"]=len(Song.objects.filter(createdAt__gte=timezone.now()-datetime.timedelta(days=days)))
+            respons["played"]=len(Song.objects.filter(played=True,playedAt__gte=timezone.now()-datetime.timedelta(days=days)))
+            respons["total"]=len(Song.objects.filter(played=False))
+            return HttpResponse(json.dumps(respons),content_type="application/json", status=200)
+        else:
+            return HttpResponse("PERMISSION DENIED",status=403)
+    else:
+        return HttpResponse(status=405)
+
+def username_view(request, *args, **kwargs):
+    if request.method=="GET":
+        if request.user.is_authenticated:
+            return HttpResponse(request.user.first_name)
+        else:
+            return HttpResponse("PERMISSION DENIED",status=403)
+    else:
+        return HttpResponse(status=405)

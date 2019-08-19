@@ -10,5 +10,7 @@ urlpatterns=[
     path('logout/', views.adminlogout_view, name="logout"),
     path('question/',views.question_view,name="question"),
     path('feedback/',views.email_view,name="mail"),
-    path('blockuser/',views.blockuser_view,name="blockuser")
+    path('blockuser/',views.blockuser_view,name="blockuser"),
+    path('username/',views.username_view,name="username"),
+    path('statistics/',views.statistics_view,name="statistics")
 ]
