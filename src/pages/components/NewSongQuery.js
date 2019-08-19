@@ -19,7 +19,6 @@ export default class NewSongQuery extends Component {
 		toggleFinal: false,
 		toggleErr: false,
 		err: {
-			code: "",
 			title: "",
 			flavor: "",
 			remTime: ""
@@ -80,7 +79,6 @@ export default class NewSongQuery extends Component {
 								// Duplicate
 								this.setState({
 									err: {
-										code: 422,
 										title: "Hupsz..",
 										flavor: "Ez a szám már hozzá lett adva."
 									},
@@ -94,7 +92,6 @@ export default class NewSongQuery extends Component {
 								// CSRF error
 								this.setState({
 									err: {
-										code: 403,
 										title: "Hupsz..",
 										flavor:
 											"Valami nem stimmel az azonosítóddal. Ha többször látod ezt a hibát, kérlek vedd fel velünk a kapcsolatot."
@@ -109,7 +106,6 @@ export default class NewSongQuery extends Component {
 								// Time limit
 								this.setState({
 									err: {
-										code: 429,
 										title: "Woah lassíts!",
 										flavor: `Elérted a kérési limitet. Legközelebb ${
 											err.response.data
@@ -125,7 +121,6 @@ export default class NewSongQuery extends Component {
 								// Permaban
 								this.setState({
 									err: {
-										code: 418,
 										title: "Ejnye...",
 										flavor: `Valamit nagyon elszúrhattál, ugyanis még ${
 											err.response.data
@@ -141,7 +136,6 @@ export default class NewSongQuery extends Component {
 								// Timeout
 								this.setState({
 									err: {
-										code: 401,
 										title: "Ejnye...",
 										flavor:
 											"Valamit nagyon elszúrhattál. Sajnos te már nem kérhetsz nálunk zenét."
