@@ -38,6 +38,8 @@ export default class About extends Component {
 		axios
 			.post(url, content)
 			.then((res) => {
+				console.log(this.state.fb.name, this.state.fb.email, this.state.fb.msg);
+
 				this.setState({ toggleButton: false, toggleRes: true });
 				this.setState({ fb: { name: "", email: "", msg: "" } });
 			})
