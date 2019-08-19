@@ -85,8 +85,6 @@ export default class NewSongQuery extends Component {
 									toggleAnim: false,
 									toggleErr: true
 								});
-								this.props.dashRed();
-								this.props.fill(100);
 								break;
 							case 403:
 								// CSRF error
@@ -99,8 +97,6 @@ export default class NewSongQuery extends Component {
 									toggleAnim: false,
 									toggleErr: true
 								});
-								this.props.dashRed();
-								this.props.fill(100);
 								break;
 							case 429:
 								// Time limit
@@ -114,11 +110,22 @@ export default class NewSongQuery extends Component {
 									toggleAnim: false,
 									toggleErr: true
 								});
-								this.props.dashRed();
-								this.props.fill(100);
 								break;
 							case 418:
 								// Permaban
+
+								this.setState({
+									err: {
+										title: "Ejnye...",
+										flavor:
+											"Valamit nagyon elszúrhattál. Sajnos te már nem kérhetsz nálunk zenét."
+									},
+									toggleAnim: false,
+									toggleErr: true
+								});
+								break;
+							case 401:
+								// Timeout
 								this.setState({
 									err: {
 										title: "Ejnye...",
@@ -129,22 +136,6 @@ export default class NewSongQuery extends Component {
 									toggleAnim: false,
 									toggleErr: true
 								});
-								this.props.dashRed();
-								this.props.fill(100);
-								break;
-							case 401:
-								// Timeout
-								this.setState({
-									err: {
-										title: "Ejnye...",
-										flavor:
-											"Valamit nagyon elszúrhattál. Sajnos te már nem kérhetsz nálunk zenét."
-									},
-									toggleAnim: false,
-									toggleErr: true
-								});
-								this.props.dashRed();
-								this.props.fill(100);
 								break;
 							default:
 								// Server error
@@ -157,12 +148,12 @@ export default class NewSongQuery extends Component {
 									toggleAnim: false,
 									toggleErr: true
 								});
-								this.props.dashRed();
-								this.props.fill(100);
 						}
 					} else if (err.request) {
 						/* The request was made but no response was received */
 					}
+					this.props.dashRed();
+					this.props.fill(100);
 				});
 		}
 	};
