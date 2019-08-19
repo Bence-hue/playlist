@@ -19,7 +19,6 @@ export default class NewSongQuery extends Component {
 		toggleFinal: false,
 		toggleErr: false,
 		err: {
-			code: "",
 			title: "",
 			flavor: "",
 			remTime: ""
@@ -75,94 +74,94 @@ export default class NewSongQuery extends Component {
 						 * The request was made and the server responded with a
 						 * status code that falls out of the range of 2xx
 						 */
-						console.log(err.response.status);
-						if (err.response.status === 422) {
-							// Duplicate
-							this.setState({
-								err: {
-									code: 422,
-									title: "Hupsz..",
-									flavor: "Ez a szám már hozzá lett adva."
-								},
-								toggleAnim: false,
-								toggleErr: true
-							});
-							this.props.dashRed();
-							this.props.fill(100);
-						} else if (err.response.status === 403) {
-							// CSRF error
-							this.setState({
-								err: {
-									code: 403,
-									title: "Hupsz..",
-									flavor:
-										"Valami nem stimmel az azonosítóddal. Ha többször látod ezt a hibát, kérlek vedd fel velünk a kapcsolatot."
-								},
-								toggleAnim: false,
-								toggleErr: true
-							});
-							this.props.dashRed();
-							this.props.fill(100);
-						} else if (err.response.status === 429) {
-							// Time limit
-							this.setState({
-								err: {
-									code: 429,
-									title: "Woah lassíts!",
-									flavor: `Elérted a kérési limitet. Legközelebb ${
-										err.response.data
-									} múlva kérhetsz újra.`
-								},
-								toggleAnim: false,
-								toggleErr: true
-							});
-							this.props.dashRed();
-							this.props.fill(100);
-						} else if (err.response.status === 418) {
-							// Permaban
-							this.setState({
-								err: {
-									code: 418,
-									title: "Ejnye...",
-									flavor: `Valamit nagyon elszúrhattál, ugyanis még ${
-										err.response.data
-									} el vagy tiltva a zenekéréstől.`
-								},
-								toggleAnim: false,
-								toggleErr: true
-							});
-							this.props.dashRed();
-							this.props.fill(100);
-						} else if (err.response.status === 401) {
-							// Timeout
-							this.setState({
-								err: {
-									code: 401,
-									title: "Ejnye...",
-									flavor: `Valamit nagyon elszúrhattál. Sajnos te már nem kérhetsz nálunk zenét.`
-								},
-								toggleAnim: false,
-								toggleErr: true
-							});
-							this.props.dashRed();
-							this.props.fill(100);
-						} else {
-							// Server error
-							this.setState({
-								err: {
-									title: "Szerverhiba!",
-									flavor:
-										"Ezt elrontottunk. Valami nem stimmel nálunk. Próbáld újra!"
-								},
-								toggleAnim: false,
-								toggleErr: true
-							});
-							this.props.dashRed();
-							this.props.fill(100);
+						switch (err.response.status) {
+							case 422:
+								// Duplicate
+								this.setState({
+									err: {
+										title: "Hupsz..",
+										flavor: "Ez a szám már hozzá lett adva."
+									},
+									toggleAnim: false,
+									toggleErr: true
+								});
+								this.props.dashRed();
+								this.props.fill(100);
+								break;
+							case 403:
+								// CSRF error
+								this.setState({
+									err: {
+										title: "Hupsz..",
+										flavor:
+											"Valami nem stimmel az azonosítóddal. Ha többször látod ezt a hibát, kérlek vedd fel velünk a kapcsolatot."
+									},
+									toggleAnim: false,
+									toggleErr: true
+								});
+								this.props.dashRed();
+								this.props.fill(100);
+								break;
+							case 429:
+								// Time limit
+								this.setState({
+									err: {
+										title: "Woah lassíts!",
+										flavor: `Elérted a kérési limitet. Legközelebb ${
+											err.response.data
+										} múlva kérhetsz újra.`
+									},
+									toggleAnim: false,
+									toggleErr: true
+								});
+								this.props.dashRed();
+								this.props.fill(100);
+								break;
+							case 418:
+								// Permaban
+								this.setState({
+									err: {
+										title: "Ejnye...",
+										flavor: `Valamit nagyon elszúrhattál, ugyanis még ${
+											err.response.data
+										} el vagy tiltva a zenekéréstől.`
+									},
+									toggleAnim: false,
+									toggleErr: true
+								});
+								this.props.dashRed();
+								this.props.fill(100);
+								break;
+							case 401:
+								// Timeout
+								this.setState({
+									err: {
+										title: "Ejnye...",
+										flavor:
+											"Valamit nagyon elszúrhattál. Sajnos te már nem kérhetsz nálunk zenét."
+									},
+									toggleAnim: false,
+									toggleErr: true
+								});
+								this.props.dashRed();
+								this.props.fill(100);
+								break;
+							default:
+								// Server error
+								this.setState({
+									err: {
+										title: "Szerverhiba!",
+										flavor:
+											"Ezt elrontottunk. Valami nem stimmel nálunk. Próbáld újra!"
+									},
+									toggleAnim: false,
+									toggleErr: true
+								});
+								this.props.dashRed();
+								this.props.fill(100);
 						}
 					} else if (err.request) {
 						/* The request was made but no response was received */
-						console.log(err.request);
 					}
 				});
 		}
