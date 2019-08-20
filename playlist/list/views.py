@@ -249,30 +249,51 @@ def username_view(request, *args, **kwargs):
 def users_view(request, *args, **kwargs):
     if request.method=="GET":
         if request.user.is_authenticated:
-            respons=[]
-            db=Song.objects.all()
-            for l in reversed(db):
-                print(l)
-                contains=False
-                for u in respons:
-                    if u["userid"]==l.user:
-                        contains=True
-                        u["songs"].append({"artist":l.artist,"title":l.title})
-                        break
-                if contains: continue
-                respons.append({
-                    "userid":l.user,
-                    "isBlocked":user_isblocked(l),
-                    "songs":[{"artist":l.artist,"title":l.title}]
-                    })
-            return HttpResponse(json.dumps(respons),content_type="application/json", status=200)
+            if request.GET.get("mode","normal")=="normal":
+                respons=[]
+                db=Song.objects.all()
+                for l in reversed(db):
+                    if not user_isBlocked(l):
+                        print(l)
+                        contains=False
+                        for u in respons:
+                            if u["userid"]==l.user:
+                                contains=True
+                                u["songs"].append({"artist":l.artist,"title":l.title})
+                                break
+                        if contains: continue
+                        respons.append({
+                            "userid":l.user,
+                            "songs":[{"artist":l.artist,"title":l.title}]
+                            })
+                return HttpResponse(json.dumps(respons),content_type="application/json", status=200)
+            elif request.GET.get("mode","normal")=="blocked":
+                respons=[]
+                db=Song.objects.all()
+                for l in reversed(db):
+                    if user_isBlocked(l):
+                        print(l)
+                        contains=False
+                        for u in respons:
+                            if u["userid"]==l.user:
+                                contains=True
+                                u["songs"].append({"artist":l.artist,"title":l.title})
+                                break
+                        if contains: continue
+                        respons.append({
+                            "userid":l.user,
+                            "block":user_blockedFor(l),
+                            "songs":[{"artist":l.artist,"title":l.title}]
+                            })
+                print(respons)
+                return HttpResponse(json.dumps(respons),content_type="application/json", status=200)
         else:
             return HttpResponse("PERMISSION DENIED",status=403)
 
     else:
         return HttpResponse(status=405)
 
-def user_isblocked(l):
+def user_isBlocked(l):
     try:
         blocks=BlockedUser.objects.filter(userid=l.user)
         if blocks.filter(permanent=True).exists():
@@ -282,3 +303,10 @@ def user_isblocked(l):
         return False
     except:
         return False
+
+def user_blockedFor(l):
+    blocks=BlockedUser.objects.filter(userid=l.user)
+    if blocks.filter(permanent=True).exists():
+        return {"isPerma":True}
+    elif blocks.filter(permanent=False,expireAt__gte=timezone.now()).exists():
+        return {"isPerma":False,"ExpireIn":(blocks.filter(expireAt__gte=timezone.now())[len(blocks.filter(expireAt__gte=timezone.now()))-1].expireAt-timezone.now()).days+1}
