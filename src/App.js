@@ -13,6 +13,7 @@ import About from "./pages/About";
 import AdminLogin from "./pages/admin/Login";
 import AdminDashboard from "./pages/admin/Dashboard";
 import ListSongsAdmin from "./pages/admin/ListSongsAdmin";
+import ListUsersAdmin from "./pages/admin/ListUsers";
 
 import ErrorHandler from "./pages/components/ErrorHandler";
 
@@ -45,12 +46,10 @@ function App() {
 								<Route exact path="/about" component={About} />
 
 								<Route exact path="/admin/login" component={AdminLogin} />
-								<Route
-									exact
-									path="/admin/dashboard"
-									component={AdminDashboard}
-								/>
+								{/* prettier-ignore */}
+								<Route exact path="/admin/dashboard" component={AdminDashboard} />
 								<Route exact path="/admin/songs" component={ListSongsAdmin} />
+								<Route exact path="/admin/users" component={ListUsersAdmin} />
 
 								<Route component="" />
 							</Switch>
