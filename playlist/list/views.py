@@ -273,9 +273,12 @@ def users_view(request, *args, **kwargs):
         return HttpResponse(status=405)
 
 def user_isblocked(l):
-    blocks=BlockedUser.objects.filter(userid=l.user)
-    if blocks.filter(permanent=True).exists():
-        return True
-    elif blocks.filter(permanent=False,expireAt__gte=timezone.now()).exists():
-        return True
-    return False
+    try:
+        blocks=BlockedUser.objects.filter(userid=l.user)
+        if blocks.filter(permanent=True).exists():
+            return True
+        elif blocks.filter(permanent=False,expireAt__gte=timezone.now()).exists():
+            return True
+        return False
+    except:
+        return False
