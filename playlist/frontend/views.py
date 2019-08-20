@@ -29,3 +29,5 @@ def login_view(request,*args,**kwargs):
     else:
         return render(request, "index.html")
 
+def redirect_view(request,*args,**kwargs):
+    return redirect("/")
