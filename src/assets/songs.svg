@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920.8 420">
+    <defs>
+        <style>
+            .e621a404-31da-4dd0-9296-b8ae3fa8932d{fill:url(#ea82c712-5736-40ab-b6ee-24649b6d5d87);}
+        </style>
+        <linearGradient id="ea82c712-5736-40ab-b6ee-24649b6d5d87" x2="1920.8" y1="210" y2="210" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#139c61"/>
+            <stop offset="0.51" stop-color="#128855"/>
+            <stop offset="1" stop-color="#107148"/>
+        </linearGradient>
+    </defs>
+    <g id="bb685452-dd21-480c-93f2-344c57fbeb68" data-name="Layer 2">
+        <g id="a57c3372-a63b-4485-927e-8e1a1b2ca483" data-name="songs">
+            <path d="M0,0V420H1920V71c7.66,226.67-40.61,307.49-94,334-47.66,23.66-75.81-7.67-210-21-188.68-18.74-199.53,36.59-341,7-115.46-24.15-149.6-57.72-234.77-48.94C985.7,347.68,971.41,362.63,914,380c-174.79,52.88-210.18-34.92-410-1-81.46,13.83-154.25,41.77-254.58,12.56a449.14,449.14,0,0,1-50-18.8S142.25,347.27,100,312C48.48,269,1.19,151.35,0,0Z" class="e621a404-31da-4dd0-9296-b8ae3fa8932d"/>
+        </g>
+    </g>
+</svg>

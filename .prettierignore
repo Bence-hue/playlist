@@ -1,0 +1,8 @@
+# Prettierignore file
+
+# node
+/node_modules
+
+# Build folders
+/build
+/playlist/frontend/build
