@@ -23,4 +23,3 @@ export default class AdminDashboard extends Component {
 		);
 	}
 }
-// Test
