@@ -131,6 +131,11 @@
 	bottom: 15%;
 	left: 45%;
 	transform: translateX(-50%);
+	width: 80%;
+	text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .upc-yt-wrapper a {
@@ -287,6 +292,9 @@
 	transform: translateX(-50%);
 	transition: 0.2s all ease-in-out;
 	text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .sc-yt-wrapper a {

@@ -16,6 +16,6 @@
 	"display": "standalone",
 	"theme_color": "#15a867",
 	"background_color": "#15a867",
-	"start_url": "https://playlist.jelszo.co/",
+	"start_url": "https://playlist.jelszo.co/static/",
 	"orientation": "portrait"
 }

@@ -28,6 +28,3 @@ def login_view(request,*args,**kwargs):
         return redirect("/admin/dashboard")
     else:
         return render(request, "index.html")
-
-def redirect_view(request,*args,**kwargs):
-    return redirect("/")
