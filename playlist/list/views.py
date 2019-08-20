@@ -259,12 +259,12 @@ def users_view(request, *args, **kwargs):
                         for u in respons:
                             if u["userid"]==l.user:
                                 contains=True
-                                u["songs"].append({"artist":l.artist,"title":l.title})
+                                u["songs"].append({"id":l.id,"artist":l.artist,"title":l.title})
                                 break
                         if contains: continue
                         respons.append({
                             "userid":l.user,
-                            "songs":[{"artist":l.artist,"title":l.title}]
+                            "songs":[{"id":l.id,"artist":l.artist,"title":l.title}]
                             })
                 return HttpResponse(json.dumps(respons),content_type="application/json", status=200)
             elif request.GET.get("mode","normal")=="blocked":
@@ -277,13 +277,13 @@ def users_view(request, *args, **kwargs):
                         for u in respons:
                             if u["userid"]==l.user:
                                 contains=True
-                                u["songs"].append({"artist":l.artist,"title":l.title})
+                                u["songs"].append({"id":l.id,"artist":l.artist,"title":l.title})
                                 break
                         if contains: continue
                         respons.append({
                             "userid":l.user,
                             "block":user_blockedFor(l),
-                            "songs":[{"artist":l.artist,"title":l.title}]
+                            "songs":[{"id":l.id,"artist":l.artist,"title":l.title}]
                             })
                 print(respons)
                 return HttpResponse(json.dumps(respons),content_type="application/json", status=200)
