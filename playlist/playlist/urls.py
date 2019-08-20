@@ -26,5 +26,4 @@ urlpatterns = [
     path('cookies',views.frontend_view),
     path('about', views.frontend_view),
     path('admin/',include('frontend.urls')),
-    path("static/",views.redirect_view)
 ]
