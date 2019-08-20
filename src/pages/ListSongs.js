@@ -52,7 +52,6 @@ export default class ListSongs extends Component {
 			if (!noData) {
 				if (this.state.currentPage !== 0) {
 					this.setState({ currentPage: currentPage - 1 });
-				} else {
 				}
 			}
 		};
@@ -60,7 +59,6 @@ export default class ListSongs extends Component {
 			if (!noData) {
 				if (this.state.currentPage !== SlRound - 1) {
 					this.setState({ currentPage: currentPage + 1 });
-				} else {
 				}
 			}
 		};
