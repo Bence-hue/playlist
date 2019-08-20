@@ -216,7 +216,7 @@ def blockuser_view(request, *args, **kwargs):
                 BlockedUser.objects.create(userid=data.get("userid"),permanent=True)
                 return HttpResponse(status=201)
             else:
-                BlockedUser.objects.create(userid=data.get("userid"),permanent=False,expireAt=datetime.datetime.now()+datetime.timedelta(weeks=int(data.get("expirein"))))
+                BlockedUser.objects.create(userid=data.get("userid"),permanent=False,expireAt=datetime.datetime.now()+datetime.timedelta(weeks=int(data.get("expirein",1))))
                 return HttpResponse(status=201)
         else:
             return HttpResponse("PERMISSION DENIED",status=403)
