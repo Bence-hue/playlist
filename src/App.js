@@ -38,6 +38,7 @@ function App() {
 						<div className="App">
 							<Switch>
 								<Route exact path="/" component={Landing} />
+								<Route exact path="/static" component={Landing} />
 								<Route exact path="/songs" component={ListSongs} />
 								<Route exact path="/new" component={NewSong} />
 								<Route exact path="/cookies" component={CookiesPage} />
