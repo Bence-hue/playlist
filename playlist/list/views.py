@@ -224,6 +224,15 @@ def blockuser_view(request, *args, **kwargs):
     else:
         return HttpResponse(status=405)
 
+def unblockuser_view(request, *args, **kwargs):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            print()
+        else:
+            return HttpResponse("PERMISSION DENIED",status=403)
+    else:
+        return HttpResponse(status=405)
+
 def statistics_view(request, *args, **kwargs):
     if request.method=='GET':
         if request.user.is_authenticated:
