@@ -216,9 +216,18 @@ def blockuser_view(request, *args, **kwargs):
                 BlockedUser.objects.create(userid=data.get("userid"),permanent=True)
             else:
                 BlockedUser.objects.create(userid=data.get("userid"),permanent=False,expireAt=datetime.datetime.now()+datetime.timedelta(weeks=int(data.get("expirein",1))))
-            for l in Song.objects.filter(userid=data.get("userid"),played=False,hide=False):
+            for l in Song.objects.filter(user=data.get("userid"),played=False,hide=False):
                 l.hide=True
             return HttpResponse(status=201)
+        else:
+            return HttpResponse("PERMISSION DENIED",status=403)
+    else:
+        return HttpResponse(status=405)
+
+def unblockuser_view(request, *args, **kwargs):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            print()
         else:
             return HttpResponse("PERMISSION DENIED",status=403)
     else:
