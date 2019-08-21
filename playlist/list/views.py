@@ -254,12 +254,15 @@ def unblockuser_view(request, *args, **kwargs):
                     l.permanent = False
                     l.expireAt = timezone.now()
                     print(l.expireAt)
+                    l.save()
             if t.exists():
                 for l in t:
                     l.expireAt = timezone.now()
                     print(l.expireAt)
+                    l.save()
             for l in Song.objects.filter(user=request.POST.get("userid", uuid.uuid4), played=False, hide=True):
                 l.hide = False
+                l.save()
             return HttpResponse(status=200)
         else:
             return HttpResponse("PERMISSION DENIED", status=403)
