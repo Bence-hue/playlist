@@ -3,7 +3,7 @@ import axios from "axios";
 
 import { ReactComponent as Dots } from "../../assets/ellipsis-h-solid.svg";
 
-import "../../css/admin-css/songs.scss";
+import "../../css/admin-css/users.scss";
 
 export default class UserCard extends Component {
 	state = {
