@@ -227,7 +227,19 @@ def blockuser_view(request, *args, **kwargs):
 def unblockuser_view(request, *args, **kwargs):
     if request.method == 'POST':
         if request.user.is_authenticated:
-            print()
+            user=BlockedUser.objects.filter(userid=request.POST.get("userid",uuid.uuid4))
+            p=user.filter(permanent=True)
+            t=user.filter(permanent=False,expireAt__gte=timezone.now())
+            if p.exists():
+                for l in p:
+                    l.permanent=False
+                    l.expireAt=timezone.now()
+            if t.exists():
+                for l in t:
+                    l.expireAt=timezone.now()
+            for l in Song.objects.filter(user=request.POST.get("userid",uuid.uuid4),played=False,hide=True):
+                l.hide=False
+            return HttpResponse(status=200)
         else:
             return HttpResponse("PERMISSION DENIED",status=403)
     else:
