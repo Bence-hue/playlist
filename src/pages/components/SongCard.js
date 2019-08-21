@@ -38,7 +38,6 @@ export default class SongCard extends Component {
 					<h1>{artist}</h1>
 					<span />
 					<h1>{title}</h1>
-					<h1>{this.props.isAdmin ? " asd" : ""}</h1>
 				</div>
 			);
 		}
