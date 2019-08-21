@@ -235,6 +235,7 @@ def blockuser_view(request, *args, **kwargs):
                                                weeks=int(data.get("expirein", 1))))
             for l in Song.objects.filter(user=data.get("userid"), played=False, hide=False):
                 l.hide = True
+                l.save()
             return HttpResponse(status=201)
         else:
             return HttpResponse("PERMISSION DENIED", status=403)
