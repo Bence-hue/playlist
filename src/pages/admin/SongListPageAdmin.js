@@ -1,26 +1,16 @@
 import React, { Component } from "react";
-import axios from "axios";
 
 import SongCardAdmin from "./SongCardAdmin";
 
 export default class SongListPage extends Component {
-	state = {
-		songs: []
-	};
-
-	componentDidMount() {
-		let url = "/api/list/?mode=unplayed";
-		axios.get(url).then((res) => this.setState({ songs: res.data }));
-	}
-
 	render() {
-		const { songs } = this.state;
 		const {
 			isMobile,
 			isFirstPage,
 			isLastPageMobile,
 			handleNextClick,
-			handlePrevClick
+			handlePrevClick,
+			songs
 		} = this.props;
 
 		let noData;
