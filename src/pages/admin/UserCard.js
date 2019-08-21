@@ -18,7 +18,7 @@ export default class UserCard extends Component {
 		this.setState({ banMenu: !this.state.banMenu });
 	};
 	ban = (period) => {
-		let url = "/api/ban/";
+		let url = "/api/blockuser/";
 		let params = new URLSearchParams();
 		axios.defaults.xsrfCookieName = "csrftoken";
 		axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
