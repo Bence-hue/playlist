@@ -19,7 +19,7 @@
 	overflow-y: scroll;
 }
 
-.scroll-wrapper-admin::-webkit-scrollbar {
+.songs-wrapper-admin::-webkit-scrollbar {
 	display: none;
 }
 
