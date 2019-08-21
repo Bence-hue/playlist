@@ -13,5 +13,6 @@ urlpatterns=[
     path('blockuser/',views.blockuser_view,name="blockuser"),
     path('username/',views.username_view,name="username"),
     path('statistics/',views.statistics_view,name="statistics"),
-    path('users/',views.users_view,name="users")
+    path('users/',views.users_view,name="users"),
+    path('unblock/',views.unblockuser_view,name="unblock")
 ]
