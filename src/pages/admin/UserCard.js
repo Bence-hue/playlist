@@ -222,7 +222,8 @@ export default class UserCard extends Component {
 							UNBAN
 						</button>
 						<p>
-							Lejár: {user.block.isPerma ? "soha" : user.block.ExpireIn} nap
+							Lejár:{" "}
+							{user.block.isPerma ? "soha" : user.block.ExpireIn + " nap"}
 						</p>
 					</div>
 				)}
