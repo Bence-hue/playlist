@@ -61,7 +61,7 @@ export default class UserCard extends Component {
 			});
 	};
 	unBan = () => {
-		let url = "/api/unban/";
+		let url = "/api/unblock/";
 		let params = new URLSearchParams();
 		axios.defaults.xsrfCookieName = "csrftoken";
 		axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
