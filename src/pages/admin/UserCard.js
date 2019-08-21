@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Transition, animated } from "react-spring/renderprops";
 
+import { ReactComponent as Times } from "../../assets/times-solid.svg";
 import { ReactComponent as Dots } from "../../assets/ellipsis-h-solid.svg";
 
 import "../../css/admin-css/users.scss";
@@ -19,6 +20,21 @@ export default class UserCard extends Component {
 	};
 	toggleBanMenu = () => {
 		this.setState({ banMenu: !this.state.banMenu });
+	};
+	handleDelete = (id) => {
+		let url = "/api/delete/";
+		let params = new URLSearchParams();
+		params.append("id", id);
+		axios.defaults.xsrfCookieName = "csrftoken";
+		axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+		axios
+			.post(url, params)
+			.then((res) => {
+				window.location.reload();
+			})
+			.catch((err) => {
+				console.error(err.response.status);
+			});
 	};
 	ban = (period) => {
 		let url = "/api/blockuser/";
@@ -130,6 +146,10 @@ export default class UserCard extends Component {
 								<h1>{sg.artist}</h1>
 								<span />
 								<h1>{sg.title}</h1>
+								<Times
+									className="sc-icons sc-times"
+									onClick={this.handleDelete.bind(this, sg.id)}
+								/>
 							</div>
 						);
 					})}
