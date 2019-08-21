@@ -85,6 +85,7 @@ export default class ListSongsAdmin extends Component {
 		const handleMobileNextClick = () => {
 			if (this.state.currentPageMobile !== SlRoundMobile - 1) {
 				this.setState({ currentPageMobile: currentPageMobile + 1 });
+				window.scrollTo(0, 0);
 			}
 		};
 
