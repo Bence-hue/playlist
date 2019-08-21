@@ -14,20 +14,27 @@ import "../../css/admin-css/users.scss";
 
 export default class ListUsers extends Component {
 	state = {
+		bannedUsers: [],
 		users: [],
 		initSwitch: true
 	};
 	componentDidMount() {
-		let url = "/api/users/?mode=normal";
-		axios.get(url).then((res) => this.setState({ users: res.data }));
+		let urlNormal = "/api/users/?mode=normal";
+		let urlBanned = "/api/users/?mode=blocked";
+		axios.get(urlNormal).then((res) => this.setState({ users: res.data }));
+		axios
+			.get(urlBanned)
+			.then((res) => this.setState({ bannedUsers: res.data }));
 	}
 	initSwitch = (dir) => {
 		if (dir === "left") {
 			this.setState({ initSwitch: false });
+		} else if (dir === "right") {
+			this.setState({ initSwitch: true });
 		}
 	};
 	render() {
-		const { users } = this.state;
+		const { users, bannedUsers } = this.state;
 		return (
 			<div>
 				<Header kolcsey={true} />
@@ -36,12 +43,12 @@ export default class ListUsers extends Component {
 					items={this.state.initSwitch}
 					from={{
 						position: "absolute",
-						left: "0%",
+						left: "-50%",
 						top: "50%",
 						transform: "translate(-50%, -50%)"
 					}}
 					enter={{ left: "50%" }}
-					leave={{ left: "-30%" }}
+					leave={{ left: "-50%" }}
 					config={{ duration: 1000, easing: easings.easeCubicInOut }}
 				>
 					{(show) =>
@@ -59,16 +66,102 @@ export default class ListUsers extends Component {
 						))
 					}
 				</Transition>
-				<div id="users-pagination">
-					<div
-						className="usr-ico-wrapper"
-						onClick={this.initSwitch.bind(this, "left")}
-					>
-						<Notch className="usr-ico pagination-notch" />
-						<ArrowDown className="usr-ico pagination-arrow-down" />
-					</div>
-					<h2>Banned Users</h2>
-				</div>
+				<Transition
+					native
+					items={this.state.initSwitch}
+					from={{
+						position: "absolute",
+						right: "100%",
+						top: "50%",
+						transform: "translate(-50%, -50%)"
+					}}
+					enter={{ right: "0%" }}
+					leave={{ right: "100%" }}
+					config={{ duration: 1000, easing: easings.easeCubicInOut }}
+				>
+					{(show) =>
+						show &&
+						((props) => (
+							<animated.div style={props}>
+								<div id="users-pagination">
+									<div
+										className="usr-ico-wrapper"
+										onClick={this.initSwitch.bind(this, "left")}
+									>
+										<Notch className="usr-ico pagination-notch" />
+										<ArrowDown className="usr-ico pagination-arrow-down" />
+									</div>
+									<h2>Banned Users</h2>
+								</div>
+							</animated.div>
+						))
+					}
+				</Transition>
+				<Transition
+					native
+					items={!this.state.initSwitch}
+					from={{
+						position: "absolute",
+						left: "125%",
+						top: "50%",
+						transform: "translate(-50%, -50%)"
+					}}
+					enter={{ left: "25%" }}
+					leave={{ left: "125%" }}
+					config={{ duration: 1000, easing: easings.easeCubicInOut }}
+				>
+					{(show) =>
+						show &&
+						((props) => (
+							<animated.div style={props}>
+								<div id="users-pagination__unban">
+									<div
+										className="usr-ico-wrapper"
+										onClick={this.initSwitch.bind(this, "right")}
+									>
+										<Notch className="usr-ico pagination-notch" />
+										<ArrowDown className="usr-ico pagination-arrow-down" />
+									</div>
+									<h2>Normal Users</h2>
+								</div>
+							</animated.div>
+						))
+					}
+				</Transition>
+				<Transition
+					native
+					items={!this.state.initSwitch}
+					from={{
+						position: "absolute",
+						left: "150%",
+						top: "50%",
+						transform: "translate(-50%, -50%)"
+					}}
+					enter={{ left: "50%" }}
+					leave={{ left: "150%" }}
+					config={{ duration: 1000, easing: easings.easeCubicInOut }}
+				>
+					{(show) =>
+						show &&
+						((props) => (
+							<animated.div style={props}>
+								<div id="userban-wrapper">
+									<div className="userban-wrapper__list">
+										{bannedUsers.map((user) => {
+											return (
+												<UserCard
+													key={user.userid}
+													user={user}
+													isUnban={true}
+												/>
+											);
+										})}
+									</div>
+								</div>
+							</animated.div>
+						))
+					}
+				</Transition>
 				<ArtUsers className="art-users" />
 			</div>
 		);
