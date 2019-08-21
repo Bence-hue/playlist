@@ -1,6 +1,6 @@
 {
 	"short_name": "Playlist",
-	"name": "Playlist app",
+	"name": "Playlist",
 	"icons": [
 		{
 			"src": "android-chrome-192x192.png",
@@ -16,7 +16,7 @@
 	"display": "standalone",
 	"theme_color": "#15a867",
 	"background_color": "#15a867",
-	"start_url": "https://playlist.jelszo.co/static/",
+	"start_url": "/static/",
 	"scope": "/",
 	"orientation": "portrait"
 }
