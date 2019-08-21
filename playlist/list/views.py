@@ -133,20 +133,20 @@ def list_view(request,*args,**kwargs):
     if request.method=='GET':
         mode = request.GET.get("mode",[""])
         if mode=="all":
-            return jsonmodifier(serializers.serialize("json", Song.objects.all()))
+            return jsonmodifier(serializers.serialize("json", Song.objects.filter(hide=False)))
         elif mode=="unplayed":
-            return jsonmodifier(serializers.serialize("json", Song.objects.filter(played=False)))
+            return jsonmodifier(serializers.serialize("json", Song.objects.filter(hide=False,played=False)))
         elif mode=="latest":
-            full = json.loads(serializers.serialize("json",Song.objects.all()))
+            full = json.loads(serializers.serialize("json",Song.objects.filter(hide=False)))
             latestid=full[len(full)-1]["pk"]
-            latestobject = json.loads(serializers.serialize("json", Song.objects.filter(id=latestid)))
+            latestobject = json.loads(serializers.serialize("json", Song.objects.filter(hide=False,id=latestid)))
             latestjson=latestobject[0]["fields"]
             latestjson["id"]=latestid
             return HttpResponse(json.dumps(latestjson), content_type="application/json", status=200)
         elif mode=="thisuser":
-            return jsonmodifier(serializers.serialize("json", Song.objects.filter(user=request.COOKIES.get("userid",""),played=False)))
+            return jsonmodifier(serializers.serialize("json", Song.objects.filter(hide=False,user=request.COOKIES.get("userid",""),played=False)))
         elif mode=="played":
-            return jsonmodifier(serializers.serialize("json", Song.objects.filter(played=True)))
+            return jsonmodifier(serializers.serialize("json", Song.objects.filter(hide=False,played=True)))
         else:
             return HttpResponse(status=422)
     else:
@@ -214,10 +214,11 @@ def blockuser_view(request, *args, **kwargs):
             data=request.POST
             if data.get("permanent","true")=="true":
                 BlockedUser.objects.create(userid=data.get("userid"),permanent=True)
-                return HttpResponse(status=201)
             else:
                 BlockedUser.objects.create(userid=data.get("userid"),permanent=False,expireAt=datetime.datetime.now()+datetime.timedelta(weeks=int(data.get("expirein",1))))
-                return HttpResponse(status=201)
+            for l in Song.objects.filter(userid=data.get("userid"),played=False,hide=False):
+                l.hide=True
+            return HttpResponse(status=201)
         else:
             return HttpResponse("PERMISSION DENIED",status=403)
     else:
@@ -230,7 +231,7 @@ def statistics_view(request, *args, **kwargs):
             respons={}
             respons["created"]=len(Song.objects.filter(createdAt__gte=timezone.now()-datetime.timedelta(days=days)))
             respons["played"]=len(Song.objects.filter(played=True,playedAt__gte=timezone.now()-datetime.timedelta(days=days)))
-            respons["total"]=len(Song.objects.filter(played=False))
+            respons["total"]=len(Song.objects.filter(hide=False,played=False))
             return HttpResponse(json.dumps(respons),content_type="application/json", status=200)
         else:
             return HttpResponse("PERMISSION DENIED",status=403)
