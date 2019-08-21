@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Transition, animated } from "react-spring/renderprops";
 
 import { ReactComponent as Dots } from "../../assets/ellipsis-h-solid.svg";
 
@@ -8,7 +9,9 @@ import "../../css/admin-css/users.scss";
 export default class UserCard extends Component {
 	state = {
 		banMenu: false,
-		collapsed: true
+		collapsed: true,
+		initCustom: false,
+		customInterval: ""
 	};
 
 	toggleCollapse = () => {
@@ -39,6 +42,11 @@ export default class UserCard extends Component {
 			case "p":
 				params.append("permanent", true);
 				break;
+			case "c":
+				params.append("expirein", this.state.customInterval);
+
+				params.append("permanent", false);
+				break;
 			default:
 				params.append("permanent", true);
 		}
@@ -48,7 +56,7 @@ export default class UserCard extends Component {
 				window.location.reload();
 			})
 			.catch((err) => {
-				console.error(err.response.status);
+				console.error(err, err.response, err.response.status);
 			});
 	};
 	unBan = () => {
@@ -66,6 +74,15 @@ export default class UserCard extends Component {
 				console.error(err.response.status);
 			});
 	};
+
+	initCustom = () => {
+		this.setState({ initCustom: true });
+	};
+
+	setInterval = (e) => {
+		this.setState({ customInterval: e.target.value });
+	};
+
 	render() {
 		const { user, isUnban } = this.props;
 		const { banMenu, collapsed } = this.state;
@@ -125,22 +142,58 @@ export default class UserCard extends Component {
 						>
 							BAN
 						</button>
-						<div className="usc_ban-menu" style={styleBan}>
-							<ul>
-								<li onClick={this.ban.bind(this, "1w")}>
-									<p>1 hét</p>
-								</li>
-								<li onClick={this.ban.bind(this, "1m")}>
-									<p>1 hónap</p>
-								</li>
-								<li onClick={this.ban.bind(this, "3m")}>
-									<p>3 hónap</p>
-								</li>
-								<li onClick={this.ban.bind(this, "p")}>
-									<p>Végleges</p>
-								</li>
-							</ul>
-						</div>
+						<Transition
+							native
+							items={this.state.banMenu}
+							from={{ opacity: 0 }}
+							enter={{ opacity: 1 }}
+							leave={{ opacity: 0 }}
+							config={{ duration: 200 }}
+						>
+							{(show) =>
+								show &&
+								((props) => (
+									<animated.div style={props}>
+										<div className="usc_ban-menu" style={styleBan}>
+											<ul>
+												<li onClick={this.ban.bind(this, "1w")}>
+													<p>1 hét</p>
+												</li>
+												<li onClick={this.ban.bind(this, "1m")}>
+													<p>1 hónap</p>
+												</li>
+												<li onClick={this.ban.bind(this, "3m")}>
+													<p>3 hónap</p>
+												</li>
+												<li onClick={this.ban.bind(this, "p")}>
+													<p>Végleges</p>
+												</li>
+												<li id="usc_ban-custom">
+													{this.state.initCustom ? (
+														<form onSubmit={this.ban.bind(this, "c")}>
+															<input
+																type="number"
+																name="interval"
+																value={this.state.customInterval}
+																onChange={this.setInterval}
+															/>
+															<p>hét</p>
+														</form>
+													) : (
+														<p
+															className="usc_ban-custom__flavor"
+															onClick={this.initCustom}
+														>
+															Egyéni
+														</p>
+													)}
+												</li>
+											</ul>
+										</div>
+									</animated.div>
+								))
+							}
+						</Transition>
 					</div>
 				) : (
 					<div className="ban-wrapper ban-wrapper__unban">

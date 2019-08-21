@@ -13,9 +13,9 @@ export default class AdminDashboard extends Component {
 				<Link to="/new">
 					<h1>New</h1>
 				</Link>
-				<Link to="https://playlist.jelszo.co/api/logout/">
+				<a href="https://playlist.jelszo.co/api/logout/">
 					<h1>Logout</h1>
-				</Link>
+				</a>
 				<Link to="/admin/users">
 					<h1>Users</h1>
 				</Link>
