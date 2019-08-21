@@ -5,7 +5,7 @@ import SongCardAdmin from "./SongCardAdmin";
 export default class SongListPage extends Component {
 	handleNextClick = () => {
 		this.props.handleNextClick();
-		window.scrollTo(0, 0);
+		this.scrollTo(0, 0);
 	};
 
 	render() {
