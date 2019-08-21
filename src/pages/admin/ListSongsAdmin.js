@@ -93,11 +93,18 @@ export default class ListSongsAdmin extends Component {
 		let songPages = [];
 		for (let i = 0; i < SlRound; i++) {
 			if (i === 0) {
-				songPages.push(<SongListPageAdmin key={i} id={i} isFirstPage={true} />);
+				songPages.push(
+					<SongListPageAdmin key={i} id={i} songs={songs} isFirstPage={true} />
+				);
 			}
 			if (i !== 0) {
 				songPages.push(
-					<SongListPageAdmin key={i + 1} id={i} isFirstPage={false} />
+					<SongListPageAdmin
+						key={i + 1}
+						id={i}
+						songs={songs}
+						isFirstPage={false}
+					/>
 				);
 			}
 		}

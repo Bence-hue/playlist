@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import SongCardAdmin from "./SongCardAdmin";
 
-export default class SongListPage extends Component {
+export default class SongListPageAdmin extends Component {
 	render() {
 		const {
 			isMobile,
