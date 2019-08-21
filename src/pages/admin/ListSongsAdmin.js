@@ -112,14 +112,29 @@ export default class ListSongsAdmin extends Component {
 		for (let i = 0; i < 2; i++) {
 			if (i === 0) {
 				songPagesMobile.push(
-					// prettier-ignore
-					<SongListPageAdmin key={i} id={i} isFirstPage={true} isMobile={true} isLastPageMobile={isLastPageMobile} handleNextClick={handleMobileNextClick}/>
+					<SongListPageAdmin
+						key={i}
+						id={i}
+						isFirstPage={true}
+						isMobile={true}
+						isLastPageMobile={isLastPageMobile}
+						handleNextClick={handleMobileNextClick}
+						songs={songs}
+					/>
 				);
 			}
 			if (i !== 0) {
 				songPagesMobile.push(
-					// prettier-ignore
-					<SongListPageAdmin key={i + 1} id={i} isFirstPage={false} isMobile={true} isLastPageMobile={isLastPageMobile} handleNextClick={handleMobileNextClick} handlePrevClick={handleMobilePrevClick}/>
+					<SongListPageAdmin
+						key={i + 1}
+						id={i}
+						isFirstPage={false}
+						isMobile={true}
+						isLastPageMobile={isLastPageMobile}
+						handleNextClick={handleMobileNextClick}
+						handlePrevClick={handleMobilePrevClick}
+						songs={songs}
+					/>
 				);
 			}
 		}
