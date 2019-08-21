@@ -10,6 +10,7 @@ class Song(models.Model):
     createdAt=models.DateTimeField(auto_now_add=True,null=True)
     played=models.BooleanField(default=False)
     playedAt=models.DateTimeField(null=True,blank=True)
+    hide=models.BooleanField(default=False)
 
 class Question(models.Model):
     question=models.CharField(max_length=100)
