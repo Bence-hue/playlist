@@ -3,12 +3,16 @@ import React, { Component } from "react";
 import SongCardAdmin from "./SongCardAdmin";
 
 export default class SongListPage extends Component {
+	handleNextClick = () => {
+		this.props.handleNextClick();
+		window.scrollTo(0, 0);
+	};
+
 	render() {
 		const {
 			isMobile,
 			isFirstPage,
 			isLastPageMobile,
-			handleNextClick,
 			handlePrevClick,
 			songs
 		} = this.props;
@@ -69,7 +73,7 @@ export default class SongListPage extends Component {
 					) : !isLastPageMobile ? (
 						<SongCardAdmin
 							isNextArrow={true}
-							handleNextClick={handleNextClick}
+							handleNextClick={this.handleNextClick}
 						/>
 					) : (
 						""
