@@ -17,5 +17,6 @@
 	"theme_color": "#15a867",
 	"background_color": "#15a867",
 	"start_url": "https://playlist.jelszo.co/static/",
+	"scope": "/",
 	"orientation": "portrait"
 }
