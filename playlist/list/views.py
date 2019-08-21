@@ -63,9 +63,9 @@ def new_view(request, *args, **kwargs):
         if not blocks.filter(permanent=True).exists():
             if not blocks.filter(expireAt__gte=timezone.now()).exists():
                 lastrecord=Song.objects.filter(createdAt__gte=timezone.now()-datetime.timedelta(minutes=15),user=user)
-                if  len(lastrecord)<1:
+                if  len(lastrecord)<3:
                     if not Song.objects.filter(link=link,played=False).exclude(link="").exists():
-                        if not Song.objects.filter(link=link,played=True, playedAt__gte=timezone.now()-datetime.timedelta(minutes=1)).exclude(link="").exists():
+                        if not Song.objects.filter(link=link,played=True, playedAt__gte=timezone.now()-datetime.timedelta(weeks=1)).exclude(link="").exists():
                             Song.objects.create(title=data.get("title"),artist=data.get("artist"),link=link,user=user,yttitle=yttitle)
                             return HttpResponse(status=201)
                         else: #ha az utobbi egy hetben lett lejatszva
