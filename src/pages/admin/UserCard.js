@@ -20,7 +20,7 @@ export default class UserCard extends Component {
 	toggleBanMenu = () => {
 		this.setState({ banMenu: !this.state.banMenu });
 	};
-	ban = (e, period) => {
+	ban = (period) => {
 		let url = "/api/blockuser/";
 		let params = new URLSearchParams();
 		axios.defaults.xsrfCookieName = "csrftoken";
@@ -201,6 +201,7 @@ export default class UserCard extends Component {
 						<button id="ban" style={styleCardElements} onClick={this.unBan}>
 							UNBAN
 						</button>
+						<p>Lejár: {user.block.isPerma ? "soha" : user.block.ExpireIn}</p>
 					</div>
 				)}
 			</div>
