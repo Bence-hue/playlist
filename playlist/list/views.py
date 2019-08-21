@@ -245,6 +245,7 @@ def blockuser_view(request, *args, **kwargs):
 def unblockuser_view(request, *args, **kwargs):
     if request.method == 'POST':
         if request.user.is_authenticated:
+            print(request.POST.get("userid"))
             user = BlockedUser.objects.filter(userid=request.POST.get("userid", uuid.uuid4))
             p = user.filter(permanent=True)
             t = user.filter(permanent=False, expireAt__gte=timezone.now())
@@ -252,9 +253,11 @@ def unblockuser_view(request, *args, **kwargs):
                 for l in p:
                     l.permanent = False
                     l.expireAt = timezone.now()
+                    print(l.expireAt)
             if t.exists():
                 for l in t:
                     l.expireAt = timezone.now()
+                    print(l.expireAt)
             for l in Song.objects.filter(user=request.POST.get("userid", uuid.uuid4), played=False, hide=True):
                 l.hide = False
             return HttpResponse(status=200)
@@ -298,7 +301,6 @@ def users_view(request, *args, **kwargs):
                 db = Song.objects.all()
                 for l in reversed(db):
                     if not user_isBlocked(l):
-                        print(l)
                         contains = False
                         for u in respons:
                             if u["userid"] == l.user:
@@ -316,7 +318,6 @@ def users_view(request, *args, **kwargs):
                 db = Song.objects.all()
                 for l in reversed(db):
                     if user_isBlocked(l):
-                        print(l)
                         contains = False
                         for u in respons:
                             if u["userid"] == l.user:
@@ -329,7 +330,6 @@ def users_view(request, *args, **kwargs):
                             "block": user_blockedFor(l),
                             "songs": [{"id": l.id, "artist": l.artist, "title": l.title}]
                         })
-                print(respons)
                 return HttpResponse(json.dumps(respons), content_type="application/json", status=200)
         else:
             return HttpResponse("PERMISSION DENIED", status=403)
