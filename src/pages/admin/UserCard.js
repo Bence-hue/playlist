@@ -56,7 +56,9 @@ export default class UserCard extends Component {
 				window.location.reload();
 			})
 			.catch((err) => {
-				console.error(err, err.response, err.response.status);
+				console.error(err);
+				console.error(err.response);
+				console.error(err.response.status);
 			});
 	};
 	unBan = () => {
@@ -177,7 +179,7 @@ export default class UserCard extends Component {
 																value={this.state.customInterval}
 																onChange={this.setInterval}
 															/>
-															<p>hét</p>
+															<p onClick={this.ban.bind(this, "c")}>hét</p>
 														</form>
 													) : (
 														<p
