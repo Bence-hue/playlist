@@ -1,0 +1,299 @@
+.art-users {
+	width: 100%;
+	position: absolute;
+	z-index: -1;
+	bottom: 0;
+	left: 0;
+}
+
+#userban-wrapper {
+	margin: 0;
+	padding: 0;
+	width: 850px;
+	height: 600px;
+	position: absolute;
+	top: 55%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 50px;
+	-webkit-box-shadow: 0px 15px 42px 0px rgba(19, 156, 97, 0.36);
+	-moz-box-shadow: 0px 15px 42px 0px rgba(19, 156, 97, 0.36);
+	box-shadow: 0px 15px 42px 0px rgba(19, 156, 97, 0.36);
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+	.userban-wrapper__list {
+		margin: 0;
+		padding: 0;
+		width: 90%;
+		height: 85%;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		overflow: visible;
+		overflow-x: scroll;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
+
+		.usc {
+			margin: 20px 5%;
+			position: relative;
+			width: 90%;
+			min-height: 100px;
+			height: auto;
+			border-radius: 35px;
+			-webkit-box-shadow: 0px 3px 40px 0px rgba(0, 0, 0, 0.1);
+			-moz-box-shadow: 0px 3px 40px 0px rgba(0, 0, 0, 0.1);
+			box-shadow: 0px 3px 40px 0px rgba(0, 0, 0, 0.1);
+			transition: 0.2s all ease-in-out;
+
+			.usc__heading {
+				position: relative;
+				height: 100px;
+				width: 80%;
+
+				.usc-dots {
+					width: 35px;
+					margin: 0;
+					padding: 0;
+					position: absolute;
+					left: 3%;
+					top: 50%;
+					transform: translateY(-50%);
+					fill: #07693f;
+					cursor: pointer;
+					transition: 0.1s all ease-in-out;
+
+					&:hover {
+						transform: translateY(-50%) scale(1.1);
+					}
+				}
+
+				h3 {
+					margin: 0;
+					padding: 0;
+					position: absolute;
+					left: 14%;
+					transform: translateY(-50%);
+					font-family: "Open Sans";
+					font-weight: 400;
+					color: #464545;
+					font-style: italic;
+					line-height: 35px;
+					span {
+						font-weight: 400;
+						font-style: normal;
+						color: #139c61;
+					}
+				}
+
+				.userid {
+					top: 30%;
+				}
+
+				.lastmusic {
+					top: 60%;
+				}
+			}
+
+			h2 {
+				margin: 0;
+				padding: 0;
+				position: absolute;
+				left: 11%;
+				top: 90px;
+				font-family: "Open Sans";
+				font-weight: 600;
+				color: #13583b;
+			}
+
+			.usc__songs {
+				position: absolute;
+				left: 10%;
+				bottom: 5%;
+				width: 80%;
+				height: 50%;
+				border-radius: 35px;
+				-webkit-box-shadow: 0px 3px 40px 0px rgba(0, 0, 0, 0.16);
+				-moz-box-shadow: 0px 3px 40px 0px rgba(0, 0, 0, 0.16);
+				box-shadow: 0px 3px 40px 0px rgba(0, 0, 0, 0.16);
+				overflow-y: scroll;
+
+				&::-webkit-scrollbar {
+					display: none;
+				}
+
+				.user-song-card {
+					height: 21%;
+					width: 100%;
+					position: relative;
+					margin: 5px 0;
+					h1 {
+						margin: 0;
+						padding: 0;
+						width: 47%;
+						text-align: center;
+						text-transform: uppercase;
+						font-family: "Open sans";
+						font-weight: 600;
+						letter-spacing: 1px;
+						font-size: 1.5rem;
+						color: #303030;
+						position: absolute;
+						top: 50%;
+						transform: translateY(-50%);
+						overflow: hidden;
+						white-space: nowrap;
+						text-overflow: ellipsis;
+						&:first-child {
+							left: 0;
+							text-align: right;
+						}
+						&:last-child {
+							right: 0;
+							text-align: left;
+						}
+					}
+					span {
+						display: block;
+						height: 100%;
+						width: 2px;
+						background: #139c61;
+						position: absolute;
+						left: 50%;
+					}
+				}
+			}
+
+			.ban-wrapper {
+				position: absolute;
+				top: 5%;
+				right: 5%;
+				width: 15%;
+				text-align: center;
+
+				* {
+					transition: 0.1s all ease-in-out;
+				}
+
+				button {
+					width: 80%;
+					margin: 0 10%;
+					padding: 0 10px;
+					background: none;
+					font-family: "Open Sans";
+					font-weight: 700;
+					font-size: 1.5rem;
+					color: #cc0e2e;
+					border: 5px solid #91031b;
+					border-radius: 15px;
+					cursor: pointer;
+
+					&:hover {
+						transform: scale(1.1);
+					}
+				}
+
+				ul {
+					margin: 10px 0 0 0;
+					padding: 3px 0;
+					list-style: none;
+					border-radius: 20px;
+					background: white;
+					-webkit-box-shadow: 0px 3px 40px 0px rgba(0, 0, 0, 0.16);
+					-moz-box-shadow: 0px 3px 40px 0px rgba(0, 0, 0, 0.16);
+					box-shadow: 0px 3px 40px 0px rgba(0, 0, 0, 0.16);
+					* {
+						margin: 0;
+						padding: 0;
+					}
+					li {
+						margin: 0;
+						padding: 6px 0;
+						border-top: 1px solid rgba(70, 69, 69, 0.5);
+						cursor: pointer;
+
+						&:first-child {
+							border-top: none;
+						}
+
+						&:hover {
+							p {
+								transform: scale(1.1);
+							}
+						}
+						p {
+							font-family: "Open Sans";
+							color: #cc0e2e;
+							font-weight: 600;
+							letter-spacing: 0.5px;
+							text-transform: uppercase;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+#users-pagination {
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	height: 130px;
+	width: 200px;
+
+	.usr-ico-wrapper {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		cursor: pointer;
+
+		.pagination-arrow-down {
+			position: absolute;
+			margin-top: 7px;
+			left: 50%;
+			transform: translateX(-45%) rotate(-90deg);
+			width: 40px;
+			fill: #92031b;
+			transition: 0.1s all ease-in-out;
+		}
+		.pagination-notch {
+			position: absolute;
+			top: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 80px;
+			fill: #d20022;
+			transition: 0.1s all ease-in-out;
+		}
+
+		&:hover {
+			.pagination-arrow-down {
+				transform: translateX(-45%) rotate(-90deg) scale(1.1);
+			}
+
+			.pagination-notch {
+				transform: translateX(-50%) scale(1.1);
+			}
+		}
+	}
+
+	h2 {
+		margin: 0;
+		padding: 0;
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		text-align: center;
+		text-transform: uppercase;
+		font-family: "Open Sans";
+		font-weight: 600;
+		color: #92031b;
+	}
+}

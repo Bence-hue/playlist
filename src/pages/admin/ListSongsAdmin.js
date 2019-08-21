@@ -186,7 +186,7 @@ export default class ListSongsAdmin extends Component {
 				<Header kolcsey={false} />
 				<Breakpoint tabletl up>
 					<div
-						className="songs-wrapper"
+						className="songs-wrapper songs-wrapper-admin"
 						style={songsWrapperStyle}
 						onWheel={handleWheel}
 					>

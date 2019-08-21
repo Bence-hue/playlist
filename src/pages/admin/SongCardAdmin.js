@@ -38,7 +38,6 @@ export default class SongCardAdmin extends Component {
 		let url = "/api/delete/";
 		let params = new URLSearchParams();
 		params.append("id", this.props.song.id);
-		params.append("token", "ffhPRx4Aql5G7jOCNxZDw6ZjMnD4BdWR");
 		axios.defaults.xsrfCookieName = "csrftoken";
 		axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 		axios
@@ -47,7 +46,7 @@ export default class SongCardAdmin extends Component {
 				window.location.reload();
 			})
 			.catch((err) => {
-				console.error(err);
+				console.error(err.response.status);
 			});
 	};
 	toggleCollapse = () => {
