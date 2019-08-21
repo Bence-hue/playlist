@@ -6,11 +6,11 @@ import * as easings from "d3-ease";
 import Header from "../components/Header";
 import UserCard from "./UserCard";
 
-import { ReactComponent as ArtSongs } from "../../assets/songs.svg";
+import { ReactComponent as ArtUsers } from "../../assets/songs.svg";
 import { ReactComponent as ArrowDown } from "../../assets/angle-down-solid.svg";
 import { ReactComponent as Notch } from "../../assets/circle-notch-solid.svg";
 
-import "../../css/admin-css/songs.scss";
+import "../../css/admin-css/users.scss";
 
 export default class ListUsers extends Component {
 	state = {
@@ -69,7 +69,7 @@ export default class ListUsers extends Component {
 					</div>
 					<h2>Banned Users</h2>
 				</div>
-				<ArtSongs className="art-songs" />
+				<ArtUsers className="art-users" />
 			</div>
 		);
 	}
