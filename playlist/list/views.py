@@ -5,15 +5,16 @@ import random
 import uuid
 
 import requests
+from django.contrib.auth import authenticate, login, logout
 from django.core import serializers
+from django.core.mail import EmailMessage
+from django.db.models import Q
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import authenticate, login, logout
-from django.core.mail import EmailMessage
 
-from .models import Song, Question, BlockedUser, BlockedSong
+from .models import BlockedSong, BlockedUser, Question, Song
 
 with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "datas.json"), "r") as cffile:
     config = json.loads(cffile.readline())
@@ -308,7 +309,7 @@ def users_view(request, *args, **kwargs):
                 return HttpResponse(json.dumps(respons), content_type="application/json", status=200)
             elif request.GET.get("mode", "normal") == "blocked":
                 respons = []
-                db = BlockedUser.objects.all()
+                db = BlockedUser.objects.filter(Q(permanent=True)|Q(permanent=False,expireAt__gte=timezone.now()))
                 for i,l in enumerate(reversed(db)):
                     respons.append({"userid":str(l.userid),"block":user_blockedFor(l),"songs":[]})
                     for s in reversed(Song.objects.filter(user=l.userid)):
