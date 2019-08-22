@@ -312,7 +312,7 @@ def users_view(request, *args, **kwargs):
                 for i,l in enumerate(reversed(db)):
                     respons.append({"userid":l.userid,"block":user_blockedFor(l),"songs":[]})
                     for s in reversed(Song.objects.filter(user=l.userid)):
-                        respons[i]["songs"].append({"id":s.id,"artist":l.artist,"title":s.title})
+                        respons[i]["songs"].append({"id":s.id,"artist":s.artist,"title":s.title})
                 return HttpResponse(json.dumps(respons), content_type="application/json", status=200)
         else:
             return HttpResponse("PERMISSION DENIED", status=403)
