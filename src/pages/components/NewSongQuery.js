@@ -32,131 +32,140 @@ export default class NewSongQuery extends Component {
 	onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 	onSubmit = (e) => {
 		e.preventDefault();
+		let patt = /\S/;
 		if (this.state.title === "") {
-			this.setState({
-				toggleAnim: false
-			});
-			this.props.fill(66);
-			setTimeout(() => {
+			if (patt.test(this.state.artist)) {
 				this.setState({
-					flavortext: "Most írd be a zene címét!",
-					active: "title",
-					toggleAnim: true
+					toggleAnim: false
 				});
-			}, 400);
+				this.props.fill(66);
+				setTimeout(() => {
+					this.setState({
+						flavortext: "Most írd be a zene címét!",
+						active: "title",
+						toggleAnim: true
+					});
+				}, 400);
+			} else {
+				alert("Ilyet nem játszunk.");
+			}
 		} else {
-			const url = "/api/new/";
-			const params = new URLSearchParams();
-			params.append("title", this.state.title);
-			params.append("artist", this.state.artist);
-			params.append("token", "ffhPRx4Aql5G7jOCNxZDw6ZjMnD4BdWR");
-			axios.defaults.xsrfCookieName = "csrftoken";
-			axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-			axios
-				.post(url, params)
-				.then((res) => {
-					this.setState({ toggleAnim: false });
-					this.props.fill(100);
-					setTimeout(() => {
-						this.setState({
-							title: "",
-							artist: "",
-							active: "artist",
-							flavortext: "",
-							toggleFinal: true,
-							toggleErr: false
-						});
-					}, 1000);
-				})
-				.catch((err) => {
-					if (err.response) {
-						/*
-						 * The request was made and the server responded with a
-						 * status code that falls out of the range of 2xx
-						 */
-						switch (err.response.status) {
-							case 422:
-								// Duplicate
-								this.setState({
-									err: {
-										title: "Hupsz..",
-										flavor: "Ez a szám már hozzá lett adva."
-									},
-									toggleAnim: false,
-									toggleErr: true
-								});
-								break;
-							case 403:
-								// CSRF error
-								this.setState({
-									err: {
-										title: "Hupsz..",
-										flavor:
-											"Valami nem stimmel az azonosítóddal. Ha többször látod ezt a hibát, kérlek vedd fel velünk a kapcsolatot."
-									},
-									toggleAnim: false,
-									toggleErr: true
-								});
-								break;
-							case 429:
-								// Time limit
-								this.setState({
-									err: {
-										title: "Woah lassíts!",
-										flavor: `Elérted a kérési limitet. Legközelebb ${
-											err.response.data
-										} múlva kérhetsz újra.`
-									},
-									toggleAnim: false,
-									toggleErr: true
-								});
-								break;
-							case 418:
-								// Permaban
+			if (patt.test(this.state.title)) {
+				const url = "/api/new/";
+				const params = new URLSearchParams();
+				params.append("title", this.state.title);
+				params.append("artist", this.state.artist);
+				params.append("token", "ffhPRx4Aql5G7jOCNxZDw6ZjMnD4BdWR");
+				axios.defaults.xsrfCookieName = "csrftoken";
+				axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+				axios
+					.post(url, params)
+					.then((res) => {
+						this.setState({ toggleAnim: false });
+						this.props.fill(100);
+						setTimeout(() => {
+							this.setState({
+								title: "",
+								artist: "",
+								active: "artist",
+								flavortext: "",
+								toggleFinal: true,
+								toggleErr: false
+							});
+						}, 1000);
+					})
+					.catch((err) => {
+						if (err.response) {
+							/*
+							 * The request was made and the server responded with a
+							 * status code that falls out of the range of 2xx
+							 */
+							switch (err.response.status) {
+								case 422:
+									// Duplicate
+									this.setState({
+										err: {
+											title: "Hupsz..",
+											flavor: "Ez a szám már hozzá lett adva."
+										},
+										toggleAnim: false,
+										toggleErr: true
+									});
+									break;
+								case 403:
+									// CSRF error
+									this.setState({
+										err: {
+											title: "Hupsz..",
+											flavor:
+												"Valami nem stimmel az azonosítóddal. Ha többször látod ezt a hibát, kérlek vedd fel velünk a kapcsolatot."
+										},
+										toggleAnim: false,
+										toggleErr: true
+									});
+									break;
+								case 429:
+									// Time limit
+									this.setState({
+										err: {
+											title: "Woah lassíts!",
+											flavor: `Elérted a kérési limitet. Legközelebb ${
+												err.response.data
+											} múlva kérhetsz újra.`
+										},
+										toggleAnim: false,
+										toggleErr: true
+									});
+									break;
+								case 418:
+									// Permaban
 
-								this.setState({
-									err: {
-										title: "Ejnye...",
-										flavor:
-											"Valamit nagyon elszúrhattál. Sajnos te már nem kérhetsz nálunk zenét."
-									},
-									toggleAnim: false,
-									toggleErr: true
-								});
-								break;
-							case 401:
-								// Timeout
-								this.setState({
-									err: {
-										title: "Ejnye...",
-										flavor: `Valamit nagyon elszúrhattál, ugyanis még ${
-											err.response.data
-										} el vagy tiltva a zenekéréstől.`
-									},
-									toggleAnim: false,
-									toggleErr: true
-								});
-								break;
-							default:
-								// Server error
-								this.setState({
-									err: {
-										title: "Szerverhiba!",
-										flavor:
-											"Ezt elrontottunk. Valami nem stimmel nálunk. Próbáld újra!"
-									},
-									toggleAnim: false,
-									toggleErr: true
-								});
+									this.setState({
+										err: {
+											title: "Ejnye...",
+											flavor:
+												"Valamit nagyon elszúrhattál. Sajnos te már nem kérhetsz nálunk zenét."
+										},
+										toggleAnim: false,
+										toggleErr: true
+									});
+									break;
+								case 401:
+									// Timeout
+									this.setState({
+										err: {
+											title: "Ejnye...",
+											flavor: `Valamit nagyon elszúrhattál, ugyanis még ${
+												err.response.data
+											} el vagy tiltva a zenekéréstől.`
+										},
+										toggleAnim: false,
+										toggleErr: true
+									});
+									break;
+								default:
+									// Server error
+									this.setState({
+										err: {
+											title: "Szerverhiba!",
+											flavor:
+												"Ezt elrontottunk. Valami nem stimmel nálunk. Próbáld újra!"
+										},
+										toggleAnim: false,
+										toggleErr: true
+									});
+							}
+						} else if (err.request) {
+							/* The request was made but no response was received */
 						}
-					} else if (err.request) {
-						/* The request was made but no response was received */
-					}
-					console.log(err.response.status, err.response.data, err);
+						console.log(err.response.status, err.response.data, err);
 
-					this.props.dashRed();
-					this.props.fill(100);
-				});
+						this.props.dashRed();
+						this.props.fill(100);
+					});
+			} else {
+				alert("Ilyet nem játszunk.");
+			}
 		}
 	};
 
