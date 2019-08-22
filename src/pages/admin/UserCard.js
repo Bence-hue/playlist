@@ -134,7 +134,7 @@ export default class UserCard extends Component {
 					<h3 className="lastmusic">
 						Legutóbbi zene:{" "}
 						<span>
-							{user.songs
+							{user.songs[0]
 								? `
 							${user.songs[0].artist} - ${user.songs[0].title}
 							`
