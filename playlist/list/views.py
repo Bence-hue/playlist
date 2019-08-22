@@ -243,12 +243,12 @@ def unblockuser_view(request, *args, **kwargs):
             if p.exists():
                 for l in p:
                     l.permanent = False
-                    l.expireAt = timezone.now()
+                    l.expireAt = timezone.now()-datetime.timedelta(minutes=1)
                     print(l.expireAt)
                     l.save()
             if t.exists():
                 for l in t:
-                    l.expireAt = timezone.now()
+                    l.expireAt = timezone.now()-datetime.timedelta(minutes=1)
                     print(l.expireAt)
                     l.save()
             for l in Song.objects.filter(user=request.POST.get("userid", uuid.uuid4), played=False, hide=True):
