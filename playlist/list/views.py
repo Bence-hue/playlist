@@ -308,21 +308,11 @@ def users_view(request, *args, **kwargs):
                 return HttpResponse(json.dumps(respons), content_type="application/json", status=200)
             elif request.GET.get("mode", "normal") == "blocked":
                 respons = []
-                db = Song.objects.all()
-                for l in reversed(db):
-                    if user_isBlocked(l):
-                        contains = False
-                        for u in respons:
-                            if u["userid"] == l.user:
-                                contains = True
-                                u["songs"].append({"id": l.id, "artist": l.artist, "title": l.title})
-                                break
-                        if contains: continue
-                        respons.append({
-                            "userid": l.user,
-                            "block": user_blockedFor(l),
-                            "songs": [{"id": l.id, "artist": l.artist, "title": l.title}]
-                        })
+                db = BlockedUser.objects.all()
+                for i,l in enumerate(reversed(db)):
+                    respons.append({"userid":l.userid,"block":user_blockedFor(l),"songs":{}})
+                    for s in reversed(Song.objects.filter(user=l.userid)):
+                        respons[i]["songs"].append({"id":s.id,"artist":l.artist,"title":s.title})
                 return HttpResponse(json.dumps(respons), content_type="application/json", status=200)
         else:
             return HttpResponse("PERMISSION DENIED", status=403)
@@ -344,9 +334,8 @@ def user_isBlocked(l):
 
 
 def user_blockedFor(l):
-    blocks = BlockedUser.objects.filter(userid=l.user)
-    if blocks.filter(permanent=True).exists():
+    if l.filter(permanent=True).exists():
         return {"isPerma": True}
-    elif blocks.filter(permanent=False, expireAt__gte=timezone.now()).exists():
+    elif l.filter(permanent=False, expireAt__gte=timezone.now()).exists():
         return {"isPerma": False, "ExpireIn": (blocks.filter(expireAt__gte=timezone.now())[len(
             blocks.filter(expireAt__gte=timezone.now())) - 1].expireAt - timezone.now()).days + 1}
