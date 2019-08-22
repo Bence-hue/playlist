@@ -204,19 +204,19 @@
 }
 
 .song-card h1:nth-child(1) {
-	left: 0;
+	left: 1%;
 	text-align: right;
 }
 .song-card-admin h1:nth-child(1) {
-	left: -5%;
+	left: -3%;
 }
 
 .song-card h1:nth-child(3) {
-	right: 0;
+	right: 1%;
 	text-align: left;
 }
 .song-card-admin h1:nth-child(3) {
-	right: 5%;
+	right: 7%;
 }
 
 .song-card span {

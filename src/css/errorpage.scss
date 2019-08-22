@@ -1,0 +1,85 @@
+#error-page {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+	background: rgba(0, 0, 0, 0) url("../assets/pattern.png") repeat center;
+	.error-page-wrapper {
+		position: absolute;
+		top: 45%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		text-align: center;
+		font-family: "Open sans";
+		text-transform: uppercase;
+		color: #202020;
+
+		h1 {
+			letter-spacing: 2px;
+			font-size: 3rem;
+			margin-bottom: 70px;
+			color: #139c61;
+		}
+
+		h2 {
+			margin: 20px 0;
+			color: #303030;
+			font-weight: 400;
+			letter-spacing: 1px;
+			span {
+				font-weight: 600;
+				font-size: 125%;
+			}
+		}
+
+		h3 {
+			margin: 20px 0;
+			font-weight: 400;
+			font-style: italic;
+			letter-spacing: 1px;
+		}
+
+		.err-span {
+			margin: 0 10%;
+			padding: 0;
+			display: block;
+			width: 80%;
+			height: 2px;
+			background: #139c61;
+			border-radius: 50px;
+			-webkit-box-shadow: 0px 10px 30px 0px rgba(19, 156, 97, 1);
+			-moz-box-shadow: 0px 10px 30px 0px rgba(19, 156, 97, 1);
+			box-shadow: 0px 10px 30px 0px rgba(19, 156, 97, 1);
+		}
+
+		button {
+			margin-top: 40px;
+			background: rgb(19, 156, 97);
+			background: linear-gradient(
+				90deg,
+				rgba(19, 156, 97, 1) 0%,
+				rgba(10, 78, 49, 1) 100%
+			);
+			backdrop-filter: blur(10px);
+			opacity: 0.9;
+			border: none;
+			border-radius: 20px;
+			font-family: "Open Sans";
+			color: #fff;
+			text-transform: uppercase;
+			font-weight: 600;
+			font-size: 1.3rem;
+			padding: 5px 25px;
+			-webkit-box-shadow: 0px 15px 45px 0px rgba(0, 0, 0, 0.3);
+			-moz-box-shadow: 0px 15px 45px 0px rgba(0, 0, 0, 0.3);
+			box-shadow: 0px 15px 45px 0px rgba(0, 0, 0, 0.3);
+			cursor: pointer;
+			transition: 0.2s all ease-in-out;
+
+			&:hover {
+				transform: scale(1.1);
+			}
+		}
+	}
+}
