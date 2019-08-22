@@ -4,10 +4,12 @@ import SongCard from "./SongCard";
 
 export default class SongListPage extends Component {
 	componentDidMount() {
-		document.getElementById("songlistpage-mobile").style.display = "none";
-		setTimeout(() => {
-			document.getElementById("songlistpage-mobile").style.display = "block";
-		}, 1);
+		if (this.props.isMobile) {
+			document.getElementById("songlistpage-mobile").style.display = "none";
+			setTimeout(() => {
+				document.getElementById("songlistpage-mobile").style.display = "block";
+			}, 1);
+		}
 	}
 	render() {
 		const {
