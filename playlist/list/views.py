@@ -338,4 +338,4 @@ def user_blockedFor(l):
         return {"isPerma": True}
     elif l.permanent==False and l.expireAt>=timezone.now():
         return {"isPerma": False, "ExpireIn": (blocks.filter(expireAt__gte=timezone.now())[len(
-            blocks.filter(expireAt__gte=timezone.now())) - 1].expireAt - timezone.now()).days + 1}
+            l.expireAt - timezone.now()).days + 1}
