@@ -44,16 +44,14 @@ def new_view(request, *args, **kwargs):
             r = requests.get(url=URL, params=PARAMS)
             respons = r.json()
             try:
-                link = 'https://youtube.com/watch?v=' + \
-                       respons["items"][0]["id"]["videoId"]
+                link = 'https://youtube.com/watch?v=' + respons["items"][0]["id"]["videoId"]
                 yttitle = respons["items"][0]["snippet"]["title"]
             except:
                 PARAMS["key"] = config.get("YTAPIKEY3", "")
                 r = requests.get(url=URL, params=PARAMS)
                 respons = r.json()
                 try:
-                    link = 'https://youtube.com/watch?v=' + \
-                           respons["items"][0]["id"]["videoId"]
+                    link = 'https://youtube.com/watch?v=' + respons["items"][0]["id"]["videoId"]
                     yttitle = respons["items"][0]["snippet"]["title"]
                 except:
                     link = ""
@@ -63,28 +61,22 @@ def new_view(request, *args, **kwargs):
         blocks = BlockedUser.objects.filter(userid=user)
         if not blocks.filter(permanent=True).exists():
             if not blocks.filter(expireAt__gte=timezone.now()).exists():
-                lastrecord = Song.objects.filter(createdAt__gte=timezone.now() - datetime.timedelta(minutes=15),
-                                                 user=user)
+                lastrecord = Song.objects.filter(createdAt__gte=timezone.now() - datetime.timedelta(minutes=15),user=user)
                 if len(lastrecord) < 3:
                     if not Song.objects.filter(link=link, played=False).exclude(link="").exists():
-                        if not Song.objects.filter(link=link, played=True,
-                                                   playedAt__gte=timezone.now() - datetime.timedelta(weeks=1)).exclude(
-                                link="").exists():
-                            Song.objects.create(title=data.get("title"), artist=data.get("artist"), link=link,
-                                                user=user, yttitle=yttitle)
+                        if not Song.objects.filter(link=link, played=True,playedAt__gte=timezone.now() - datetime.timedelta(weeks=1)).exclude(link="").exists():
+                            Song.objects.create(title=data.get("title"), artist=data.get("artist"), link=link,user=user, yttitle=yttitle)
                             return HttpResponse(status=201)
                         else:  # ha az utobbi egy hetben lett lejatszva
                             return HttpResponse("{\"played\": True}", status=422)
                     else:  # ha van meg le nem jatszott ilyen
                         return HttpResponse("{\"played\":False}", status=422)
                 else:  # ha az utobbi 15 percben kuldott
-                    remaining = int(
-                        (datetime.timedelta(minutes=15) - (timezone.now() - lastrecord[0].createdAt)).total_seconds())
+                    remaining = int((datetime.timedelta(minutes=15) - (timezone.now() - lastrecord[0].createdAt)).total_seconds())
                     print(remaining)
                     return HttpResponse(str(int(remaining / 60)) + ":" + "{:02d}".format(remaining % 60), status=429)
             else:  # ha blokkolva van idore
-                ei = (blocks.filter(expireAt__gte=timezone.now())[
-                          len(blocks.filter(expireAt__gte=timezone.now())) - 1].expireAt - timezone.now()).days + 1
+                ei = (blocks.filter(expireAt__gte=timezone.now())[len(blocks.filter(expireAt__gte=timezone.now())) - 1].expireAt - timezone.now()).days + 1
                 if ei > 7:
                     if ei % 7 == 0:
                         return HttpResponse(str(int(ei / 7)) + " hétig", status=401)
@@ -230,9 +222,7 @@ def blockuser_view(request, *args, **kwargs):
             if data.get("permanent", "true") == "true":
                 BlockedUser.objects.create(userid=data.get("userid"), permanent=True)
             else:
-                BlockedUser.objects.create(userid=data.get("userid"), permanent=False,
-                                           expireAt=datetime.datetime.now() + datetime.timedelta(
-                                               weeks=int(data.get("expirein", 1))))
+                BlockedUser.objects.create(userid=data.get("userid"), permanent=False,expireAt=datetime.datetime.now() + datetime.timedelta(weeks=int(data.get("expirein", 1))))
             for l in Song.objects.filter(user=data.get("userid"), played=False, hide=False):
                 l.hide = True
                 l.save()
@@ -277,8 +267,7 @@ def statistics_view(request, *args, **kwargs):
             days = int(request.GET.get("days", "7"))
             respons = {}
             respons["created"] = len(Song.objects.filter(createdAt__gte=timezone.now() - datetime.timedelta(days=days)))
-            respons["played"] = len(
-                Song.objects.filter(played=True, playedAt__gte=timezone.now() - datetime.timedelta(days=days)))
+            respons["played"] = len(Song.objects.filter(played=True, playedAt__gte=timezone.now() - datetime.timedelta(days=days)))
             respons["total"] = len(Song.objects.filter(hide=False, played=False))
             return HttpResponse(json.dumps(respons), content_type="application/json", status=200)
         else:
