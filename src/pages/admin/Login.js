@@ -35,6 +35,7 @@ export default class AdminLogin extends Component {
 		const { noauthModal } = this.state;
 		return (
 			<div>
+				<div className="login-page" />
 				{noauthModal ? (
 					<div id="noauth">
 						<div className="noauth-modal">
@@ -65,7 +66,10 @@ export default class AdminLogin extends Component {
 					""
 				)}
 				<Header kolcsey={true} />
-				<LoginBanner className="login-banner" />
+				<LoginBanner
+					className="login-banner"
+					style={{ opacity: 1, zIndex: -100 }}
+				/>
 				<div id="login-wrapper">
 					<h1>
 						<span>Admin</span>
