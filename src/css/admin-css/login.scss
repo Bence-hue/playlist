@@ -11,7 +11,8 @@ $resp-mobile: "only screen and (max-width : 900px)";
 .login-page {
 	@media #{$resp-mobile} {
 		background: url("../../assets/pattern.png") repeat center;
-		height: 100vh;
+		background-size: 100px;
+		height: 100%;
 		width: 100vw;
 		position: absolute;
 		left: 0;

@@ -472,4 +472,85 @@
 		letter-spacing: 0.5px;
 		font-size: 0.8rem;
 	}
+
+	.upcoming-card-admin h1 {
+		bottom: 45%;
+	}
+	.upcoming-card h2 {
+		margin: 0;
+		padding: 0;
+		position: absolute;
+		top: 7%;
+		left: 5%;
+		font-size: 0.7rem;
+	}
+	.upcoming-card-admin span {
+		height: 25px;
+		top: 40%;
+	}
+	.upc-yt-wrapper {
+		bottom: 10%;
+		left: 40%;
+		transform: translateX(-50%);
+		width: 70%;
+		text-align: left;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+
+	.upc-yt-wrapper a {
+		font-size: 0.8rem;
+	}
+
+	.upc-yt-wrapper .fa-youtube {
+		font-size: 1.3rem;
+	}
+
+	.upc-yt-wrapper i {
+		font-size: 0.8rem;
+	}
+	.upc-control-wrapper,
+	.sc-control-wrapper {
+		padding: 0 3px;
+		position: absolute;
+		top: 97%;
+		right: 0;
+		transform: translateY(-100%);
+	}
+
+	.upc-icons,
+	.sc-icons {
+		width: 25px;
+		height: 25px;
+		margin: 0;
+	}
+	.song-card h1 {
+		width: 46%;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
+	.song-card-admin h1 {
+		width: 45%;
+	}
+	.song-card-admin h1:nth-child(1) {
+		left: 8%;
+	}
+
+	.song-card-admin h1:nth-child(3) {
+		right: 0%;
+	}
+
+	.song-card-admin span {
+		left: 53.5%;
+		transition: 0.1s all ease-in-out;
+	}
+	.dots {
+		position: absolute;
+		top: 50%;
+		left: 0%;
+		transform: translateY(-50%) rotate(90deg);
+		width: 29px;
+	}
 }
