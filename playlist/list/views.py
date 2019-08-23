@@ -26,7 +26,19 @@ def new_view(request, *args, **kwargs):
         data = request.POST
         print(data)
         URL = "https://www.googleapis.com/youtube/v3/search"
-        song = data.get("artist", "") + " - " + data.get("title", "")
+        artistlist=data.get("artist", "").split(" ")
+        titlelist=data.get("title", "").split(" ")
+        artist=""
+        title=""
+        for ale in artistlist:
+            if ale != "":
+                artist+=ale+" "
+        for tle in titlelist:
+            if tle != "":
+                title+=tle+" "
+        artist = artist[:-1]
+        title=title[:-1]
+        song =  artist+ " - " + title
         PARAMS = {
             "part": "snippet",
             "key": config.get("YTAPIKEY1", ""),
@@ -66,7 +78,7 @@ def new_view(request, *args, **kwargs):
                 if len(lastrecord) < 3:
                     if not Song.objects.filter(link=link, played=False).exclude(link="").exists():
                         if not Song.objects.filter(link=link, played=True,playedAt__gte=timezone.now() - datetime.timedelta(weeks=1)).exclude(link="").exists():
-                            Song.objects.create(title=data.get("title"), artist=data.get("artist"), link=link,user=user, yttitle=yttitle)
+                            Song.objects.create(title=title, artist=artist, link=link,user=user, yttitle=yttitle)
                             return HttpResponse(status=201)
                         else:  # ha az utobbi egy hetben lett lejatszva
                             return HttpResponse("{\"played\": True}", status=422)

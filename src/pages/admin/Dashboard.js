@@ -6,7 +6,7 @@ import "../../css/admin-css/dashboard.scss";
 export default class AdminDashboard extends Component {
 	render() {
 		return (
-			<div>
+			<div id="dashboard">
 				<Link to="/admin/songs">
 					<h1>Manage Songs</h1>
 				</Link>
