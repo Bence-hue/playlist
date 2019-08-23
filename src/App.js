@@ -16,6 +16,7 @@ import ListSongsAdmin from "./pages/admin/ListSongsAdmin";
 import ListUsers from "./pages/admin/ListUsers";
 
 import ErrorHandler from "./pages/components/ErrorHandler";
+import ErrorPage from "./pages/ErrorPage";
 
 import "./css/app.css";
 
@@ -51,7 +52,14 @@ function App() {
 								<Route exact path="/admin/songs" component={ListSongsAdmin} />
 								<Route exact path="/admin/users" component={ListUsers} />
 
-								<Route component="" />
+								<Route
+									path="/404"
+									render={(props) => <ErrorPage {...props} errCode={404} />}
+								/>
+								<Route
+									path="/500"
+									render={(props) => <ErrorPage {...props} errCode={500} />}
+								/>
 							</Switch>
 						</div>
 					</BreakpointProvider>

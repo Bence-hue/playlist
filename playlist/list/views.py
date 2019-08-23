@@ -187,7 +187,7 @@ def adminlogin_view(request, *args, **kwargs):
             login(request, user)
             return redirect("/admin/dashboard")
         else:
-            return redirect("/admin/login?auth=false")
+            return redirect("/admin/login?badauth=true")
     else:
         return HttpResponse(status=405)
 

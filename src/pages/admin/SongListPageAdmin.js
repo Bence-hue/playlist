@@ -62,7 +62,9 @@ export default class SongListPageAdmin extends Component {
 						""
 					)}
 					{otherSongs.slice(mSliceStart, mSliceStop).map((sg) => {
-						return <SongCardAdmin key={sg.id} id={sg.id} song={sg} />;
+						return (
+							<SongCardAdmin key={sg.id} id={sg.id} song={sg} isMobile={true} />
+						);
 					})}
 					{noData ? (
 						""

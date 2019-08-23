@@ -54,11 +54,14 @@ export default class SongCardAdmin extends Component {
 	};
 	render() {
 		const {
+			isMobile,
 			isNextArrow,
 			isPrevArrow,
 			handlePrevClick,
 			handleNextClick
 		} = this.props;
+		console.log(isMobile);
+
 		const { id } = this.props;
 		const { collapsed } = this.state;
 		const zIndex = {
@@ -95,14 +98,20 @@ export default class SongCardAdmin extends Component {
 					<h1 style={songCardMove}>{artist}</h1>
 					<span style={songCardMove} />
 					<h1 style={songCardMove}>{title}</h1>
-					<div className="sc-control-wrapper">
+					<div
+						className="sc-control-wrapper"
+						style={isMobile ? songCardYt : {}}
+					>
 						<Check className="sc-icons sc-check" onClick={this.handlePlayed} />
 						<Times className="sc-icons sc-times" onClick={this.handleDelete} />
 					</div>
 					<Dots
 						className="dots"
 						onClick={this.toggleCollapse}
-						style={songCardMove}
+						style={
+							(songCardMove,
+							isMobile ? { transform: "translateY(-50%) rotate(90deg)" } : {})
+						}
 					/>
 					<div className="sc-yt-wrapper" style={songCardYt}>
 						<i className="fab fa-youtube" />{" "}

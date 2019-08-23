@@ -1,4 +1,5 @@
 $green: #139c61;
+$resp-mobile: "only screen and (max-width : 900px)";
 
 %posac {
 	position: absolute;
@@ -7,15 +8,149 @@ $green: #139c61;
 	transform: translate(-50%, -50%);
 }
 
+.login-page {
+	@media #{$resp-mobile} {
+		background: url("../../assets/pattern.png") repeat center;
+		background-size: 100px;
+		height: 100%;
+		width: 100vw;
+		position: absolute;
+		left: 0;
+		top: 0;
+		z-index: -100;
+	}
+}
+
+#noauth {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+	background: rgba($color: #000000, $alpha: 0.3);
+	z-index: 50;
+
+	.noauth-modal {
+		@extend %posac;
+		height: 200px;
+		width: 500px;
+		background: white;
+		border-radius: 25px;
+		-webkit-box-shadow: 0px 10px 40px 0px rgba(19, 156, 97, 0.26);
+		-moz-box-shadow: 0px 10px 40px 0px rgba(19, 156, 97, 0.26);
+		box-shadow: 0px 10px 40px 0px rgba(19, 156, 97, 0.26);
+
+		@media #{$resp-mobile} {
+			width: 85%;
+			height: 150px;
+		}
+
+		.noauth-modal__button-wrapper {
+			position: absolute;
+			top: 0;
+			right: 0;
+			transform: translate(35%, -35%);
+			z-index: 51;
+			width: 40px;
+			height: 40px;
+			cursor: pointer;
+			transition: 0.1s all ease-in-out;
+
+			&:hover {
+				transform: translate(35%, -35%) scale(1.1);
+			}
+
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			.noauth-circle {
+				width: 100%;
+				color: #d20022;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+
+			.noauth-times {
+				width: 50%;
+				color: white;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%) rotate(90deg);
+			}
+		}
+
+		.noauth-modal__content {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			font-family: "Open Sans";
+			text-transform: uppercase;
+			text-align: center;
+			white-space: nowrap;
+
+			h2 {
+				margin: 0;
+				margin-bottom: 15px;
+				padding: 0;
+				letter-spacing: 2px;
+				font-weight: 600;
+			}
+			.noauth-modal__span {
+				display: block;
+				margin: 0 -35%;
+				height: 2px;
+				width: 170%;
+				background: #139c61;
+				border-radius: 50px;
+				opacity: 0.75;
+
+				@media #{$resp-mobile} {
+					width: 140%;
+					margin: 0 -20%;
+				}
+			}
+			p {
+				margin: 0;
+				margin-top: 15px;
+				font-weight: 400;
+				font-style: italic;
+				letter-spacing: 1px;
+			}
+		}
+	}
+}
+
 .login-banner {
 	width: 50%;
 	@extend %posac;
+
+	@media #{$resp-mobile} {
+		display: none;
+	}
 }
 
 #login-wrapper {
 	@extend %posac;
+	position: absolute;
 	height: 40%;
 	width: 23%;
+	z-index: 1;
+	display: block;
+	background: white;
+
+	@media #{$resp-mobile} {
+		width: 80%;
+		height: 50%;
+		border-radius: 30px;
+		-webkit-box-shadow: 0px 15px 45px 0px rgba(19, 156, 97, 0.25);
+		-moz-box-shadow: 0px 15px 45px 0px rgba(19, 156, 97, 0.25);
+		box-shadow: 0px 15px 45px 0px rgba(19, 156, 97, 0.25);
+	}
 
 	h1 {
 		font-family: "Open Sans";
@@ -29,6 +164,10 @@ $green: #139c61;
 		span {
 			color: $green;
 		}
+
+		@media #{$resp-mobile} {
+			margin-top: 25px;
+		}
 	}
 
 	form {
@@ -41,6 +180,13 @@ $green: #139c61;
 		grid-template-rows: 45% 10% 45%;
 		height: 100px;
 		width: 400px;
+
+		@media #{$resp-mobile} {
+			grid-template-columns: 100%;
+			grid-template-rows: 30% 5% 30% 5% 30%;
+			width: 85%;
+			height: 150px;
+		}
 
 		input,
 		button {
@@ -74,6 +220,20 @@ $green: #139c61;
 				transition: 0.15s all ease-in-out;
 				&:hover {
 					transform: scale(1.1);
+				}
+			}
+			@media #{$resp-mobile} {
+				font-size: 0.9rem;
+				&[type="text"] {
+					grid-column: 1;
+				}
+				&[type="password"] {
+					grid-column: 1;
+					grid-row: 3 / 4;
+				}
+				&[type="submit"] {
+					grid-column: 1;
+					grid-row: 5 / 6;
 				}
 			}
 		}
