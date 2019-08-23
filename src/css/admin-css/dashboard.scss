@@ -1,0 +1,24 @@
+#dashboard {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  bottom: 0;
+  right: 0;
+    background: rgb(27,39,94);
+    background: linear-gradient(135deg, rgba(27,39,94,1) 0%, rgba(28,28,55,1) 100%);
+    font-family: 'Open Sans';
+    a {
+      color: #f57b39;
+      text-decoration: none;
+        h1 {
+          &:hover{
+          transform: translateX(5%) scale(1.1);
+          text-decoration: underline;
+      }
+    }
+  }
+}
