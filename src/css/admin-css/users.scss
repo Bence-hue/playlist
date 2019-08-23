@@ -13,7 +13,8 @@ body {
 	left: 0;
 }
 
-#userban-wrapper {
+#userban-wrapper,
+#userban-wrapper__banned {
 	margin: 0;
 	padding: 0;
 	width: 850px;
@@ -76,6 +77,7 @@ body {
 				min-height: 60px;
 				margin: 10px 0;
 				width: 100%;
+				border-radius: 20px;
 			}
 			.usc__heading {
 				position: relative;
@@ -369,6 +371,13 @@ body {
 	}
 }
 
+#userban-wrapper__banned {
+	@media #{$resp-mobile} {
+		margin-left: 0;
+		transform: translate(-45%, -50%);
+	}
+}
+
 #users-pagination {
 	position: absolute;
 	right: 0;
@@ -451,6 +460,11 @@ body {
 	height: 130px;
 	width: 200px;
 
+	@media #{$resp-mobile} {
+		height: 50px;
+		width: 50px;
+		transform: translate(-85%, -50%);
+	}
 	.usr-ico-wrapper {
 		position: absolute;
 		left: 50%;
@@ -465,6 +479,10 @@ body {
 			width: 40px;
 			color: #139c61;
 			transition: 0.1s all ease-in-out;
+
+			@media #{$resp-mobile} {
+				width: 16px;
+			}
 		}
 		.pagination-notch {
 			position: absolute;
@@ -474,6 +492,10 @@ body {
 			width: 80px;
 			color: #07693f;
 			transition: 0.1s all ease-in-out;
+
+			@media #{$resp-mobile} {
+				width: 40px;
+			}
 		}
 
 		&:hover {
@@ -498,5 +520,9 @@ body {
 		font-family: "Open Sans";
 		font-weight: 600;
 		color: #139c61;
+
+		@media #{$resp-mobile} {
+			display: none;
+		}
 	}
 }
