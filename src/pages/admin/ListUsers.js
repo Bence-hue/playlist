@@ -19,7 +19,7 @@ export default class ListUsers extends Component {
 		initSwitch: true
 	};
 	componentDidMount() {
-		let urlNormal = "http://playlist.jelszo.co:8000/api/users/?mode=normal";
+		let urlNormal = "/api/users/?mode=normal";
 		let urlBanned = "/api/users/?mode=blocked";
 		axios.get(urlNormal).then((res) => this.setState({ users: res.data }));
 		axios
