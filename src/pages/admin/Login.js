@@ -1,23 +1,59 @@
 import React, { Component } from "react";
 import Header from "../components/Header";
+import queryString from "query-string";
 
 import "../../css/admin-css/login.scss";
 
 import { ReactComponent as LoginBanner } from "../../assets/Login-art.svg";
+import { ReactComponent as Circle } from "../../assets/circle-solid.svg";
+import { ReactComponent as Times } from "../../assets/times-solid.svg";
 
 export default class AdminLogin extends Component {
 	state = {
 		username: "",
-		password: ""
+		password: "",
+		noauthModal: false
 	};
+
+	componentDidMount() {
+		const urlParams = queryString.parse(this.props.location.search);
+
+		if (urlParams.badauth === "true") {
+			this.setState({ noauthModal: true });
+		}
+	}
 
 	onChange = (e) => {
 		this.setState({ [e.target.name]: e.target.value });
 	};
 
+	hideModal = () => {
+		this.setState({ noauthModal: false });
+	};
+
 	render() {
+		const { noauthModal } = this.state;
 		return (
 			<div>
+				{noauthModal ? (
+					<div id="noauth">
+						<div className="noauth-modal">
+							<div
+								className="noauth-modal__button-wrapper"
+								onClick={this.hideModal}
+							>
+								<Circle className="noauth-modal-button-icon noauth-circle" />
+								<Times className="noauth-modal-button-icon noauth-times" />
+							</div>
+							<div className="noauth-modal__content">
+								<h2>Hibás jelszó!</h2>
+								<p>Ez nem jött össze.</p>
+							</div>
+						</div>
+					</div>
+				) : (
+					""
+				)}
 				<Header kolcsey={true} />
 				<LoginBanner className="login-banner" />
 				<div id="login-wrapper">

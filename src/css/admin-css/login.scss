@@ -7,6 +7,87 @@ $green: #139c61;
 	transform: translate(-50%, -50%);
 }
 
+#noauth {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+	background: rgba($color: #000000, $alpha: 0.3);
+	z-index: 50;
+
+	.noauth-modal {
+		@extend %posac;
+		height: 200px;
+		width: 500px;
+		background: white;
+		border-radius: 25px;
+
+		.noauth-modal__button-wrapper {
+			position: absolute;
+			top: 0;
+			right: 0;
+			transform: translate(35%, -35%);
+			z-index: 51;
+			width: 40px;
+			height: 40px;
+			cursor: pointer;
+			transition: 0.1s all ease-in-out;
+
+			&:hover {
+				transform: translate(35%, -35%) scale(1.1);
+			}
+
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			.noauth-circle {
+				width: 100%;
+				color: #d20022;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+
+			.noauth-times {
+				width: 50%;
+				color: white;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%) rotate(90deg);
+			}
+		}
+
+		.noauth-modal__content {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			font-family: "Open Sans";
+			text-transform: uppercase;
+			text-align: center;
+
+			h2 {
+				margin: 0;
+				padding: 0;
+				letter-spacing: 2px;
+				font-weight: 600;
+			}
+
+			p {
+				margin: 0;
+				margin-top: 15px;
+				font-weight: 400;
+				font-style: italic;
+				letter-spacing: 1px;
+			}
+		}
+	}
+}
+
 .login-banner {
 	width: 50%;
 	@extend %posac;
