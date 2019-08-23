@@ -101,13 +101,23 @@ export default class UserCard extends Component {
 	};
 
 	render() {
+		let isMobile = false;
+		if (window.screen.width <= 900) {
+			isMobile = true;
+		}
 		const { user, isUnban } = this.props;
 		const { banMenu, collapsed } = this.state;
 		let styleCard, styleCardElements, styleBan;
 		if (collapsed) {
-			styleCard = {
-				height: "100px"
-			};
+			if (isMobile) {
+				styleCard = {
+					height: "60px"
+				};
+			} else {
+				styleCard = {
+					height: "100px"
+				};
+			}
 			styleCardElements = {
 				display: "none"
 			};
@@ -115,9 +125,15 @@ export default class UserCard extends Component {
 			styleCardElements = {
 				display: "block"
 			};
-			styleCard = {
-				height: "350px"
-			};
+			if (isMobile) {
+				styleCard = {
+					height: "250px"
+				};
+			} else {
+				styleCard = {
+					height: "350px"
+				};
+			}
 		}
 
 		if (banMenu) {
@@ -130,7 +146,9 @@ export default class UserCard extends Component {
 			<div className="usc" style={styleCard}>
 				<div className="usc__heading">
 					<Dots className="usc-dots" onClick={this.toggleCollapse} />
-					<h3 className="userid">User id: {user.userid}</h3>
+					<h3 className="userid" style={isMobile ? styleCardElements : {}}>
+						User id: {user.userid}
+					</h3>
 					<h3 className="lastmusic">
 						Legutóbbi zene:{" "}
 						<span>

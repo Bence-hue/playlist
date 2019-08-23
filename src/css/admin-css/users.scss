@@ -1,3 +1,5 @@
+$resp-mobile: "only screen and (max-width : 900px)";
+
 html,
 body {
 	overflow-x: hidden;
@@ -24,7 +26,14 @@ body {
 	-webkit-box-shadow: 0px 15px 42px 0px rgba(19, 156, 97, 0.36);
 	-moz-box-shadow: 0px 15px 42px 0px rgba(19, 156, 97, 0.36);
 	box-shadow: 0px 15px 42px 0px rgba(19, 156, 97, 0.36);
-	overflow-x: hidden;
+
+	@media #{$resp-mobile} {
+		width: 82vw;
+		height: 70vh;
+		top: 57%;
+		margin-left: -20px;
+		border-radius: 30px;
+	}
 
 	&::-webkit-scrollbar {
 		display: none;
@@ -45,6 +54,12 @@ body {
 			display: none;
 		}
 
+		@media #{$resp-mobile} {
+			width: 100%;
+			height: 100%;
+			overflow: scroll;
+		}
+
 		.usc {
 			margin: 20px 5%;
 			position: relative;
@@ -57,11 +72,20 @@ body {
 			box-shadow: 0px 3px 40px 0px rgba(0, 0, 0, 0.1);
 			transition: 0.2s all ease-in-out;
 
+			@media #{$resp-mobile} {
+				min-height: 60px;
+				margin: 10px 0;
+				width: 100%;
+			}
 			.usc__heading {
 				position: relative;
 				height: 100px;
 				width: 80%;
 
+				@media #{$resp-mobile} {
+					height: 60px;
+					width: 100%;
+				}
 				.usc-dots {
 					width: 35px;
 					margin: 0;
@@ -77,6 +101,13 @@ body {
 					&:hover {
 						transform: translateY(-50%) scale(1.1);
 					}
+					@media #{$resp-mobile} {
+						width: 25px;
+						transform: translateY(-50%) rotate(90deg);
+						&:hover {
+							transform: translateY(-50%) scale(1.1) rotate(90deg);
+						}
+					}
 				}
 
 				h3 {
@@ -90,10 +121,18 @@ body {
 					color: #464545;
 					font-style: italic;
 					line-height: 35px;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
 					span {
 						font-weight: 400;
 						font-style: normal;
 						color: #139c61;
+					}
+
+					@media #{$resp-mobile} {
+						font-size: 0.8rem;
+						max-width: 80%;
 					}
 				}
 
@@ -103,6 +142,10 @@ body {
 
 				.lastmusic {
 					top: 60%;
+
+					@media #{$resp-mobile} {
+						top: 50%;
+					}
 				}
 			}
 
@@ -115,6 +158,13 @@ body {
 				font-family: "Open Sans";
 				font-weight: 600;
 				color: #13583b;
+
+				@media #{$resp-mobile} {
+					top: 40px;
+					font-size: 1.3rem;
+					height: 0;
+					opacity: 0;
+				}
 			}
 
 			.usc__songs {
@@ -133,11 +183,18 @@ body {
 					display: none;
 				}
 
+				@media #{$resp-mobile} {
+					height: 65%;
+					border-radius: 20px;
+				}
 				.user-song-card {
 					height: 21%;
 					width: 100%;
 					position: relative;
 					margin: 5px 0;
+					@media #{$resp-mobile} {
+						height: 13%;
+					}
 					h1 {
 						margin: 0;
 						padding: 0;
@@ -162,6 +219,9 @@ body {
 						&:nth-child(3) {
 							right: 10%;
 							text-align: left;
+						}
+						@media #{$resp-mobile} {
+							font-size: 1rem;
 						}
 					}
 					span {
@@ -189,7 +249,10 @@ body {
 				* {
 					transition: 0.1s all ease-in-out;
 				}
-
+				@media #{$resp-mobile} {
+					width: 30%;
+					top: 15%;
+				}
 				button {
 					width: 80%;
 					margin: 0 10%;
@@ -206,6 +269,14 @@ body {
 					&:hover {
 						transform: scale(1.1);
 					}
+
+					@media #{$resp-mobile} {
+						width: 100%;
+						margin: 0;
+						border-width: 3px;
+						font-size: 1rem;
+						border-radius: 10px;
+					}
 				}
 
 				ul {
@@ -220,6 +291,11 @@ body {
 					* {
 						margin: 0;
 						padding: 0;
+					}
+
+					@media #{$resp-mobile} {
+						margin: 5px 0 0 0;
+						border-radius: 10px;
 					}
 					li {
 						margin: 0;
@@ -243,6 +319,9 @@ body {
 							font-weight: 600;
 							letter-spacing: 0.5px;
 							text-transform: uppercase;
+							@media #{$resp-mobile} {
+								font-size: 0.8rem;
+							}
 						}
 						input {
 							width: 30%;
@@ -298,6 +377,11 @@ body {
 	height: 130px;
 	width: 200px;
 
+	@media #{$resp-mobile} {
+		height: 50px;
+		width: 50px;
+		transform: translate(0, -50%);
+	}
 	.usr-ico-wrapper {
 		position: absolute;
 		left: 50%;
@@ -312,6 +396,10 @@ body {
 			width: 40px;
 			color: #92031b;
 			transition: 0.1s all ease-in-out;
+
+			@media #{$resp-mobile} {
+				width: 16px;
+			}
 		}
 		.pagination-notch {
 			position: absolute;
@@ -321,6 +409,10 @@ body {
 			width: 80px;
 			color: #d20022;
 			transition: 0.1s all ease-in-out;
+
+			@media #{$resp-mobile} {
+				width: 40px;
+			}
 		}
 
 		&:hover {
@@ -345,6 +437,10 @@ body {
 		font-family: "Open Sans";
 		font-weight: 600;
 		color: #92031b;
+
+		@media #{$resp-mobile} {
+			display: none;
+		}
 	}
 }
 #users-pagination__unban {
