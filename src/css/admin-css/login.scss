@@ -22,6 +22,9 @@ $green: #139c61;
 		width: 500px;
 		background: white;
 		border-radius: 25px;
+		-webkit-box-shadow: 0px 10px 40px 0px rgba(19, 156, 97, 0.26);
+		-moz-box-shadow: 0px 10px 40px 0px rgba(19, 156, 97, 0.26);
+		box-shadow: 0px 10px 40px 0px rgba(19, 156, 97, 0.26);
 
 		.noauth-modal__button-wrapper {
 			position: absolute;
@@ -72,11 +75,20 @@ $green: #139c61;
 
 			h2 {
 				margin: 0;
+				margin-bottom: 15px;
 				padding: 0;
 				letter-spacing: 2px;
 				font-weight: 600;
 			}
-
+			.noauth-modal__span {
+				display: block;
+				margin: 0 -35%;
+				height: 2px;
+				width: 170%;
+				background: #139c61;
+				border-radius: 50px;
+				opacity: 0.75;
+			}
 			p {
 				margin: 0;
 				margin-top: 15px;

@@ -47,7 +47,17 @@ export default class AdminLogin extends Component {
 							</div>
 							<div className="noauth-modal__content">
 								<h2>Hibás jelszó!</h2>
-								<p>Ez nem jött össze.</p>
+								<div className="noauth-modal__span" />
+								<p>
+									Szép próbálkozás.{" "}
+									<span
+										role="img"
+										aria-label="winking face"
+										style={{ fontStyle: "normal" }}
+									>
+										😉
+									</span>
+								</p>
 							</div>
 						</div>
 					</div>
