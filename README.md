@@ -112,7 +112,7 @@ A jelszo Co egy nyíregyházi fejlesztőcsapat akik szívesen mérik össze tud�
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [website-shield]: https://img.shields.io/website/https/playlist.jelszo.co?down_message=offline&label=Website&up_message=online&style=flat-square
-[website-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
+[website-url]: https://playlist.jelszo.co
 
 [license-shield]: https://img.shields.io/github/license/jelszo-co/playlist?style=flat-square
 [license-url]: https://github.com/jelszo-co/playlist/blob/master/LICENSE
