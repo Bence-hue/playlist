@@ -29,6 +29,9 @@ def login_view(request,*args,**kwargs):
     else:
         return render(request, "index.html")
 
+def e403(request,*args,**kwargs):
+    return redirect('/admin/login')
+
 def e404(request,*args,**kwargs):
     return redirect('/404')
 

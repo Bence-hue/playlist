@@ -5,6 +5,7 @@ import random
 import uuid
 
 import requests
+from django.core.exceptions import PermissionDenied
 from django.contrib.auth import authenticate, login, logout
 from django.core import serializers
 from django.core.mail import EmailMessage
@@ -116,7 +117,7 @@ def played_view(request, *args, **kwargs):
             else:
                 return HttpResponse(status=422)
         else:
-            return HttpResponse("PERMISSION DENIED", status=403)
+            raise PermissionDenied
     else:
         return HttpResponse(status=405)
 
@@ -138,7 +139,7 @@ def delete_view(request, *args, **kwargs):
             else:
                 return HttpResponse(status=422)
         else:
-            return HttpResponse("PERMISSION DENIED", status=403)
+            raise PermissionDenied
     else:
         return HttpResponse(status=405)
 
@@ -241,7 +242,7 @@ def blockuser_view(request, *args, **kwargs):
                 l.save()
             return HttpResponse(status=201)
         else:
-            return HttpResponse("PERMISSION DENIED", status=403)
+            raise PermissionDenied
     else:
         return HttpResponse(status=405)
 
@@ -269,7 +270,7 @@ def unblockuser_view(request, *args, **kwargs):
                 l.save()
             return HttpResponse(status=200)
         else:
-            return HttpResponse("PERMISSION DENIED", status=403)
+            raise PermissionDenied
     else:
         return HttpResponse(status=405)
 
@@ -284,7 +285,7 @@ def statistics_view(request, *args, **kwargs):
             respons["total"] = len(Song.objects.filter(hide=False, played=False))
             return HttpResponse(json.dumps(respons), content_type="application/json", status=200)
         else:
-            return HttpResponse("PERMISSION DENIED", status=403)
+            raise PermissionDenied
     else:
         return HttpResponse(status=405)
 
@@ -294,7 +295,7 @@ def username_view(request, *args, **kwargs):
         if request.user.is_authenticated:
             return HttpResponse(request.user.first_name)
         else:
-            return HttpResponse("PERMISSION DENIED", status=403)
+            raise PermissionDenied
     else:
         return HttpResponse(status=405)
 
@@ -328,7 +329,7 @@ def users_view(request, *args, **kwargs):
                         respons[i]["songs"].append({"id":s.id,"artist":s.artist,"title":s.title})
                 return HttpResponse(json.dumps(respons), content_type="application/json", status=200)
         else:
-            return HttpResponse("PERMISSION DENIED", status=403)
+            raise PermissionDenied
 
     else:
         return HttpResponse(status=405)
