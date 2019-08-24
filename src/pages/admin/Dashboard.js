@@ -3,22 +3,68 @@ import { Link } from "react-router-dom";
 
 import "../../css/admin-css/dashboard.scss";
 
+import Header from "../components/Header";
+
+import { ReactComponent as DashbArtLeft } from "../../assets/Admin-landing-left.svg";
+import { ReactComponent as DashbArtRight } from "../../assets/Admin-landing-right.svg";
+import { ReactComponent as AddButton } from "../../assets/add-button.svg";
+import { ReactComponent as MusicPlayer } from "../../assets/music-player.svg";
+import { ReactComponent as Users } from "../../assets/users-solid.svg";
+import { ReactComponent as Logout } from "../../assets/sign-out-alt-solid.svg";
+
 export default class AdminDashboard extends Component {
 	render() {
 		return (
 			<div id="dashboard">
+				<Header kolcsey={true} />
+
+				{console.log(this.props)}
+
+				<h1>
+					Welcome back, <span>Placeholder</span>.
+				</h1>
+
+				<div className="db-stats">
+					<h2>
+						Az elmúlt{" "}
+						<span className="db-time-selector">
+							7 <i className="fas fa-chevron-down"></i>
+						</span>{" "}
+						napban...
+					</h2>
+					<div className="db-stats-flex">
+						<p>Hozzáadott zenék:</p>
+						<p>Lejátszott zenék:</p>
+						<p>Listában összesen:</p>
+						<i>1</i>
+						<i>2</i>
+						<i>3</i>
+						<div className="db-stats__border"></div>
+					</div>
+				</div>
+
 				<Link to="/admin/songs">
-					<h1>Manage Songs</h1>
+					<button className="db-button">
+						<MusicPlayer />
+					</button>
 				</Link>
 				<Link to="/new">
-					<h1>New</h1>
+					<button className="db-button">
+						<AddButton />
+					</button>
+				</Link>
+				<Link to="/admin/users">
+					<button className="db-button">
+						<Users />
+					</button>
 				</Link>
 				<a href="https://playlist.jelszo.co/api/logout/">
-					<h1>Logout</h1>
+					<button className="db-button">
+						<Logout />
+					</button>
 				</a>
-				<Link to="/admin/users">
-					<h1>Users</h1>
-				</Link>
+				<DashbArtLeft className="dashboard-art-left" />
+				<DashbArtRight className="dashboard-art-right" />
 			</div>
 		);
 	}

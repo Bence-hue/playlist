@@ -6,3 +6,6 @@
 # Build folders
 /build
 /playlist/frontend/build
+
+# SVG files
+*.svg
