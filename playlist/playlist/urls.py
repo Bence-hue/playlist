@@ -26,4 +26,6 @@ urlpatterns = [
     path('cookies',views.frontend_view),
     path('about', views.frontend_view),
     path('admin/',include('frontend.urls')),
+    path('404',views.frontend_view),
+    path('500',views.frontend_view)
 ]
