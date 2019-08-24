@@ -48,6 +48,7 @@
 	left: 0;
 	width: 32vw;
 	pointer-events: none;
+	z-index: -5;
 }
 
 .art-right {
@@ -58,6 +59,7 @@
 	right: 0;
 	width: 35vw;
 	pointer-events: none;
+	z-index: -5;
 }
 
 #btn-wrapper {
@@ -80,6 +82,8 @@
 	box-shadow: 0px 0px 90px 0px rgba(0, 0, 0, 0.12);
 	cursor: pointer;
 	overflow: hidden;
+	z-index: 2;
+	background: #fff;
 	transition: 0.2s all ease-in-out;
 }
 
@@ -143,7 +147,7 @@
 	}
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 900px) {
 	#lastadded {
 		top: 30%;
 		width: 85vw;

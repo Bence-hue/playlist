@@ -159,7 +159,7 @@
 	font-style: italic;
 	font-size: 1.6rem;
 	letter-spacing: 1px;
-	line-height: 45px;
+	line-height: 2.5vw;
 	font-weight: 300;
 	text-align: justify;
 	text-align-last: center;
@@ -260,6 +260,17 @@
 .jszc__mail:hover,
 .jszc__links:hover {
 	text-decoration: underline;
+}
+
+@media only screen and (max-width: 1800px) {
+	#about-us p {
+		margin: 0;
+	}
+
+	#about-us h1,
+	#feedback h1 {
+		margin: 2px 0;
+	}
 }
 
 @media only screen and (max-width: 900px) {

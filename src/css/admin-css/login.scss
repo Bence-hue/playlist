@@ -30,6 +30,10 @@ $resp-mobile: "only screen and (max-width : 900px)";
 	background: rgba($color: #000000, $alpha: 0.3);
 	z-index: 50;
 
+	@media #{$resp-mobile} {
+		height: 100%;
+	}
+
 	.noauth-modal {
 		@extend %posac;
 		height: 200px;
@@ -150,6 +154,7 @@ $resp-mobile: "only screen and (max-width : 900px)";
 		-webkit-box-shadow: 0px 15px 45px 0px rgba(19, 156, 97, 0.25);
 		-moz-box-shadow: 0px 15px 45px 0px rgba(19, 156, 97, 0.25);
 		box-shadow: 0px 15px 45px 0px rgba(19, 156, 97, 0.25);
+		min-height: 300px;
 	}
 
 	h1 {

@@ -25,7 +25,7 @@ function App() {
 		{ mobile: 0 },
 		{ tabletp: 600 },
 		{ tabletl: 900 },
-		{ laptop: 1200 },
+		{ laptop: 1400 },
 		{ HD: 1800 }
 	]);
 	return (

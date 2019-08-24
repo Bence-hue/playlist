@@ -16,9 +16,7 @@ export default class ErrorPage extends Component {
 					{errCode === 404 ? (
 						<h3>Mint ahogy időutazás sem, ilyen oldal sem létezik nálunk.</h3>
 					) : (
-						<h3>
-							Nyugodj meg, attól megnyugszol. A hiba a mi készülékünkben van.
-						</h3>
+						<h3>Nyugodj meg, attól megnyugszol. Ezt mi szúrtuk el.</h3>
 					)}
 					<Link to="/">
 						<button>Kezdőlap</button>
