@@ -36,21 +36,36 @@ $orange: #d24800;
 
 	#menu-upleft,
 	#menu-upright {
-		background: white;
+		background: rgb(27, 39, 94);
+		background: linear-gradient(
+			135deg,
+			rgba(27, 39, 94, 1) 0%,
+			rgba(28, 28, 55, 1) 100%
+		);
 
 		span {
-			background: $orange;
+			background: white;
 		}
 	}
-	.MU-icons,
-	.MUL-icons {
-		color: $orange;
-		fill: $orange;
+
+	#menu-upright {
+		border: 3pt white;
+		border-style: none none solid solid;
 	}
 
-	.upright-text,
+	#menu-upleft {
+		border: 3pt white;
+		border-style: none solid solid none;
+	}
+
+	.MU-icons,
+	.MUL-icons {
+		color: white;
+		fill: white;
+	}
+	white .upright-text,
 	.upleft-text {
-		color: $orange;
+		color: white;
 	}
 
 	.dashboard-art-left {
@@ -67,5 +82,100 @@ $orange: #d24800;
 		bottom: -5pt;
 		right: -5pt;
 		width: 40vw;
+	}
+
+	.db-greeting {
+		position: absolute;
+		left: 20%;
+		top: 30%;
+		color: white;
+		font-family: "Open Sans";
+		font-weight: 300;
+		font-style: italic;
+
+		span {
+			font-style: normal;
+			text-transform: uppercase;
+			color: $orange;
+			font-weight: 600;
+		}
+	}
+
+	.db-stats {
+		position: absolute;
+		top: 25%;
+		right: 20%;
+		color: white;
+		font-family: "Open Sans";
+		width: 350px;
+		h2 {
+			margin: 20px 0 40px 0;
+			font-weight: 300;
+			text-align: right;
+
+			span {
+				font-weight: 600;
+				cursor: pointer;
+			}
+		}
+		.db-stats-flex {
+			display: grid;
+			grid-template-rows: 30% 5% 30% 5% 30%;
+			grid-template-columns: 75% 5% 20%;
+			height: 100px;
+			width: 250px;
+
+			p {
+				margin: 0;
+				padding: 0;
+				text-align: right;
+				line-height: 30px;
+				&:nth-child(1) {
+					grid-row: 1;
+					grid-column: 1;
+				}
+				&:nth-child(2) {
+					grid-row: 3;
+					grid-column: 1;
+				}
+				&:nth-child(3) {
+					grid-row: 5;
+					grid-column: 1;
+				}
+			}
+
+			i {
+				margin: 0;
+				padding: 0;
+				font-weight: 600;
+				line-height: 30px;
+				text-align: center;
+
+				&:nth-child(4) {
+					grid-row: 1;
+					grid-column: 3;
+				}
+				&:nth-child(5) {
+					grid-row: 3;
+					grid-column: 3;
+				}
+				&:nth-child(6) {
+					grid-row: 5;
+					grid-column: 3;
+				}
+			}
+
+			.db-stats__border {
+				grid-row: 1 / 6;
+				grid-column: 3 / 4;
+				border: 2pt solid $orange;
+				border-radius: 20px;
+				height: 120%;
+				margin: -25% 0;
+			}
+		}
+	}
+	button {
+		display: none;
 	}
 }
