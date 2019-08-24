@@ -12,7 +12,7 @@ def frontend_view(request, *args,**kwargs):
         userid = str(uuid.uuid4())
     else:
         userid=request.COOKIES["userid"]
-    max_age = 12 * 7 * 24 * 60 * 60
+    max_age = 52 * 7 * 24 * 60 * 60
     expires = datetime.datetime.strftime(datetime.datetime.now() + datetime.timedelta(seconds=max_age), "%a, %d-%b-%Y %H:%M:%S GMT")
     response.set_cookie('userid',userid , max_age=max_age, expires=expires)
     return response
