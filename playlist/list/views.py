@@ -216,7 +216,7 @@ def email_view(request, *args, **kwargs):
         mail = EmailMessage(
             subject=data.get("name", "") + " (playlist feedback)",
             body=data.get("message", "message") + "\n-----------------------------------\neszköz: " + request.META[
-                'HTTP_USER_AGENT'] + ", userid: " + request.COOKIES.get("userid", ""),
+                'HTTP_USER_AGENT'] + ", userid: " + request.COOKIES.get("userid", "nincs userid cookie"),
             from_email="support@jelszo.co",
             to=["support@jelszo.co"],
             reply_to=[data.get("email", "support@jelszo.co")]
