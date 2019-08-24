@@ -358,6 +358,13 @@ body {
 					&:hover {
 						transform: scale(1.1);
 					}
+					@media #{$resp-mobile} {
+						width: 100%;
+						margin: 0;
+						border-width: 3px;
+						font-size: 1rem;
+						border-radius: 10px;
+					}
 				}
 
 				p {
@@ -365,6 +372,21 @@ body {
 					color: #464545;
 					font-style: italic;
 					font-weight: 400;
+
+					@media #{$resp-mobile} {
+						position: absolute;
+						top: 15%;
+						left: 30%;
+						margin: 0;
+						border-width: 3px;
+						font-size: 1rem;
+						border-radius: 10px;
+					}
+				}
+
+				@media #{$resp-mobile} {
+					width: 30%;
+					top: 15%;
 				}
 			}
 		}
