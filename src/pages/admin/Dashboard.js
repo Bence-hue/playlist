@@ -36,10 +36,8 @@ export default class AdminDashboard extends Component {
 			<div id="dashboard">
 				<Header kolcsey={true} />
 
-				{console.log(this.props)}
-
 				<h1 className="db-greeting">
-					Welcome back, <span>{this.state.username}</span> .
+					Welcome back, <span>{this.state.username}</span>.
 				</h1>
 
 				<div className="db-stats">
