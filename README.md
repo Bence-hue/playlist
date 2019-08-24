@@ -52,10 +52,6 @@ Ha csak a React érdekel, válaszd ezt a lehetőséget.
 ### 1. Clone
 ```sh
 git clone https://github.com/jelszo-co/playlist.git
-
-Vagy
-
-git clone git@github.com:Tasztalos69/jelszo-co.git
 ```
 
 ```sh
@@ -96,7 +92,7 @@ runserver.bat
 
 # RÓLUNK
 <p align="center">
-A jelszo Co egy nyíregyházi fejlesztőcsapat akik szívesen mérik össze tudásukat másokkal, és nyitottak mindenfajta új ötlet felé.
+A Jelszo Co. egy nyíregyházi fejlesztőcsapat akik szívesen mérik össze tudásukat másokkal, és nyitottak mindenfajta új ötlet felé.
 <br />
 <a href="https://jelszo.co">Weboldalunk</a>
 ·
