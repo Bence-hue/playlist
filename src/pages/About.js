@@ -69,7 +69,7 @@ export default class About extends Component {
 				<div id="about-us">
 					<h1>Rólunk...</h1>
 					<p>
-						A Playlistet 3 Kölcsey-s diák fejleszti, annak reményében, hogy
+						Az oldal személyenként 3 zene hozzáadását teszi lehetővé negyedóránként. A Playlistet 3 Kölcsey-s diák fejleszti, annak reményében, hogy
 						jobbá tegyék az iskolarádiót, és így valamennyire megkönnyítsék az
 						iskolás diákok mindennapjait. Az ötlet saját, továbbá az iskolától
 						semmilyen jutalmat nem kapunk a projekt fenntartásáért. Ha bármilyen
