@@ -1,3 +1,4 @@
+$resp-mobile: "only screen and (max-width : 900px)";
 $orange: #d24800;
 
 #dashboard {
@@ -17,6 +18,10 @@ $orange: #d24800;
 		rgba(28, 28, 55, 1) 100%
 	);
 	overflow: hidden;
+
+	@media #{$resp-mobile} {
+		height: 100%;
+	}
 
 	.playlist-title {
 		color: white;
@@ -75,6 +80,10 @@ $orange: #d24800;
 		bottom: -8pt;
 		left: -8pt;
 		width: 35vw;
+
+		@media #{$resp-mobile} {
+			width: 50vw;
+		}
 	}
 
 	.dashboard-art-right {
@@ -82,6 +91,10 @@ $orange: #d24800;
 		bottom: -7pt;
 		right: -7pt;
 		width: 40vw;
+
+		@media #{$resp-mobile} {
+			width: 50vw;
+		}
 	}
 
 	.db-greeting {
@@ -92,6 +105,14 @@ $orange: #d24800;
 		font-family: "Open Sans";
 		font-weight: 300;
 		font-style: italic;
+
+		@media #{$resp-mobile} {
+			top: 20%;
+			left: 0;
+			width: 100%;
+			font-size: 1.5rem;
+			text-align: center;
+		}
 
 		span {
 			font-style: normal;
@@ -108,10 +129,23 @@ $orange: #d24800;
 		color: white;
 		font-family: "Open Sans";
 		width: 350px;
+
+		@media #{$resp-mobile} {
+			top: 35%;
+			right: 0;
+			width: 100%;
+		}
 		h2 {
 			margin: 20px 0 40px 0;
 			font-weight: 300;
 			text-align: right;
+
+			@media #{$resp-mobile} {
+				text-align: left;
+				padding: 0 15px;
+				margin: 10px 0;
+				font-size: 1.3rem;
+			}
 
 			span {
 				font-weight: 600;
@@ -124,6 +158,11 @@ $orange: #d24800;
 			grid-template-columns: 75% 5% 20%;
 			height: 100px;
 			width: 250px;
+
+			@media #{$resp-mobile} {
+				float: right;
+				margin: 0 20px 0 0;
+			}
 
 			p {
 				margin: 0;
@@ -184,6 +223,13 @@ $orange: #d24800;
 		height: 100px;
 		text-align: center;
 
+		@media #{$resp-mobile} {
+			left: 50%;
+			top: 70%;
+			width: 100%;
+			height: 80px;
+		}
+
 		button {
 			position: relative;
 			width: 100px;
@@ -205,6 +251,11 @@ $orange: #d24800;
 				transform: scale(1.1);
 			}
 
+			@media #{$resp-mobile} {
+				width: 64px;
+				height: 80%;
+				margin: 0 8px;
+			}
 			svg {
 				display: block;
 				width: 50px;
@@ -214,6 +265,10 @@ $orange: #d24800;
 				transform: translate(-50%, -50%);
 				fill: #fff;
 				color: #fff;
+
+				@media #{$resp-mobile} {
+					width: 35px;
+				}
 			}
 		}
 	}
