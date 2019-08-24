@@ -243,7 +243,7 @@ export default class UserCard extends Component {
 						<button id="ban" style={styleCardElements} onClick={this.unBan}>
 							UNBAN
 						</button>
-						<p>
+						<p style={isMobile ? styleCardElements : {}}>
 							Lejár:{" "}
 							{user.block.isPerma ? "soha" : user.block.ExpireIn + " nap"}
 						</p>

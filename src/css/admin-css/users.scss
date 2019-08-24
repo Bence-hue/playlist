@@ -359,6 +359,10 @@ body {
 						transform: scale(1.1);
 					}
 					@media #{$resp-mobile} {
+						position: absolute;
+						right: 0;
+						top: 50%;
+						transform: translateY(-50%);
 						width: 50%;
 						margin: 0;
 						border-width: 3px;
