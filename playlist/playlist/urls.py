@@ -17,9 +17,10 @@ from django.contrib import admin
 from django.urls import path,include
 from frontend import views
 from django.conf.urls import (
-    handler404, handler500
+    handler403, handler404, handler500
 )
 
+handler403= 'frontend.views.e403'
 handler404 = 'frontend.views.e404'
 handler500 = 'frontend.views.e500'
 
