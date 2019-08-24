@@ -6,5 +6,4 @@ urlpatterns = [
     path("dashboard",views.admin_view),
     path('songs',views.admin_view),
     path('users',views.admin_view),
-    path("",views.e403)
 ]
