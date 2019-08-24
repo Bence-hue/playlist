@@ -28,3 +28,9 @@ def login_view(request,*args,**kwargs):
         return redirect("/admin/dashboard")
     else:
         return render(request, "index.html")
+
+def e404(request,*args,**kwargs):
+    return redirect('/404')
+
+def e500(request,*args,**kwargs):
+    return redirect('/500')

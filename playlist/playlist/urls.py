@@ -16,6 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from frontend import views
+from django.conf.urls import (
+    handler404, handler500
+)
+
+handler404 = 'frontend.views.e404'
+handler500 = 'frontend.views.e500'
 
 urlpatterns = [
     path('djadmin/', admin.site.urls),
