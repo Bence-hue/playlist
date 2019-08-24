@@ -16,12 +16,13 @@ import { ReactComponent as Logout } from "../../assets/sign-out-alt-solid.svg";
 export default class AdminDashboard extends Component {
 	state = {
 		username: "",
+		period: 7,
 		stats: {}
 	};
 
 	componentDidMount() {
 		let urlName = "/api/username/";
-		let urlStats = "/api/statistics/";
+		let urlStats = `/api/statistics/?day=${this.state.period}`;
 		axios.get(urlName).then((res) => {
 			this.setState({ username: res.data });
 		});
@@ -60,26 +61,28 @@ export default class AdminDashboard extends Component {
 					</div>
 				</div>
 
-				<Link to="/admin/songs">
-					<button className="db-button">
-						<MusicPlayer />
-					</button>
-				</Link>
-				<Link to="/new">
-					<button className="db-button">
-						<AddButton />
-					</button>
-				</Link>
-				<Link to="/admin/users">
-					<button className="db-button">
-						<Users />
-					</button>
-				</Link>
-				<a href="https://playlist.jelszo.co/api/logout/">
-					<button className="db-button">
-						<Logout />
-					</button>
-				</a>
+				<div className="db-buttons">
+					<Link to="/admin/songs">
+						<button className="db-button">
+							<MusicPlayer />
+						</button>
+					</Link>
+					<Link to="/new">
+						<button className="db-button">
+							<AddButton />
+						</button>
+					</Link>
+					<Link to="/admin/users">
+						<button className="db-button">
+							<Users />
+						</button>
+					</Link>
+					<a href="https://playlist.jelszo.co/api/logout/">
+						<button className="db-button">
+							<Logout />
+						</button>
+					</a>
+				</div>
 				<DashbArtLeft className="dashboard-art-left" />
 				<DashbArtRight className="dashboard-art-right" />
 			</div>
