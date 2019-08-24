@@ -470,7 +470,8 @@
 		bottom: 1%;
 		left: 0;
 		letter-spacing: 0.5px;
-		font-size: 0.8rem;
+		font-size: 70%;
+		white-space: nowrap;
 	}
 
 	.upcoming-card-admin h1 {
