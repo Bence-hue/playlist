@@ -158,7 +158,6 @@ export default class NewSongQuery extends Component {
 						} else if (err.request) {
 							/* The request was made but no response was received */
 						}
-						console.log(err.response.status, err.response.data, err);
 
 						this.props.dashRed();
 						this.props.fill(100);
