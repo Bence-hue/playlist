@@ -59,12 +59,14 @@ export default class UserCard extends Component {
 				params.append("permanent", true);
 				break;
 			case "c":
-				params.append("expirein", this.state.customInterval);
+				params.append("expirein", (this.state.customInterval * 7));
 				params.append("permanent", false);
+				console.log(this.state.customInterval * 7);
 				break;
 			default:
 				params.append("permanent", true);
 		}
+		
 		axios
 			.post(url, params)
 			.then((res) => {
@@ -220,7 +222,7 @@ export default class UserCard extends Component {
 																value={this.state.customInterval}
 																onChange={this.setInterval}
 															/>{" "}
-															<p onClick={this.ban.bind(this, "c")}>hét</p>
+															<p onClick={this.ban.bind(this, "c")}>nap</p>
 														</form>
 													) : (
 														<p
