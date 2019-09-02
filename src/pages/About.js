@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Header from "../pages/components/Header";
 import axios from "axios";
 import { Transition, animated } from "react-spring/renderprops";
+import getPackageJsonFromGithub from "get-package-json-from-github";
 
 import "../css/about.css";
 
@@ -12,6 +13,7 @@ export default class About extends Component {
 			email: "",
 			msg: ""
 		},
+		version: "",
 		charlimit: 300,
 		remlength: null,
 		toggleButton: true,
@@ -21,6 +23,14 @@ export default class About extends Component {
 
 	componentWillMount() {
 		this.setState({ remlength: this.state.charlimit });
+	}
+
+	componentDidMount() {
+		getPackageJsonFromGithub(
+			"git+https://github.com/jelszo-co/playlist.git"
+		).then((packageJson) => {
+			this.setState({ version: packageJson.version });
+		});
 	}
 
 	onSubmit = (e) => {
@@ -62,19 +72,20 @@ export default class About extends Component {
 
 	render() {
 		const { name, email, msg } = this.state.fb;
-		const { isErr } = this.state;
+		const { isErr, version } = this.state;
 		return (
 			<div>
 				<Header kolcsey={false} />
 				<div id="about-us">
 					<h1>Rólunk...</h1>
 					<p>
-						Az oldal személyenként 3 zene hozzáadását teszi lehetővé negyedóránként. A Playlistet 3 Kölcsey-s diák fejleszti, annak reményében, hogy
-						jobbá tegyék az iskolarádiót, és így valamennyire megkönnyítsék az
-						iskolás diákok mindennapjait. Az ötlet saját, továbbá az iskolától
-						semmilyen jutalmat nem kapunk a projekt fenntartásáért. Ha bármilyen
-						kérdésed van, vagy bármilyen hibát tapasztalsz, nyugodtan lépj
-						kapcsolatba velünk.
+						Az oldal személyenként 3 zene hozzáadását teszi lehetővé
+						negyedóránként. A Playlistet 3 Kölcsey-s diák fejleszti, annak
+						reményében, hogy jobbá tegyék az iskolarádiót, és így valamennyire
+						megkönnyítsék az iskolás diákok mindennapjait. Az ötlet saját,
+						továbbá az iskolától semmilyen jutalmat nem kapunk a projekt
+						fenntartásáért. Ha bármilyen kérdésed van, vagy bármilyen hibát
+						tapasztalsz, nyugodtan lépj kapcsolatba velünk.
 					</p>
 					<div className="roster">
 						<div className="roster__card">
@@ -184,6 +195,7 @@ export default class About extends Component {
 					<a className="jszc__mail" href="mailto:support@jelszo.co">
 						support@jelszo.co
 					</a>
+					<p>version: {version}</p>
 				</div>
 			</div>
 		);
