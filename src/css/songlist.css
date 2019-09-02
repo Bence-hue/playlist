@@ -435,7 +435,7 @@
 	.upcoming-card h1 {
 		bottom: 30%;
 		width: 46%;
-		font-size: 1.2rem;
+		font-size: 1rem;
 	}
 	.upcoming-card span {
 		width: 2px;
@@ -453,8 +453,8 @@
 	.song-card h1 {
 		top: 50%;
 		font-weight: 300;
-		font-size: 1.1rem;
-		letter-spacing: 1px;
+		font-size: 0.9rem;
+		letter-spacing: 0px;
 	}
 	.song-card span {
 		display: block;
