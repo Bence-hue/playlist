@@ -59,14 +59,13 @@ export default class UserCard extends Component {
 				params.append("permanent", true);
 				break;
 			case "c":
-				params.append("expirein", (this.state.customInterval * 7));
+				params.append("expirein", this.state.customInterval * 7);
 				params.append("permanent", false);
-				console.log(this.state.customInterval * 7);
 				break;
 			default:
 				params.append("permanent", true);
 		}
-		
+
 		axios
 			.post(url, params)
 			.then((res) => {
