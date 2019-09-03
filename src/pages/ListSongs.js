@@ -20,7 +20,7 @@ export default class ListSongs extends Component {
 	};
 
 	componentDidMount() {
-		let url = "/api/list/?mode=unplayed";
+		let url = "http://playlist.jelszo.co:9837/api/list/?mode=unplayed";
 		axios.get(url).then((res) => this.setState({ songs: res.data }));
 	}
 
@@ -109,17 +109,32 @@ export default class ListSongs extends Component {
 
 		// Mobile pages
 		let songPagesMobile = [];
-		for (let i = 0; i < 2; i++) {
+		for (let i = 0; i < SlRoundMobile; i++) {
 			if (i === 0) {
 				songPagesMobile.push(
-					// prettier-ignore
-					<SongListPage key={i} id={i} songs={songs} isFirstPage={true} isMobile={true} isLastPageMobile={isLastPageMobile} handleNextClick={handleMobileNextClick}/>
+					<SongListPage
+						key={i}
+						id={i}
+						songs={songs}
+						isFirstPage={true}
+						isMobile={true}
+						isLastPageMobile={isLastPageMobile}
+						handleNextClick={handleMobileNextClick}
+					/>
 				);
 			}
 			if (i !== 0) {
 				songPagesMobile.push(
-					// prettier-ignore
-					<SongListPage key={i + 1} id={i} songs={songs} isFirstPage={false} isMobile={true} isLastPageMobile={isLastPageMobile} handleNextClick={handleMobileNextClick} handlePrevClick={handleMobilePrevClick}/>
+					<SongListPage
+						key={i + 1}
+						id={i}
+						songs={songs}
+						isFirstPage={false}
+						isMobile={true}
+						isLastPageMobile={isLastPageMobile}
+						handleNextClick={handleMobileNextClick}
+						handlePrevClick={handleMobilePrevClick}
+					/>
 				);
 			}
 		}
@@ -138,14 +153,22 @@ export default class ListSongs extends Component {
 		let mobileSongCardWrapperStyle;
 		if (isFirstPage) {
 			// First page on desktop
-			songCardWrapperStyle = { marginTop: "120px" };
-			songsWrapperStyle = { height: "550px" };
 			songListWrapperStyle = { height: "360px", top: "53%" };
+			songCardWrapperStyle = { marginTop: "120px" };
+			if (window.innerWidth > 1400) {
+				songsWrapperStyle = { height: "550px" };
+			} else {
+				songsWrapperStyle = { height: "490px" };
+			}
 		} else {
 			// Other pages on desktop
 			songCardWrapperStyle = { marginTop: "0" };
-			songsWrapperStyle = { height: "500px" };
 			songListWrapperStyle = { height: "240px", top: "49%" };
+			if (window.innerWidth > 1400) {
+				songsWrapperStyle = { height: "500px" };
+			} else {
+				songsWrapperStyle = { height: "480px" };
+			}
 		}
 
 		// detect firstPage on mobile

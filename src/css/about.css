@@ -45,16 +45,6 @@
 	height: 180px;
 }
 
-#feedback input:invalid,
-#feedback textarea:invalid {
-	box-shadow: none;
-}
-
-#feedback input:focus,
-#feedback textarea:focus {
-	outline: none;
-}
-
 .txt-wrapper {
 	margin: 10px 0;
 	position: relative;
@@ -278,6 +268,47 @@
 	#about-us h1,
 	#feedback h1 {
 		margin: 2px 0;
+	}
+}
+
+@media only screen and (max-width: 1400px) {
+	#about-us p {
+		font-size: 1.5rem;
+		line-height: 1.5rem;
+	}
+
+	#about-us h1,
+	#feedback h1 {
+		font-size: 3rem;
+	}
+	.roster__card h3 {
+		font-size: 0.9rem;
+	}
+
+	.roster__card h4 {
+		font-weight: 300;
+	}
+	#feedback form textarea {
+		height: 130px;
+	}
+	#feedback form input[type="text"],
+	#feedback form input[type="email"] {
+		margin: 4px 0;
+	}
+	#jszc-modal {
+		bottom: -6%;
+	}
+
+	.jszc__hr {
+		margin: 5px -10%;
+	}
+
+	#jszc-modal h2 {
+		margin-bottom: 3px;
+	}
+
+	#jszc-modal p {
+		margin: 5px 0 0 0;
 	}
 }
 

@@ -12,7 +12,8 @@ export default class NewSongQuery extends Component {
 	state = {
 		csrfToken: "",
 		active: "artist",
-		flavortext: "Először add meg a szám előadóját!",
+		flavortext: "Először add meg a szám",
+		flavorspan: "előadóját",
 		artist: "",
 		title: "",
 		toggleAnim: true,
@@ -41,7 +42,8 @@ export default class NewSongQuery extends Component {
 				this.props.fill(66);
 				setTimeout(() => {
 					this.setState({
-						flavortext: "Most írd be a zene címét!",
+						flavortext: "Most írd be a zene",
+						flavorspan: "címét",
 						active: "title",
 						toggleAnim: true
 					});
@@ -109,9 +111,7 @@ export default class NewSongQuery extends Component {
 									this.setState({
 										err: {
 											title: "Woah lassíts!",
-											flavor: `Elérted a kérési limitet. Legközelebb ${
-												err.response.data
-											} múlva kérhetsz újra.`
+											flavor: `Elérted a kérési limitet. Legközelebb ${err.response.data} múlva kérhetsz újra.`
 										},
 										toggleAnim: false,
 										toggleErr: true
@@ -135,9 +135,7 @@ export default class NewSongQuery extends Component {
 									this.setState({
 										err: {
 											title: "Ejnye...",
-											flavor: `Valamit nagyon elszúrhattál, ugyanis még ${
-												err.response.data
-											} el vagy tiltva a zenekéréstől.`
+											flavor: `Valamit nagyon elszúrhattál, ugyanis még ${err.response.data} el vagy tiltva a zenekéréstől.`
 										},
 										toggleAnim: false,
 										toggleErr: true
@@ -189,7 +187,10 @@ export default class NewSongQuery extends Component {
 									autoComplete="off"
 									title=""
 								>
-									<h1>{this.state.flavortext}</h1>
+									<h1>
+										{this.state.flavortext} <span>{this.state.flavorspan}</span>
+										!
+									</h1>
 									<input
 										autoFocus
 										required

@@ -60,7 +60,6 @@ export default class SongCardAdmin extends Component {
 			handlePrevClick,
 			handleNextClick
 		} = this.props;
-		console.log(isMobile);
 
 		const { id } = this.props;
 		const { collapsed } = this.state;

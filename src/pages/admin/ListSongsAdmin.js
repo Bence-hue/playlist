@@ -117,7 +117,7 @@ export default class ListSongsAdmin extends Component {
 
 		// Mobile pages
 		let songPagesMobile = [];
-		for (let i = 0; i < 2; i++) {
+		for (let i = 0; i < SlRoundMobile; i++) {
 			if (i === 0) {
 				songPagesMobile.push(
 					<SongListPageAdmin
