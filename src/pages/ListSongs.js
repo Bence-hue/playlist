@@ -109,17 +109,32 @@ export default class ListSongs extends Component {
 
 		// Mobile pages
 		let songPagesMobile = [];
-		for (let i = 0; i < 2; i++) {
+		for (let i = 0; i < SlRoundMobile; i++) {
 			if (i === 0) {
 				songPagesMobile.push(
-					// prettier-ignore
-					<SongListPage key={i} id={i} songs={songs} isFirstPage={true} isMobile={true} isLastPageMobile={isLastPageMobile} handleNextClick={handleMobileNextClick}/>
+					<SongListPage
+						key={i}
+						id={i}
+						songs={songs}
+						isFirstPage={true}
+						isMobile={true}
+						isLastPageMobile={isLastPageMobile}
+						handleNextClick={handleMobileNextClick}
+					/>
 				);
 			}
 			if (i !== 0) {
 				songPagesMobile.push(
-					// prettier-ignore
-					<SongListPage key={i + 1} id={i} songs={songs} isFirstPage={false} isMobile={true} isLastPageMobile={isLastPageMobile} handleNextClick={handleMobileNextClick} handlePrevClick={handleMobilePrevClick}/>
+					<SongListPage
+						key={i + 1}
+						id={i}
+						songs={songs}
+						isFirstPage={false}
+						isMobile={true}
+						isLastPageMobile={isLastPageMobile}
+						handleNextClick={handleMobileNextClick}
+						handlePrevClick={handleMobilePrevClick}
+					/>
 				);
 			}
 		}
