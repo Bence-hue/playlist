@@ -353,7 +353,7 @@ img {
 	transform: translateX(-50%) scale(1.1);
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1400px) {
 	.svg-animated {
 		stroke-dasharray: 2200;
 		stroke-dashoffset: 2250;
@@ -374,10 +374,16 @@ img {
 		transform: translate(-50%, -50%) scale(0.6);
 	}
 	.new-song-button {
-		transform: translate(-50%, -50%) scale(0.8);
+		transform: translate(-47%, -50%) scale(0.8);
 	}
 	.new-song-button:hover {
 		transform: translate(-50%, -50%) scale(0.9);
+	}
+
+	.songquery,
+	.final-wrapper,
+	.error-wrapper {
+		transform: translate(-50%, -50%) scale(0.7);
 	}
 }
 
