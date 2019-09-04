@@ -76,7 +76,7 @@ export default class AdminLogin extends Component {
 						<br />
 						Bejelentkezés
 					</h1>
-					<form action="/api/login/" method="post" autocomplete="off">
+					<form action="/api/login/" method="post" autoComplete="off">
 						<input
 							type="text"
 							name="username"
