@@ -14,6 +14,7 @@ import AdminLogin from "./pages/admin/Login";
 import AdminDashboard from "./pages/admin/Dashboard";
 import ListSongsAdmin from "./pages/admin/ListSongsAdmin";
 import ListUsers from "./pages/admin/ListUsers";
+import AdminSettings from "./pages/admin/Settings";
 
 import ErrorHandler from "./pages/components/ErrorHandler";
 import ErrorPage from "./pages/ErrorPage";
@@ -51,6 +52,7 @@ function App() {
 								<Route exact path="/admin/dashboard" component={AdminDashboard} />
 								<Route exact path="/admin/songs" component={ListSongsAdmin} />
 								<Route exact path="/admin/users" component={ListUsers} />
+								<Route exact path="/admin/settings" component={AdminSettings} />
 
 								<Route
 									path="/404"
