@@ -18,6 +18,7 @@ import AdminSettings from "./pages/admin/Settings";
 
 import ErrorHandler from "./pages/components/ErrorHandler";
 import ErrorPage from "./pages/ErrorPage";
+import Maintenance from "./pages/Maintenance";
 
 import "./css/app.css";
 
@@ -29,6 +30,7 @@ function App() {
 		{ laptop: 1400 },
 		{ HD: 1800 }
 	]);
+
 	return (
 		<Router>
 			<ErrorHandler>
@@ -55,13 +57,16 @@ function App() {
 								<Route exact path="/admin/settings" component={AdminSettings} />
 
 								<Route
+									exact
 									path="/404"
 									render={(props) => <ErrorPage {...props} errCode={404} />}
 								/>
 								<Route
+									exact
 									path="/500"
 									render={(props) => <ErrorPage {...props} errCode={500} />}
 								/>
+								<Route exact path="/maintenance" component={Maintenance} />
 							</Switch>
 						</div>
 					</BreakpointProvider>

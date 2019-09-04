@@ -4,6 +4,8 @@ import Header from "../components/Header";
 import Toggler from "../components/Toggler";
 import LogCard from "./LogCard";
 
+import "../../css/admin-css/settings.scss";
+
 export default class AdminSettings extends Component {
 	state = {
 		log: [
