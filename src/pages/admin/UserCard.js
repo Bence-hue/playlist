@@ -59,7 +59,7 @@ export default class UserCard extends Component {
 				params.append("permanent", true);
 				break;
 			case "c":
-				params.append("expirein", this.state.customInterval * 7);
+				params.append("expirein", this.state.customInterval / 7);
 				params.append("permanent", false);
 				break;
 			default:
