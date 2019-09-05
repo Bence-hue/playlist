@@ -17,7 +17,7 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from simplecrypt import encrypt
 
-from .models import BlockedSong, BlockedUser, Question, Song
+from .models import BlockedUser, Question, Song
 
 with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "datas.json"), "r") as cffile:
     config = json.loads(cffile.readline())
