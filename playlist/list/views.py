@@ -1,3 +1,4 @@
+import base64
 import datetime
 import json
 import os
@@ -5,15 +6,16 @@ import random
 import uuid
 
 import requests
-from django.core.exceptions import PermissionDenied
 from django.contrib.auth import authenticate, login, logout
 from django.core import serializers
+from django.core.exceptions import PermissionDenied
 from django.core.mail import EmailMessage
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
+from simplecrypt import encrypt
 
 from .models import BlockedSong, BlockedUser, Question, Song
 
@@ -181,12 +183,17 @@ def jsonmodifier(data):
 @csrf_exempt
 def adminlogin_view(request, *args, **kwargs):
     if request.method == 'POST':
+        remember=bool(request.POST.get('remember', False))
         username = request.POST.get('username', "")
         password = request.POST.get('password', "")
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect("/admin/dashboard")
+            respons=redirect("/admin/dashboard")
+            if remember:
+                print("cookieset")
+                respons.set_cookie("login",base64.b64encode(encrypt(config["SECRET_KEY"],username+";"+password)).decode(),60*60*24*30)
+            return respons
         else:
             return redirect("/admin/login?badauth=true")
     else:

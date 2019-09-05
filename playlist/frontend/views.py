@@ -7,7 +7,7 @@ import json
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import ensure_csrf_cookie
-from simplecrypt import decrypt, encrypt
+from simplecrypt import decrypt
 from django.contrib.auth import authenticate, login
 
 with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "datas.json"), "r") as cffile:
@@ -42,6 +42,7 @@ def login_view(request,*args,**kwargs):
                 user = authenticate(request, username=username, password=password)
                 if user is not None:
                     login(request, user)
+                    print("bycookie")
                     return redirect("/admin/dashboard")
                 else:
                     return render(request, "index.html").delete_cookie("login")
@@ -53,6 +54,7 @@ def login_view(request,*args,**kwargs):
             return render(request, "index.html")
 
 def e403(request,*args,**kwargs):
+    print(request.get_full_path())
     return redirect('/admin/login')
 
 def e404(request,*args,**kwargs):
