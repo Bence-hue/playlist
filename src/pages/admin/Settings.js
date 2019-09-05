@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { ReactComponent as ArtSettings } from "../../assets/songs.svg";
 
 import Header from "../components/Header";
 import Toggler from "../components/Toggler";
@@ -47,16 +48,16 @@ export default class AdminSettings extends Component {
 	render() {
 		const { log, ping, version, sentryErrors } = this.state;
 		return (
-			<div>
+			<div id="settings">
 				<Header kolcsey={false} />
-				<h1>site settings</h1>
+				<h1 className="settings-heading">site settings</h1>
 				<div className="settings-grid">
 					<div className="settings-grid__maintenance">
 						<h2>maintenance mode</h2>
 						<Toggler toggle={this.toggleMtMode} state={false} />
 					</div>
 					<div className="settings-grid__music">
-						<h1>zenekérés</h1>
+						<h2>zenekérés</h2>
 						<div className="settings-grid__music__grid">
 							<h3>Engedélyezve:</h3>
 							<Toggler toggle={this.toggleMusicQuery} state={true} />
@@ -74,23 +75,24 @@ export default class AdminSettings extends Component {
 						</div>
 					</div>
 					<div className="settings-grid__stats">
-						<h1>statisztikák</h1>
+						<h2>statisztikák</h2>
 						<div className="settings-grid__stats__grid">
 							<h3>Szerveridő:</h3>
-							<h2>{ping}ms</h2>
+							<h4>{ping}ms</h4>
 							<h3>Verzió:</h3>
-							<h2>{version}</h2>
+							<h4>{version}</h4>
 							<h3>Sentry:</h3>
-							<h2>{sentryErrors} hiba</h2>
+							<h4>{sentryErrors} hiba</h4>
 						</div>
 					</div>
 					<div className="settings-grid__log">
-						<h1>Audit log</h1>
+						<h2>Audit log</h2>
 						{log.map((action) => {
 							return <LogCard action={action} id={action.id} />;
 						})}
 					</div>
 				</div>
+				<ArtSettings className="settings-art" />
 			</div>
 		);
 	}

@@ -3,7 +3,7 @@ import React from "react";
 const Toggler = () => {
 	return (
 		<div>
-			<h1>Toggler</h1>
+			<h4>Toggler</h4>
 		</div>
 	);
 };
