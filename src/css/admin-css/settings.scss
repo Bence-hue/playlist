@@ -24,12 +24,35 @@
 		height: 70%;
 
 		.settings-grid__maintenance {
+			position: relative;
 			grid-row: 1 / 2;
 			grid-column: 3 / 4;
-			border-radius: 30px;
+			border-radius: 35px;
+			text-align: center;
 			-webkit-box-shadow: 0px 10px 60px 0px rgba(19, 156, 97, 0.2);
 			-moz-box-shadow: 0px 10px 60px 0px rgba(19, 156, 97, 0.2);
 			box-shadow: 0px 10px 60px 0px rgba(19, 156, 97, 0.2);
+
+			h2 {
+				margin: 0;
+				padding: 0;
+				position: absolute;
+				left: 10%;
+				top: 50%;
+				transform: translateY(-50%);
+				text-transform: uppercase;
+				font-family: "Open Sans";
+				font-weight: 300;
+				letter-spacing: 2px;
+			}
+
+			#toggler {
+				position: absolute;
+				right: 10%;
+				top: 50%;
+				transform: translateY(-50%);
+				opacity: 1;
+			}
 		}
 
 		.settings-grid__music {
@@ -54,5 +77,32 @@
 		bottom: 0;
 		left: 0;
 		width: 100%;
+	}
+}
+
+#toggler {
+	display: block;
+	position: relative;
+	width: 60px;
+	height: 30px;
+	background: #eeeeee;
+	border-radius: 80px;
+	border: 2pt solid white;
+	cursor: pointer;
+	-webkit-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.15);
+	-moz-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.15);
+	box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.15);
+	transition: 0.15s all ease-in-out;
+
+	#toggler-circle {
+		display: block;
+		background: white;
+		border: 0.5pt solid #c8c8c8;
+		height: 100%;
+		width: 30px;
+		border-radius: 80px;
+		box-sizing: border-box;
+		position: absolute;
+		transition: 0.15s all ease-in-out;
 	}
 }

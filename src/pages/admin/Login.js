@@ -12,7 +12,8 @@ export default class AdminLogin extends Component {
 	state = {
 		username: "",
 		password: "",
-		noauthModal: false
+		noauthModal: false,
+		remember: false
 	};
 
 	componentDidMount() {
@@ -29,6 +30,10 @@ export default class AdminLogin extends Component {
 
 	hideModal = () => {
 		this.setState({ noauthModal: false });
+	};
+
+	handleRememberClick = (e) => {
+		this.setState({ remember: !this.state.remember });
 	};
 
 	render() {
@@ -76,7 +81,12 @@ export default class AdminLogin extends Component {
 						<br />
 						Bejelentkezés
 					</h1>
-					<form action="/api/login/" method="post" autoComplete="off">
+					<form
+						action="/api/login/"
+						method="post"
+						autoComplete="off"
+						remember={this.state.remember}
+					>
 						<input
 							type="text"
 							name="username"
@@ -92,6 +102,16 @@ export default class AdminLogin extends Component {
 						<button type="submit" value="">
 							<i className="fas fa-arrow-right" />
 						</button>
+						<div className="chx">
+							<input
+								type="checkbox"
+								name="remember"
+								id="remember"
+								onClick={this.handleRememberClick}
+								checked={this.state.remember}
+							/>
+							<label for="remember">Emlékezz rám</label>
+						</div>
 					</form>
 				</div>
 			</div>

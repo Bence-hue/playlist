@@ -5,7 +5,7 @@ export default class LogCard extends Component {
 	render() {
 		/*
 		action: {
-			type: ban | unban | delete | modify
+			type: ban | unban | delete | played | modify
 			name: user who committed the changes
 			time: date when the change ocurred
 

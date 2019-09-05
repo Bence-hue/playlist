@@ -43,10 +43,16 @@ export default class AdminSettings extends Component {
 		],
 		ping: 24,
 		version: "v1.0.2",
-		sentryErrors: 6
+		sentryErrors: 6,
+		mtMode: false
 	};
+
+	toggleMtMode = () => {
+		this.setState({ mtMode: !this.state.mtMode });
+	};
+
 	render() {
-		const { log, ping, version, sentryErrors } = this.state;
+		const { log, ping, version, sentryErrors, mtMode } = this.state;
 		return (
 			<div id="settings">
 				<Header kolcsey={false} />
@@ -54,7 +60,7 @@ export default class AdminSettings extends Component {
 				<div className="settings-grid">
 					<div className="settings-grid__maintenance">
 						<h2>maintenance mode</h2>
-						<Toggler toggle={this.toggleMtMode} state={false} />
+						<Toggler toggle={this.toggleMtMode.bind(this)} state={mtMode} />
 					</div>
 					<div className="settings-grid__music">
 						<h2>zenekérés</h2>
@@ -88,7 +94,7 @@ export default class AdminSettings extends Component {
 					<div className="settings-grid__log">
 						<h2>Audit log</h2>
 						{log.map((action) => {
-							return <LogCard action={action} id={action.id} />;
+							return <LogCard action={action} key={action.id} />;
 						})}
 					</div>
 				</div>

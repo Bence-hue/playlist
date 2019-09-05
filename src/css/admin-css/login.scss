@@ -182,13 +182,13 @@ $resp-mobile: "only screen and (max-width : 900px)";
 		transform: translateX(-50%);
 		display: grid;
 		grid-template-columns: 75% 5% 20%;
-		grid-template-rows: 45% 10% 45%;
-		height: 100px;
+		grid-template-rows: 30% 10% 30% 10% 20%;
+		height: 150px;
 		width: 400px;
 
 		@media #{$resp-mobile} {
 			grid-template-columns: 100%;
-			grid-template-rows: 30% 5% 30% 5% 30%;
+			grid-template-rows: 28% 5% 28% 5% 28% 6%;
 			width: 85%;
 			height: 150px;
 		}
@@ -227,6 +227,7 @@ $resp-mobile: "only screen and (max-width : 900px)";
 					transform: scale(1.1);
 				}
 			}
+
 			@media #{$resp-mobile} {
 				font-size: 0.9rem;
 				&[type="text"] {
@@ -240,6 +241,58 @@ $resp-mobile: "only screen and (max-width : 900px)";
 					grid-column: 1;
 					grid-row: 5 / 6;
 				}
+			}
+		}
+		.chx {
+			grid-row: 5 / 6;
+			grid-column: 1 / 4;
+			width: 100%;
+			text-align: center;
+
+			input {
+				position: absolute;
+				opacity: 0;
+
+				& + label {
+					position: relative;
+					cursor: pointer;
+					padding: 0;
+				}
+
+				& + label:before {
+					content: "";
+					margin-right: 10px;
+					display: inline-block;
+					vertical-align: text-top;
+					width: 20px;
+					height: 20px;
+					background: none;
+					border: 2px solid #13581b;
+					border-radius: 6px;
+					transition: 0.1s all ease-in-out;
+				}
+
+				&:checked + label:after {
+					content: "\2713\0020";
+					color: #139c61;
+					position: absolute;
+					top: 0.25rem;
+					left: 0.3rem;
+					font-size: 1.1rem;
+					line-height: 0.8;
+					opacity: 1;
+					transform: scale(1);
+				}
+			}
+			label {
+				margin: 0 5px;
+				padding: 0;
+				display: inline-block;
+				font-family: "Open Sans";
+				text-transform: uppercase;
+				font-weight: 600;
+				letter-spacing: 2px;
+				color: #13851b;
 			}
 		}
 	}
