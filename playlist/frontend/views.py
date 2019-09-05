@@ -33,15 +33,22 @@ def admin_view(request,*args,**kwargs):
         return redirect("/admin/login")
 
 def login_view(request,*args,**kwargs):
-    if request.COOKIES["login"]:
-        username,password=decrypt(cffile["SECRET_KEY"],base64.b64decode(request.COOKIES["login"])).decode('utf8').split(";")
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return HttpResponse("fasza")
-    else:
-        if request.user.is_authenticated:
+    if request.user.is_authenticated:
             return redirect("/admin/dashboard")
+    else:
+        if "login" in request.COOKIES:
+            try:
+                username,password=decrypt(config["SECRET_KEY"],base64.b64decode(request.COOKIES["login"])).decode("utf-8").split(";")
+                user = authenticate(request, username=username, password=password)
+                if user is not None:
+                    login(request, user)
+                    return redirect("/admin/dashboard")
+                else:
+                    return render(request, "index.html").delete_cookie("login")
+            except:
+                respons=render(request, "index.html")
+                respons.delete_cookie("login")
+                return respons
         else:
             return render(request, "index.html")
 
