@@ -22,11 +22,14 @@
 		transform: translateX(-50%);
 		width: 90%;
 		height: 70%;
-		background: pink;
 
 		.settings-grid__maintenance {
 			grid-row: 1 / 2;
 			grid-column: 3 / 4;
+			border-radius: 30px;
+			-webkit-box-shadow: 0px 10px 60px 0px rgba(19, 156, 97, 0.2);
+			-moz-box-shadow: 0px 10px 60px 0px rgba(19, 156, 97, 0.2);
+			box-shadow: 0px 10px 60px 0px rgba(19, 156, 97, 0.2);
 		}
 
 		.settings-grid__music {
