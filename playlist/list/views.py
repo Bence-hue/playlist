@@ -202,7 +202,9 @@ def adminlogin_view(request, *args, **kwargs):
 
 def adminlogout_view(request, *args, **kwargs):
     logout(request)
-    return redirect("/")
+    respons=redirect("/")
+    respons.delete_cookie("login")
+    return respons
 
 
 def question_view(request, *args, **kwargs):
