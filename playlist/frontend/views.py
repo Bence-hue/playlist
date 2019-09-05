@@ -1,8 +1,17 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-import uuid
+import base64
 import datetime
+import uuid
+import os
+import json
+
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
 from django.views.decorators.csrf import ensure_csrf_cookie
+from simplecrypt import decrypt, encrypt
+from django.contrib.auth import authenticate, login
+
+with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "datas.json"), "r") as cffile:
+    config = json.loads(cffile.readline())
 
 # Create your views here.
 @ensure_csrf_cookie
@@ -24,10 +33,17 @@ def admin_view(request,*args,**kwargs):
         return redirect("/admin/login")
 
 def login_view(request,*args,**kwargs):
-    if request.user.is_authenticated:
-        return redirect("/admin/dashboard")
+    if request.COOKIES["login"]:
+        username,password=decrypt(cffile["SECRET_KEY"],base64.b64decode(request.COOKIES["login"])).decode('utf8').split(";")
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return HttpResponse("fasza")
     else:
-        return render(request, "index.html")
+        if request.user.is_authenticated:
+            return redirect("/admin/dashboard")
+        else:
+            return render(request, "index.html")
 
 def e403(request,*args,**kwargs):
     return redirect('/admin/login')
