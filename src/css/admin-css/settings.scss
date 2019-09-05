@@ -1,3 +1,10 @@
+$borderradius: 35px;
+%boxshadow {
+	-webkit-box-shadow: 0px 10px 60px 0px rgba(19, 156, 97, 0.2);
+	-moz-box-shadow: 0px 10px 60px 0px rgba(19, 156, 97, 0.2);
+	box-shadow: 0px 10px 60px 0px rgba(19, 156, 97, 0.2);
+}
+
 #settings {
 	.settings-heading {
 		position: absolute;
@@ -27,11 +34,9 @@
 			position: relative;
 			grid-row: 1 / 2;
 			grid-column: 3 / 4;
-			border-radius: 35px;
+			border-radius: $borderradius;
 			text-align: center;
-			-webkit-box-shadow: 0px 10px 60px 0px rgba(19, 156, 97, 0.2);
-			-moz-box-shadow: 0px 10px 60px 0px rgba(19, 156, 97, 0.2);
-			box-shadow: 0px 10px 60px 0px rgba(19, 156, 97, 0.2);
+			@extend %boxshadow;
 
 			h2 {
 				margin: 0;
@@ -56,8 +61,72 @@
 		}
 
 		.settings-grid__music {
+			position: relative;
 			grid-row: 1 / 4;
 			grid-column: 1 / 2;
+			display: grid;
+			border-radius: $borderradius;
+			@extend %boxshadow;
+
+			h2 {
+				text-align: center;
+				margin: 25px 0 0 0;
+				text-transform: uppercase;
+				font-family: "Open Sans";
+				font-weight: 300;
+				letter-spacing: 2px;
+			}
+
+			.settings-grid__music__grid {
+				display: grid;
+				grid-template-rows: 30% 5% 30% 5% 30%;
+				grid-template-columns: 80% 20%;
+				position: absolute;
+				top: 58%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				height: 60%;
+
+				h3 {
+					margin: 0;
+					padding: 0;
+					grid-column: 1 / 2;
+					font-family: "Open Sans";
+					font-weight: 300;
+					font-size: 1.7rem;
+
+					&:nth-child(1) {
+						grid-row: 1 / 2;
+					}
+
+					&:nth-child(3) {
+						grid-row: 3 / 4;
+					}
+
+					&:nth-child(5) {
+						grid-row: 5 / 6;
+					}
+				}
+
+				#toggler {
+					&:nth-child(2) {
+						grid-column: 2 / 3;
+						grid-row: 1 / 2;
+					}
+					&:nth-child(6) {
+						grid-column: 2 / 3;
+						grid-row: 5 / 6;
+					}
+				}
+
+				form {
+					grid-row: 3 / 4;
+					grid-column: 2 / 3;
+					input {
+						width: 100%;
+					}
+				}
+			}
 		}
 
 		.settings-grid__stats {
@@ -86,7 +155,7 @@
 	width: 60px;
 	height: 30px;
 	background: #eeeeee;
-	border-radius: 80px;
+	border-radius: 100px;
 	border: 2pt solid white;
 	cursor: pointer;
 	-webkit-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.15);

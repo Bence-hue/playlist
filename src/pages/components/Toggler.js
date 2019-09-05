@@ -7,7 +7,7 @@ export default class Toggler extends Component {
 		let styleToggler, styleCircle;
 		if (this.props.state) {
 			styleToggler = { background: "#139c61" };
-			styleCircle = { left: "100%", transform: "translateX(-100%)" };
+			styleCircle = { left: "100.7%", transform: "translateX(-100%)" };
 		} else {
 			styleToggler = { background: "#eeeeee" };
 			styleCircle = { left: "0" };
