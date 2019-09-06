@@ -20,3 +20,7 @@ class BlockedUser(models.Model):
     userid=models.UUIDField()
     permanent=models.BooleanField(default=False)
     expireAt=models.DateTimeField(blank=True,null=True)
+
+class Setting(models.Model):
+    name=models.CharField(max_length=100)
+    value=models.IntegerField()
