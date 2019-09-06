@@ -43,12 +43,32 @@ export default class AdminSettings extends Component {
 			}
 		],
 		limit: 3,
-		ping: 24,
+		ping: 0,
 		version: "v1.0.2",
 		sentryErrors: 6,
 		mtMode: false,
 		musicQuery: true
 	};
+
+	componentDidMount() {
+		// get ping
+		const start = new Date();
+		axios.get("https://playlist.jelszo.co").then((res) => {
+			this.setState({ ping: new Date() - start });
+		});
+
+		// get sentry errors
+		axios
+			.get("https://sentry.io/api/0/projects/", {
+				headers: {
+					Authorization:
+						"Bearer 4626e357a3bd49258380c7fc589e72cd405433c9a9924e3e97cd295b379735d2"
+				}
+			})
+			.then((res) => {
+				console.log(res.data);
+			});
+	}
 
 	toggleSwitch = (prop) => {
 		let url, params;
