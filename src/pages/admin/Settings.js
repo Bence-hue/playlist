@@ -42,6 +42,7 @@ export default class AdminSettings extends Component {
 				state: "on"
 			}
 		],
+		limit: 3,
 		ping: 24,
 		version: "v1.0.2",
 		sentryErrors: 6,
@@ -78,8 +79,33 @@ export default class AdminSettings extends Component {
 			});
 	};
 
+	handleLimitChange = (e) => {
+		this.setState({ [e.target.name]: e.target.value });
+	};
+
 	render() {
-		const { log, ping, version, sentryErrors, mtMode, musicQuery, explicit } = this.state;
+		const {
+			log,
+			ping,
+			version,
+			sentryErrors,
+			mtMode,
+			musicQuery,
+			explicit
+		} = this.state;
+		let stylePing, styleSentry;
+		if (ping <= 50) {
+			stylePing = { color: "#139c61" };
+		} else if (ping <= 100) {
+			stylePing = { color: "#d5b900" };
+		} else {
+			stylePing = { color: "#92031B" };
+		}
+		if (sentryErrors === 0) {
+			styleSentry = { color: "#139c61" };
+		} else {
+			styleSentry = { color: "#92031B" };
+		}
 		return (
 			<div id="settings">
 				<Header kolcsey={false} />
@@ -87,30 +113,44 @@ export default class AdminSettings extends Component {
 				<div className="settings-grid">
 					<div className="settings-grid__maintenance">
 						<h2>maintenance mode</h2>
-						<Toggler toggle={this.toggleSwitch.bind(this, "mtMode")} state={mtMode} />
+						<Toggler
+							toggle={this.toggleSwitch.bind(this, "mtMode")}
+							state={mtMode}
+						/>
 					</div>
 					<div className="settings-grid__music">
 						<h2>zenekérés</h2>
 						<div className="settings-grid__music__grid">
 							<h3>Engedélyezve:</h3>
-							<Toggler toggle={this.toggleSwitch.bind(this, "musicQuery")} state={musicQuery} />
+							<Toggler
+								toggle={this.toggleSwitch.bind(this, "musicQuery")}
+								state={musicQuery}
+							/>
 							<h3>Limit:</h3>
 							<form onSubmit={this.onSubmit}>
-								<input type="text" name="limit" value="3" onChange={this.handleLimitChange} />
+								<input
+									type="number"
+									name="limit"
+									value={this.state.limit}
+									onChange={this.handleLimitChange}
+								/>
 							</form>
 							<h3>Explicit filter:</h3>
-							<Toggler toggle={this.toggleSwitch.bind(this, "explicit")} state={explicit} />
+							<Toggler
+								toggle={this.toggleSwitch.bind(this, "explicit")}
+								state={explicit}
+							/>
 						</div>
 					</div>
 					<div className="settings-grid__stats">
 						<h2>statisztikák</h2>
 						<div className="settings-grid__stats__grid">
 							<h3>Szerveridő:</h3>
-							<h4>{ping}ms</h4>
+							<h4 style={stylePing}>{ping}ms</h4>
 							<h3>Verzió:</h3>
 							<h4>{version}</h4>
 							<h3>Sentry:</h3>
-							<h4>{sentryErrors} hiba</h4>
+							<h4 style={styleSentry}>{sentryErrors} hiba</h4>
 						</div>
 					</div>
 					<div className="settings-grid__log">

@@ -16,6 +16,13 @@ textarea:focus {
 	color: white;
 }
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+	display: none;
+}
+
 @media only screen and (max-width: 900px) {
 	.preloader-img {
 		transform: translate(-50%, -65%) scale(0.6);
