@@ -35,7 +35,7 @@ def maintenance_view(request, *args,**kwargs):
     if Setting.objects.filter(name="maintenance")==1:
         return render(request, "index.html")
     else:
-        redirect("/")
+        return redirect("/")
 
 def admin_view(request,*args,**kwargs):
     if request.user.is_authenticated:
