@@ -18,7 +18,7 @@ with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 # Create your views here.
 @ensure_csrf_cookie
 def frontend_view(request, *args,**kwargs):
-    if Setting.objects.get(name="maintenance")==1:
+    if Setting.objects.filter(name="maintenance")==1:
         redirect("/maintenance")
     else:
         response = render(request, "index.html")
