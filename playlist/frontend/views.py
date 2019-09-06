@@ -19,7 +19,7 @@ with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 @ensure_csrf_cookie
 def frontend_view(request, *args,**kwargs):
     if Setting.objects.filter(name="maintenance")==1:
-        redirect("/maintenance")
+        return redirect("/maintenance")
     else:
         response = render(request, "index.html")
         if 'userid' not in request.COOKIES:
