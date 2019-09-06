@@ -32,7 +32,7 @@ def frontend_view(request, *args,**kwargs):
         return response
 
 def maintenance_view(request, *args,**kwargs):
-    if Setting.objects.get(name="maintenance")==1:
+    if Setting.objects.filter(name="maintenance")==1:
         return render(request, "index.html")
     else:
         redirect("/")
