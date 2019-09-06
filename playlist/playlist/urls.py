@@ -34,5 +34,6 @@ urlpatterns = [
     path('about', views.frontend_view),
     path('admin/',include('frontend.urls')),
     path('404',views.frontend_view),
-    path('500',views.frontend_view)
+    path('500',views.frontend_view),
+    path('maintenance', views.frontend_view)
 ]

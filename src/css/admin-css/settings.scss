@@ -120,10 +120,26 @@ $borderradius: 35px;
 				}
 
 				form {
+					position: relative;
 					grid-row: 3 / 4;
 					grid-column: 2 / 3;
 					input {
+						margin: 0;
+						padding: 0;
 						width: 100%;
+						position: absolute;
+						left: 0;
+						top: 50%;
+						transform: translateY(-50%);
+						background: none;
+						border: 1.5pt solid #139c61;
+						box-sizing: border-box;
+						border-radius: 7px;
+						text-align: center;
+						font-family: "Open Sans";
+						font-weight: 600;
+						color: #13581b;
+						font-size: 1rem;
 					}
 				}
 			}
@@ -132,6 +148,16 @@ $borderradius: 35px;
 		.settings-grid__stats {
 			grid-column: 5 / 6;
 			grid-row: 1 / 4;
+			@extend %boxshadow;
+			border-radius: $borderradius;
+			h2 {
+				text-align: center;
+				margin: 25px 0 0 0;
+				text-transform: uppercase;
+				font-family: "Open Sans";
+				font-weight: 300;
+				letter-spacing: 2px;
+			}
 		}
 
 		.settings-grid__log {

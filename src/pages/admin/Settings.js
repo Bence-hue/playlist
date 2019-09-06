@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { ReactComponent as ArtSettings } from "../../assets/songs.svg";
+import axios from "axios";
 
 import Header from "../components/Header";
 import Toggler from "../components/Toggler";
@@ -44,15 +45,41 @@ export default class AdminSettings extends Component {
 		ping: 24,
 		version: "v1.0.2",
 		sentryErrors: 6,
-		mtMode: false
+		mtMode: false,
+		musicQuery: true
 	};
 
-	toggleMtMode = () => {
-		this.setState({ mtMode: !this.state.mtMode });
+	toggleSwitch = (prop) => {
+		let url, params;
+		switch (prop) {
+			case "mtMode":
+				url = "/api/togglemaintenance/";
+				params = !this.state.mtMode;
+				break;
+			case "musicQuery":
+				url = "/api/togglequery/";
+				params = !this.state.musicQuery;
+				break;
+			case "explicit":
+				url = "/api/toggleexplicit/";
+				params = !this.state.explicit;
+				break;
+			default:
+				break;
+		}
+		axios
+			.post(url, params)
+			.then((res) => {
+				// const switchState = this.state[prop];
+				this.setState({ [prop]: res.data });
+			})
+			.catch((err) => {
+				console.error(err);
+			});
 	};
 
 	render() {
-		const { log, ping, version, sentryErrors, mtMode } = this.state;
+		const { log, ping, version, sentryErrors, mtMode, musicQuery, explicit } = this.state;
 		return (
 			<div id="settings">
 				<Header kolcsey={false} />
@@ -60,24 +87,19 @@ export default class AdminSettings extends Component {
 				<div className="settings-grid">
 					<div className="settings-grid__maintenance">
 						<h2>maintenance mode</h2>
-						<Toggler toggle={this.toggleMtMode.bind(this)} state={mtMode} />
+						<Toggler toggle={this.toggleSwitch.bind(this, "mtMode")} state={mtMode} />
 					</div>
 					<div className="settings-grid__music">
 						<h2>zenekérés</h2>
 						<div className="settings-grid__music__grid">
 							<h3>Engedélyezve:</h3>
-							<Toggler toggle={this.toggleMusicQuery} state={true} />
+							<Toggler toggle={this.toggleSwitch.bind(this, "musicQuery")} state={musicQuery} />
 							<h3>Limit:</h3>
 							<form onSubmit={this.onSubmit}>
-								<input
-									type="text"
-									name="limit"
-									value="3"
-									onChange={this.handleLimitChange}
-								/>
+								<input type="text" name="limit" value="3" onChange={this.handleLimitChange} />
 							</form>
 							<h3>Explicit filter:</h3>
-							<Toggler toggle={this.toggleExplicit} state={false} />
+							<Toggler toggle={this.toggleSwitch.bind(this, "explicit")} state={explicit} />
 						</div>
 					</div>
 					<div className="settings-grid__stats">
