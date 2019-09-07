@@ -27,6 +27,7 @@ with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 # @csrf_exempt
 def new_view(request, *args, **kwargs):
     if request.method == 'POST':
+        if Setting.objects.get(name="canRequestSong").value==0: return HttpResponse(status=403)
         data = request.POST
         print(data)
         URL = "https://www.googleapis.com/youtube/v3/search"
@@ -78,8 +79,8 @@ def new_view(request, *args, **kwargs):
         blocks = BlockedUser.objects.filter(userid=user)
         if not blocks.filter(permanent=True).exists():
             if not blocks.filter(expireAt__gte=timezone.now()).exists():
-                lastrecord = Song.objects.filter(createdAt__gte=timezone.now() - datetime.timedelta(minutes=15),user=user)
-                if len(lastrecord) < 3:
+                lastrecord = Song.objects.filter(createdAt__gte=timezone.now() - datetime.timedelta(minutes=Setting.objects.get(name="songLimitMinute").value),user=user)
+                if len(lastrecord) < Setting.objects.get(name="songLimitNumber").value:
                     if not Song.objects.filter(link=link, played=False).exclude(link="").exists():
                         if not Song.objects.filter(link=link, played=True,playedAt__gte=timezone.now() - datetime.timedelta(weeks=1)).exclude(link="").exists():
                             Song.objects.create(title=title, artist=artist, link=link,user=user, yttitle=yttitle)
