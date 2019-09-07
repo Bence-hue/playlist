@@ -216,28 +216,28 @@ export default class AdminSettings extends Component {
 										{songLimitMinuteDisplay}{" "}
 										<i className="fas fa-chevron-down"></i>
 									</button>
-									{this.state.intervalDropdown ? (
-										<ul className="interval-dropdown">
-											<li onClick={this.changeInterval.bind(this, "15m")}>
-												15 perc
-											</li>
-											<li onClick={this.changeInterval.bind(this, "30m")}>
-												30 perc
-											</li>
-											<li onClick={this.changeInterval.bind(this, "1h")}>
-												1 óra
-											</li>
-											<li onClick={this.changeInterval.bind(this, "6h")}>
-												6 óra
-											</li>
-											<li onClick={this.changeInterval.bind(this, "1d")}>
-												1 nap
-											</li>
-										</ul>
-									) : (
-										""
-									)}
 								</p>
+								{this.state.intervalDropdown ? (
+									<ul className="interval-dropdown">
+										<li onClick={this.changeInterval.bind(this, "15m")}>
+											15 perc
+										</li>
+										<li onClick={this.changeInterval.bind(this, "30m")}>
+											30 perc
+										</li>
+										<li onClick={this.changeInterval.bind(this, "1h")}>
+											1 óra
+										</li>
+										<li onClick={this.changeInterval.bind(this, "6h")}>
+											6 óra
+										</li>
+										<li onClick={this.changeInterval.bind(this, "1d")}>
+											1 nap
+										</li>
+									</ul>
+								) : (
+									""
+								)}
 							</form>
 							<h3>Csak iskolaidőben:</h3>
 							<Toggler
