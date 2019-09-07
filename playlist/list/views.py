@@ -90,7 +90,7 @@ def new_view(request, *args, **kwargs):
                     else:  # ha van meg le nem jatszott ilyen
                         return HttpResponse("{\"played\":False}", status=422)
                 else:  # ha az utobbi 15 percben kuldott
-                    remaining = int((datetime.timedelta(minutes=Setting.objects.get(name="songLimitMinute").value)) - (timezone.now() - lastrecord[0].createdAt).total_seconds())
+                    remaining = (datetime.timedelta(minutes=Setting.objects.get(name="songLimitMinute").value)) - (timezone.now() - lastrecord[0].createdAt).total_seconds()
                     print(remaining)
                     return HttpResponse(str(int(remaining / 60)) + ":" + "{:02d}".format(remaining % 60), status=429)
             else:  # ha blokkolva van idore
