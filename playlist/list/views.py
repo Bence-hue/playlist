@@ -15,9 +15,10 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
 from simplecrypt import encrypt
 
-from .models import BlockedUser, Question, Song
+from .models import BlockedUser, Question, Song, Setting,Log
 
 with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "datas.json"), "r") as cffile:
     config = json.loads(cffile.readline())
@@ -115,6 +116,7 @@ def played_view(request, *args, **kwargs):
             object = Song.objects.filter(id=id)
             if object.exists():
                 object.update(played=True, playedAt=datetime.datetime.now())
+                Log.objects.create(user=request.user,title="played",content=object[0].artist+" - "+object[0].title+" (id: "+object[0].id+")")
                 return HttpResponse(status=200)
             else:
                 return HttpResponse(status=422)
@@ -136,6 +138,7 @@ def delete_view(request, *args, **kwargs):
             print(id)
             object = Song.objects.filter(id=id)
             if object.exists():
+                Log.objects.create(user=request.user,title="deleted",content=object[0].artist+" - "+object[0].title+" (id: "+object[0].id+")")
                 object.delete()
                 return HttpResponse(status=200)
             else:
@@ -247,8 +250,10 @@ def blockuser_view(request, *args, **kwargs):
             data = request.POST
             if data.get("permanent", "true") == "true":
                 BlockedUser.objects.create(userid=data.get("userid"), permanent=True)
+                Log.objects.create(user=request.user,title="ban",content=data.get("userid")+", permanent")
             else:
                 BlockedUser.objects.create(userid=data.get("userid"), permanent=False,expireAt=datetime.datetime.now() + datetime.timedelta(weeks=int(data.get("expirein", 1))))
+                Log.objects.create(user=request.user,title="ban",content=data.get("userid")+", "+data.get("expirein", 1)+" hétre")
             for l in Song.objects.filter(user=data.get("userid"), played=False, hide=False):
                 l.hide = True
                 l.save()
@@ -280,6 +285,7 @@ def unblockuser_view(request, *args, **kwargs):
             for l in Song.objects.filter(user=request.POST.get("userid", uuid.uuid4), played=False, hide=True):
                 l.hide = False
                 l.save()
+                Log.objects.create(user=request.user,title="unban",content=request.POST.get("userid"))
             return HttpResponse(status=200)
         else:
             raise PermissionDenied
@@ -364,3 +370,31 @@ def user_blockedFor(l):
         return {"isPerma": True}
     else:
         return {"isPerma": False, "ExpireIn": (l.expireAt - timezone.now()).days + 1}
+
+@csrf_exempt
+def settings_view(request, *args, **kwargs):
+    if request.user.is_authenticated:
+        if request.method=='POST':
+            s=kwargs["s"]
+            if s=="maintenance":
+                setting=Setting.objects.get(name="maintenance")
+                setting.value=request.POST.get("value",0)
+                setting.save()
+                return HttpResponse(Setting.objects.get(name="maintenance").value==1)
+            
+    else:
+        raise PermissionDenied
+
+def log_view(request, *args, **kwargs):
+    if request.user.is_authenticated:
+        if request.method=='GET':
+            lograw=json.loads(serializers.serialize("json",Log.objects.all()))
+            log=[]
+            for l in reversed(lograw):
+                user=User.objects.get(id=l["fields"]["user"])
+                log.append({"title":l["fields"]["title"],"content":l["fields"]["content"],"user":user.get_username()+" ("+user.get_full_name()+")"})
+            return HttpResponse(log)
+        else:
+            return HttpResponse(status=405)
+    else:
+        raise PermissionDenied

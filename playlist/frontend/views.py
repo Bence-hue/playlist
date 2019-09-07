@@ -22,6 +22,9 @@ def frontend_view(request, *args,**kwargs):
     if Setting.objects.get(name="maintenance").value==1:
         return redirect("/maintenance")
     else:
+        print()
+        if request.get_full_path()=="/new" and Setting.objects.get(name="canAskSong").value==0:
+            return redirect("/?noNew=true")
         response = render(request, "index.html")
         if 'userid' not in request.COOKIES:
             userid = str(uuid.uuid4())

@@ -14,5 +14,8 @@ urlpatterns=[
     path('username/',views.username_view,name="username"),
     path('statistics/',views.statistics_view,name="statistics"),
     path('users/',views.users_view,name="users"),
-    path('unblock/',views.unblockuser_view,name="unblock")
+    path('unblock/',views.unblockuser_view,name="unblock"),
+    path('settings/',views.settings_view,name="settings"),
+    path('settings/<s>/',views.settings_view,name="settings"),
+    path('log/',views.log_view,name="log")
 ]
