@@ -379,13 +379,12 @@ def settings_view(request, *args, **kwargs):
             s=kwargs["s"]
             if s=="maintenance":
                 setting=Setting.objects.get(name="maintenance")
-                return HttpResponse(int(bool(request.POST.get("value",0))))
-                setting.value=int(bool(request.POST.get("value",0)))
+                setting.value=int(request.POST.get("value",0)==1)
                 setting.save()
                 return HttpResponse(Setting.objects.get(name="maintenance").value==1)
             elif s=="canrequestsong":
                 setting=Setting.objects.get(name="canRequestSong")
-                setting.value=int(bool(request.POST.get("value",1)))
+                setting.value=int(request.POST.get("value",1)==1)
                 setting.save()
                 return HttpResponse(Setting.objects.get(name="canRequestSong").value==1)
             elif s=="songlimit":
