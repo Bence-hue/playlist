@@ -378,10 +378,35 @@ def settings_view(request, *args, **kwargs):
             s=kwargs["s"]
             if s=="maintenance":
                 setting=Setting.objects.get(name="maintenance")
-                setting.value=request.POST.get("value",0)
+                setting.value=int(bool(request.POST.get("value",0)))
                 setting.save()
                 return HttpResponse(Setting.objects.get(name="maintenance").value==1)
-            
+            elif s=="canrequestsong":
+                setting=Setting.objects.get(name="canRequestSong")
+                setting.value=int(bool(request.POST.get("value",1)))
+                setting.save()
+                return HttpResponse(Setting.objects.get(name="canRequestSong").value==1)
+            elif s=="songlimit":
+                number=request.POST.get("number",Setting.objects.get(name="songLimitNumber").value)
+                minute=request.POST.get("minute",Setting.objects.get(name="songLimitMinute").value)
+                n=Setting.objects.get(name="songLimitNumber")
+                n.value=number
+                n.save()
+                m=Setting.objects.get(name="songLimitMinute")
+                m.value=minute
+                m.save()
+                return HttpResponse(str(Setting.objects.get(name="songLimitNumber").value)+";"+str(Setting.objects.get(name="songLimitMinute").value))
+            else:
+                return HttpResponse(status=422)
+        else:
+            settings=Setting.objects
+            s={
+                "maintenance":settings.get(name="maintenance").value==1,
+                "canRequestSong":settings.get(name="canRequestSong").value==1,
+                "songLimitNumber":settings.get(name="songLimitNumber").value,
+                "songLimitMinute":settings.get(name="songLimitMinute").value
+            }
+            return HttpResponse(json.dumps(s))
     else:
         raise PermissionDenied
 
