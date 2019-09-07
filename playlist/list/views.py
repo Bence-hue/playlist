@@ -183,13 +183,16 @@ def jsonmodifier(data):
 @csrf_exempt
 def adminlogin_view(request, *args, **kwargs):
     if request.method == 'POST':
+        print(request.META["HTTP_REFERER"])
         remember=bool(request.POST.get('remember', False))
         username = request.POST.get('username', "")
         password = request.POST.get('password', "")
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            respons=redirect("/admin/dashboard")
+            url=request.COOKIES.get("url","/admin/dashboard")
+            respons=redirect(url)
+            respons.delete_cookie("url")
             if remember:
                 print("cookieset")
                 respons.set_cookie("login",base64.b64encode(encrypt(config["SECRET_KEY"],username+";"+password)).decode(),60*60*24*30)

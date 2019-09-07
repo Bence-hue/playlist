@@ -9,6 +9,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import ensure_csrf_cookie
 from simplecrypt import decrypt
+from django.core.exceptions import PermissionDenied
 
 from list.models import Setting
 
@@ -41,11 +42,16 @@ def admin_view(request,*args,**kwargs):
     if request.user.is_authenticated:
         return render(request, "index.html")
     else:
-        return redirect("/admin/login")
+        raise PermissionDenied
 
 def login_view(request,*args,**kwargs):
     if request.user.is_authenticated:
-            return redirect("/admin/dashboard")
+        url=request.COOKIES.get("url","/admin/dashboard")
+        print(url)
+        if url == "/admin/":url="/admin/dashboard"
+        respons=redirect(url)
+        respons.delete_cookie("url")
+        return respons
     else:
         if "login" in request.COOKIES:
             try:
@@ -54,9 +60,14 @@ def login_view(request,*args,**kwargs):
                 if user is not None:
                     login(request, user)
                     print("bycookie")
-                    return redirect("/admin/dashboard")
+                    url=request.COOKIES.get("url","/admin/dashboard")
+                    respons=redirect(url)
+                    respons.delete_cookie("url")
+                    return respons
                 else:
-                    return render(request, "index.html").delete_cookie("login")
+                    respons=render(request, "index.html")
+                    respons.delete_cookie("login")
+                    return respons
             except:
                 respons=render(request, "index.html")
                 respons.delete_cookie("login")
@@ -65,8 +76,9 @@ def login_view(request,*args,**kwargs):
             return render(request, "index.html")
 
 def e403(request,*args,**kwargs):
-    print(request.get_full_path())
-    return redirect('/admin/login')
+    respons=redirect('/admin/login')
+    respons.set_cookie("url",request.get_full_path())
+    return respons
 
 def e404(request,*args,**kwargs):
     return redirect('/404')

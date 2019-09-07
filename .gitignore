@@ -6,7 +6,7 @@
 .pnp.js
 /venv
 */static
-
+build.sh
 # testing
 /coverage
 
