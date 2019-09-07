@@ -379,8 +379,8 @@ def settings_view(request, *args, **kwargs):
             s=kwargs["s"]
             if s=="maintenance":
                 setting=Setting.objects.get(name="maintenance")
+                return HttpResponse(int(bool(request.POST.get("value",0))))
                 setting.value=int(bool(request.POST.get("value",0)))
-                return HttpResponse(setting.value)
                 setting.save()
                 return HttpResponse(Setting.objects.get(name="maintenance").value==1)
             elif s=="canrequestsong":
