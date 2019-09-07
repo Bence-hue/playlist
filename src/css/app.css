@@ -8,12 +8,17 @@ textarea:invalid {
 }
 
 input:focus,
-textarea:focus {
+textarea:focus,
+button:focus {
 	outline: none;
 }
 *::selection {
 	background: #139c81;
 	color: white;
+}
+
+input[type="number"] {
+	-moz-appearance: textfield;
 }
 
 input[type="number"]::-webkit-inner-spin-button,

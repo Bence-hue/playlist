@@ -42,15 +42,26 @@ export default class AdminSettings extends Component {
 				state: "on"
 			}
 		],
-		limit: 3,
+		settings: {
+			maintenance: false,
+			canAskSong: true,
+			songLimitNumber: 3,
+			songLimitMinute: 15,
+			schoolDayLimit: false
+		},
 		ping: 0,
 		version: "v1.0.2",
 		sentryErrors: 6,
-		mtMode: false,
-		musicQuery: true
+		intervalDropdown: false
 	};
 
 	componentDidMount() {
+		// get settings
+
+		axios.get("/api/settings/").then((res) => {
+			this.setState({ settings: res.data });
+		});
+
 		// get ping
 		const start = new Date();
 		axios.get("https://playlist.jelszo.co").then((res) => {
@@ -58,41 +69,21 @@ export default class AdminSettings extends Component {
 		});
 
 		// get sentry errors
-		axios
-			.get("https://sentry.io/api/0/projects/", {
-				headers: {
-					Authorization:
-						"Bearer 4626e357a3bd49258380c7fc589e72cd405433c9a9924e3e97cd295b379735d2"
-				}
-			})
-			.then((res) => {
-				console.log(res.data);
-			});
+
+		// get version
 	}
 
 	toggleSwitch = (prop) => {
-		let url, params;
-		switch (prop) {
-			case "mtMode":
-				url = "/api/togglemaintenance/";
-				params = !this.state.mtMode;
-				break;
-			case "musicQuery":
-				url = "/api/togglequery/";
-				params = !this.state.musicQuery;
-				break;
-			case "explicit":
-				url = "/api/toggleexplicit/";
-				params = !this.state.explicit;
-				break;
-			default:
-				break;
-		}
+		let url,
+			params = new URLSearchParams();
+		url = `/api/settings/${prop}/`;
+		params.append("value", !this.state.settings[prop]);
 		axios
 			.post(url, params)
 			.then((res) => {
-				// const switchState = this.state[prop];
-				this.setState({ [prop]: res.data });
+				this.setState({
+					settings: { ...this.state.settings, [prop]: res.data }
+				});
 			})
 			.catch((err) => {
 				console.error(err);
@@ -100,23 +91,88 @@ export default class AdminSettings extends Component {
 	};
 
 	handleLimitChange = (e) => {
-		this.setState({ [e.target.name]: e.target.value });
+		this.setState({
+			settings: { ...this.state.settings, [e.target.name]: e.target.value }
+		});
 	};
 
+	toggleIntervalSelector = () => {
+		this.setState({ intervalDropdown: !this.state.intervalDropdown });
+	};
+
+	changeNumber = (e) => {
+		e.preventdefault();
+		let url = "/api/settings/songlimit/",
+			params = new URLSearchParams();
+		params.append("number", this.state.settings.songLimitNumber);
+		axios.post(url, params).then((res) => {
+			this.setState({
+				settings: { ...this.state.settings, songLimitNumber: res.data.number }
+			});
+		});
+	};
+
+	changeInterval = (interval) => {
+		let url = "/api/settings/songlimit/";
+		let params = new URLSearchParams();
+		switch (interval) {
+			case "15m":
+				params.append("minute", 15);
+				break;
+			case "30m":
+				params.append("minute", 30);
+				break;
+			case "1h":
+				params.append("minute", 60);
+				break;
+			case "6h":
+				params.append("minute", 360);
+				break;
+			case "1d":
+				params.append("minute", 1440);
+				break;
+			default:
+				params.append("minute", this.state.songLimitMinute);
+				break;
+		}
+		axios.post(url, params).then((res) => {
+			this.setState({
+				settings: { ...this.state.settings, songLimitMinute: res.data.minute }
+			});
+		});
+	};
 	render() {
+		const { log, ping, version, sentryErrors } = this.state;
 		const {
-			log,
-			ping,
-			version,
-			sentryErrors,
-			mtMode,
-			musicQuery,
-			explicit
-		} = this.state;
+			maintenance,
+			canAskSong,
+			songLimitNumber,
+			schoolDayLimit
+		} = this.state.settings;
+		let songLimitMinuteDisplay;
+		switch (this.state.settings.songLimitMinute) {
+			case 15:
+				songLimitMinuteDisplay = "15 perc";
+				break;
+			case 30:
+				songLimitMinuteDisplay = "30 perc";
+				break;
+			case 60:
+				songLimitMinuteDisplay = "1 óra";
+				break;
+			case 360:
+				songLimitMinuteDisplay = "6 óra";
+				break;
+			case 1440:
+				songLimitMinuteDisplay = "1 nap";
+				break;
+			default:
+				songLimitMinuteDisplay = "NaN";
+		}
 		let stylePing, styleSentry;
-		if (ping <= 50) {
+		if (ping <= 100) {
 			stylePing = { color: "#139c61" };
-		} else if (ping <= 100) {
+		} else if (ping <= 200) {
 			stylePing = { color: "#d5b900" };
 		} else {
 			stylePing = { color: "#92031B" };
@@ -134,8 +190,8 @@ export default class AdminSettings extends Component {
 					<div className="settings-grid__maintenance">
 						<h2>maintenance mode</h2>
 						<Toggler
-							toggle={this.toggleSwitch.bind(this, "mtMode")}
-							state={mtMode}
+							toggle={this.toggleSwitch.bind(this, "maintenance")}
+							state={maintenance}
 						/>
 					</div>
 					<div className="settings-grid__music">
@@ -143,22 +199,50 @@ export default class AdminSettings extends Component {
 						<div className="settings-grid__music__grid">
 							<h3>Engedélyezve:</h3>
 							<Toggler
-								toggle={this.toggleSwitch.bind(this, "musicQuery")}
-								state={musicQuery}
+								toggle={this.toggleSwitch.bind(this, "canAskSong")}
+								state={canAskSong}
 							/>
 							<h3>Limit:</h3>
-							<form onSubmit={this.onSubmit}>
-								<input
-									type="number"
-									name="limit"
-									value={this.state.limit}
-									onChange={this.handleLimitChange}
-								/>
+							<form onSubmit={this.changeNumber}>
+								<p>
+									<input
+										type="number"
+										name="songLimitNumber"
+										value={songLimitNumber}
+										onChange={this.handleLimitChange}
+									/>
+									/
+									<button type="button" onClick={this.toggleIntervalSelector}>
+										{songLimitMinuteDisplay}{" "}
+										<i className="fas fa-chevron-down"></i>
+									</button>
+									{this.state.intervalDropdown ? (
+										<ul className="interval-dropdown">
+											<li onClick={this.changeInterval.bind(this, "15m")}>
+												15 perc
+											</li>
+											<li onClick={this.changeInterval.bind(this, "30m")}>
+												30 perc
+											</li>
+											<li onClick={this.changeInterval.bind(this, "1h")}>
+												1 óra
+											</li>
+											<li onClick={this.changeInterval.bind(this, "6h")}>
+												6 óra
+											</li>
+											<li onClick={this.changeInterval.bind(this, "1d")}>
+												1 nap
+											</li>
+										</ul>
+									) : (
+										""
+									)}
+								</p>
 							</form>
-							<h3>Explicit filter:</h3>
+							<h3>Csak iskolaidőben:</h3>
 							<Toggler
-								toggle={this.toggleSwitch.bind(this, "explicit")}
-								state={explicit}
+								toggle={this.toggleSwitch.bind(this, "schoolDay")}
+								state={schoolDayLimit}
 							/>
 						</div>
 					</div>
