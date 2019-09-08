@@ -92,12 +92,16 @@ export default class AdminSettings extends Component {
 			params = new URLSearchParams();
 		url = `/api/settings/${prop}/`;
 		params.append("value", !this.state.settings[prop]);
+		console.log(!this.state.settings[prop]);
+
 		axios
 			.post(url, params)
 			.then((res) => {
+				console.log(res.data);
 				this.setState({
-					settings: { ...this.state.settings, [prop]: res.data }
+					settings: { ...this.state.settings, [prop]: res.data.toLowerCase() }
 				});
+				console.log(this.state.settings);
 			})
 			.catch((err) => {
 				console.error(err);
@@ -106,6 +110,7 @@ export default class AdminSettings extends Component {
 
 	handleLimitChange = (e) => {
 		this.setState({
+			intervalDropdown: false,
 			settings: { ...this.state.settings, [e.target.name]: e.target.value }
 		});
 	};
