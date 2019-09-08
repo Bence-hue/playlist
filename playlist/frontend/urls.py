@@ -7,5 +7,5 @@ urlpatterns = [
     path('songs',views.admin_view),
     path('users',views.admin_view),
     path('',views.e403),
-    path('settings',views.frontend_view)
+    path('settings',views.admin_view)
 ]
