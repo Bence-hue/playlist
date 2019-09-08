@@ -43,13 +43,7 @@ export default class AdminSettings extends Component {
 				state: "on"
 			}
 		],
-		settings: {
-			maintenance: false,
-			canrequestsong: true,
-			songLimitNumber: 3,
-			songLimitMinute: 15,
-			schooltimeonly: false
-		},
+		settings: {},
 		ping: 0,
 		version: "",
 		sentryErrors: 6,
