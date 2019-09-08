@@ -69,20 +69,16 @@ export default class AdminSettings extends Component {
 		let key,
 			url =
 				"https://sentry.io/api/0/projects/jelszo-co/playlist-frontend/stats/";
-		axios.get("/api/key/").then((r) => {
-			key = r;
-		});
-		axios
-			.get(url, {
-				headers: {
-					Authorization: `Bearer ${key}`,
-					"Access-Control-Allow-Origin": "*",
-					"Access-Control-Allow-Methods":
-						"GET, POST, PATCH, PUT, DELETE, OPTIONS",
-					"Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
-				}
-			})
-			.then((r) => console.log(r));
+		fetch(url, {
+			method: "GET",
+			headers: {
+				Authorization: `Bearer ${key}`
+			}
+		})
+			.then((r) => console.log(r))
+			.catch((error) => {
+				console.error(error);
+			});
 
 		// get version
 		getPackageJsonFromGithub(
