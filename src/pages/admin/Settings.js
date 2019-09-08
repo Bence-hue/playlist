@@ -128,6 +128,7 @@ export default class AdminSettings extends Component {
 			this.setState({
 				settings: { ...this.state.settings, songLimitNumber: res.data.number }
 			});
+			window.location.reload();
 		});
 	};
 
