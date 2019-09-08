@@ -55,6 +55,7 @@ export default class AdminSettings extends Component {
 		axios.get("/api/settings/").then((res) => {
 			this.setState({ settings: res.data });
 		});
+		console.log(this.state.settings);
 
 		// get ping
 		const start = new Date();
@@ -63,15 +64,15 @@ export default class AdminSettings extends Component {
 		});
 
 		// get sentry errors
-		let key,
-			url =
-				"https://sentry.io/api/0/projects/jelszo-co/playlist-frontend/stats/";
-		axios.get("/api/key/").then((r) => {
-			key = r;
-		});
-		axios
-			.get(url, { headers: { Authorization: `Bearer ${key}` } })
-			.then((r) => console.log(r));
+		// let key,
+		// 	url =
+		// 		"https://sentry.io/api/0/projects/jelszo-co/playlist-frontend/stats/";
+		// axios.get("/api/key/").then((r) => {
+		// 	key = r;
+		// });
+		// axios
+		// 	.get(url, { headers: { Authorization: `Bearer ${key}` } })
+		// 	.then((r) => console.log(r));
 
 		// get version
 		getPackageJsonFromGithub(
