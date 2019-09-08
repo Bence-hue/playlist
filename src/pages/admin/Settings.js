@@ -120,7 +120,7 @@ export default class AdminSettings extends Component {
 	};
 
 	changeNumber = (e) => {
-		e.preventdefault();
+		e.preventDefault();
 		let url = "/api/settings/songlimit/",
 			params = new URLSearchParams();
 		params.append("number", this.state.settings.songLimitNumber);
