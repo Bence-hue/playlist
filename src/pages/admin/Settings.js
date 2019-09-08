@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { ReactComponent as ArtSettings } from "../../assets/songs.svg";
 import axios from "axios";
+import getPackageJsonFromGithub from "get-package-json-from-github";
 
 import Header from "../components/Header";
 import Toggler from "../components/Toggler";
@@ -50,7 +51,7 @@ export default class AdminSettings extends Component {
 			schoolDayLimit: false
 		},
 		ping: 0,
-		version: "v1.0.2",
+		version: "",
 		sentryErrors: 6,
 		intervalDropdown: false
 	};
@@ -69,8 +70,22 @@ export default class AdminSettings extends Component {
 		});
 
 		// get sentry errors
+		let key,
+			url =
+				"https://sentry.io/api/0/projects/jelszo-co/playlist-frontend/stats/";
+		axios.get("/api/key/").then((r) => {
+			key = r;
+		});
+		axios
+			.get(url, { headers: { Authorization: `Bearer ${key}` } })
+			.then((r) => console.log(r));
 
 		// get version
+		getPackageJsonFromGithub(
+			"git+https://github.com/jelszo-co/playlist.git"
+		).then((packageJson) => {
+			this.setState({ version: packageJson.version });
+		});
 	}
 
 	toggleSwitch = (prop) => {
