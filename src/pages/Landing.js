@@ -62,7 +62,7 @@ export default class Landing extends Component {
 							<MusicPlayer className="btn-icon" />
 						</div>
 					</Link>
-					<Link to="/new">
+					<a href="https://playlist.jelszo.co/new">
 						<div className="btn btn-right">
 							<ARTbtn className="btn-border-art" />
 							<h2>
@@ -74,7 +74,7 @@ export default class Landing extends Component {
 							</h2>
 							<AddButton className="btn-icon" />
 						</div>
-					</Link>
+					</a>
 				</div>
 				<ARTleft className="art-left" />
 				<ARTright className="art-right" />
@@ -92,7 +92,10 @@ export default class Landing extends Component {
 							show &&
 							((props) => (
 								<animated.div style={props}>
-									<CookiePopup className="cookie-pop" hideCookie={this.hideCookie} />
+									<CookiePopup
+										className="cookie-pop"
+										hideCookie={this.hideCookie}
+									/>
 								</animated.div>
 							))
 						}
