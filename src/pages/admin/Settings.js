@@ -59,7 +59,8 @@ export default class AdminSettings extends Component {
 	componentDidMount() {
 		// get settings
 		axios.get("/api/settings/").then((res) => {
-			this.setState({ settings: res.data.toLowerCase() });
+			const resLowercase = res.data.toLowerCase();
+			this.setState({ settings: resLowercase });
 		});
 
 		// get ping
