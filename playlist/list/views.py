@@ -424,3 +424,9 @@ def log_view(request, *args, **kwargs):
             return HttpResponse(status=405)
     else:
         raise PermissionDenied
+
+def key_view(request, *args, **kwargs):
+    if request.user.is_authenticated:
+        return HttpResponse(config["sentryapi"])
+    else:
+        raise PermissionDenied
