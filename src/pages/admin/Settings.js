@@ -56,10 +56,8 @@ export default class AdminSettings extends Component {
 			.get("/api/settings/")
 			.then((res) => {
 				this.setState({ settings: res.data });
-				console.log(res);
 			})
-			.catch((err) => console.log(err));
-		console.log(this.state.settings);
+			.catch((err) => console.error(err));
 
 		// get ping
 		const start = new Date();
@@ -68,15 +66,23 @@ export default class AdminSettings extends Component {
 		});
 
 		// get sentry errors
-		// let key,
-		// 	url =
-		// 		"https://sentry.io/api/0/projects/jelszo-co/playlist-frontend/stats/";
-		// axios.get("/api/key/").then((r) => {
-		// 	key = r;
-		// });
-		// axios
-		// 	.get(url, { headers: { Authorization: `Bearer ${key}` } })
-		// 	.then((r) => console.log(r));
+		let key,
+			url =
+				"https://sentry.io/api/0/projects/jelszo-co/playlist-frontend/stats/";
+		axios.get("/api/key/").then((r) => {
+			key = r;
+		});
+		axios
+			.get(url, {
+				headers: {
+					Authorization: `Bearer ${key}`,
+					"Access-Control-Allow-Origin": "*",
+					"Access-Control-Allow-Methods":
+						"GET, POST, PATCH, PUT, DELETE, OPTIONS",
+					"Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
+				}
+			})
+			.then((r) => console.log(r));
 
 		// get version
 		getPackageJsonFromGithub(
@@ -91,17 +97,14 @@ export default class AdminSettings extends Component {
 			params = new URLSearchParams();
 		url = `/api/settings/${prop.toLowerCase()}/`;
 		params.append("value", !this.state.settings[prop]);
-		console.log(!this.state.settings[prop]);
 
 		axios
 			.post(url, params)
 			.then((res) => {
-				console.log(res.data);
 				const boolValue = JSON.parse(res.data.toLowerCase());
 				this.setState({
 					settings: { ...this.state.settings, [prop]: boolValue }
 				});
-				console.log(this.state.settings);
 			})
 			.catch((err) => {
 				console.error(err);
