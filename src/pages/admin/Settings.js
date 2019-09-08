@@ -69,6 +69,8 @@ export default class AdminSettings extends Component {
 		let key,
 			url =
 				"https://sentry.io/api/0/projects/jelszo-co/playlist-frontend/stats/";
+		console.log(key);
+
 		fetch(url, {
 			method: "GET",
 			headers: {
