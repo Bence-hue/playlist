@@ -46,7 +46,7 @@ export default class AdminSettings extends Component {
 		settings: {},
 		ping: 0,
 		version: "",
-		sentryErrors: 6,
+		sentryErrors: 0,
 		intervalDropdown: false
 	};
 
@@ -66,21 +66,13 @@ export default class AdminSettings extends Component {
 		});
 
 		// get sentry errors
-		let key,
-			url = "https://sentry.io/api/0/projects/";
+		let url = "/api/sentry/issues/";
 
-		fetch("/api/key/").then((r) => (key = r));
-
-		fetch(url, {
-			method: "get",
-			headers: {
-				Authorization: "Bearer " + key,
-				"Content-Type": "application/json"
-			}
-		})
-			.then((r) => console.log(r))
-			.catch((error) => {
-				console.error(error);
+		axios
+			.get(url)
+			.then((r) => this.setState({ sentryErrors: r.data.length() }))
+			.catch((e) => {
+				console.error(e);
 			});
 
 		// get version
