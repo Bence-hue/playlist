@@ -56,6 +56,7 @@ export default class AdminSettings extends Component {
 			.get("/api/settings/")
 			.then((res) => {
 				this.setState({ settings: res.data });
+				console.log(res);
 			})
 			.catch((err) => console.log(err));
 		console.log(this.state.settings);
