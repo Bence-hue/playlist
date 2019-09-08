@@ -88,16 +88,22 @@ export default class AdminSettings extends Component {
 	}
 
 	toggleSwitch = (prop) => {
+		console.log(prop);
 		let url,
 			params = new URLSearchParams();
 		url = `/api/settings/${prop}/`;
+		console.log(url);
 		params.append("value", !this.state.settings[prop]);
+		console.log(params);
+
 		axios
 			.post(url, params)
 			.then((res) => {
+				console.log(res.data);
 				this.setState({
-					settings: { ...this.state.settings, [prop]: res.data }
+					settings: { ...this.state.settings, [prop]: res.data.toLowercase() }
 				});
+				console.log(this.state.settings);
 			})
 			.catch((err) => {
 				console.error(err);
@@ -106,6 +112,7 @@ export default class AdminSettings extends Component {
 
 	handleLimitChange = (e) => {
 		this.setState({
+			intervalDropdown: false,
 			settings: { ...this.state.settings, [e.target.name]: e.target.value }
 		});
 	};
