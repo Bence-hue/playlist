@@ -45,10 +45,10 @@ export default class AdminSettings extends Component {
 		],
 		settings: {
 			maintenance: false,
-			canAskSong: true,
+			canrequestsong: true,
 			songLimitNumber: 3,
 			songLimitMinute: 15,
-			schoolDayLimit: false
+			schooltimeonly: false
 		},
 		ping: 0,
 		version: "",
@@ -58,7 +58,6 @@ export default class AdminSettings extends Component {
 
 	componentDidMount() {
 		// get settings
-
 		axios.get("/api/settings/").then((res) => {
 			this.setState({ settings: res.data });
 		});
@@ -147,7 +146,7 @@ export default class AdminSettings extends Component {
 				params.append("minute", 1440);
 				break;
 			default:
-				params.append("minute", this.state.songLimitMinute);
+				params.append("minute", this.state.settings.songLimitMinute);
 				break;
 		}
 		axios.post(url, params).then((res) => {
@@ -160,9 +159,9 @@ export default class AdminSettings extends Component {
 		const { log, ping, version, sentryErrors } = this.state;
 		const {
 			maintenance,
-			canAskSong,
+			canrequestsong,
 			songLimitNumber,
-			schoolDayLimit
+			schooldayonly
 		} = this.state.settings;
 		let songLimitMinuteDisplay;
 		switch (this.state.settings.songLimitMinute) {
@@ -214,8 +213,8 @@ export default class AdminSettings extends Component {
 						<div className="settings-grid__music__grid">
 							<h3>Engedélyezve:</h3>
 							<Toggler
-								toggle={this.toggleSwitch.bind(this, "canAskSong")}
-								state={canAskSong}
+								toggle={this.toggleSwitch.bind(this, "canrequestsong")}
+								state={canrequestsong}
 							/>
 							<h3>Limit:</h3>
 							<form onSubmit={this.changeNumber}>
@@ -256,8 +255,8 @@ export default class AdminSettings extends Component {
 							</form>
 							<h3>Csak iskolaidőben:</h3>
 							<Toggler
-								toggle={this.toggleSwitch.bind(this, "schoolDay")}
-								state={schoolDayLimit}
+								toggle={this.toggleSwitch.bind(this, "schooldayonly")}
+								state={schooldayonly}
 							/>
 						</div>
 					</div>
