@@ -88,20 +88,18 @@ export default class AdminSettings extends Component {
 	}
 
 	toggleSwitch = (prop) => {
-		console.log(prop);
 		let url,
 			params = new URLSearchParams();
 		url = `/api/settings/${prop}/`;
-		console.log(url);
 		params.append("value", !this.state.settings[prop]);
-		console.log(params);
+		console.log(!this.state.settings[prop]);
 
 		axios
 			.post(url, params)
 			.then((res) => {
 				console.log(res.data);
 				this.setState({
-					settings: { ...this.state.settings, [prop]: res.data.toLowercase() }
+					settings: { ...this.state.settings, [prop]: res.data.toLowerCase() }
 				});
 				console.log(this.state.settings);
 			})
