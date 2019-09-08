@@ -164,9 +164,9 @@ export default class AdminSettings extends Component {
 		const { log, ping, version, sentryErrors } = this.state;
 		const {
 			maintenance,
-			canrequestsong,
+			canRequestSong,
 			songLimitNumber,
-			schooldayonly
+			schoolDayOnly
 		} = this.state.settings;
 		let songLimitMinuteDisplay;
 		switch (this.state.settings.songLimitMinute) {
@@ -219,7 +219,7 @@ export default class AdminSettings extends Component {
 							<h3>Engedélyezve:</h3>
 							<Toggler
 								toggle={this.toggleSwitch.bind(this, "canRequestSong")}
-								state={canrequestsong}
+								state={canRequestSong}
 							/>
 							<h3>Limit:</h3>
 							<form onSubmit={this.changeNumber}>
@@ -261,7 +261,7 @@ export default class AdminSettings extends Component {
 							<h3>Csak iskolaidőben:</h3>
 							<Toggler
 								toggle={this.toggleSwitch.bind(this, "schoolDayOnly")}
-								state={schooldayonly}
+								state={schoolDayOnly}
 							/>
 						</div>
 					</div>
