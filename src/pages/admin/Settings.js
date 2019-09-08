@@ -98,8 +98,9 @@ export default class AdminSettings extends Component {
 			.post(url, params)
 			.then((res) => {
 				console.log(res.data);
+				const boolValue = JSON.parse(res.data.toLowerCase());
 				this.setState({
-					settings: { ...this.state.settings, [prop]: res.data.json() }
+					settings: { ...this.state.settings, [prop]: boolValue }
 				});
 				console.log(this.state.settings);
 			})
