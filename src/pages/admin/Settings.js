@@ -67,16 +67,15 @@ export default class AdminSettings extends Component {
 
 		// get sentry errors
 		let key,
-			url =
-				"https://sentry.io/api/0/projects/jelszo-co/playlist-frontend/stats/";
+			url = "https://sentry.io/api/0/projects/";
 
 		fetch("/api/key/").then((r) => (key = r));
-		console.log(key);
 
 		fetch(url, {
-			method: "GET",
+			method: "get",
 			headers: {
-				Authorization: `Bearer ${key}`
+				Authorization: "Bearer " + key,
+				"Content-Type": "application/json"
 			}
 		})
 			.then((r) => console.log(r))
