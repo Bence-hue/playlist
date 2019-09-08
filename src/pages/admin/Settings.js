@@ -89,7 +89,7 @@ export default class AdminSettings extends Component {
 	toggleSwitch = (prop) => {
 		let url,
 			params = new URLSearchParams();
-		url = `/api/settings/${prop}/`;
+		url = `/api/settings/${prop.toLowerCase()}/`;
 		params.append("value", !this.state.settings[prop]);
 		console.log(!this.state.settings[prop]);
 
@@ -218,7 +218,7 @@ export default class AdminSettings extends Component {
 						<div className="settings-grid__music__grid">
 							<h3>Engedélyezve:</h3>
 							<Toggler
-								toggle={this.toggleSwitch.bind(this, "canrequestsong")}
+								toggle={this.toggleSwitch.bind(this, "canRequestSong")}
 								state={canrequestsong}
 							/>
 							<h3>Limit:</h3>
@@ -260,7 +260,7 @@ export default class AdminSettings extends Component {
 							</form>
 							<h3>Csak iskolaidőben:</h3>
 							<Toggler
-								toggle={this.toggleSwitch.bind(this, "schooldayonly")}
+								toggle={this.toggleSwitch.bind(this, "schoolDayOnly")}
 								state={schooldayonly}
 							/>
 						</div>
