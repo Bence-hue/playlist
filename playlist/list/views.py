@@ -396,7 +396,11 @@ def settings_view(request, *args, **kwargs):
                 m=Setting.objects.get(name="songLimitMinute")
                 m.value=minute
                 m.save()
-                return HttpResponse(str(Setting.objects.get(name="songLimitNumber").value)+";"+str(Setting.objects.get(name="songLimitMinute").value))
+                r={
+                    "number":Setting.objects.get(name="songLimitNumber").value,
+                    "minute":Setting.objects.get(name="songLimitMinute").value
+                }
+                return HttpResponse(json.dumps(r))
             else:
                 return HttpResponse(status=422)
         else:
