@@ -266,7 +266,7 @@ export default class AdminSettings extends Component {
 							<h3>Szerveridő:</h3>
 							<h4 style={stylePing}>{ping}ms</h4>
 							<h3>Verzió:</h3>
-							<h4>{version}</h4>
+							<h4>v{version}</h4>
 							<h3>Sentry:</h3>
 							<h4 style={styleSentry}>{sentryErrors} hiba</h4>
 						</div>
