@@ -57,10 +57,14 @@ def blockuser_view(request, *args, **kwargs):
             data = request.POST
             if data.get("permanent", "true") == "true":
                 BlockedUser.objects.create(userid=data.get("userid"), permanent=True)
-                Log.objects.create(user=request.user,title="ban",content=data.get("userid")+", permanent")
+                Log.objects.create(user=request.user,title="ban",content=json.dumps({
+                    "userid":data.get("userid"),
+                    "status":"permanent"}))
             else:
                 BlockedUser.objects.create(userid=data.get("userid"), permanent=False,expireAt=datetime.datetime.now() + datetime.timedelta(weeks=int(data.get("expirein", 1))))
-                Log.objects.create(user=request.user,title="ban",content=data.get("userid")+", "+data.get("expirein", 1)+" hétre")
+                Log.objects.create(user=request.user,title="ban",content=json.dumps({
+                    "userid":data.get("userid"),
+                    "status":"{} hétre".format(data.get("expirein", 1))}))
             for l in Song.objects.filter(user=data.get("userid"), played=False, hide=False):
                 l.hide = True
                 l.save()
