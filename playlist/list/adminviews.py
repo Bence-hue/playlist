@@ -201,9 +201,9 @@ def settings_view(request, *args, **kwargs):
                 setting.value=int(request.POST.get("value","true")=="true")
                 setting.save()
                 if request.POST.get("value","true")=="true":
-                    Log.objects.create(user=request.user,title="modify",content="Nem lehet számot kérni")
-                else:
                     Log.objects.create(user=request.user,title="modify",content="Lehet számot kérni")
+                else:
+                    Log.objects.create(user=request.user,title="modify",content="Nem lehet számot kérni")
                 return HttpResponse(Setting.objects.get(name="canRequestSong").value==1)
             elif s=="songlimit":
                 number=request.POST.get("number",Setting.objects.get(name="songLimitNumber").value)
