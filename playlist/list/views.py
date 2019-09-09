@@ -429,8 +429,9 @@ def log_view(request, *args, **kwargs):
     else:
         raise PermissionDenied
 
-def key_view(request, *args, **kwargs):
+def sentry_view(request, *args, **kwargs):
     if request.user.is_authenticated:
+        # r=requests.get(url="https://sentry.io/api/0/projects/jelszo-co/playlist-frontend/issues/")
         return HttpResponse(config["sentryapi"])
     else:
         raise PermissionDenied

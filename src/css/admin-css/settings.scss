@@ -301,6 +301,15 @@ $borderradius: 35px;
 			grid-row: 3 / 6;
 			grid-column: 3 / 4;
 			overflow: scroll;
+
+			h2 {
+				text-align: center;
+				margin: 25px 0 0 0;
+				text-transform: uppercase;
+				font-family: "Open Sans";
+				font-weight: 300;
+				letter-spacing: 2px;
+			}
 		}
 	}
 

@@ -20,10 +20,10 @@ export default class LogCard extends Component {
 		const { name, time } = this.props.action;
 		return (
 			<div id="logcard">
-				<h2>
+				<h3>
 					<span>{name}</span> {this.getTypeName()}:
-				</h2>
-				<h3>{this.getContent()}</h3>
+				</h3>
+				{this.getContent()}
 				<p>{time}</p>
 			</div>
 		);
@@ -47,34 +47,26 @@ export default class LogCard extends Component {
 	getContent = () => {
 		switch (this.props.action.type) {
 			case "ban":
-				return (
-					<Link
-						to={"/admin/users"}
-					>{`UserId: ${this.props.action.userid}`}</Link>
-				);
+				return <Link to={"/admin/users"}>{`UserId: ${this.props.action.userid}`}</Link>;
 			case "unban":
-				return (
-					<Link
-						to={"/admin/users"}
-					>{`UserId: ${this.props.action.userid}`}</Link>
-				);
+				return <Link to={"/admin/users"}>{`UserId: ${this.props.action.userid}`}</Link>;
 			case "delete":
 				return (
-					<h2>
+					<h4>
 						{this.props.action.artist}
 						<span />
 						{this.props.action.title}
-					</h2>
+					</h4>
 				);
 			case "modify":
 				return (
-					<h2>
+					<h4>
 						{this.props.action.switch} <i className="fas fa-arrow-right"></i>{" "}
 						{this.props.action.state}
-					</h2>
+					</h4>
 				);
 			default:
-				return <h2>Undefined</h2>;
+				return <h4>Undefined</h4>;
 		}
 	};
 }
