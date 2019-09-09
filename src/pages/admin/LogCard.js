@@ -47,9 +47,17 @@ export default class LogCard extends Component {
 	getContent = () => {
 		switch (this.props.action.type) {
 			case "ban":
-				return <Link to={"/admin/users"}>{`UserId: ${this.props.action.userid}`}</Link>;
+				return (
+					<Link
+						to={`/admin/users/#${this.props.action.userid}`}
+					>{`UserId: ${this.props.action.userid}`}</Link>
+				);
 			case "unban":
-				return <Link to={"/admin/users"}>{`UserId: ${this.props.action.userid}`}</Link>;
+				return (
+					<Link
+						to={`/admin/users/#${this.props.action.userid}`}
+					>{`UserId: ${this.props.action.userid}`}</Link>
+				);
 			case "delete":
 				return (
 					<h4>

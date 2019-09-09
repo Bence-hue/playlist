@@ -3,9 +3,9 @@ $resp-laptop: "only screen and (max-width : 1400px)";
 
 $borderradius: 35px;
 %boxshadow {
-	-webkit-box-shadow: 0px 10px 60px 0px rgba(19, 156, 97, 0.2);
-	-moz-box-shadow: 0px 10px 60px 0px rgba(19, 156, 97, 0.2);
-	box-shadow: 0px 10px 60px 0px rgba(19, 156, 97, 0.2);
+	-webkit-box-shadow: 0px 10px 60px 0px rgba(19, 156, 97, 0.15);
+	-moz-box-shadow: 0px 10px 60px 0px rgba(19, 156, 97, 0.15);
+	box-shadow: 0px 10px 60px 0px rgba(19, 156, 97, 0.15);
 }
 
 #settings {
@@ -301,7 +301,13 @@ $borderradius: 35px;
 			grid-row: 3 / 6;
 			grid-column: 3 / 4;
 			overflow: scroll;
-
+			&::-webkit-scrollbar {
+				display: none;
+			}
+			width: 90%;
+			margin: 0 5%;
+			@extend %boxshadow;
+			border-radius: $borderradius;
 			h2 {
 				text-align: center;
 				margin: 25px 0 0 0;
@@ -309,6 +315,24 @@ $borderradius: 35px;
 				font-family: "Open Sans";
 				font-weight: 300;
 				letter-spacing: 2px;
+			}
+
+			#logcard {
+				width: 90%;
+				margin: 0 5%;
+				@extend %boxshadow;
+				border-radius: 22px;
+				font-family: "Open Sans";
+
+				h3 {
+					text-align: center;
+					font-weight: 400;
+					span {
+						font-weight: 600;
+						text-transform: uppercase;
+						color: #13581b;
+					}
+				}
 			}
 		}
 	}
