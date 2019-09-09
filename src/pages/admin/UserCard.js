@@ -144,7 +144,7 @@ export default class UserCard extends Component {
 		}
 
 		return (
-			<div className="usc" style={styleCard}>
+			<div className="usc" style={styleCard} id={user.userid}>
 				<div className="usc__heading">
 					<Dots className="usc-dots" onClick={this.toggleCollapse} />
 					<h3 className="userid" style={isMobile ? styleCardElements : {}}>

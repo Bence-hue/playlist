@@ -11,38 +11,7 @@ import "../../css/admin-css/settings.scss";
 
 export default class AdminSettings extends Component {
 	state = {
-		log: [
-			{
-				id: 1,
-				type: "ban",
-				name: "test-ban",
-				time: "tegnap",
-				userid: "NaaaaaaaN"
-			},
-			{
-				id: 2,
-				type: "unban",
-				name: "test-unban",
-				time: "tegnap",
-				userid: "NaaaaaaaN"
-			},
-			{
-				id: 3,
-				type: "delete",
-				name: "test-del",
-				time: "tegnap",
-				artist: "del-artist",
-				title: "del-title"
-			},
-			{
-				id: 4,
-				type: "modify",
-				name: "test-switch",
-				time: "tegnap",
-				switch: "mod-switch",
-				state: "on"
-			}
-		],
+		log: [],
 		settings: {},
 		ping: 0,
 		version: "",
@@ -59,6 +28,12 @@ export default class AdminSettings extends Component {
 			})
 			.catch((err) => console.error(err));
 
+		// get log
+		axios
+			.get("/api/log/")
+			.then((r) => this.setState({ log: JSON.parse(r.data) }));
+		// .then((r) => console.log(r.data));
+
 		// get ping
 		const start = new Date();
 		axios.get("https://playlist.jelszo.co").then((res) => {
@@ -70,7 +45,7 @@ export default class AdminSettings extends Component {
 
 		axios
 			.get(url)
-			.then((r) => this.setState({ sentryErrors: r.data.length }))
+			.then((r) => this.setState({ sentryErrors: r.data }))
 			.catch((e) => {
 				console.error(e);
 			});

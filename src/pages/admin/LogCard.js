@@ -9,13 +9,7 @@ export default class LogCard extends Component {
 			name: user who committed the changes
 			time: date when the change ocurred
 
-			userid: ban/unban id
-			
-			artist: deleted song artist
-			title: deleted song title
-			
-			switch: modified property name
-			state: modified property value
+			content
 		}*/
 		const { name, time } = this.props.action;
 		return (
@@ -23,7 +17,7 @@ export default class LogCard extends Component {
 				<h3>
 					<span>{name}</span> {this.getTypeName()}:
 				</h3>
-				{this.getContent()}
+				<div className="content">{this.getContent()}</div>
 				<p>{time}</p>
 			</div>
 		);
@@ -35,8 +29,10 @@ export default class LogCard extends Component {
 				return "bannolta";
 			case "unban":
 				return "unbannolta";
-			case "delete":
+			case "deleted":
 				return "törölte";
+			case "played":
+				return "lejátszotta";
 			case "modify":
 				return "állított az oldalon";
 			default:
@@ -49,29 +45,26 @@ export default class LogCard extends Component {
 			case "ban":
 				return (
 					<Link
-						to={`/admin/users/#${this.props.action.userid}`}
-					>{`UserId: ${this.props.action.userid}`}</Link>
+						to={`/admin/users/#${JSON.parse(this.props.action.content).userid}`}
+					>{`UserId: ${JSON.parse(this.props.action.content).userid}`}</Link>
 				);
 			case "unban":
 				return (
 					<Link
-						to={`/admin/users/#${this.props.action.userid}`}
-					>{`UserId: ${this.props.action.userid}`}</Link>
+						to={`/admin/users/#${this.props.action.content}`}
+					>{`UserId: ${this.props.action.content}`}</Link>
 				);
-			case "delete":
+			case "deleted":
 				return (
-					<h4>
-						{this.props.action.artist}
-						<span />
-						{this.props.action.title}
-					</h4>
+					<h4 style={{ color: "#92031B" }}>{this.props.action.content}</h4>
+				);
+			case "played":
+				return (
+					<h4 style={{ color: "#139c61" }}>{this.props.action.content}</h4>
 				);
 			case "modify":
 				return (
-					<h4>
-						{this.props.action.switch} <i className="fas fa-arrow-right"></i>{" "}
-						{this.props.action.state}
-					</h4>
+					<h4 style={{ color: "#d5b900" }}>{this.props.action.content}</h4>
 				);
 			default:
 				return <h4>Undefined</h4>;
