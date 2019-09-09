@@ -238,6 +238,6 @@ def log_view(request, *args, **kwargs):
 def sentry_view(request, *args, **kwargs):
     if request.user.is_authenticated:
         r=requests.get(url="https://sentry.io/api/0/projects/jelszo-co/playlist-frontend/issues/",headers={"Authorization":"Bearer "+config["sentryapi"]})
-        return JsonResponse(r.json(),safe=False)
+        return HttpResponse(len(r.json()))
     else:
         raise PermissionDenied

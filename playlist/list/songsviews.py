@@ -108,7 +108,7 @@ def played_view(request, *args, **kwargs):
             object = Song.objects.filter(id=id)
             if object.exists():
                 object.update(played=True, playedAt=datetime.datetime.now())
-                Log.objects.create(user=request.user,title="played",content=object[0].artist+" - "+object[0].title+" (id: "+object[0].id+")")
+                Log.objects.create(user=request.user,title="played",content=str(object[0].artist+" - "+object[0].title+" (id: "+object[0].id+")"))
                 return HttpResponse(status=200)
             else:
                 return HttpResponse(status=422)
@@ -130,7 +130,7 @@ def delete_view(request, *args, **kwargs):
             print(id)
             object = Song.objects.filter(id=id)
             if object.exists():
-                Log.objects.create(user=request.user,title="deleted",content=object[0].artist+" - "+object[0].title+" (id: "+object[0].id+")")
+                Log.objects.create(user=request.user,title="deleted",content=str(object[0].artist+" - "+object[0].title+" (id: "+object[0].id+")"))
                 object.delete()
                 return HttpResponse(status=200)
             else:
