@@ -1,3 +1,6 @@
+$resp-mobile: "only screen and (max-width : 900px)";
+$resp-laptop: "only screen and (max-width : 1400px)";
+
 $borderradius: 35px;
 %boxshadow {
 	-webkit-box-shadow: 0px 10px 60px 0px rgba(19, 156, 97, 0.2);
@@ -17,6 +20,10 @@ $borderradius: 35px;
 		font-weight: 300;
 		font-size: 2.3rem;
 		letter-spacing: 6px;
+
+		@media #{$resp-laptop} {
+			font-size: 1.5rem;
+		}
 	}
 
 	.settings-grid {
