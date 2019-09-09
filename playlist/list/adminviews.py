@@ -11,7 +11,7 @@ from django.core import serializers
 from django.core.exceptions import PermissionDenied
 from django.utils import timezone
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 from simplecrypt import encrypt
@@ -237,7 +237,7 @@ def log_view(request, *args, **kwargs):
 
 def sentry_view(request, *args, **kwargs):
     if request.user.is_authenticated:
-        # r=requests.get(url="https://sentry.io/api/0/projects/jelszo-co/playlist-frontend/issues/")
-        return HttpResponse(config["sentryapi"])
+        r=requests.get(url="https://sentry.io/api/0/projects/jelszo-co/playlist-frontend/issues/",headers={"Authorization":"Bearer "+config["sentryapi"]})
+        return JsonResponse(r.json(),safe=False)
     else:
         raise PermissionDenied
