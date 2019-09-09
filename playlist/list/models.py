@@ -13,10 +13,6 @@ class Song(models.Model):
     playedAt=models.DateTimeField(null=True,blank=True)
     hide=models.BooleanField(default=False)
 
-class Question(models.Model):
-    question=models.CharField(max_length=100)
-    answer=models.CharField(max_length=20)
-
 class BlockedUser(models.Model):
     userid=models.UUIDField()
     permanent=models.BooleanField(default=False)

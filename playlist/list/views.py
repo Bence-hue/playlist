@@ -18,7 +18,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from simplecrypt import encrypt
 
-from .models import BlockedUser, Question, Song, Setting,Log
+from .models import BlockedUser, Song, Setting,Log
 
 with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "datas.json"), "r") as cffile:
     config = json.loads(cffile.readline())
@@ -212,20 +212,6 @@ def adminlogout_view(request, *args, **kwargs):
     respons=redirect("/")
     respons.delete_cookie("login")
     return respons
-
-
-def question_view(request, *args, **kwargs):
-    if request.method == 'GET':
-        questions = Question.objects.all()
-        id = random.randrange(len(questions))
-        q = json.loads(serializers.serialize("json", Question.objects.get(id=id)))
-        print(q)
-        qjson = q[0]["fields"]
-        qjson["id"] = id
-        return HttpResponse(json.dumps(qjson), content_type="application/json", status=200)
-    else:
-        return HttpResponse(status=405)
-
 
 def email_view(request, *args, **kwargs):
     if request.method == 'POST':
