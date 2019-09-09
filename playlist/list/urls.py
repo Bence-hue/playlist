@@ -18,5 +18,5 @@ urlpatterns=[
     path('settings/',views.settings_view,name="settings"),
     path('settings/<s>/',views.settings_view,name="settings"),
     path('log/',views.log_view,name="log"),
-    path('key/',views.key_view)
+    
 ]
