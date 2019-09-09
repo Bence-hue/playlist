@@ -1,21 +1,21 @@
 from django.urls import path,include
-from . import views
+from . import songsviews,adminviews
 
 urlpatterns=[
-    path('new/',views.new_view,name='new'),
-    path('played/',views.played_view,name="played"),
-    path('delete/',views.delete_view,name="delete"),
-    path('list/',views.list_view,name='list'),
-    path('login/',views.adminlogin_view,name="login"),
-    path('logout/', views.adminlogout_view, name="logout"),
-    path('feedback/',views.email_view,name="mail"),
-    path('blockuser/',views.blockuser_view,name="blockuser"),
-    path('username/',views.username_view,name="username"),
-    path('statistics/',views.statistics_view,name="statistics"),
-    path('users/',views.users_view,name="users"),
-    path('unblock/',views.unblockuser_view,name="unblock"),
-    path('settings/',views.settings_view,name="settings"),
-    path('settings/<s>/',views.settings_view,name="settings"),
-    path('log/',views.log_view,name="log"),
+    path('new/',songsviews.new_view,name='new'),
+    path('played/',songsviews.played_view,name="played"),
+    path('delete/',songsviews.delete_view,name="delete"),
+    path('list/',songsviews.list_view,name='list'),
+    path('login/',adminviews.adminlogin_view,name="login"),
+    path('logout/', adminviews.adminlogout_view, name="logout"),
+    path('feedback/',songsviews.email_view,name="mail"),
+    path('blockuser/',adminviews.blockuser_view,name="blockuser"),
+    path('username/',adminviews.username_view,name="username"),
+    path('statistics/',adminviews.statistics_view,name="statistics"),
+    path('users/',adminviews.users_view,name="users"),
+    path('unblock/',adminviews.unblockuser_view,name="unblock"),
+    path('settings/',adminviews.settings_view,name="settings"),
+    path('settings/<s>/',adminviews.settings_view,name="settings"),
+    path('log/',adminviews.log_view,name="log"),
     
 ]
