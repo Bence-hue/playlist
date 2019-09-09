@@ -70,7 +70,7 @@ export default class AdminSettings extends Component {
 
 		axios
 			.get(url)
-			.then((r) => this.setState({ sentryErrors: r.data.length() }))
+			.then((r) => this.setState({ sentryErrors: r.data.length }))
 			.catch((e) => {
 				console.error(e);
 			});
