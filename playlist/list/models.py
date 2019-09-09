@@ -25,5 +25,5 @@ class Setting(models.Model):
 class Log(models.Model):
     user=models.ForeignKey(User,models.SET_NULL,null=True)
     title=models.CharField(max_length=100)
-    content=models.CharField(max_length=100)
+    content=models.CharField(max_length=200)
     time=models.DateTimeField(auto_now_add=True)
