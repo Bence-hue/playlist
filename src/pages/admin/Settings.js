@@ -29,9 +29,7 @@ export default class AdminSettings extends Component {
 			.catch((err) => console.error(err));
 
 		// get log
-		axios
-			.get("/api/log/")
-			.then((r) => this.setState({ log: JSON.parse(r.data) }));
+		axios.get("/api/log/").then((r) => this.setState({ log: r.data }));
 		// .then((r) => console.log(r.data));
 
 		// get ping
