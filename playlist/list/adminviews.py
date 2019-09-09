@@ -187,11 +187,19 @@ def settings_view(request, *args, **kwargs):
                 setting=Setting.objects.get(name="maintenance")
                 setting.value=int(request.POST.get("value","false")=="true")
                 setting.save()
+                if request.POST.get("value","false")=="true":
+                    Log.objects.create(user=request.user,title="modify",content="Maintenance mód bekapcsolva")
+                else:
+                    Log.objects.create(user=request.user,title="modify",content="Maintenance mód kikapcsolva")
                 return HttpResponse(Setting.objects.get(name="maintenance").value==1)
             elif s=="canrequestsong":
                 setting=Setting.objects.get(name="canRequestSong")
                 setting.value=int(request.POST.get("value","true")=="true")
                 setting.save()
+                if request.POST.get("value","true")=="true":
+                    Log.objects.create(user=request.user,title="modify",content="Nem lehet számot kérni")
+                else:
+                    Log.objects.create(user=request.user,title="modify",content="Lehet számot kérni")
                 return HttpResponse(Setting.objects.get(name="canRequestSong").value==1)
             elif s=="songlimit":
                 number=request.POST.get("number",Setting.objects.get(name="songLimitNumber").value)
@@ -202,6 +210,9 @@ def settings_view(request, *args, **kwargs):
                 m=Setting.objects.get(name="songLimitMinute")
                 m.value=minute
                 m.save()
+                minute=request.POST.get("minute",Setting.objects.get(name="songLimitMinute").value)
+                minute=request.POST.get("minute",Setting.objects.get(name="songLimitMinute").value)
+                Log.objects.create(user=request.user,title="modify",content="Új limit: {}, {} percenként".format(request.POST.get("number",Setting.objects.get(name="songLimitNumber").value),request.POST.get("minute",Setting.objects.get(name="songLimitMinute").value)))
                 r={
                     "number":Setting.objects.get(name="songLimitNumber").value,
                     "minute":Setting.objects.get(name="songLimitMinute").value
@@ -228,7 +239,7 @@ def log_view(request, *args, **kwargs):
             log=[]
             for l in reversed(lograw):
                 user=User.objects.get(id=l["fields"]["user"])
-                log.append({"title":l["fields"]["title"],"content":l["fields"]["content"],"user":user.get_username()+" ("+user.get_full_name()+")"})
+                log.append({"type":l["fields"]["title"],"content":l["fields"]["content"],"name":user.get_username()+" ("+user.get_full_name()+")"})
             return HttpResponse(log)
         else:
             return HttpResponse(status=405)
