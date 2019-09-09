@@ -243,7 +243,7 @@ def log_view(request, *args, **kwargs):
             log=[]
             for l in reversed(lograw):
                 log.append({"type":l.title,"content":l.content,"name":l.user.get_username()+" ("+l.user.get_full_name()+")","time":gettime(l.time)})
-            return HttpResponse(log)
+            return HttpResponse(log,content_type="application/json")
         else:
             return HttpResponse(status=405)
     else:
