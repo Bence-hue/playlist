@@ -235,16 +235,28 @@ def settings_view(request, *args, **kwargs):
 def log_view(request, *args, **kwargs):
     if request.user.is_authenticated:
         if request.method=='GET':
-            lograw=json.loads(serializers.serialize("json",Log.objects.all()))
+            lograw=Log.objects.all()
             log=[]
             for l in reversed(lograw):
-                user=User.objects.get(id=l["fields"]["user"])
-                log.append({"type":l["fields"]["title"],"content":l["fields"]["content"],"name":user.get_username()+" ("+user.get_full_name()+")"})
+                log.append({"type":l.title,"content":l.content,"name":l.user.get_username()+" ("+l.user.get_full_name()+")","time":gettime(l.time)})
             return HttpResponse(log)
         else:
             return HttpResponse(status=405)
     else:
         raise PermissionDenied
+
+def gettime(dt):
+    td=timezone.now()-dt
+    if td <= datetime.timedelta(minutes=1):
+        return "Épp most"
+    elif td <= datetime.timedelta(hours=1):
+        return "{} perce".format(td.seconds//60)
+    elif td <= datetime.timedelta(days=1):
+        return "{} órája".format(td.seconds//3600)
+    elif td <= datetime.timedelta(days=7):
+        return "{} napja".format(td.days)
+    else:
+        return "{} hete".format(td.days//7)
 
 def sentry_view(request, *args, **kwargs):
     if request.user.is_authenticated:
