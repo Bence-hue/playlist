@@ -39,7 +39,7 @@ export default class AdminSettings extends Component {
 		});
 
 		// get sentry errors
-		let url = "/api/sentry/issues/";
+		let url = "/api/sentry/";
 
 		axios
 			.get(url)
