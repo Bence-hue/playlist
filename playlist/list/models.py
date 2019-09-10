@@ -17,10 +17,18 @@ class BlockedUser(models.Model):
     userid=models.UUIDField()
     permanent=models.BooleanField(default=False)
     expireAt=models.DateTimeField(blank=True,null=True)
+    class Meta:
+        permissions=[
+            ("can_ban","Tud un/bannolni")
+        ]
 
 class Setting(models.Model):
     name=models.CharField(max_length=100,unique=True)
     value=models.IntegerField()
+    class Meta:
+        permissions=[
+            ("can_modify_settings","Tud állítani a beállításokon")
+        ]
 
 class Log(models.Model):
     user=models.ForeignKey(User,models.SET_NULL,null=True)
