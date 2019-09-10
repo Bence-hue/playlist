@@ -6,6 +6,7 @@ import getPackageJsonFromGithub from "get-package-json-from-github";
 import Header from "../components/Header";
 import Toggler from "../components/Toggler";
 import LogCard from "./LogCard";
+import Modal from "../components/Modal";
 
 import "../../css/admin-css/settings.scss";
 
@@ -71,6 +72,9 @@ export default class AdminSettings extends Component {
 				});
 			})
 			.catch((err) => {
+				if (err.status === 401) {
+					this.setState({ isActionProhibited: true });
+				}
 				console.error(err);
 			});
 	};
@@ -171,6 +175,11 @@ export default class AdminSettings extends Component {
 		}
 		return (
 			<div id="settings">
+				<Modal
+					toggler={this.state.isActionProhibited}
+					title={"Ez nem fog menni..."}
+					content={"Ehhez nincs jogod."}
+				/>
 				<Header kolcsey={false} />
 				<h1 className="settings-heading">site settings</h1>
 				<div className="settings-grid">
