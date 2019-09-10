@@ -301,6 +301,7 @@ $borderradius: 35px;
 			grid-row: 3 / 6;
 			grid-column: 3 / 4;
 			overflow: scroll;
+			background: #fff;
 			&::-webkit-scrollbar {
 				display: none;
 			}
