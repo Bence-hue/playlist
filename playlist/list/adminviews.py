@@ -259,8 +259,9 @@ def gettime(dt):
         return "{} órája".format(td.seconds//3600)
     elif td <= datetime.timedelta(days=7):
         return "{} napja".format(td.days)
-    else:
+    elif td <= datetime.timedelta(weeks=4):
         return "{} hete".format(td.days//7)
+    else: dt.strftime("%Y.%m.%d")
 
 def sentry_view(request, *args, **kwargs):
     if request.user.is_authenticated:
