@@ -368,9 +368,8 @@
 .dots {
 	width: 35px;
 	position: absolute;
-	top: 50%;
+	top: 2%;
 	left: 5%;
-	transform: translateY(-50%);
 	fill: rgb(17, 126, 79);
 	cursor: pointer;
 	transition: 0.1s all ease-in-out;
