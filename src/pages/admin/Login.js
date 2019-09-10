@@ -5,9 +5,8 @@ import queryString from "query-string";
 import "../../css/admin-css/login.scss";
 
 import { ReactComponent as LoginBanner } from "../../assets/Login-art.svg";
-import { ReactComponent as Circle } from "../../assets/circle-solid.svg";
-import { ReactComponent as Times } from "../../assets/times-solid.svg";
 
+import Modal from "../components/Modal";
 export default class AdminLogin extends Component {
 	state = {
 		username: "",
@@ -40,41 +39,10 @@ export default class AdminLogin extends Component {
 		const { noauthModal } = this.state;
 		return (
 			<div>
+				<Modal toggler={noauthModal} title={"Hibás jelszó!"} content={"Szép próbálkozás.😉"} />
 				<div className="login-page" />
-				{noauthModal ? (
-					<div id="noauth">
-						<div className="noauth-modal">
-							<div
-								className="noauth-modal__button-wrapper"
-								onClick={this.hideModal}
-							>
-								<Circle className="noauth-modal-button-icon noauth-circle" />
-								<Times className="noauth-modal-button-icon noauth-times" />
-							</div>
-							<div className="noauth-modal__content">
-								<h2>Hibás jelszó!</h2>
-								<div className="noauth-modal__span" />
-								<p>
-									Szép próbálkozás.{" "}
-									<span
-										role="img"
-										aria-label="winking face"
-										style={{ fontStyle: "normal" }}
-									>
-										😉
-									</span>
-								</p>
-							</div>
-						</div>
-					</div>
-				) : (
-					""
-				)}
 				<Header kolcsey={true} />
-				<LoginBanner
-					className="login-banner"
-					style={{ opacity: 1, zIndex: -100 }}
-				/>
+				<LoginBanner className="login-banner" style={{ opacity: 1, zIndex: -100 }} />
 				<div id="login-wrapper">
 					<h1>
 						<span>Admin</span>
@@ -87,18 +55,8 @@ export default class AdminLogin extends Component {
 						autoComplete="off"
 						remember={this.state.remember}
 					>
-						<input
-							type="text"
-							name="username"
-							placeholder="Felhasználónév"
-							required
-						/>
-						<input
-							type="password"
-							name="password"
-							placeholder="Jelszó"
-							required
-						/>
+						<input type="text" name="username" placeholder="Felhasználónév" required />
+						<input type="password" name="password" placeholder="Jelszó" required />
 						<button type="submit" value="">
 							<i className="fas fa-arrow-right" />
 						</button>

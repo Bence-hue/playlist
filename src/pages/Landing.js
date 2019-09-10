@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Transition, animated } from "react-spring/renderprops";
 import axios from "axios";
+import queryString from "query-string";
 
 import { ReactComponent as ARTleft } from "../assets/Landing-left.svg";
 import { ReactComponent as ARTright } from "../assets/Landing-right.svg";
@@ -14,12 +15,14 @@ import "../css/fonts.css";
 
 import Header from "./components/Header";
 import CookiePopup from "./components/CookiePopup";
+import Modal from "./components/Modal";
 
 export default class Landing extends Component {
 	state = {
 		cookieVisible: true,
 		viewCookie: true,
-		latest: {}
+		latest: {},
+		nonewModal: false
 	};
 	componentWillMount() {
 		const didCookie = localStorage.getItem("didCookiePresent");
@@ -30,6 +33,13 @@ export default class Landing extends Component {
 		}
 		let url = "/api/list/?mode=latest";
 		axios.get(url).then((res) => this.setState({ latest: res.data }));
+
+		const urlParams = queryString.parse(this.props.location.search);
+		console.log(urlParams);
+
+		if (urlParams.noNew === "true") {
+			this.setState({ nonewModal: true });
+		}
 	}
 
 	hideCookie = () => {
@@ -41,6 +51,7 @@ export default class Landing extends Component {
 		const lat = this.state.latest;
 		return (
 			<React.Fragment>
+				<Modal toggler={this.state.nonewModal} title={"Bocsi, most nem..."} content={"Sajnos most nem lehet zenét kérni."}/>
 				<Header kolcsey={true} />
 				<div id="lastadded">
 					<h3>Legutóbb hozzáadott:</h3>
@@ -92,10 +103,7 @@ export default class Landing extends Component {
 							show &&
 							((props) => (
 								<animated.div style={props}>
-									<CookiePopup
-										className="cookie-pop"
-										hideCookie={this.hideCookie}
-									/>
+									<CookiePopup className="cookie-pop" hideCookie={this.hideCookie} />
 								</animated.div>
 							))
 						}
