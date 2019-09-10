@@ -53,7 +53,7 @@ def adminlogout_view(request, *args, **kwargs):
 # @csrf_exempt
 def blockuser_view(request, *args, **kwargs):
     if request.method == 'POST':
-        if request.user.is_authenticated:
+        if request.user.has_perm('can_ban'):
             data = request.POST
             if data.get("permanent", "true") == "true":
                 BlockedUser.objects.create(userid=data.get("userid"), permanent=True)
@@ -77,7 +77,7 @@ def blockuser_view(request, *args, **kwargs):
 
 def unblockuser_view(request, *args, **kwargs):
     if request.method == 'POST':
-        if request.user.is_authenticated:
+        if request.user.has_perm('can_ban'):
             print(request.POST.get("userid"))
             user = BlockedUser.objects.filter(userid=request.POST.get("userid", uuid.uuid4))
             p = user.filter(permanent=True)
@@ -184,7 +184,7 @@ def user_blockedFor(l):
 
 @csrf_exempt
 def settings_view(request, *args, **kwargs):
-    if request.user.is_authenticated:
+    if request.user.has_perm('can_modify_settings'):
         if request.method=='POST':
             s=kwargs["s"]
             if s=="maintenance":
