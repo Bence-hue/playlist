@@ -70,7 +70,7 @@ def blockuser_view(request, *args, **kwargs):
                 l.save()
             return HttpResponse(status=201)
         else:
-            raise PermissionDenied
+            return HttpResponse(status=401)
     else:
         return HttpResponse(status=405)
 
@@ -99,7 +99,7 @@ def unblockuser_view(request, *args, **kwargs):
                 Log.objects.create(user=request.user,title="unban",content=request.POST.get("userid"))
             return HttpResponse(status=200)
         else:
-            raise PermissionDenied
+            return HttpResponse(status=401)
     else:
         return HttpResponse(status=405)
 
@@ -184,46 +184,49 @@ def user_blockedFor(l):
 
 @csrf_exempt
 def settings_view(request, *args, **kwargs):
-    if request.user.has_perm('can_modify_settings'):
+    if request.user.is_authenticated:
         if request.method=='POST':
-            s=kwargs["s"]
-            if s=="maintenance":
-                setting=Setting.objects.get(name="maintenance")
-                setting.value=int(request.POST.get("value","false")=="true")
-                setting.save()
-                if request.POST.get("value","false")=="true":
-                    Log.objects.create(user=request.user,title="modify",content="Maintenance mód bekapcsolva")
+            if request.user.has_perm("can_modify_settings"):
+                s=kwargs["s"]
+                if s=="maintenance":
+                    setting=Setting.objects.get(name="maintenance")
+                    setting.value=int(request.POST.get("value","false")=="true")
+                    setting.save()
+                    if request.POST.get("value","false")=="true":
+                        Log.objects.create(user=request.user,title="modify",content="Maintenance mód bekapcsolva")
+                    else:
+                        Log.objects.create(user=request.user,title="modify",content="Maintenance mód kikapcsolva")
+                    return HttpResponse(Setting.objects.get(name="maintenance").value==1)
+                elif s=="canrequestsong":
+                    setting=Setting.objects.get(name="canRequestSong")
+                    setting.value=int(request.POST.get("value","true")=="true")
+                    setting.save()
+                    if request.POST.get("value","true")=="true":
+                        Log.objects.create(user=request.user,title="modify",content="Lehet számot kérni")
+                    else:
+                        Log.objects.create(user=request.user,title="modify",content="Nem lehet számot kérni")
+                    return HttpResponse(Setting.objects.get(name="canRequestSong").value==1)
+                elif s=="songlimit":
+                    number=request.POST.get("number",Setting.objects.get(name="songLimitNumber").value)
+                    minute=request.POST.get("minute",Setting.objects.get(name="songLimitMinute").value)
+                    n=Setting.objects.get(name="songLimitNumber")
+                    n.value=number
+                    n.save()
+                    m=Setting.objects.get(name="songLimitMinute")
+                    m.value=minute
+                    m.save()
+                    minute=request.POST.get("minute",Setting.objects.get(name="songLimitMinute").value)
+                    minute=request.POST.get("minute",Setting.objects.get(name="songLimitMinute").value)
+                    Log.objects.create(user=request.user,title="modify",content="Új limit: {}, {} percenként".format(request.POST.get("number",Setting.objects.get(name="songLimitNumber").value),request.POST.get("minute",Setting.objects.get(name="songLimitMinute").value)))
+                    r={
+                        "number":Setting.objects.get(name="songLimitNumber").value,
+                        "minute":Setting.objects.get(name="songLimitMinute").value
+                    }
+                    return HttpResponse(json.dumps(r))
                 else:
-                    Log.objects.create(user=request.user,title="modify",content="Maintenance mód kikapcsolva")
-                return HttpResponse(Setting.objects.get(name="maintenance").value==1)
-            elif s=="canrequestsong":
-                setting=Setting.objects.get(name="canRequestSong")
-                setting.value=int(request.POST.get("value","true")=="true")
-                setting.save()
-                if request.POST.get("value","true")=="true":
-                    Log.objects.create(user=request.user,title="modify",content="Lehet számot kérni")
-                else:
-                    Log.objects.create(user=request.user,title="modify",content="Nem lehet számot kérni")
-                return HttpResponse(Setting.objects.get(name="canRequestSong").value==1)
-            elif s=="songlimit":
-                number=request.POST.get("number",Setting.objects.get(name="songLimitNumber").value)
-                minute=request.POST.get("minute",Setting.objects.get(name="songLimitMinute").value)
-                n=Setting.objects.get(name="songLimitNumber")
-                n.value=number
-                n.save()
-                m=Setting.objects.get(name="songLimitMinute")
-                m.value=minute
-                m.save()
-                minute=request.POST.get("minute",Setting.objects.get(name="songLimitMinute").value)
-                minute=request.POST.get("minute",Setting.objects.get(name="songLimitMinute").value)
-                Log.objects.create(user=request.user,title="modify",content="Új limit: {}, {} percenként".format(request.POST.get("number",Setting.objects.get(name="songLimitNumber").value),request.POST.get("minute",Setting.objects.get(name="songLimitMinute").value)))
-                r={
-                    "number":Setting.objects.get(name="songLimitNumber").value,
-                    "minute":Setting.objects.get(name="songLimitMinute").value
-                }
-                return HttpResponse(json.dumps(r))
+                    return HttpResponse(status=422)
             else:
-                return HttpResponse(status=422)
+                return HttpResponse(status=401)
         else:
             settings=Setting.objects
             s={
