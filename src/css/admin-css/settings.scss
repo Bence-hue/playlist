@@ -24,6 +24,10 @@ $borderradius: 35px;
 		@media #{$resp-laptop} {
 			font-size: 1.5rem;
 		}
+		@media #{$resp-mobile} {
+			width: 100%;
+			top: 13%;
+		}
 	}
 
 	.settings-grid {
@@ -37,6 +41,13 @@ $borderradius: 35px;
 		width: 90%;
 		height: 70%;
 
+		@media #{$resp-mobile} {
+			display: block;
+			height: auto;
+			top: 25%;
+			width: 88%;
+		}
+
 		.settings-grid__maintenance {
 			position: relative;
 			grid-row: 1 / 2;
@@ -44,6 +55,11 @@ $borderradius: 35px;
 			border-radius: $borderradius;
 			text-align: center;
 			@extend %boxshadow;
+
+			@media #{$resp-mobile} {
+				height: 80px;
+				margin-bottom: 20px;
+			}
 
 			h2 {
 				margin: 0;
@@ -56,6 +72,10 @@ $borderradius: 35px;
 				font-family: "Open Sans";
 				font-weight: 300;
 				letter-spacing: 2px;
+
+				@media #{$resp-mobile} {
+					font-size: 1rem;
+				}
 			}
 
 			#toggler {
@@ -74,6 +94,12 @@ $borderradius: 35px;
 			display: grid;
 			border-radius: $borderradius;
 			@extend %boxshadow;
+
+			@media #{$resp-mobile} {
+				height: 250px;
+				margin: 0;
+				margin-bottom: 20px;
+			}
 
 			h2 {
 				text-align: center;
@@ -106,6 +132,11 @@ $borderradius: 35px;
 					font-family: "Open Sans";
 					font-weight: 300;
 					font-size: 1.7rem;
+
+					@media #{$resp-mobile} {
+						font-size: 1.3rem;
+						white-space: nowrap;
+					}
 
 					&:nth-child(1) {
 						grid-row: 1 / 2;
@@ -227,6 +258,12 @@ $borderradius: 35px;
 			grid-row: 1 / 4;
 			@extend %boxshadow;
 			border-radius: $borderradius;
+
+			@media #{$resp-mobile} {
+				height: 250px;
+				margin: 0;
+				margin-bottom: 20px;
+			}
 			h2 {
 				text-align: center;
 				margin: 25px 0 0 0;
@@ -234,6 +271,12 @@ $borderradius: 35px;
 				font-family: "Open Sans";
 				font-weight: 300;
 				letter-spacing: 2px;
+
+				@media #{$resp-mobile} {
+					position: relative;
+					margin: 0;
+					top: 25px;
+				}
 			}
 
 			.settings-grid__stats__grid {
@@ -258,6 +301,10 @@ $borderradius: 35px;
 					top: 50%;
 					left: 0;
 					transform: translateY(-50%);
+
+					@media #{$resp-mobile} {
+						font-size: 1.3rem;
+					}
 
 					&:nth-child(1) {
 						grid-row: 1 / 2;
@@ -309,6 +356,12 @@ $borderradius: 35px;
 			margin: 0 5%;
 			@extend %boxshadow;
 			border-radius: $borderradius;
+			@media #{$resp-mobile} {
+				height: 400px;
+				width: 100%;
+				margin: 0;
+				margin-bottom: 40px;
+			}
 			h2 {
 				text-align: center;
 				margin: 25px 0 0 0;
@@ -381,6 +434,10 @@ $borderradius: 35px;
 		left: 0;
 		width: 100%;
 		z-index: -10000000;
+
+		@media #{$resp-mobile} {
+			display: none;
+		}
 	}
 }
 
