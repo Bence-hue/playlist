@@ -15,6 +15,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 from simplecrypt import encrypt
+from .spotify import add,delete
 
 from .models import BlockedUser, Log, Setting, Song
 
@@ -66,6 +67,7 @@ def blockuser_view(request, *args, **kwargs):
                     "userid":data.get("userid"),
                     "status":"{} hétre".format(data.get("expirein", 1))}))
             for l in Song.objects.filter(user=data.get("userid"), played=False, hide=False):
+                delete(l.spotiuri)
                 l.hide = True
                 l.save()
             return HttpResponse(status=201)
@@ -95,6 +97,7 @@ def unblockuser_view(request, *args, **kwargs):
                     l.save()
             for l in Song.objects.filter(user=request.POST.get("userid", uuid.uuid4), played=False, hide=True):
                 l.hide = False
+                add(l.spotiuri)
                 l.save()
                 Log.objects.create(user=request.user,title="unban",content=request.POST.get("userid"))
             return HttpResponse(status=200)

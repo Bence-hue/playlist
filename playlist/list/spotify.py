@@ -15,12 +15,10 @@ with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 
 
 def spotylogin_view(request, *args, **kwargs):
-    
-    return HttpResponse(new("feelings maroon 5"))
-    # if request.user.has_perm('spotilogin'):
-    #     redirectUrl='https://accounts.spotify.com/en/authorize?client_id=83d5b03d29f64c7bba950c8f081b08ab&response_type=code&redirect_uri='+request.build_absolute_uri('/api/spotilogin/callback')+'&state='+config["spotistate"]+"&scope=playlist-modify-private "
-    #     return redirect(redirectUrl)
-    # else: raise PermissionDenied
+    if request.user.has_perm('spotilogin'):
+        redirectUrl='https://accounts.spotify.com/en/authorize?client_id=83d5b03d29f64c7bba950c8f081b08ab&response_type=code&redirect_uri='+request.build_absolute_uri('/api/spotilogin/callback')+'&state='+config["spotistate"]+"&scope=playlist-modify-private "
+        return redirect(redirectUrl)
+    else: raise PermissionDenied
 
 @csrf_exempt
 def spotylogincallback_view(request, *args, **kwargs):
@@ -80,7 +78,20 @@ def new(title):
     try:
         a=requests.post("https://api.spotify.com/v1/playlists/2zNpxy6agd3jRPzEVovt5t/tracks",params={"uris":respons["tracks"]["items"][0]["uri"]},headers={"Authorization":"Bearer "+Spoti.objects.get(key="access_token").value})
         print(a.status_code,a.text,a.url)
-        return (respons["tracks"]["items"][0]["artists"][0]["name"]+": "+respons["tracks"]["items"][0]["name"],respons["tracks"]["items"][0]["external_urls"]["spotify"])
+        return (respons["tracks"]["items"][0]["artists"][0]["name"]+": "+respons["tracks"]["items"][0]["name"],respons["tracks"]["items"][0]["external_urls"]["spotify"],respons["tracks"]["items"][0]["uri"])
     except Exception as e:
         print(e)
-        return ("","")
+        return ("","","")
+
+def add(uri):
+    if uri=="":return
+    checkexpiration()
+    r=requests.post("https://api.spotify.com/v1/playlists/2zNpxy6agd3jRPzEVovt5t/tracks",params={"uris":uri},headers={"Authorization":"Bearer "+Spoti.objects.get(key="access_token").value})
+
+def delete(uri):
+    if uri=="":return
+    checkexpiration()
+    r=requests.delete("https://api.spotify.com/v1/playlists/2zNpxy6agd3jRPzEVovt5t/tracks",headers={
+        "Authorization":"Bearer "+Spoti.objects.get(key="access_token").value,
+        "Content-Type":"application/json"
+    },data=json.dumps({"tracks":[{"uri":uri}]}))
