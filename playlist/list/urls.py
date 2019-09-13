@@ -1,5 +1,5 @@
 from django.urls import path,include
-from . import songsviews,adminviews
+from . import songsviews,adminviews,spotify
 
 urlpatterns=[
     path('new/',songsviews.new_view,name='new'),
@@ -17,5 +17,7 @@ urlpatterns=[
     path('settings/',adminviews.settings_view,name="settings"),
     path('settings/<s>/',adminviews.settings_view,name="settings"),
     path('log/',adminviews.log_view,name="log"),
-    path('sentry/',adminviews.sentry_view)
+    path('sentry/',adminviews.sentry_view),
+    path('spotilogin/',spotify.spotylogin_view),
+    path('spotilogin/callback/',spotify.spotylogincallback_view)
 ]

@@ -11,6 +11,7 @@ from django.core import serializers
 from django.core.exceptions import PermissionDenied
 from django.utils import timezone
 from django.core.mail import EmailMessage
+from .spotify import new, delete
 
 with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "datas.json"), "r") as cffile:
     config = json.loads(cffile.readline())
@@ -74,7 +75,8 @@ def new_view(request, *args, **kwargs):
                 if len(lastrecord) < Setting.objects.get(name="songLimitNumber").value:
                     if not Song.objects.filter(link=link, played=False).exclude(link="").exists():
                         if not Song.objects.filter(link=link, played=True,playedAt__gte=timezone.now() - datetime.timedelta(weeks=1)).exclude(link="").exists():
-                            Song.objects.create(title=title, artist=artist, link=link,user=user, yttitle=yttitle)
+                            stitle,slink,suri=new(artist+" "+title)
+                            Song.objects.create(title=title, artist=artist, link=link,user=user, yttitle=yttitle,spotititle=stitle,spotilink=slink,spotiuri=suri)
                             return HttpResponse(status=201)
                         else:  # ha az utobbi egy hetben lett lejatszva
                             return HttpResponse("{\"played\": True}", status=422)
@@ -108,6 +110,7 @@ def played_view(request, *args, **kwargs):
             object = Song.objects.filter(id=id)
             if object.exists():
                 object.update(played=True, playedAt=datetime.datetime.now())
+                delete(object[0].spotiuri)
                 Log.objects.create(user=request.user,title="played",content=object[0].artist+" - "+object[0].title+" (id: "+str(object[0].id)+")")
                 return HttpResponse(status=200)
             else:
@@ -130,6 +133,7 @@ def delete_view(request, *args, **kwargs):
             print(id)
             object = Song.objects.filter(id=id)
             if object.exists():
+                delete(object[0].spotiuri)
                 Log.objects.create(user=request.user,title="deleted",content=object[0].artist+" - "+object[0].title+" (id: "+str(object[0].id)+")")
                 object.delete()
                 return HttpResponse(status=200)

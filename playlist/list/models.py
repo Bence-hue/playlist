@@ -7,6 +7,9 @@ class Song(models.Model):
     artist=models.CharField(max_length=100)
     yttitle = models.CharField(max_length=100, null=True, blank=True)
     link=models.URLField(null=True,blank=True)
+    spotilink=models.URLField(null=True,blank=True)
+    spotititle=models.CharField(max_length=100, null=True, blank=True)
+    spotiuri=models.CharField(max_length=100, null=True, blank=True)
     user=models.CharField(max_length=36)
     createdAt=models.DateTimeField(auto_now_add=True,null=True)
     played=models.BooleanField(default=False)
@@ -35,3 +38,7 @@ class Log(models.Model):
     title=models.CharField(max_length=100)
     content=models.CharField(max_length=200)
     time=models.DateTimeField(auto_now_add=True)
+
+class Spoti(models.Model):
+    key=models.CharField(max_length=200)
+    value=models.CharField(max_length=200)
