@@ -7,6 +7,8 @@ class Song(models.Model):
     artist=models.CharField(max_length=100)
     yttitle = models.CharField(max_length=100, null=True, blank=True)
     link=models.URLField(null=True,blank=True)
+    spotilink=models.URLField(null=True,blank=True)
+    spotitile=models.CharField(max_length=100, null=True, blank=True)
     user=models.CharField(max_length=36)
     createdAt=models.DateTimeField(auto_now_add=True,null=True)
     played=models.BooleanField(default=False)
