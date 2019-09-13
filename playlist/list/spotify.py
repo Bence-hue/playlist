@@ -42,7 +42,7 @@ def spotylogincallback_view(request, *args, **kwargs):
             ea,c=Spoti.objects.get_or_create(key='expires_at')
             ea.value=datetime.datetime.now()+datetime.timedelta(seconds=rj["expires_in"])
             ea.save()
-            return HttpResponse(status=200)
+            return redirect("/")
     return redirect("/")
 
 def checkexpiration():
