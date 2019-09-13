@@ -24,10 +24,10 @@ with open(os.path.join(BASE_DIR,"datas.json"), "r") as cffile:
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
-sentry_sdk.init(
-    dsn=config["dsn"],
-    integrations=[DjangoIntegration()]
-)
+# sentry_sdk.init(
+#     dsn=config["dsn"],
+#     integrations=[DjangoIntegration()]
+# )
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config.get("SECRET_KEY")
@@ -35,7 +35,7 @@ SECRET_KEY = config.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["46.107.123.236","127.0.0.1","192.168.1.71","bnctth.ml","playlist.jelszo.co","217.144.54.230"]
+ALLOWED_HOSTS = ["78.92.104.203","127.0.0.1","192.168.1.71","bnctth.ml","playlist.jelszo.co","217.144.54.230"]
 
 
 # Application definition

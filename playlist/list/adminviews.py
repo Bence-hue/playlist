@@ -11,7 +11,7 @@ from django.core import serializers
 from django.core.exceptions import PermissionDenied
 from django.utils import timezone
 from django.db.models import Q
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 from simplecrypt import encrypt
