@@ -2,6 +2,7 @@ import json
 import os
 
 import requests
+import datetime
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import redirect
@@ -29,6 +30,16 @@ def spotylogincallback_view(request, *args, **kwargs):
                 'client_id':"83d5b03d29f64c7bba950c8f081b08ab",
                 'client_secret':config["spotisecret"]
             })
-            print(r.json())
+            rj=r.json()
+            print(rj)
+            at,c=Spoti.objects.get_or_create(key='access_token')
+            at.value=rj["access_token"]
+            at.save()
+            rt,c=Spoti.objects.get_or_create(key='refresh_token')
+            rt.value=rj["refresh_token"]
+            rt.save()
+            ea,c=Spoti.objects.get_or_create(key='expires_at')
+            ea.value=datetime.datetime.now()+datetime.timedelta(seconds=rj["expires_in"])
+            ea.save()
             return HttpResponse(status=200)
     return redirect("/")
