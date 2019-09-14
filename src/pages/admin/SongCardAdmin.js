@@ -12,8 +12,7 @@ import { ReactComponent as Dots } from "../../assets/ellipsis-h-solid.svg";
 
 export default class SongCardAdmin extends Component {
 	state = {
-		collapsed: true,
-		sessionid: ""
+		collapsed: true
 	};
 	handlePlayed = () => {
 		let url = "/api/played/";
