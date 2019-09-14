@@ -185,7 +185,7 @@ def user_blockedFor(l):
     else:
         return {"isPerma": False, "ExpireIn": (l.expireAt - timezone.now()).days + 1}
 
-@csrf_exempt
+# @csrf_exempt
 def settings_view(request, *args, **kwargs):
     if request.user.is_authenticated:
         if request.method=='POST':
