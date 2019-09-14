@@ -1,5 +1,5 @@
 from list.models import Song
-from list.spotify import new
+from list.spotify import delete
 
 for l in Song.objects.all():
-    new(l.spotiuri)
+    delete(l.spotiuri)
