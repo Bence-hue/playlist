@@ -12,8 +12,7 @@ import { ReactComponent as Dots } from "../../assets/ellipsis-h-solid.svg";
 
 export default class SongCardAdmin extends Component {
 	state = {
-		collapsed: true,
-		sessionid: ""
+		collapsed: true
 	};
 	handlePlayed = () => {
 		let url = "/api/played/";
@@ -58,10 +57,9 @@ export default class SongCardAdmin extends Component {
 			isNextArrow,
 			isPrevArrow,
 			handlePrevClick,
-			handleNextClick
+			handleNextClick,
+			id
 		} = this.props;
-
-		const { id } = this.props;
 		const { collapsed } = this.state;
 		const zIndex = {
 			zIndex: id * -1
@@ -91,7 +89,14 @@ export default class SongCardAdmin extends Component {
 				</div>
 			);
 		} else {
-			const { title, artist, yttitle, link } = this.props.song;
+			const {
+				title,
+				artist,
+				yttitle,
+				link,
+				spotititle,
+				spotilink
+			} = this.props.song;
 			return (
 				<div className="song-card song-card-admin" style={(zIndex, songCard)}>
 					<h1 style={songCardMove}>{artist}</h1>
@@ -109,14 +114,24 @@ export default class SongCardAdmin extends Component {
 						onClick={this.toggleCollapse}
 						style={
 							(songCardMove,
-							isMobile ? { transform: "translateY(-50%) rotate(90deg)" } : {})
+							isMobile
+								? { transform: "translate(50%, 50%)" }
+								: { transform: "translate(0%, 30%)" })
 						}
 					/>
 					<div className="sc-yt-wrapper" style={songCardYt}>
-						<i className="fab fa-youtube" />{" "}
-						<a href={link} target="_blank" rel="noopener noreferrer">
-							{ReactHtmlParser(yttitle)}
-						</a>
+						<p>
+							<i className="fab fa-youtube" />{" "}
+							<a href={link} target="_blank" rel="noopener noreferrer">
+								{ReactHtmlParser(yttitle)}
+							</a>
+						</p>
+						<p>
+							<i className="fab fa-spotify"></i>{" "}
+							<a href={spotilink} target="_blank" rel="noopener noreferrer">
+								{spotititle}
+							</a>
+						</p>
 					</div>
 				</div>
 			);

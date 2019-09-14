@@ -14,7 +14,68 @@ import { ReactComponent as ArrowDown } from "../../assets/angle-down-solid.svg";
 
 export default class ListSongsAdmin extends Component {
 	state = {
-		songs: [],
+		songs: [
+			{
+				title: "reflections",
+				artist: "misterwives",
+				yttitle: "MisterWives - Reflections (Official Video)",
+				link: "https://youtube.com/watch?v=fBrOwiHO-5w",
+				spotilink: "https://open.spotify.com/track/2PtBhfoPZ6VYtXkrE5FrCH",
+				spotititle: "MisterWives: Reflections",
+				spotiuri: "spotify:track:2PtBhfoPZ6VYtXkrE5FrCH",
+				user: "9b4725f4-af2b-4dd3-890f-0e4ece94dbda",
+				createdAt: "2019-09-14T08:10:21.817Z",
+				played: false,
+				playedAt: null,
+				hide: false,
+				id: 97
+			},
+			{
+				title: "come along",
+				artist: "pentatonix",
+				yttitle: "[OFFICIAL VIDEO] Come Along - Pentatonix",
+				link: "https://youtube.com/watch?v=u8rT6ij0PSo",
+				spotilink: "https://open.spotify.com/track/52J0xWYEGceLicOiziLNFp",
+				spotititle: "Pentatonix: Come Along",
+				spotiuri: "spotify:track:52J0xWYEGceLicOiziLNFp",
+				user: "9b4725f4-af2b-4dd3-890f-0e4ece94dbda",
+				createdAt: "2019-09-14T08:34:47.904Z",
+				played: false,
+				playedAt: null,
+				hide: false,
+				id: 100
+			},
+			{
+				title: "magic me",
+				artist: "imogen heap",
+				yttitle: "Imogen Heap - Magic me (Lyrics)",
+				link: "https://youtube.com/watch?v=ykWQA_QkLng",
+				spotilink: "https://open.spotify.com/track/574sQlcNxL0WHe1wh7E8ws",
+				spotititle: "Imogen Heap: Magic Me",
+				spotiuri: "spotify:track:574sQlcNxL0WHe1wh7E8ws",
+				user: "9b4725f4-af2b-4dd3-890f-0e4ece94dbda",
+				createdAt: "2019-09-14T08:36:59.890Z",
+				played: false,
+				playedAt: null,
+				hide: false,
+				id: 101
+			},
+			{
+				title: "e",
+				artist: "e",
+				yttitle: "E!E - Poslouchej",
+				link: "https://youtube.com/watch?v=Bs-xoD_MqRU",
+				spotilink: "https://open.spotify.com/track/6osaMSJh9NguagEDQcZaKx",
+				spotititle: "DJ Snake: Loco Contigo (feat. J. Balvin & Tyga)",
+				spotiuri: "spotify:track:6osaMSJh9NguagEDQcZaKx",
+				user: "9b4725f4-af2b-4dd3-890f-0e4ece94dbda",
+				createdAt: "2019-09-14T08:37:10.058Z",
+				played: false,
+				playedAt: null,
+				hide: false,
+				id: 102
+			}
+		],
 		currentPage: 0,
 		currentPageMobile: 0
 	};
@@ -161,7 +222,7 @@ export default class ListSongsAdmin extends Component {
 		let mobileSongCardWrapperStyle;
 		if (isFirstPage) {
 			// First page on desktop
-			songCardWrapperStyle = { marginTop: "120px" };
+			songCardWrapperStyle = { marginTop: "150px" };
 			songsWrapperStyle = {
 				height: "550px",
 				width: "1100px",
@@ -186,7 +247,7 @@ export default class ListSongsAdmin extends Component {
 		}
 		if (isFirstPageMobile) {
 			// First page on mobile
-			mobileSongCardWrapperStyle = { marginTop: "100px" };
+			mobileSongCardWrapperStyle = { marginTop: "120px" };
 		} else {
 			// Other pages on mobile
 			mobileSongCardWrapperStyle = { marginTop: "0" };
