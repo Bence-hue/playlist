@@ -11,10 +11,11 @@ from django.core import serializers
 from django.core.exceptions import PermissionDenied
 from django.utils import timezone
 from django.db.models import Q
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 from simplecrypt import encrypt
+from .spotify import add,delete
 
 from .models import BlockedUser, Log, Setting, Song
 
@@ -53,7 +54,7 @@ def adminlogout_view(request, *args, **kwargs):
 # @csrf_exempt
 def blockuser_view(request, *args, **kwargs):
     if request.method == 'POST':
-        if request.user.is_authenticated:
+        if request.user.has_perm('list.can_ban'):
             data = request.POST
             if data.get("permanent", "true") == "true":
                 BlockedUser.objects.create(userid=data.get("userid"), permanent=True)
@@ -66,18 +67,19 @@ def blockuser_view(request, *args, **kwargs):
                     "userid":data.get("userid"),
                     "status":"{} hétre".format(data.get("expirein", 1))}))
             for l in Song.objects.filter(user=data.get("userid"), played=False, hide=False):
+                delete(l.spotiuri)
                 l.hide = True
                 l.save()
             return HttpResponse(status=201)
         else:
-            raise PermissionDenied
+            return HttpResponse(status=401)
     else:
         return HttpResponse(status=405)
 
 
 def unblockuser_view(request, *args, **kwargs):
     if request.method == 'POST':
-        if request.user.is_authenticated:
+        if request.user.has_perm('list.can_ban'):
             print(request.POST.get("userid"))
             user = BlockedUser.objects.filter(userid=request.POST.get("userid", uuid.uuid4))
             p = user.filter(permanent=True)
@@ -95,11 +97,12 @@ def unblockuser_view(request, *args, **kwargs):
                     l.save()
             for l in Song.objects.filter(user=request.POST.get("userid", uuid.uuid4), played=False, hide=True):
                 l.hide = False
+                add(l.spotiuri)
                 l.save()
                 Log.objects.create(user=request.user,title="unban",content=request.POST.get("userid"))
             return HttpResponse(status=200)
         else:
-            raise PermissionDenied
+            return HttpResponse(status=401)
     else:
         return HttpResponse(status=405)
 
@@ -186,44 +189,47 @@ def user_blockedFor(l):
 def settings_view(request, *args, **kwargs):
     if request.user.is_authenticated:
         if request.method=='POST':
-            s=kwargs["s"]
-            if s=="maintenance":
-                setting=Setting.objects.get(name="maintenance")
-                setting.value=int(request.POST.get("value","false")=="true")
-                setting.save()
-                if request.POST.get("value","false")=="true":
-                    Log.objects.create(user=request.user,title="modify",content="Maintenance mód bekapcsolva")
+            if request.user.has_perm("list.can_modify_settings"):
+                s=kwargs["s"]
+                if s=="maintenance":
+                    setting=Setting.objects.get(name="maintenance")
+                    setting.value=int(request.POST.get("value","false")=="true")
+                    setting.save()
+                    if request.POST.get("value","false")=="true":
+                        Log.objects.create(user=request.user,title="modify",content="Maintenance mód bekapcsolva")
+                    else:
+                        Log.objects.create(user=request.user,title="modify",content="Maintenance mód kikapcsolva")
+                    return HttpResponse(Setting.objects.get(name="maintenance").value==1)
+                elif s=="canrequestsong":
+                    setting=Setting.objects.get(name="canRequestSong")
+                    setting.value=int(request.POST.get("value","true")=="true")
+                    setting.save()
+                    if request.POST.get("value","true")=="true":
+                        Log.objects.create(user=request.user,title="modify",content="Lehet számot kérni")
+                    else:
+                        Log.objects.create(user=request.user,title="modify",content="Nem lehet számot kérni")
+                    return HttpResponse(Setting.objects.get(name="canRequestSong").value==1)
+                elif s=="songlimit":
+                    number=request.POST.get("number",Setting.objects.get(name="songLimitNumber").value)
+                    minute=request.POST.get("minute",Setting.objects.get(name="songLimitMinute").value)
+                    n=Setting.objects.get(name="songLimitNumber")
+                    n.value=number
+                    n.save()
+                    m=Setting.objects.get(name="songLimitMinute")
+                    m.value=minute
+                    m.save()
+                    minute=request.POST.get("minute",Setting.objects.get(name="songLimitMinute").value)
+                    minute=request.POST.get("minute",Setting.objects.get(name="songLimitMinute").value)
+                    Log.objects.create(user=request.user,title="modify",content="Új limit: {}, {} percenként".format(request.POST.get("number",Setting.objects.get(name="songLimitNumber").value),request.POST.get("minute",Setting.objects.get(name="songLimitMinute").value)))
+                    r={
+                        "number":Setting.objects.get(name="songLimitNumber").value,
+                        "minute":Setting.objects.get(name="songLimitMinute").value
+                    }
+                    return HttpResponse(json.dumps(r))
                 else:
-                    Log.objects.create(user=request.user,title="modify",content="Maintenance mód kikapcsolva")
-                return HttpResponse(Setting.objects.get(name="maintenance").value==1)
-            elif s=="canrequestsong":
-                setting=Setting.objects.get(name="canRequestSong")
-                setting.value=int(request.POST.get("value","true")=="true")
-                setting.save()
-                if request.POST.get("value","true")=="true":
-                    Log.objects.create(user=request.user,title="modify",content="Lehet számot kérni")
-                else:
-                    Log.objects.create(user=request.user,title="modify",content="Nem lehet számot kérni")
-                return HttpResponse(Setting.objects.get(name="canRequestSong").value==1)
-            elif s=="songlimit":
-                number=request.POST.get("number",Setting.objects.get(name="songLimitNumber").value)
-                minute=request.POST.get("minute",Setting.objects.get(name="songLimitMinute").value)
-                n=Setting.objects.get(name="songLimitNumber")
-                n.value=number
-                n.save()
-                m=Setting.objects.get(name="songLimitMinute")
-                m.value=minute
-                m.save()
-                minute=request.POST.get("minute",Setting.objects.get(name="songLimitMinute").value)
-                minute=request.POST.get("minute",Setting.objects.get(name="songLimitMinute").value)
-                Log.objects.create(user=request.user,title="modify",content="Új limit: {}, {} percenként".format(request.POST.get("number",Setting.objects.get(name="songLimitNumber").value),request.POST.get("minute",Setting.objects.get(name="songLimitMinute").value)))
-                r={
-                    "number":Setting.objects.get(name="songLimitNumber").value,
-                    "minute":Setting.objects.get(name="songLimitMinute").value
-                }
-                return HttpResponse(json.dumps(r))
+                    return HttpResponse(status=422)
             else:
-                return HttpResponse(status=422)
+                return HttpResponse(status=401)
         else:
             settings=Setting.objects
             s={
@@ -242,7 +248,7 @@ def log_view(request, *args, **kwargs):
             lograw=Log.objects.all()
             log=[]
             for l in reversed(lograw):
-                log.append({"type":l.title,"content":l.content,"name":l.user.get_username()+" ("+l.user.get_full_name()+")","time":gettime(l.time)})
+                log.append({"type":l.title,"content":l.content,"name":l.user.first_name,"time":gettime(l.time)})
             return HttpResponse(json.dumps(log),content_type="application/json")
         else: 
             return HttpResponse(status=405)

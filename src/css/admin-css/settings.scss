@@ -24,6 +24,10 @@ $borderradius: 35px;
 		@media #{$resp-laptop} {
 			font-size: 1.5rem;
 		}
+		@media #{$resp-mobile} {
+			width: 100%;
+			top: 13%;
+		}
 	}
 
 	.settings-grid {
@@ -37,6 +41,13 @@ $borderradius: 35px;
 		width: 90%;
 		height: 70%;
 
+		@media #{$resp-mobile} {
+			display: block;
+			height: auto;
+			top: 25%;
+			width: 88%;
+		}
+
 		.settings-grid__maintenance {
 			position: relative;
 			grid-row: 1 / 2;
@@ -44,6 +55,12 @@ $borderradius: 35px;
 			border-radius: $borderradius;
 			text-align: center;
 			@extend %boxshadow;
+
+			@media #{$resp-mobile} {
+				height: 80px;
+				margin-bottom: 20px;
+				border-radius: 25px;
+			}
 
 			h2 {
 				margin: 0;
@@ -56,6 +73,10 @@ $borderradius: 35px;
 				font-family: "Open Sans";
 				font-weight: 300;
 				letter-spacing: 2px;
+
+				@media #{$resp-mobile} {
+					font-size: 0.9rem;
+				}
 			}
 
 			#toggler {
@@ -64,6 +85,10 @@ $borderradius: 35px;
 				top: 50%;
 				transform: translateY(-50%);
 				opacity: 1;
+
+				@media #{$resp-mobile} {
+					transform: translateY(-50%) scale(0.8);
+				}
 			}
 		}
 
@@ -74,6 +99,12 @@ $borderradius: 35px;
 			display: grid;
 			border-radius: $borderradius;
 			@extend %boxshadow;
+
+			@media #{$resp-mobile} {
+				height: 250px;
+				margin: 0;
+				margin-bottom: 20px;
+			}
 
 			h2 {
 				text-align: center;
@@ -107,6 +138,11 @@ $borderradius: 35px;
 					font-weight: 300;
 					font-size: 1.7rem;
 
+					@media #{$resp-mobile} {
+						font-size: 1.2rem;
+						white-space: nowrap;
+					}
+
 					&:nth-child(1) {
 						grid-row: 1 / 2;
 					}
@@ -133,6 +169,10 @@ $borderradius: 35px;
 					&:nth-child(6) {
 						grid-column: 2 / 3;
 						grid-row: 5 / 6;
+					}
+
+					@media #{$resp-mobile} {
+						transform: translateY(-50%) scale(0.8);
 					}
 				}
 
@@ -189,6 +229,8 @@ $borderradius: 35px;
 						transform: translateX(-25%);
 						border-radius: 14px;
 						overflow: hidden;
+						background: #fff;
+						z-index: 100;
 						-webkit-box-shadow: 0px 3px 30px 0px rgba(0, 0, 0, 0.16);
 						-moz-box-shadow: 0px 3px 30px 0px rgba(0, 0, 0, 0.16);
 						box-shadow: 0px 3px 30px 0px rgba(0, 0, 0, 0.16);
@@ -227,6 +269,13 @@ $borderradius: 35px;
 			grid-row: 1 / 4;
 			@extend %boxshadow;
 			border-radius: $borderradius;
+
+			@media #{$resp-mobile} {
+				height: 250px;
+				margin: 0;
+				margin-bottom: 20px;
+				z-index: -1;
+			}
 			h2 {
 				text-align: center;
 				margin: 25px 0 0 0;
@@ -234,6 +283,12 @@ $borderradius: 35px;
 				font-family: "Open Sans";
 				font-weight: 300;
 				letter-spacing: 2px;
+
+				@media #{$resp-mobile} {
+					position: relative;
+					margin: 0;
+					top: 25px;
+				}
 			}
 
 			.settings-grid__stats__grid {
@@ -258,6 +313,10 @@ $borderradius: 35px;
 					top: 50%;
 					left: 0;
 					transform: translateY(-50%);
+
+					@media #{$resp-mobile} {
+						font-size: 1.3rem;
+					}
 
 					&:nth-child(1) {
 						grid-row: 1 / 2;
@@ -301,6 +360,7 @@ $borderradius: 35px;
 			grid-row: 3 / 6;
 			grid-column: 3 / 4;
 			overflow: scroll;
+			background: #fff;
 			&::-webkit-scrollbar {
 				display: none;
 			}
@@ -308,6 +368,12 @@ $borderradius: 35px;
 			margin: 0 5%;
 			@extend %boxshadow;
 			border-radius: $borderradius;
+			@media #{$resp-mobile} {
+				height: 400px;
+				width: 100%;
+				margin: 0;
+				margin-bottom: 40px;
+			}
 			h2 {
 				text-align: center;
 				margin: 25px 0 0 0;
@@ -321,16 +387,22 @@ $borderradius: 35px;
 				width: 90%;
 				margin: 15px 5%;
 				padding: 20px 0;
-				@extend %boxshadow;
 				border-radius: 22px;
 				font-family: "Open Sans";
+				-webkit-box-shadow: 0px 5px 30px 0px rgba(19, 156, 97, 0.15);
+				-moz-box-shadow: 0px 5px 30px 0px rgba(19, 156, 97, 0.15);
+				box-shadow: 0px 5px 30px 0px rgba(19, 156, 97, 0.15);
 
 				h3 {
 					margin: 0 0 10px 0;
 					padding: 0;
+					font-size: 1.3rem;
 					text-align: center;
 					font-weight: 400;
 					letter-spacing: 2px;
+					@media #{$resp-mobile} {
+						font-size: 0.9rem;
+					}
 					span {
 						font-weight: 600;
 						text-transform: uppercase;
@@ -351,6 +423,10 @@ $borderradius: 35px;
 						color: #065fd4;
 						text-align: center;
 						white-space: nowrap;
+
+						@media #{$resp-mobile} {
+							font-size: 0.6rem;
+						}
 					}
 					* {
 						margin: 0;
@@ -360,6 +436,9 @@ $borderradius: 35px;
 						text-align: center;
 						font-weight: 600;
 						letter-spacing: 1.5px;
+						@media #{$resp-mobile} {
+							font-size: 0.9rem;
+						}
 					}
 				}
 
@@ -369,6 +448,9 @@ $borderradius: 35px;
 					text-align: center;
 					font-style: italic;
 					font-weight: 400;
+					@media #{$resp-mobile} {
+						font-size: 0.8rem;
+					}
 				}
 			}
 		}
@@ -380,6 +462,10 @@ $borderradius: 35px;
 		left: 0;
 		width: 100%;
 		z-index: -10000000;
+
+		@media #{$resp-mobile} {
+			display: none;
+		}
 	}
 }
 

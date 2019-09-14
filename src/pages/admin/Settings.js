@@ -6,6 +6,7 @@ import getPackageJsonFromGithub from "get-package-json-from-github";
 import Header from "../components/Header";
 import Toggler from "../components/Toggler";
 import LogCard from "./LogCard";
+import Modal from "../components/Modal";
 
 import "../../css/admin-css/settings.scss";
 
@@ -16,7 +17,8 @@ export default class AdminSettings extends Component {
 		ping: 0,
 		version: "",
 		sentryErrors: 0,
-		intervalDropdown: false
+		intervalDropdown: false,
+		isActionProhibited: false
 	};
 
 	componentDidMount() {
@@ -30,7 +32,6 @@ export default class AdminSettings extends Component {
 
 		// get log
 		axios.get("/api/log/").then((r) => this.setState({ log: r.data }));
-		// .then((r) => console.log(r.data));
 
 		// get ping
 		const start = new Date();
@@ -40,7 +41,6 @@ export default class AdminSettings extends Component {
 
 		// get sentry errors
 		let url = "/api/sentry/";
-
 		axios
 			.get(url)
 			.then((r) => this.setState({ sentryErrors: r.data }))
@@ -72,6 +72,9 @@ export default class AdminSettings extends Component {
 				});
 			})
 			.catch((err) => {
+				if (err.response.status === 401) {
+					this.setState({ isActionProhibited: true });
+				}
 				console.error(err);
 			});
 	};
@@ -92,12 +95,17 @@ export default class AdminSettings extends Component {
 		let url = "/api/settings/songlimit/",
 			params = new URLSearchParams();
 		params.append("number", this.state.settings.songLimitNumber);
-		axios.post(url, params).then((res) => {
-			this.setState({
-				settings: { ...this.state.settings, songLimitNumber: res.data.number }
+		axios
+			.post(url, params)
+			.then((res) => {
+				this.setState({
+					settings: { ...this.state.settings, songLimitNumber: res.data.number }
+				});
+				window.location.reload();
+			})
+			.catch((e) => {
+				console.error(e);
 			});
-			window.location.reload();
-		});
 	};
 
 	changeInterval = (interval) => {
@@ -129,6 +137,7 @@ export default class AdminSettings extends Component {
 			this.setState({
 				settings: { ...this.state.settings, songLimitMinute: res.data.minute }
 			});
+			this.toggleIntervalSelector();
 		});
 	};
 	render() {
@@ -174,6 +183,11 @@ export default class AdminSettings extends Component {
 		}
 		return (
 			<div id="settings">
+				<Modal
+					toggler={this.state.isActionProhibited}
+					title={"Ez nem fog menni..."}
+					content={"Ehhez nincs jogod."}
+				/>
 				<Header kolcsey={false} />
 				<h1 className="settings-heading">site settings</h1>
 				<div className="settings-grid">
