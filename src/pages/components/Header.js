@@ -117,7 +117,10 @@ export default class Header extends Component {
 		return (
 			<div ref={(node) => (this.node = node)}>
 				{/* UPLEFT MENU */}
-				<MusicPlayer className="menu-upleft-toggle hvr-grow" onClick={this.toggleUpleft} />
+				<MusicPlayer
+					className="menu-upleft-toggle hvr-grow"
+					onClick={this.toggleUpleft}
+				/>
 				<Transition
 					native
 					items={this.state.showUpleft}
@@ -143,7 +146,9 @@ export default class Header extends Component {
 											show &&
 											((props) => (
 												<animated.div style={props}>
-													<h3 className="upleft-text">{this.state.UpleftText}</h3>
+													<h3 className="upleft-text">
+														{this.state.UpleftText}
+													</h3>
 												</animated.div>
 											))
 										}
@@ -165,7 +170,9 @@ export default class Header extends Component {
 														<Home
 															className="MUL-icons home hvr-grow"
 															onMouseEnter={this.HOME_onMouseHover.bind(this)}
-															onMouseLeave={this.HOME_onMouseHoverStop.bind(this)}
+															onMouseLeave={this.HOME_onMouseHoverStop.bind(
+																this
+															)}
 														/>
 													</Link>
 												</animated.div>
@@ -189,7 +196,9 @@ export default class Header extends Component {
 														<List
 															className="MUL-icons list hvr-grow"
 															onMouseEnter={this.LIST_onMouseHover.bind(this)}
-															onMouseLeave={this.LIST_onMouseHoverStop.bind(this)}
+															onMouseLeave={this.LIST_onMouseHoverStop.bind(
+																this
+															)}
 														/>
 													</Link>
 												</animated.div>
@@ -209,13 +218,15 @@ export default class Header extends Component {
 											show &&
 											((props) => (
 												<animated.div style={props}>
-													<Link exact="true" to="/new">
+													<a href="https://playlist.jelszo.co/new">
 														<AddButton
 															className="MUL-icons add hvr-grow"
 															onMouseEnter={this.ADD_onMouseHover.bind(this)}
-															onMouseLeave={this.ADD_onMouseHoverStop.bind(this)}
+															onMouseLeave={this.ADD_onMouseHoverStop.bind(
+																this
+															)}
 														/>
-													</Link>
+													</a>
 												</animated.div>
 											))
 										}
@@ -258,7 +269,9 @@ export default class Header extends Component {
 											show &&
 											((props) => (
 												<animated.div style={props}>
-													<h3 className="upright-text">{this.state.UprightText}</h3>
+													<h3 className="upright-text">
+														{this.state.UprightText}
+													</h3>
 												</animated.div>
 											))
 										}
@@ -280,7 +293,9 @@ export default class Header extends Component {
 														<Lock
 															className="MU-icons lock hvr-grow"
 															onMouseEnter={this.LOCK_onMouseHover.bind(this)}
-															onMouseLeave={this.LOCK_onMouseHoverStop.bind(this)}
+															onMouseLeave={this.LOCK_onMouseHoverStop.bind(
+																this
+															)}
 														/>
 													</a>
 												</animated.div>
@@ -304,7 +319,9 @@ export default class Header extends Component {
 														<Fingerprint
 															className="MU-icons finger hvr-grow"
 															onMouseEnter={this.FINGER_onMouseHover.bind(this)}
-															onMouseLeave={this.FINGER_onMouseHoverStop.bind(this)}
+															onMouseLeave={this.FINGER_onMouseHoverStop.bind(
+																this
+															)}
 														/>
 													</Link>
 												</animated.div>
@@ -328,7 +345,9 @@ export default class Header extends Component {
 														<Inv
 															className="MU-icons inv hvr-grow"
 															onMouseEnter={this.INV_onMouseHover.bind(this)}
-															onMouseLeave={this.INV_onMouseHoverStop.bind(this)}
+															onMouseLeave={this.INV_onMouseHoverStop.bind(
+																this
+															)}
 														/>
 													</Link>
 												</animated.div>
@@ -345,7 +364,9 @@ export default class Header extends Component {
 					<Link exact="true" to="/" style={{ textDecoration: "none" }}>
 						<h1 className="playlist-title">playlist</h1>
 					</Link>
-					<h3 className="playlist-lore">{kolcsey ? "kölcsey ferenc gimnázium" : ""}</h3>
+					<h3 className="playlist-lore">
+						{kolcsey ? "kölcsey ferenc gimnázium" : ""}
+					</h3>
 				</div>
 			</div>
 		);

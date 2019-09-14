@@ -59,7 +59,7 @@ export default class UserCard extends Component {
 				params.append("permanent", true);
 				break;
 			case "c":
-				params.append("expirein", this.state.customInterval * 7);
+				params.append("expirein", this.state.customInterval / 7);
 				params.append("permanent", false);
 				break;
 			default:
@@ -144,7 +144,7 @@ export default class UserCard extends Component {
 		}
 
 		return (
-			<div className="usc" style={styleCard}>
+			<div className="usc" style={styleCard} id={user.userid}>
 				<div className="usc__heading">
 					<Dots className="usc-dots" onClick={this.toggleCollapse} />
 					<h3 className="userid" style={isMobile ? styleCardElements : {}}>

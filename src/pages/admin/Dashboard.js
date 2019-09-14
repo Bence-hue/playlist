@@ -8,7 +8,7 @@ import Header from "../components/Header";
 
 import { ReactComponent as DashbArtLeft } from "../../assets/Admin-landing-left.svg";
 import { ReactComponent as DashbArtRight } from "../../assets/Admin-landing-right.svg";
-import { ReactComponent as AddButton } from "../../assets/add-button.svg";
+import { ReactComponent as Gear } from "../../assets/cog-solid.svg";
 import { ReactComponent as MusicPlayer } from "../../assets/music-player.svg";
 import { ReactComponent as Users } from "../../assets/users-solid.svg";
 import { ReactComponent as Logout } from "../../assets/sign-out-alt-solid.svg";
@@ -65,9 +65,9 @@ export default class AdminDashboard extends Component {
 							<MusicPlayer />
 						</button>
 					</Link>
-					<Link to="/new">
+					<Link to="/admin/settings">
 						<button className="db-button">
-							<AddButton />
+							<Gear />
 						</button>
 					</Link>
 					<Link to="/admin/users">

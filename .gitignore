@@ -5,7 +5,9 @@
 /.pnp
 .pnp.js
 /venv
-
+*/static
+build.sh
+playlist/list/migrations/
 # testing
 /coverage
 

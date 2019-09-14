@@ -159,14 +159,14 @@
 	#lastadded h3 {
 		margin: 12px 0 0 0;
 		letter-spacing: 2px;
+		font-size: 0.9rem;
 	}
 
 	#lastadded h1 {
-		margin: 5px 0;
-		font-size: 1.7rem;
+		margin: 10px 0;
+		font-size: 1.1em;
 	}
-
-	.art-left {
+	r .art-left {
 		width: 27vw;
 	}
 

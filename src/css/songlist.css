@@ -68,6 +68,10 @@
 	box-shadow: 0px 3px 40px 0px rgba(0, 0, 0, 0.31);
 }
 
+.upcoming-card-admin {
+	height: 150px;
+}
+
 .upcoming-card h2 {
 	margin: 0;
 	padding: 0;
@@ -136,7 +140,7 @@
 
 .upc-yt-wrapper {
 	position: absolute;
-	bottom: 15%;
+	bottom: 10%;
 	left: 45%;
 	transform: translateX(-50%);
 	width: 80%;
@@ -146,10 +150,15 @@
 	text-overflow: ellipsis;
 }
 
+.upc-yt-wrapper p {
+	margin: 0;
+	padding: 0;
+}
+
 .upc-yt-wrapper a {
 	vertical-align: middle;
 	color: white;
-	font-size: 1.2rem;
+	font-size: 1rem;
 	letter-spacing: 0.5px;
 	margin-left: 25px;
 	text-transform: none;
@@ -163,6 +172,12 @@
 	z-index: 2;
 }
 
+.upc-yt-wrapper .fa-spotify {
+	position: relative;
+	vertical-align: middle;
+	font-size: 1.1rem;
+	font-weight: 300;
+}
 .upc-yt-wrapper i {
 	vertical-align: middle;
 	font-size: 0.9rem;
@@ -293,9 +308,9 @@
 }
 
 .sc-yt-wrapper {
-	width: 80%;
+	width: 70%;
 	position: absolute;
-	bottom: 25%;
+	bottom: 15%;
 	left: 45%;
 	transform: translateX(-50%);
 	transition: 0.2s all ease-in-out;
@@ -304,11 +319,19 @@
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
+.sc-yt-wrapper p {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	text-align: center;
+	text-overflow: ellipsis;
+}
 
 .sc-yt-wrapper a {
+	display: inline-block;
 	vertical-align: middle;
 	color: #065fd4;
-	font-size: 1.2rem;
+	font-size: 0.9rem;
 	letter-spacing: 0.5px;
 	margin-left: 5px;
 	text-transform: none;
@@ -322,7 +345,12 @@
 	color: #e20303;
 	z-index: 2;
 }
-
+.sc-yt-wrapper .fa-spotify {
+	position: relative;
+	vertical-align: middle;
+	font-size: 1.2rem;
+	color: #1ed761;
+}
 .noresponse {
 	margin: 0;
 	padding: 0;
@@ -376,16 +404,15 @@
 .dots {
 	width: 35px;
 	position: absolute;
-	top: 50%;
+	top: 2%;
 	left: 5%;
-	transform: translateY(-50%);
 	fill: rgb(17, 126, 79);
 	cursor: pointer;
 	transition: 0.1s all ease-in-out;
 }
 
 .dots:hover {
-	transform: translateY(-50%) scale(1.1);
+	transform: scale(1.1);
 }
 
 @media only screen and (max-width: 900px) {
@@ -475,7 +502,7 @@
 	}
 
 	.upcoming-card-admin h1 {
-		bottom: 45%;
+		bottom: 57%;
 	}
 	.upcoming-card h2 {
 		margin: 0;
@@ -485,9 +512,12 @@
 		left: 5%;
 		font-size: 0.7rem;
 	}
+	.upcoming-card-admin {
+		height: 120px;
+	}
 	.upcoming-card-admin span {
-		height: 25px;
-		top: 40%;
+		height: 24px;
+		top: 34%;
 	}
 	.upc-yt-wrapper {
 		bottom: 10%;
@@ -510,6 +540,13 @@
 
 	.upc-yt-wrapper i {
 		font-size: 0.8rem;
+	}
+
+	.sc-yt-wrapper {
+		left: 40%;
+	}
+	.sc-yt-wrapper p {
+		text-align: left;
 	}
 	.upc-control-wrapper,
 	.sc-control-wrapper {
@@ -549,9 +586,9 @@
 	}
 	.dots {
 		position: absolute;
-		top: 50%;
+		top: 2%;
 		left: 0%;
-		transform: translateY(-50%) rotate(90deg);
+		transform: rotate(90deg);
 		width: 29px;
 	}
 }

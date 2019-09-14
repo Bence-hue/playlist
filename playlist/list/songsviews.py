@@ -1,29 +1,25 @@
-import datetime
-import json
-import os
-import random
-import uuid
-
-import requests
-from django.core.exceptions import PermissionDenied
-from django.contrib.auth import authenticate, login, logout
-from django.core import serializers
-from django.core.mail import EmailMessage
-from django.db.models import Q
+from .models import BlockedUser, Song, Setting,Log
+from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+import json
+import os
+import datetime
+import uuid
+import requests
+from django.core import serializers
+from django.core.exceptions import PermissionDenied
 from django.utils import timezone
-from django.views.decorators.csrf import csrf_exempt
-
-from .models import BlockedSong, BlockedUser, Question, Song
+from django.core.mail import EmailMessage
+from .spotify import new, delete
 
 with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "datas.json"), "r") as cffile:
     config = json.loads(cffile.readline())
 
-
 # @csrf_exempt
 def new_view(request, *args, **kwargs):
     if request.method == 'POST':
+        if Setting.objects.get(name="canRequestSong").value==0: return HttpResponse(status=403)
         data = request.POST
         print(data)
         URL = "https://www.googleapis.com/youtube/v3/search"
@@ -75,18 +71,19 @@ def new_view(request, *args, **kwargs):
         blocks = BlockedUser.objects.filter(userid=user)
         if not blocks.filter(permanent=True).exists():
             if not blocks.filter(expireAt__gte=timezone.now()).exists():
-                lastrecord = Song.objects.filter(createdAt__gte=timezone.now() - datetime.timedelta(minutes=15),user=user)
-                if len(lastrecord) < 3:
+                lastrecord = Song.objects.filter(createdAt__gte=timezone.now() - datetime.timedelta(minutes=Setting.objects.get(name="songLimitMinute").value),user=user)
+                if len(lastrecord) < Setting.objects.get(name="songLimitNumber").value:
                     if not Song.objects.filter(link=link, played=False).exclude(link="").exists():
                         if not Song.objects.filter(link=link, played=True,playedAt__gte=timezone.now() - datetime.timedelta(weeks=1)).exclude(link="").exists():
-                            Song.objects.create(title=title, artist=artist, link=link,user=user, yttitle=yttitle)
+                            stitle,slink,suri=new(artist+" "+title)
+                            Song.objects.create(title=title, artist=artist, link=link,user=user, yttitle=yttitle,spotititle=stitle,spotilink=slink,spotiuri=suri)
                             return HttpResponse(status=201)
                         else:  # ha az utobbi egy hetben lett lejatszva
                             return HttpResponse("{\"played\": True}", status=422)
                     else:  # ha van meg le nem jatszott ilyen
                         return HttpResponse("{\"played\":False}", status=422)
                 else:  # ha az utobbi 15 percben kuldott
-                    remaining = int((datetime.timedelta(minutes=15) - (timezone.now() - lastrecord[0].createdAt)).total_seconds())
+                    remaining = int((datetime.timedelta(minutes=Setting.objects.get(name="songLimitMinute").value) - (timezone.now() - lastrecord[0].createdAt)).total_seconds())
                     print(remaining)
                     return HttpResponse(str(int(remaining / 60)) + ":" + "{:02d}".format(remaining % 60), status=429)
             else:  # ha blokkolva van idore
@@ -113,6 +110,8 @@ def played_view(request, *args, **kwargs):
             object = Song.objects.filter(id=id)
             if object.exists():
                 object.update(played=True, playedAt=datetime.datetime.now())
+                delete(object[0].spotiuri)
+                Log.objects.create(user=request.user,title="played",content=object[0].artist+" - "+object[0].title+" (id: "+str(object[0].id)+")")
                 return HttpResponse(status=200)
             else:
                 return HttpResponse(status=422)
@@ -134,6 +133,8 @@ def delete_view(request, *args, **kwargs):
             print(id)
             object = Song.objects.filter(id=id)
             if object.exists():
+                delete(object[0].spotiuri)
+                Log.objects.create(user=request.user,title="deleted",content=object[0].artist+" - "+object[0].title+" (id: "+str(object[0].id)+")")
                 object.delete()
                 return HttpResponse(status=200)
             else:
@@ -177,40 +178,6 @@ def jsonmodifier(data):
         newdata.append(newdict)
     return HttpResponse(json.dumps(newdata), content_type="application/json", status=200)
 
-
-@csrf_exempt
-def adminlogin_view(request, *args, **kwargs):
-    if request.method == 'POST':
-        username = request.POST.get('username', "")
-        password = request.POST.get('password', "")
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect("/admin/dashboard")
-        else:
-            return redirect("/admin/login?badauth=true")
-    else:
-        return HttpResponse(status=405)
-
-
-def adminlogout_view(request, *args, **kwargs):
-    logout(request)
-    return redirect("/")
-
-
-def question_view(request, *args, **kwargs):
-    if request.method == 'GET':
-        questions = Question.objects.all()
-        id = random.randrange(len(questions))
-        q = json.loads(serializers.serialize("json", Question.objects.get(id=id)))
-        print(q)
-        qjson = q[0]["fields"]
-        qjson["id"] = id
-        return HttpResponse(json.dumps(qjson), content_type="application/json", status=200)
-    else:
-        return HttpResponse(status=405)
-
-
 def email_view(request, *args, **kwargs):
     if request.method == 'POST':
         data = request.POST
@@ -226,129 +193,3 @@ def email_view(request, *args, **kwargs):
         return HttpResponse(status=200)
     else:
         return HttpResponse(status=405)
-
-
-# @csrf_exempt
-def blockuser_view(request, *args, **kwargs):
-    if request.method == 'POST':
-        if request.user.is_authenticated:
-            data = request.POST
-            if data.get("permanent", "true") == "true":
-                BlockedUser.objects.create(userid=data.get("userid"), permanent=True)
-            else:
-                BlockedUser.objects.create(userid=data.get("userid"), permanent=False,expireAt=datetime.datetime.now() + datetime.timedelta(weeks=int(data.get("expirein", 1))))
-            for l in Song.objects.filter(user=data.get("userid"), played=False, hide=False):
-                l.hide = True
-                l.save()
-            return HttpResponse(status=201)
-        else:
-            raise PermissionDenied
-    else:
-        return HttpResponse(status=405)
-
-
-def unblockuser_view(request, *args, **kwargs):
-    if request.method == 'POST':
-        if request.user.is_authenticated:
-            print(request.POST.get("userid"))
-            user = BlockedUser.objects.filter(userid=request.POST.get("userid", uuid.uuid4))
-            p = user.filter(permanent=True)
-            t = user.filter(permanent=False, expireAt__gte=timezone.now())
-            if p.exists():
-                for l in p:
-                    l.permanent = False
-                    l.expireAt = timezone.now()-datetime.timedelta(minutes=1)
-                    print(l.expireAt)
-                    l.save()
-            if t.exists():
-                for l in t:
-                    l.expireAt = timezone.now()-datetime.timedelta(minutes=1)
-                    print(l.expireAt)
-                    l.save()
-            for l in Song.objects.filter(user=request.POST.get("userid", uuid.uuid4), played=False, hide=True):
-                l.hide = False
-                l.save()
-            return HttpResponse(status=200)
-        else:
-            raise PermissionDenied
-    else:
-        return HttpResponse(status=405)
-
-
-def statistics_view(request, *args, **kwargs):
-    if request.method == 'GET':
-        if request.user.is_authenticated:
-            days = int(request.GET.get("days", "7"))
-            respons = {}
-            respons["created"] = len(Song.objects.filter(createdAt__gte=timezone.now() - datetime.timedelta(days=days)))
-            respons["played"] = len(Song.objects.filter(played=True, playedAt__gte=timezone.now() - datetime.timedelta(days=days)))
-            respons["total"] = len(Song.objects.filter(hide=False, played=False))
-            return HttpResponse(json.dumps(respons), content_type="application/json", status=200)
-        else:
-            raise PermissionDenied
-    else:
-        return HttpResponse(status=405)
-
-
-def username_view(request, *args, **kwargs):
-    if request.method == "GET":
-        if request.user.is_authenticated:
-            return HttpResponse(request.user.first_name)
-        else:
-            raise PermissionDenied
-    else:
-        return HttpResponse(status=405)
-
-
-def users_view(request, *args, **kwargs):
-    if request.method == "GET":
-        if request.user.is_authenticated:
-            if request.GET.get("mode", "normal") == "normal":
-                respons = []
-                db = Song.objects.all()
-                for l in reversed(db):
-                    if not user_isBlocked(l):
-                        contains = False
-                        for u in respons:
-                            if u["userid"] == l.user:
-                                contains = True
-                                u["songs"].append({"id": l.id, "artist": l.artist, "title": l.title})
-                                break
-                        if contains: continue
-                        respons.append({
-                            "userid": l.user,
-                            "songs": [{"id": l.id, "artist": l.artist, "title": l.title}]
-                        })
-                return HttpResponse(json.dumps(respons), content_type="application/json", status=200)
-            elif request.GET.get("mode", "normal") == "blocked":
-                respons = []
-                db = BlockedUser.objects.filter(Q(permanent=True)|Q(permanent=False,expireAt__gte=timezone.now()))
-                for i,l in enumerate(reversed(db)):
-                    respons.append({"userid":str(l.userid),"block":user_blockedFor(l),"songs":[]})
-                    for s in reversed(Song.objects.filter(user=l.userid)):
-                        respons[i]["songs"].append({"id":s.id,"artist":s.artist,"title":s.title})
-                return HttpResponse(json.dumps(respons), content_type="application/json", status=200)
-        else:
-            raise PermissionDenied
-
-    else:
-        return HttpResponse(status=405)
-
-
-def user_isBlocked(l):
-    try:
-        blocks = BlockedUser.objects.filter(userid=l.user)
-        if blocks.filter(permanent=True).exists():
-            return True
-        elif blocks.filter(permanent=False, expireAt__gte=timezone.now()).exists():
-            return True
-        return False
-    except:
-        return False
-
-
-def user_blockedFor(l):
-    if l.permanent==True:
-        return {"isPerma": True}
-    else:
-        return {"isPerma": False, "ExpireIn": (l.expireAt - timezone.now()).days + 1}

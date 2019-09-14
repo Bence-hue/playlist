@@ -77,7 +77,7 @@ export default class About extends Component {
 			<div>
 				<Header kolcsey={false} />
 				<div id="about-us">
-					<h1>Rólunk...</h1>
+					<h1>Az oldalról...</h1>
 					<p>
 						Az oldal személyenként 3 zene hozzáadását teszi lehetővé
 						negyedóránként. A Playlistet 3 Kölcsey-s diák fejleszti, annak
