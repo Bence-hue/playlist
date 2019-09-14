@@ -31,7 +31,6 @@ export default class AdminSettings extends Component {
 
 		// get log
 		axios.get("/api/log/").then((r) => this.setState({ log: r.data }));
-		// .then((r) => console.log(r.data));
 
 		// get ping
 		const start = new Date();
@@ -41,7 +40,6 @@ export default class AdminSettings extends Component {
 
 		// get sentry errors
 		let url = "/api/sentry/";
-
 		axios
 			.get(url)
 			.then((r) => this.setState({ sentryErrors: r.data }))
@@ -50,11 +48,11 @@ export default class AdminSettings extends Component {
 			});
 
 		// get version
-		getPackageJsonFromGithub("git+https://github.com/jelszo-co/playlist.git").then(
-			(packageJson) => {
-				this.setState({ version: packageJson.version });
-			}
-		);
+		getPackageJsonFromGithub(
+			"git+https://github.com/jelszo-co/playlist.git"
+		).then((packageJson) => {
+			this.setState({ version: packageJson.version });
+		});
 	}
 
 	toggleSwitch = (prop) => {
@@ -135,7 +133,12 @@ export default class AdminSettings extends Component {
 	};
 	render() {
 		const { log, ping, version, sentryErrors } = this.state;
-		const { maintenance, canRequestSong, songLimitNumber, schoolDayOnly } = this.state.settings;
+		const {
+			maintenance,
+			canRequestSong,
+			songLimitNumber,
+			schoolDayOnly
+		} = this.state.settings;
 		let songLimitMinuteDisplay;
 		switch (this.state.settings.songLimitMinute) {
 			case 15:
@@ -181,7 +184,10 @@ export default class AdminSettings extends Component {
 				<div className="settings-grid">
 					<div className="settings-grid__maintenance">
 						<h2>maintenance mode</h2>
-						<Toggler toggle={this.toggleSwitch.bind(this, "maintenance")} state={maintenance} />
+						<Toggler
+							toggle={this.toggleSwitch.bind(this, "maintenance")}
+							state={maintenance}
+						/>
 					</div>
 					<div className="settings-grid__music">
 						<h2>zenekérés</h2>
@@ -202,16 +208,27 @@ export default class AdminSettings extends Component {
 									/>
 									/
 									<button type="button" onClick={this.toggleIntervalSelector}>
-										{songLimitMinuteDisplay} <i className="fas fa-chevron-down"></i>
+										{songLimitMinuteDisplay}{" "}
+										<i className="fas fa-chevron-down"></i>
 									</button>
 								</p>
 								{this.state.intervalDropdown ? (
 									<ul className="interval-dropdown">
-										<li onClick={this.changeInterval.bind(this, "15m")}>15 perc</li>
-										<li onClick={this.changeInterval.bind(this, "30m")}>30 perc</li>
-										<li onClick={this.changeInterval.bind(this, "1h")}>1 óra</li>
-										<li onClick={this.changeInterval.bind(this, "6h")}>6 óra</li>
-										<li onClick={this.changeInterval.bind(this, "1d")}>1 nap</li>
+										<li onClick={this.changeInterval.bind(this, "15m")}>
+											15 perc
+										</li>
+										<li onClick={this.changeInterval.bind(this, "30m")}>
+											30 perc
+										</li>
+										<li onClick={this.changeInterval.bind(this, "1h")}>
+											1 óra
+										</li>
+										<li onClick={this.changeInterval.bind(this, "6h")}>
+											6 óra
+										</li>
+										<li onClick={this.changeInterval.bind(this, "1d")}>
+											1 nap
+										</li>
 									</ul>
 								) : (
 									""

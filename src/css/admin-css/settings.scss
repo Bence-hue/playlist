@@ -59,6 +59,7 @@ $borderradius: 35px;
 			@media #{$resp-mobile} {
 				height: 80px;
 				margin-bottom: 20px;
+				border-radius: 25px;
 			}
 
 			h2 {
@@ -74,7 +75,7 @@ $borderradius: 35px;
 				letter-spacing: 2px;
 
 				@media #{$resp-mobile} {
-					font-size: 1rem;
+					font-size: 0.9rem;
 				}
 			}
 
@@ -84,6 +85,10 @@ $borderradius: 35px;
 				top: 50%;
 				transform: translateY(-50%);
 				opacity: 1;
+
+				@media #{$resp-mobile} {
+					transform: translateY(-50%) scale(0.8);
+				}
 			}
 		}
 
@@ -134,7 +139,7 @@ $borderradius: 35px;
 					font-size: 1.7rem;
 
 					@media #{$resp-mobile} {
-						font-size: 1.3rem;
+						font-size: 1.2rem;
 						white-space: nowrap;
 					}
 
@@ -164,6 +169,10 @@ $borderradius: 35px;
 					&:nth-child(6) {
 						grid-column: 2 / 3;
 						grid-row: 5 / 6;
+					}
+
+					@media #{$resp-mobile} {
+						transform: translateY(-50%) scale(0.8);
 					}
 				}
 
@@ -220,6 +229,8 @@ $borderradius: 35px;
 						transform: translateX(-25%);
 						border-radius: 14px;
 						overflow: hidden;
+						background: #fff;
+						z-index: 100;
 						-webkit-box-shadow: 0px 3px 30px 0px rgba(0, 0, 0, 0.16);
 						-moz-box-shadow: 0px 3px 30px 0px rgba(0, 0, 0, 0.16);
 						box-shadow: 0px 3px 30px 0px rgba(0, 0, 0, 0.16);
@@ -375,13 +386,16 @@ $borderradius: 35px;
 				width: 90%;
 				margin: 15px 5%;
 				padding: 20px 0;
-				@extend %boxshadow;
 				border-radius: 22px;
 				font-family: "Open Sans";
+				-webkit-box-shadow: 0px 5px 30px 0px rgba(19, 156, 97, 0.15);
+				-moz-box-shadow: 0px 5px 30px 0px rgba(19, 156, 97, 0.15);
+				box-shadow: 0px 5px 30px 0px rgba(19, 156, 97, 0.15);
 
 				h3 {
 					margin: 0 0 10px 0;
 					padding: 0;
+					font-size: 0.9rem;
 					text-align: center;
 					font-weight: 400;
 					letter-spacing: 2px;
@@ -405,6 +419,10 @@ $borderradius: 35px;
 						color: #065fd4;
 						text-align: center;
 						white-space: nowrap;
+
+						@media #{$resp-mobile} {
+							font-size: 0.6rem;
+						}
 					}
 					* {
 						margin: 0;
@@ -414,6 +432,9 @@ $borderradius: 35px;
 						text-align: center;
 						font-weight: 600;
 						letter-spacing: 1.5px;
+						@media #{$resp-mobile} {
+							font-size: 0.9rem;
+						}
 					}
 				}
 
@@ -423,6 +444,9 @@ $borderradius: 35px;
 					text-align: center;
 					font-style: italic;
 					font-weight: 400;
+					@media #{$resp-mobile} {
+						font-size: 0.8rem;
+					}
 				}
 			}
 		}

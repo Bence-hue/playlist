@@ -1,14 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { ReactComponent as Lock } from "../assets/lock-solid.svg";
 import "../css/maintenance.scss";
 
 const Maintenance = () => {
 	return (
 		<div id="maintenance">
-			<Link to="/admin/login">
+			<a href="https://playlist.jelszo.co/admin/login">
 				<Lock className="mt-lock" />
-			</Link>
+			</a>
 			<div className="mt-content">
 				<h1>playlist</h1>
 				<p>
