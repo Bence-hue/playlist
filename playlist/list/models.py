@@ -40,5 +40,5 @@ class Log(models.Model):
     time=models.DateTimeField(auto_now_add=True)
 
 class Spoti(models.Model):
-    key=models.CharField(max_length=200)
+    key=models.CharField(max_length=200,unique=True)
     value=models.CharField(max_length=200)
