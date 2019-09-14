@@ -59,6 +59,7 @@ $borderradius: 35px;
 			@media #{$resp-mobile} {
 				height: 80px;
 				margin-bottom: 20px;
+				border-radius: 25px;
 			}
 
 			h2 {
