@@ -257,7 +257,10 @@ def log_view(request, *args, **kwargs):
                         events.append({"user":logs[j].user.first_name,"content":logs[j].content,"time":gettime(logs[j].time)})
                         read[j]=True
                         j+=1
-                respons.append({"type":l.title,"events":list(reversed(events))})
+                if len(events)>1:
+                    respons.append({"type":l.title,"events":list(reversed(events)),"eventCount":len(events)})
+                else:
+                    respons.append({"type":l.title,"user":l.user.first_name,"content":l.content,"time":gettime(l.time)})
             return HttpResponse(json.dumps(list(reversed(respons))))
         else: 
             return HttpResponse(status=405)
