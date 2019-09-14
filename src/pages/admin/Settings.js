@@ -93,12 +93,17 @@ export default class AdminSettings extends Component {
 		let url = "/api/settings/songlimit/",
 			params = new URLSearchParams();
 		params.append("number", this.state.settings.songLimitNumber);
-		axios.post(url, params).then((res) => {
-			this.setState({
-				settings: { ...this.state.settings, songLimitNumber: res.data.number }
+		axios
+			.post(url, params)
+			.then((res) => {
+				this.setState({
+					settings: { ...this.state.settings, songLimitNumber: res.data.number }
+				});
+				window.location.reload();
+			})
+			.catch((e) => {
+				console.error(e);
 			});
-			window.location.reload();
-		});
 	};
 
 	changeInterval = (interval) => {

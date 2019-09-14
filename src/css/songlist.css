@@ -293,9 +293,9 @@
 }
 
 .sc-yt-wrapper {
-	width: 80%;
+	width: 70%;
 	position: absolute;
-	bottom: 25%;
+	bottom: 15%;
 	left: 45%;
 	transform: translateX(-50%);
 	transition: 0.2s all ease-in-out;
@@ -304,8 +304,16 @@
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
+.sc-yt-wrapper p {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	text-align: center;
+	text-overflow: ellipsis;
+}
 
 .sc-yt-wrapper a {
+	display: inline-block;
 	vertical-align: middle;
 	color: #065fd4;
 	font-size: 0.9rem;
@@ -322,7 +330,12 @@
 	color: #e20303;
 	z-index: 2;
 }
-
+.sc-yt-wrapper .fa-spotify {
+	position: relative;
+	vertical-align: middle;
+	font-size: 1.2rem;
+	color: #1ed761;
+}
 .noresponse {
 	margin: 0;
 	padding: 0;
@@ -509,6 +522,13 @@
 
 	.upc-yt-wrapper i {
 		font-size: 0.8rem;
+	}
+
+	.sc-yt-wrapper {
+		left: 40%;
+	}
+	.sc-yt-wrapper p {
+		text-align: left;
 	}
 	.upc-control-wrapper,
 	.sc-control-wrapper {
