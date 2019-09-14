@@ -135,7 +135,8 @@ def delete_view(request, *args, **kwargs):
             if object.exists():
                 delete(object[0].spotiuri)
                 Log.objects.create(user=request.user,title="deleted",content=object[0].artist+" - "+object[0].title+" (id: "+str(object[0].id)+")")
-                object.delete()
+                object[0].hide=True
+                object[0].save()
                 return HttpResponse(status=200)
             else:
                 return HttpResponse(status=422)
