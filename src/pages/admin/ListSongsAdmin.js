@@ -222,7 +222,7 @@ export default class ListSongsAdmin extends Component {
 		let mobileSongCardWrapperStyle;
 		if (isFirstPage) {
 			// First page on desktop
-			songCardWrapperStyle = { marginTop: "120px" };
+			songCardWrapperStyle = { marginTop: "150px" };
 			songsWrapperStyle = {
 				height: "550px",
 				width: "1100px",
@@ -247,7 +247,7 @@ export default class ListSongsAdmin extends Component {
 		}
 		if (isFirstPageMobile) {
 			// First page on mobile
-			mobileSongCardWrapperStyle = { marginTop: "100px" };
+			mobileSongCardWrapperStyle = { marginTop: "120px" };
 		} else {
 			// Other pages on mobile
 			mobileSongCardWrapperStyle = { marginTop: "0" };

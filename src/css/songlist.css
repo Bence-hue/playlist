@@ -68,6 +68,10 @@
 	box-shadow: 0px 3px 40px 0px rgba(0, 0, 0, 0.31);
 }
 
+.upcoming-card-admin {
+	height: 150px;
+}
+
 .upcoming-card h2 {
 	margin: 0;
 	padding: 0;
@@ -136,7 +140,7 @@
 
 .upc-yt-wrapper {
 	position: absolute;
-	bottom: 15%;
+	bottom: 10%;
 	left: 45%;
 	transform: translateX(-50%);
 	width: 80%;
@@ -146,10 +150,15 @@
 	text-overflow: ellipsis;
 }
 
+.upc-yt-wrapper p {
+	margin: 0;
+	padding: 0;
+}
+
 .upc-yt-wrapper a {
 	vertical-align: middle;
 	color: white;
-	font-size: 1.2rem;
+	font-size: 1rem;
 	letter-spacing: 0.5px;
 	margin-left: 25px;
 	text-transform: none;
@@ -163,6 +172,12 @@
 	z-index: 2;
 }
 
+.upc-yt-wrapper .fa-spotify {
+	position: relative;
+	vertical-align: middle;
+	font-size: 1.1rem;
+	font-weight: 300;
+}
 .upc-yt-wrapper i {
 	vertical-align: middle;
 	font-size: 0.9rem;
@@ -487,7 +502,7 @@
 	}
 
 	.upcoming-card-admin h1 {
-		bottom: 45%;
+		bottom: 57%;
 	}
 	.upcoming-card h2 {
 		margin: 0;
@@ -497,9 +512,12 @@
 		left: 5%;
 		font-size: 0.7rem;
 	}
+	.upcoming-card-admin {
+		height: 120px;
+	}
 	.upcoming-card-admin span {
-		height: 25px;
-		top: 40%;
+		height: 24px;
+		top: 34%;
 	}
 	.upc-yt-wrapper {
 		bottom: 10%;
