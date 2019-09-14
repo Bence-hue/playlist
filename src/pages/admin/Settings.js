@@ -61,7 +61,8 @@ export default class AdminSettings extends Component {
 			params = new URLSearchParams();
 		url = `/api/settings/${prop.toLowerCase()}/`;
 		params.append("value", !this.state.settings[prop]);
-
+        axios.defaults.xsrfCookieName = "csrftoken";
+        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 		axios
 			.post(url, params)
 			.then((res) => {
@@ -122,6 +123,8 @@ export default class AdminSettings extends Component {
 				params.append("minute", this.state.settings.songLimitMinute);
 				break;
 		}
+		axios.defaults.xsrfCookieName = "csrftoken";
+        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 		axios.post(url, params).then((res) => {
 			this.setState({
 				settings: { ...this.state.settings, songLimitMinute: res.data.minute }
