@@ -17,7 +17,7 @@ with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 
 def spotylogin_view(request, *args, **kwargs):
     if request.user.has_perm('spotilogin'):
-        redirectUrl='https://accounts.spotify.com/en/authorize?client_id='+Spoti.objects.get(key="client_id").value+'&response_type=code&redirect_uri='+request.build_absolute_uri('/api/spotilogin/callback')+'&state='+config["spotistate"]+"&scope=playlist-modify-private "
+        redirectUrl='https://accounts.spotify.com/en/authorize?client_id='+Spoti.objects.get(key="client_id").value+'&response_type=code&redirect_uri='+request.build_absolute_uri('/api/spotilogin/callback')+'&state='+config["spotistate"]+"&scope=playlist-modify-private playlist-modify"
         return redirect(redirectUrl)
     else: raise PermissionDenied
 
