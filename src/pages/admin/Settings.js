@@ -17,7 +17,8 @@ export default class AdminSettings extends Component {
 		ping: 0,
 		version: "",
 		sentryErrors: 0,
-		intervalDropdown: false
+		intervalDropdown: false,
+		isActionProhibited: false
 	};
 
 	componentDidMount() {
@@ -70,7 +71,7 @@ export default class AdminSettings extends Component {
 				});
 			})
 			.catch((err) => {
-				if (err.status === 401) {
+				if (err.response.status === 401) {
 					this.setState({ isActionProhibited: true });
 				}
 				console.error(err);
