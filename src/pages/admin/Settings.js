@@ -31,9 +31,7 @@ export default class AdminSettings extends Component {
 			.catch((err) => console.error(err));
 
 		// get log
-		axios
-			.get("http://playlist.jelszo.co:9837/api/log/")
-			.then((r) => this.setState({ log: r.data }));
+		axios.get("/api/log/").then((r) => this.setState({ log: r.data }));
 
 		// get ping
 		const start = new Date();
