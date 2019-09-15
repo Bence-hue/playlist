@@ -245,11 +245,23 @@ def settings_view(request, *args, **kwargs):
 def log_view(request, *args, **kwargs):
     if request.user.is_authenticated:
         if request.method=='GET':
-            lograw=Log.objects.all()
-            log=[]
-            for l in reversed(lograw):
-                log.append({"type":l.title,"content":l.content,"name":l.user.first_name,"time":gettime(l.time)})
-            return HttpResponse(json.dumps(log),content_type="application/json")
+            logs=Log.objects.all()
+            read=[False]*len(logs)
+            respons=[]
+            for i,(l,r) in enumerate(zip(logs,read)):
+                if r: continue
+                events=[{"user":l.user.first_name,"content":l.content,"time":gettime(l.time)}]
+                if i<len(logs)-1:
+                    j=i+1
+                    while j<len(logs) and logs[j].title==l.title:
+                        events.append({"user":logs[j].user.first_name,"content":logs[j].content,"time":gettime(logs[j].time)})
+                        read[j]=True
+                        j+=1
+                if len(events)>1:
+                    respons.append({"type":l.title,"events":list(reversed(events)),"eventCount":len(events),"id":i})
+                else:
+                    respons.append({"type":l.title,"user":l.user.first_name,"content":l.content,"time":gettime(l.time),"id":i})
+            return HttpResponse(json.dumps(list(reversed(respons))),content_type="application/json")
         else: 
             return HttpResponse(status=405)
     else:
