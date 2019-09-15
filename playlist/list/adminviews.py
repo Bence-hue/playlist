@@ -251,8 +251,8 @@ def log_view(request, *args, **kwargs):
             for i,(l,r) in enumerate(zip(logs,read)):
                 if r: continue
                 events=[{"user":l.user.first_name,"content":l.content,"time":gettime(l.time)}]
-                j=i+1
-                if j<len(logs)-1:
+                if i<len(logs)-1:
+                    j=i+1
                     while logs[j].title==l.title:
                         events.append({"user":logs[j].user.first_name,"content":logs[j].content,"time":gettime(logs[j].time)})
                         read[j]=True
