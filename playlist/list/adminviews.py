@@ -253,7 +253,7 @@ def log_view(request, *args, **kwargs):
                 events=[{"user":l.user.first_name,"content":l.content,"time":gettime(l.time)}]
                 if i<len(logs)-1:
                     j=i+1
-                    while logs[j].title==l.title:
+                    while j<len(logs) and logs[j].title==l.title:
                         events.append({"user":logs[j].user.first_name,"content":logs[j].content,"time":gettime(logs[j].time)})
                         read[j]=True
                         j+=1
