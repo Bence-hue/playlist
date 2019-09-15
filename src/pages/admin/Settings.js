@@ -95,6 +95,8 @@ export default class AdminSettings extends Component {
 		let url = "/api/settings/songlimit/",
 			params = new URLSearchParams();
 		params.append("number", this.state.settings.songLimitNumber);
+		axios.defaults.xsrfCookieName = "csrftoken";
+        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 		axios
 			.post(url, params)
 			.then((res) => {
