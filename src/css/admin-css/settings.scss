@@ -425,7 +425,7 @@ $borderradius: 35px;
 						white-space: nowrap;
 
 						@media #{$resp-mobile} {
-							font-size: 0.6rem;
+							font-size: 0.7rem;
 						}
 					}
 					* {
@@ -437,7 +437,12 @@ $borderradius: 35px;
 						font-weight: 600;
 						letter-spacing: 1.5px;
 						@media #{$resp-mobile} {
+							width: 95%;
+							margin: 0 2.5%;
 							font-size: 0.9rem;
+							white-space: nowrap;
+							overflow: hidden;
+							text-overflow: ellipsis;
 						}
 					}
 				}
@@ -450,6 +455,91 @@ $borderradius: 35px;
 					font-weight: 400;
 					@media #{$resp-mobile} {
 						font-size: 0.8rem;
+					}
+				}
+			}
+
+			.stack {
+				position: relative;
+				width: 90%;
+				min-height: 60px;
+				margin: 15px 5%;
+				border-radius: 22px;
+				font-family: "Open Sans";
+				@extend %boxshadow;
+
+				.stack__header {
+					position: relative;
+					width: 100%;
+					height: 60px;
+
+					h3 {
+						margin: 0;
+						padding: 0;
+						position: absolute;
+						top: 50%;
+						left: 5%;
+						transform: translateY(-50%);
+						text-transform: uppercase;
+						font-weight: 400;
+						letter-spacing: 3px;
+						@media #{$resp-mobile} {
+							font-size: 1rem;
+						}
+					}
+
+					p {
+						margin: 0;
+						padding: 0;
+						position: absolute;
+						top: 50%;
+						right: 14%;
+						transform: translateY(-50%);
+						letter-spacing: 0.5px;
+						font-weight: 400;
+						font-style: italic;
+						@media #{$resp-mobile} {
+							font-size: 0.9rem;
+							right: 16%;
+						}
+
+						span {
+							font-style: normal;
+							font-weight: 700;
+							color: #13581b;
+						}
+					}
+
+					i {
+						margin: 0;
+						padding: 0;
+						position: absolute;
+						top: 52%;
+						right: 4%;
+						transform: translateY(-50%);
+						font-size: 1.7rem;
+						cursor: pointer;
+						color: #13581b;
+						@media #{$resp-mobile} {
+							top: 55%;
+						}
+					}
+				}
+
+				#logcard {
+					h3 {
+						font-size: 1.1rem;
+						@media #{$resp-mobile} {
+							font-size: 0.8rem;
+						}
+					}
+
+					.content {
+						a {
+							@media #{$resp-mobile} {
+								font-size: 0.65rem;
+							}
+						}
 					}
 				}
 			}

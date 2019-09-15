@@ -79,13 +79,12 @@ export default class About extends Component {
 				<div id="about-us">
 					<h1>Az oldalról...</h1>
 					<p>
-						Az oldal személyenként 3 zene hozzáadását teszi lehetővé
-						negyedóránként. A Playlistet 3 Kölcsey-s diák fejleszti, annak
-						reményében, hogy jobbá tegyék az iskolarádiót, és így valamennyire
-						megkönnyítsék az iskolás diákok mindennapjait. Az ötlet saját,
-						továbbá az iskolától semmilyen jutalmat nem kapunk a projekt
-						fenntartásáért. Ha bármilyen kérdésed van, vagy bármilyen hibát
-						tapasztalsz, nyugodtan lépj kapcsolatba velünk.
+						A Playlistet 3 Kölcsey-s diák fejleszti, annak reményében, hogy
+						jobbá tegyék az iskolarádiót, és így valamennyire megkönnyítsék az
+						iskolás diákok mindennapjait. Az ötlet saját, továbbá az iskolától
+						semmilyen jutalmat nem kapunk a projekt fenntartásáért. Ha bármilyen
+						kérdésed van, vagy bármilyen hibát tapasztalsz, nyugodtan lépj
+						kapcsolatba velünk.
 					</p>
 					<div className="roster">
 						<div className="roster__card">
