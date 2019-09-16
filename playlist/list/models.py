@@ -27,7 +27,7 @@ class BlockedUser(models.Model):
 
 class Setting(models.Model):
     name=models.CharField(max_length=100,unique=True)
-    value=models.IntegerField()
+    value=models.CharField(max_length=100)
     class Meta:
         permissions=[
             ("can_modify_settings","Tud állítani a beállításokon")

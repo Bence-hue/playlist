@@ -19,7 +19,7 @@ with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 # @csrf_exempt
 def new_view(request, *args, **kwargs):
     if request.method == 'POST':
-        if Setting.objects.get(name="canRequestSong").value==0: return HttpResponse(status=403)
+        if int(Setting.objects.get(name="canRequestSong").value)==0: return HttpResponse(status=403)
         data = request.POST
         print(data)
         URL = "https://www.googleapis.com/youtube/v3/search"
@@ -71,8 +71,8 @@ def new_view(request, *args, **kwargs):
         blocks = BlockedUser.objects.filter(userid=user)
         if not blocks.filter(permanent=True).exists():
             if not blocks.filter(expireAt__gte=timezone.now()).exists():
-                lastrecord = Song.objects.filter(createdAt__gte=timezone.now() - datetime.timedelta(minutes=Setting.objects.get(name="songLimitMinute").value),user=user)
-                if len(lastrecord) < Setting.objects.get(name="songLimitNumber").value:
+                lastrecord = Song.objects.filter(createdAt__gte=timezone.now() - datetime.timedelta(minutes=int(Setting.objects.get(name="songLimitMinute").value)),user=user)
+                if len(lastrecord) < int(Setting.objects.get(name="songLimitNumber").value):
                     if not Song.objects.filter(link=link, played=False).exclude(link="").exists():
                         if not Song.objects.filter(link=link, played=True,playedAt__gte=timezone.now() - datetime.timedelta(weeks=1)).exclude(link="").exists():
                             stitle,slink,suri=new(artist+" "+title)
@@ -83,7 +83,7 @@ def new_view(request, *args, **kwargs):
                     else:  # ha van meg le nem jatszott ilyen
                         return HttpResponse("{\"played\":False}", status=422)
                 else:  # ha az utobbi 15 percben kuldott
-                    remaining = int((datetime.timedelta(minutes=Setting.objects.get(name="songLimitMinute").value) - (timezone.now() - lastrecord[0].createdAt)).total_seconds())
+                    remaining = int((datetime.timedelta(minutes=int(Setting.objects.get(name="songLimitMinute").value)) - (timezone.now() - lastrecord[0].createdAt)).total_seconds())
                     print(remaining)
                     return HttpResponse(str(int(remaining / 60)) + ":" + "{:02d}".format(remaining % 60), status=429)
             else:  # ha blokkolva van idore

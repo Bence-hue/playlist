@@ -199,7 +199,7 @@ def settings_view(request, *args, **kwargs):
                         Log.objects.create(user=request.user,title="modify",content="Maintenance mód bekapcsolva")
                     else:
                         Log.objects.create(user=request.user,title="modify",content="Maintenance mód kikapcsolva")
-                    return HttpResponse(Setting.objects.get(name="maintenance").value==1)
+                    return HttpResponse(int(Setting.objects.get(name="maintenance").value)==1)
                 elif s=="canrequestsong":
                     setting=Setting.objects.get(name="canRequestSong")
                     setting.value=int(request.POST.get("value","true")=="true")
@@ -208,22 +208,20 @@ def settings_view(request, *args, **kwargs):
                         Log.objects.create(user=request.user,title="modify",content="Lehet számot kérni")
                     else:
                         Log.objects.create(user=request.user,title="modify",content="Nem lehet számot kérni")
-                    return HttpResponse(Setting.objects.get(name="canRequestSong").value==1)
+                    return HttpResponse(int(Setting.objects.get(name="canRequestSong").value)==1)
                 elif s=="songlimit":
-                    number=request.POST.get("number",Setting.objects.get(name="songLimitNumber").value)
-                    minute=request.POST.get("minute",Setting.objects.get(name="songLimitMinute").value)
+                    number=request.POST.get("number",int(Setting.objects.get(name="songLimitNumber").value))
+                    minute=request.POST.get("minute",int(Setting.objects.get(name="songLimitMinute").value))
                     n=Setting.objects.get(name="songLimitNumber")
                     n.value=number
                     n.save()
                     m=Setting.objects.get(name="songLimitMinute")
                     m.value=minute
                     m.save()
-                    minute=request.POST.get("minute",Setting.objects.get(name="songLimitMinute").value)
-                    minute=request.POST.get("minute",Setting.objects.get(name="songLimitMinute").value)
                     Log.objects.create(user=request.user,title="modify",content="Új limit: {}, {} percenként".format(request.POST.get("number",Setting.objects.get(name="songLimitNumber").value),request.POST.get("minute",Setting.objects.get(name="songLimitMinute").value)))
                     r={
-                        "number":Setting.objects.get(name="songLimitNumber").value,
-                        "minute":Setting.objects.get(name="songLimitMinute").value
+                        "number":int(Setting.objects.get(name="songLimitNumber").value),
+                        "minute":int(Setting.objects.get(name="songLimitMinute").value)
                     }
                     return HttpResponse(json.dumps(r))
                 else:
@@ -233,10 +231,10 @@ def settings_view(request, *args, **kwargs):
         else:
             settings=Setting.objects
             s={
-                "maintenance":settings.get(name="maintenance").value==1,
-                "canRequestSong":settings.get(name="canRequestSong").value==1,
-                "songLimitNumber":settings.get(name="songLimitNumber").value,
-                "songLimitMinute":settings.get(name="songLimitMinute").value
+                "maintenance":int(settings.get(name="maintenance").value)==1,
+                "canRequestSong":int(settings.get(name="canRequestSong").value)==1,
+                "songLimitNumber":int(settings.get(name="songLimitNumber").value),
+                "songLimitMinute":int(settings.get(name="songLimitMinute").value)
             }
             return HttpResponse(json.dumps(s))
     else:
