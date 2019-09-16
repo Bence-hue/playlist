@@ -19,5 +19,6 @@ urlpatterns=[
     path('log/',adminviews.log_view,name="log"),
     path('sentry/',adminviews.sentry_view),
     path('spotilogin/',spotify.spotylogin_view),
-    path('spotilogin/callback/',spotify.spotylogincallback_view)
+    path('spotilogin/callback/',spotify.spotylogincallback_view),
+    path('devices',spotify.device_view)
 ]

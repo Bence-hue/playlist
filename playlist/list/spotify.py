@@ -56,11 +56,11 @@ def spotylogincallback_view(request, *args, **kwargs):
 
 def checkexpiration(request,playlist=True):
     try:
-        if playlist:e=Spotiuser.objects.get(isPlaylistController=True).value
-        else: e=Spotiuser.objects.get(user=request.user).value
+        if playlist:e=Spotiuser.objects.get(isPlaylistController=True).expiresAt
+        else: e=Spotiuser.objects.get(user=request.user).expiresAt
         if e<datetime.datetime.now():
-            if playlist:rt=Spotiuser.objects.get(isPlaylistController=True).value
-            else: rt=Spotiuser.objects.get(user=request.user).value
+            if playlist:rt=Spotiuser.objects.get(isPlaylistController=True).refresh_token
+            else: rt=Spotiuser.objects.get(user=request.user).refresh_token
             r=requests.post('https://accounts.spotify.com/api/token',{
                 "grant_type":"refresh_token",
                 "refresh_token":rt
@@ -83,10 +83,11 @@ def new(title):
         "q":title,
         "type":"track",
         "limit":1
-    },headers={"Authorization":"Bearer "+Spoti.objects.get(key="access_token").value})
+    },headers={"Authorization":"Bearer "+Spotiuser.objects.get(isPlaylistController=True).access_token})
     respons=r.json()
     try:
-        a=requests.post("https://api.spotify.com/v1/playlists/"+Spoti.objects.get(key="playlist").value+"/tracks",params={"uris":respons["tracks"]["items"][0]["uri"]},headers={"Authorization":"Bearer "+Spoti.objects.get(key="access_token").value})
+        a=requests.post("https://api.spotify.com/v1/playlists/"+ # IDE A PLAYLIST CÍME
+        +"/tracks",params={"uris":respons["tracks"]["items"][0]["uri"]},headers={"Authorization":"Bearer "+Spotiuser.objects.get(isPlaylistController=True).access_token})
         print(a.status_code,a.text,a.url)
         return (respons["tracks"]["items"][0]["artists"][0]["name"]+": "+respons["tracks"]["items"][0]["name"],respons["tracks"]["items"][0]["external_urls"]["spotify"],respons["tracks"]["items"][0]["uri"])
     except Exception as e:
@@ -96,12 +97,25 @@ def new(title):
 def add(uri):
     if uri=="":return
     checkexpiration()
-    r=requests.post("https://api.spotify.com/v1/playlists/"+Spoti.objects.get(key="playlist").value+"/tracks",params={"uris":uri},headers={"Authorization":"Bearer "+Spoti.objects.get(key="access_token").value})
+    r=requests.post("https://api.spotify.com/v1/playlists/"+ # IDE A PLAYLIST CÍME
+    +"/tracks",params={"uris":uri},headers={"Authorization":"Bearer "+Spotiuser.objects.get(isPlaylistController=True).access_token})
 
 def delete(uri):
     if uri=="":return
     checkexpiration()
-    r=requests.delete("https://api.spotify.com/v1/playlists/"+Spoti.objects.get(key="playlist").value+"/tracks",headers={
-        "Authorization":"Bearer "+Spoti.objects.get(key="access_token").value,
+    r=requests.delete("https://api.spotify.com/v1/playlists/"+ # IDE A PLAYLIST CÍME
+    +"/tracks",headers={
+        "Authorization":"Bearer "+Spotiuser.objects.get(isPlaylistController=True).access_token,
         "Content-Type":"application/json"
     },data=json.dumps({"tracks":[{"uri":uri}]}))
+
+def device_view(request,*args,**kwargs):
+    if request.method=="GET":
+        try:
+            r=requests.get("https://api.spotify.com/v1/me/player/devices",headers={"Authorization":"Bearer "+Spotiuser.objects.get(user=request.user).access_token})
+            devices=[]
+            for d in r.json()["devices"]:
+                print(d)
+                devices.append({"id":d["id"],"name":d["name"],"type":d["type"]})
+            return HttpResponse(json.dumps(devices),content_type="application/json")
+        except: return HttpResponse(status=404)
