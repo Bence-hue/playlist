@@ -39,6 +39,10 @@ class Log(models.Model):
     content=models.CharField(max_length=200)
     time=models.DateTimeField(auto_now_add=True)
 
-class Spoti(models.Model):
-    key=models.CharField(max_length=200,unique=True)
-    value=models.CharField(max_length=200)
+class Spotiuser(models.Model):
+    user=models.ForeignKey(User,models.CASCADE,null=True)
+    access_token=models.CharField(max_length=200)
+    refresh_token=models.CharField(max_length=200)
+    expiresAt=models.DateTimeField()
+    isPlaylistController=models.BooleanField(default=False)
+    device=models.CharField(max_length=200,null=True,blank=True)
