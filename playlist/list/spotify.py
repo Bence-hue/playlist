@@ -8,6 +8,7 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
+from django.utils import timezone
 
 from .models import Spotiuser,Setting
 
@@ -58,7 +59,7 @@ def checkexpiration(request,playlist=True):
     try:
         if playlist:e=Spotiuser.objects.get(isPlaylistController=True).expiresAt
         else: e=Spotiuser.objects.get(user=request.user).expiresAt
-        if e<datetime.datetime.now():
+        if e<timezone.now():
             if playlist:rt=Spotiuser.objects.get(isPlaylistController=True).refresh_token
             else: rt=Spotiuser.objects.get(user=request.user).refresh_token
             r=requests.post('https://accounts.spotify.com/api/token',{
@@ -74,7 +75,7 @@ def checkexpiration(request,playlist=True):
             su.expiresAt=datetime.datetime.now()+datetime.timedelta(seconds=rj["expires_in"])
             su.save()
             return True
-    except: pass
+    except Exception as e: print(e)
     return False
 
 def new(title):
@@ -109,13 +110,23 @@ def delete(uri):
         "Content-Type":"application/json"
     },data=json.dumps({"tracks":[{"uri":uri}]}))
 
+@csrf_exempt
 def device_view(request,*args,**kwargs):
+    checkexpiration(request,False)
     if request.method=="GET":
+        # try:
+        r=requests.get("https://api.spotify.com/v1/me/player/devices",headers={"Authorization":"Bearer "+Spotiuser.objects.get(user=request.user).access_token})
+        devices=[]
+        print(r.json())
+        for d in r.json()["devices"]:
+            print(d)
+            devices.append({"id":d["id"],"name":d["name"],"type":d["type"]})
+        return HttpResponse(json.dumps(devices),content_type="application/json")
+        # except Exception as e: return HttpResponse(e,status=404)
+    else:
         try:
-            r=requests.get("https://api.spotify.com/v1/me/player/devices",headers={"Authorization":"Bearer "+Spotiuser.objects.get(user=request.user).access_token})
-            devices=[]
-            for d in r.json()["devices"]:
-                print(d)
-                devices.append({"id":d["id"],"name":d["name"],"type":d["type"]})
-            return HttpResponse(json.dumps(devices),content_type="application/json")
-        except: return HttpResponse(status=404)
+            su=Spotiuser.objects.get(user=request.user)
+            su.device=request.POST.get("id","")
+            su.save()
+            return HttpResponse(su.device,status=200)
+        except Exception as e: return HttpResponse(e,status=404)
