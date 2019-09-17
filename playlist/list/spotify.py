@@ -150,5 +150,5 @@ def status_view(request, *args, **kwargs):
 def username_view(request, *args, **kwargs):
     if request.user.is_authenticated:
         r=requests.get("https://api.spotify.com/v1/me",headers={"Authorization":"Bearer "+Spotiuser.objects.get(user=request.user).access_token})
-        return HttpResponse(r.json.get("display_name",""))
+        return HttpResponse(r.json().get("display_name",""))
     else: raise PermissionDenied
