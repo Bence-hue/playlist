@@ -1,9 +1,16 @@
 from django.urls import path,include
 from . import songsviews,adminviews,spotify
 
+spoti=[
+    path('login',spotify.login_view),
+    path('callback',spotify.callback_view),
+    path('devices',spotify.devices_view),
+]
+
 urlpatterns=[
     path('new/',songsviews.new_view,name='new'),
     path('played/',songsviews.played_view,name="played"),
+    path('play/',songsviews.play_view),
     path('delete/',songsviews.delete_view,name="delete"),
     path('list/',songsviews.list_view,name='list'),
     path('login/',adminviews.adminlogin_view,name="login"),
@@ -18,6 +25,5 @@ urlpatterns=[
     path('settings/<s>/',adminviews.settings_view,name="settings"),
     path('log/',adminviews.log_view,name="log"),
     path('sentry/',adminviews.sentry_view),
-    path('spotilogin/',spotify.spotylogin_view),
-    path('spotilogin/callback/',spotify.spotylogincallback_view)
+    path('spotify/',include(spoti))
 ]

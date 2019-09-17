@@ -19,11 +19,11 @@ with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 # Create your views here.
 @ensure_csrf_cookie
 def frontend_view(request, *args,**kwargs):
-    if Setting.objects.get(name="maintenance").value==1:
+    if int(Setting.objects.get(name="maintenance").value)==1:
         return redirect("/maintenance")
     else:
         print()
-        if request.get_full_path()=="/new" and Setting.objects.get(name="canRequestSong").value==0:
+        if request.get_full_path()=="/new" and int(Setting.objects.get(name="canRequestSong").value)==0:
             return redirect("/?noNew=true")
         response = render(request, "index.html")
         if 'userid' not in request.COOKIES:
@@ -36,7 +36,7 @@ def frontend_view(request, *args,**kwargs):
         return response
 
 def maintenance_view(request, *args,**kwargs):
-    if Setting.objects.get(name="maintenance").value==1:
+    if int(Setting.objects.get(name="maintenance").value)==1:
         return render(request, "index.html")
     else:
         return redirect("/")

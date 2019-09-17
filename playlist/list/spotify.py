@@ -8,64 +8,77 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
+from django.utils import timezone
 
-from .models import Spoti
+from .models import Spotiuser,Setting
 
 with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "datas.json"), "r") as cffile:
     config = json.loads(cffile.readline())
 
 
-def spotylogin_view(request, *args, **kwargs):
-    if request.user.has_perm('spotilogin'):
-        redirectUrl='https://accounts.spotify.com/en/authorize?client_id='+Spoti.objects.get(key="client_id").value+'&response_type=code&redirect_uri='+request.build_absolute_uri('/api/spotilogin/callback')+'&state='+config["spotistate"]+"&scope=playlist-modify-private playlist-modify"
-        return redirect(redirectUrl)
-    else: raise PermissionDenied
+
+def login_view(request, *args, **kwargs):
+    if request.user.is_authenticated and not Spotiuser.objects.filter(user=request.user).exists():
+        if "playlist" in request.GET:
+            redirectUrl='https://accounts.spotify.com/en/authorize?client_id=83d5b03d29f64c7bba950c8f081b08ab&response_type=code&redirect_uri='+request.build_absolute_uri('/api/spotify/callback')+'&state='+config["spotistate"]+"playlist&scope=playlist-modify-private playlist-modify"
+            return redirect(redirectUrl)
+        else:
+            redirectUrl='https://accounts.spotify.com/en/authorize?client_id=83d5b03d29f64c7bba950c8f081b08ab&response_type=code&redirect_uri='+request.build_absolute_uri('/api/spotify/callback')+'&state='+config["spotistate"]+"&scope=user-modify-playback-state user-read-playback-state user-follow-modify"
+            return redirect(redirectUrl)
+    else: return redirect("/admin/settings")
 
 @csrf_exempt
-def spotylogincallback_view(request, *args, **kwargs):
-    if request.GET.get("state","")==config["spotistate"]:
+def callback_view(request, *args, **kwargs):
+    if request.GET.get("state","")==config["spotistate"]+"playlist":
         if request.GET.get("code"):
+            Spotiuser.objects.filter(isPlaylistController=True).delete()
             r=requests.post("https://accounts.spotify.com/api/token",{
                 "grant_type":"authorization_code",
                 "code":request.GET.get("code"),
-                "redirect_uri":request.build_absolute_uri('/api/spotilogin/callback'),
-                'client_id':Spoti.objects.get(key="client_id").value,
+                "redirect_uri":request.build_absolute_uri('/api/spotify/callback'),
+                'client_id':"83d5b03d29f64c7bba950c8f081b08ab",
                 'client_secret':config["spotisecret"]
             })
             rj=r.json()
-            print(rj)
-            at,c=Spoti.objects.get_or_create(key='access_token')
-            at.value=rj["access_token"]
-            at.save()
-            rt,c=Spoti.objects.get_or_create(key='refresh_token')
-            rt.value=rj["refresh_token"]
-            rt.save()
-            ea,c=Spoti.objects.get_or_create(key='expires_at')
-            ea.value=datetime.datetime.now()+datetime.timedelta(seconds=rj["expires_in"])
-            ea.save()
-            return redirect("/")
-    return redirect("/")
-
-def checkexpiration():
-    re=Spoti.objects.get(key='expires_at').value
-    e=datetime.datetime.strptime(re,"%Y-%m-%d %H:%M:%S.%f")
-    print(e)
-    if e<datetime.datetime.now():
-        r=requests.post('https://accounts.spotify.com/api/token',{
-            "grant_type":"refresh_token",
-            "refresh_token":Spoti.objects.get(key='refresh_token').value
-        },headers={
-            "Authorization":"Basic "+base64.b64encode(bytes(Spoti.objects.get(key="client_id").value+":"+config["spotisecret"],"ascii")).decode("ascii")
+            su=Spotiuser.objects.create(access_token=rj["access_token"],refresh_token=rj["refresh_token"],expiresAt=datetime.datetime.now()+datetime.timedelta(seconds=rj["expires_in"]),isPlaylistController=True)
+            su.save()
+    elif request.GET.get("state","")==config["spotistate"]:
+        Spotiuser.objects.filter(user=request.user).delete()
+        r=requests.post("https://accounts.spotify.com/api/token",{
+                "grant_type":"authorization_code",
+                "code":request.GET.get("code"),
+                "redirect_uri":request.build_absolute_uri('/api/spotify/callback'),
+                'client_id':"83d5b03d29f64c7bba950c8f081b08ab",
+                'client_secret':config["spotisecret"]
         })
         rj=r.json()
-        print(rj)
-        at,c=Spoti.objects.get_or_create(key='access_token')
-        at.value=rj["access_token"]
-        at.save()
-        ea,c=Spoti.objects.get_or_create(key='expires_at')
-        ea.value=datetime.datetime.now()+datetime.timedelta(seconds=rj["expires_in"])
-        ea.save()
-        return True
+        su=Spotiuser.objects.create(user=request.user,access_token=rj["access_token"],refresh_token=rj["refresh_token"],expiresAt=datetime.datetime.now()+datetime.timedelta(seconds=rj["expires_in"]))
+        su.save()
+    return redirect("/admin/settings")
+
+def checkexpiration(request=None):
+    if request is None: playlist=True
+    else: playlist=False
+    try:
+        if playlist:e=Spotiuser.objects.get(isPlaylistController=True).expiresAt
+        else: e=Spotiuser.objects.get(user=request.user).expiresAt
+        if e<timezone.now():
+            if playlist:rt=Spotiuser.objects.get(isPlaylistController=True).refresh_token
+            else: rt=Spotiuser.objects.get(user=request.user).refresh_token
+            r=requests.post('https://accounts.spotify.com/api/token',{
+                "grant_type":"refresh_token",
+                "refresh_token":rt
+            },headers={
+                "Authorization":"Basic "+base64.b64encode(bytes("83d5b03d29f64c7bba950c8f081b08ab"+":"+config["spotisecret"],"ascii")).decode("ascii")
+            })
+            rj=r.json()
+            if playlist: su=Spotiuser.objects.get(isPlaylistController=True)
+            else: su=Spotiuser.objects.get(user=request.user)
+            su.access_token=rj["access_token"]
+            su.expiresAt=datetime.datetime.now()+datetime.timedelta(seconds=rj["expires_in"])
+            su.save()
+            return True
+    except Exception as e: print(e)
     return False
 
 def new(title):
@@ -74,10 +87,11 @@ def new(title):
         "q":title,
         "type":"track",
         "limit":1
-    },headers={"Authorization":"Bearer "+Spoti.objects.get(key="access_token").value})
+    },headers={"Authorization":"Bearer "+Spotiuser.objects.get(isPlaylistController=True).access_token})
     respons=r.json()
     try:
-        a=requests.post("https://api.spotify.com/v1/playlists/"+Spoti.objects.get(key="playlist").value+"/tracks",params={"uris":respons["tracks"]["items"][0]["uri"]},headers={"Authorization":"Bearer "+Spoti.objects.get(key="access_token").value})
+        a=requests.post("https://api.spotify.com/v1/playlists/"+ Setting.objects.get(name="playlist").value
+        +"/tracks",params={"uris":respons["tracks"]["items"][0]["uri"]},headers={"Authorization":"Bearer "+Spotiuser.objects.get(isPlaylistController=True).access_token})
         print(a.status_code,a.text,a.url)
         return (respons["tracks"]["items"][0]["artists"][0]["name"]+": "+respons["tracks"]["items"][0]["name"],respons["tracks"]["items"][0]["external_urls"]["spotify"],respons["tracks"]["items"][0]["uri"])
     except Exception as e:
@@ -87,12 +101,43 @@ def new(title):
 def add(uri):
     if uri=="":return
     checkexpiration()
-    r=requests.post("https://api.spotify.com/v1/playlists/"+Spoti.objects.get(key="playlist").value+"/tracks",params={"uris":uri},headers={"Authorization":"Bearer "+Spoti.objects.get(key="access_token").value})
+    r=requests.post("https://api.spotify.com/v1/playlists/"+ Setting.objects.get(name="playlist").value
+    +"/tracks",params={"uris":uri},headers={"Authorization":"Bearer "+Spotiuser.objects.get(isPlaylistController=True).access_token})
 
 def delete(uri):
     if uri=="":return
     checkexpiration()
-    r=requests.delete("https://api.spotify.com/v1/playlists/"+Spoti.objects.get(key="playlist").value+"/tracks",headers={
-        "Authorization":"Bearer "+Spoti.objects.get(key="access_token").value,
+    r=requests.delete("https://api.spotify.com/v1/playlists/"+ Setting.objects.get(name="playlist").value
+    +"/tracks",headers={
+        "Authorization":"Bearer "+Spotiuser.objects.get(isPlaylistController=True).access_token,
         "Content-Type":"application/json"
     },data=json.dumps({"tracks":[{"uri":uri}]}))
+
+@csrf_exempt
+def devices_view(request,*args,**kwargs):
+    checkexpiration(request)
+    if request.method=="GET":
+        try:
+            r=requests.get("https://api.spotify.com/v1/me/player/devices",headers={"Authorization":"Bearer "+Spotiuser.objects.get(user=request.user)   .access_token})
+            devices=[]
+            print(r.json())
+            for d in r.json()["devices"]:
+                print(d)
+                devices.append({"id":d["id"],"name":d["name"],"type":d["type"]})
+            return HttpResponse(json.dumps(devices),content_type="application/json")
+        except Exception as e: return HttpResponse(e,status=404)
+    else:
+        try:
+            su=Spotiuser.objects.get(user=request.user)
+            su.device=request.POST.get("id","")
+            su.save()
+            return HttpResponse(su.device,status=200)
+        except Exception as e: return HttpResponse(e,status=404)
+
+def play(request,uri):
+    checkexpiration(request)
+    if Spotiuser.objects.get(user=request.user).device=="" or Spotiuser.objects.get(user=request.user).device is None:
+        url="https://api.spotify.com/v1/me/player/play"
+    else:
+        url="https://api.spotify.com/v1/me/player/play?device_id="+Spotiuser.objects.get(user=request.user).device
+    r=requests.put(url,data=json.dumps({"uris":[uri]}),headers={"Authorization":"Bearer "+Spotiuser.objects.get(user=request.user).access_token})
