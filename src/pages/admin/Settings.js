@@ -21,7 +21,8 @@ export default class AdminSettings extends Component {
 		isActionProhibited: false,
 		spoti: {
 			status: "unauth",
-			username: null
+			username: null,
+			devices: {}
 		}
 	};
 
