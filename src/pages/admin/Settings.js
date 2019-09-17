@@ -18,7 +18,11 @@ export default class AdminSettings extends Component {
 		version: "",
 		sentryErrors: 0,
 		intervalDropdown: false,
-		isActionProhibited: false
+		isActionProhibited: false,
+		spoti: {
+			status: "unauth",
+			username: null
+		}
 	};
 
 	componentDidMount() {
@@ -143,7 +147,7 @@ export default class AdminSettings extends Component {
 		});
 	};
 	render() {
-		const { log, ping, version, sentryErrors } = this.state;
+		const { log, ping, version, sentryErrors, spoti } = this.state;
 		const {
 			maintenance,
 			canRequestSong,
@@ -263,6 +267,15 @@ export default class AdminSettings extends Component {
 							<h4 style={styleSentry}>{sentryErrors} hiba</h4>
 						</div>
 					</div>
+					<div className="spotilogin">
+						<div className="spotilogin__btn">
+							<p>
+								<i className="fab fa-spotify"></i>
+								{spoti.status ? spoti.username : "Bejelentkezés"}
+							</p>
+						</div>
+					</div>
+					<div className="spotidevices"></div>
 					<div className="settings-grid__log">
 						<h2>Audit log</h2>
 						{log.map((action) => {
