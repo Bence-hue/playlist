@@ -18,12 +18,12 @@ with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 
 
 def login_view(request, *args, **kwargs):
-    if request.user.is_authenticated and not Spotiuser.objects.filter(user=request.user).exists():
+    if request.user.is_authenticated:
         if "playlist" in request.GET:
             redirectUrl='https://accounts.spotify.com/en/authorize?client_id=83d5b03d29f64c7bba950c8f081b08ab&response_type=code&redirect_uri='+request.build_absolute_uri('/api/spotify/callback')+'&state='+config["spotistate"]+"playlist&scope=playlist-modify-private playlist-modify"
             return redirect(redirectUrl)
         else:
-            redirectUrl='https://accounts.spotify.com/en/authorize?client_id=83d5b03d29f64c7bba950c8f081b08ab&response_type=code&redirect_uri='+request.build_absolute_uri('/api/spotify/callback')+'&state='+config["spotistate"]+"&scope=user-modify-playback-state user-read-playback-state user-follow-modify"
+            redirectUrl='https://accounts.spotify.com/en/authorize?client_id=83d5b03d29f64c7bba950c8f081b08ab&response_type=code&redirect_uri='+request.build_absolute_uri('/api/spotify/callback')+'&state='+config["spotistate"]+"&scope=user-modify-playback-state user-read-playback-state playlist-modify-private playlist-modify-public"
             return redirect(redirectUrl)
     else: return redirect("/admin/settings")
 
@@ -54,6 +54,8 @@ def callback_view(request, *args, **kwargs):
         rj=r.json()
         su=Spotiuser.objects.create(user=request.user,access_token=rj["access_token"],refresh_token=rj["refresh_token"],expiresAt=datetime.datetime.now()+datetime.timedelta(seconds=rj["expires_in"]))
         su.save()
+        r=requests.put("https://api.spotify.com/v1/playlists/"+Setting.objects.get(name="playlist").value+"/followers",json.dumps({"public":False}),headers={"Authorization":"Bearer "+Spotiuser.objects.get(user=request.user).access_token,"Content-Type":"application/json"})
+        print(r.text,r.status_code,r.content,r.url)
     return redirect("/admin/settings")
 
 def checkexpiration(request=None):
