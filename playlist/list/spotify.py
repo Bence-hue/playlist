@@ -125,7 +125,7 @@ def devices_view(request,*args,**kwargs):
             print(r.json())
             for d in r.json()["devices"]:
                 print(d)
-                devices.append({"id":d["id"],"name":d["name"],"type":d["type"]})
+                devices.append({"id":d["id"],"name":d["name"],"type":d["type"],"isSelected":Spotiuser.objects.get(user=request.user).device==d["id"]})
             return HttpResponse(json.dumps(devices),content_type="application/json")
         except Exception as e: return HttpResponse(e,status=404)
     else:
