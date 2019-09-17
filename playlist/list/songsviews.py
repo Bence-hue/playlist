@@ -1,4 +1,4 @@
-from .models import BlockedUser, Song, Setting,Log
+from .models import BlockedUser, Song, Setting,Log,Spotiuser
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -11,7 +11,7 @@ from django.core import serializers
 from django.core.exceptions import PermissionDenied
 from django.utils import timezone
 from django.core.mail import EmailMessage
-from .spotify import new, delete
+from .spotify import new, delete, play
 
 with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "datas.json"), "r") as cffile:
     config = json.loads(cffile.readline())
@@ -119,6 +119,19 @@ def played_view(request, *args, **kwargs):
             raise PermissionDenied
     else:
         return HttpResponse(status=405)
+
+@csrf_exempt
+def play_view(request, *args, **kwargs):
+    if request.user.is_authenticated:
+        if request.method == 'POST' and Spotiuser.objects.filter(user=request.user).exists():
+            id = request.POST.get("id", [""])
+            if Song.objects.get(id=id).spotiuri:
+                play(request,Song.objects.get(id=id).spotiuri)
+            return played_view(request,*args,**kwargs)
+        else:
+            return HttpResponse(status=405)
+    else:
+        raise PermissionDenied
 
 
 # @csrf_exempt

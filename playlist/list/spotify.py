@@ -17,25 +17,25 @@ with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 
 
 
-def spotylogin_view(request, *args, **kwargs):
+def login_view(request, *args, **kwargs):
     if request.user.is_authenticated and not Spotiuser.objects.filter(user=request.user).exists():
         if "playlist" in request.GET:
-            redirectUrl='https://accounts.spotify.com/en/authorize?client_id=83d5b03d29f64c7bba950c8f081b08ab&response_type=code&redirect_uri='+request.build_absolute_uri('/api/spotilogin/callback')+'&state='+config["spotistate"]+"playlist&scope=playlist-modify-private playlist-modify"
+            redirectUrl='https://accounts.spotify.com/en/authorize?client_id=83d5b03d29f64c7bba950c8f081b08ab&response_type=code&redirect_uri='+request.build_absolute_uri('/api/spotify/callback')+'&state='+config["spotistate"]+"playlist&scope=playlist-modify-private playlist-modify"
             return redirect(redirectUrl)
         else:
-            redirectUrl='https://accounts.spotify.com/en/authorize?client_id=83d5b03d29f64c7bba950c8f081b08ab&response_type=code&redirect_uri='+request.build_absolute_uri('/api/spotilogin/callback')+'&state='+config["spotistate"]+"&scope=user-modify-playback-state user-read-playback-state user-follow-modify"
+            redirectUrl='https://accounts.spotify.com/en/authorize?client_id=83d5b03d29f64c7bba950c8f081b08ab&response_type=code&redirect_uri='+request.build_absolute_uri('/api/spotify/callback')+'&state='+config["spotistate"]+"&scope=user-modify-playback-state user-read-playback-state user-follow-modify"
             return redirect(redirectUrl)
     else: return redirect("/admin/settings")
 
 @csrf_exempt
-def spotylogincallback_view(request, *args, **kwargs):
+def callback_view(request, *args, **kwargs):
     if request.GET.get("state","")==config["spotistate"]+"playlist":
         if request.GET.get("code"):
             Spotiuser.objects.filter(isPlaylistController=True).delete()
             r=requests.post("https://accounts.spotify.com/api/token",{
                 "grant_type":"authorization_code",
                 "code":request.GET.get("code"),
-                "redirect_uri":request.build_absolute_uri('/api/spotilogin/callback'),
+                "redirect_uri":request.build_absolute_uri('/api/spotify/callback'),
                 'client_id':"83d5b03d29f64c7bba950c8f081b08ab",
                 'client_secret':config["spotisecret"]
             })
@@ -47,7 +47,7 @@ def spotylogincallback_view(request, *args, **kwargs):
         r=requests.post("https://accounts.spotify.com/api/token",{
                 "grant_type":"authorization_code",
                 "code":request.GET.get("code"),
-                "redirect_uri":request.build_absolute_uri('/api/spotilogin/callback'),
+                "redirect_uri":request.build_absolute_uri('/api/spotify/callback'),
                 'client_id':"83d5b03d29f64c7bba950c8f081b08ab",
                 'client_secret':config["spotisecret"]
         })
@@ -114,8 +114,8 @@ def delete(uri):
     },data=json.dumps({"tracks":[{"uri":uri}]}))
 
 @csrf_exempt
-def device_view(request,*args,**kwargs):
-    checkexpiration(request,False)
+def devices_view(request,*args,**kwargs):
+    checkexpiration(request)
     if request.method=="GET":
         try:
             r=requests.get("https://api.spotify.com/v1/me/player/devices",headers={"Authorization":"Bearer "+Spotiuser.objects.get(user=request.user)   .access_token})
@@ -133,3 +133,11 @@ def device_view(request,*args,**kwargs):
             su.save()
             return HttpResponse(su.device,status=200)
         except Exception as e: return HttpResponse(e,status=404)
+
+def play(request,uri):
+    checkexpiration(request)
+    if Spotiuser.objects.get(user=request.user).device=="" or Spotiuser.objects.get(user=request.user).device is None:
+        url="https://api.spotify.com/v1/me/player/play"
+    else:
+        url="https://api.spotify.com/v1/me/player/play?device_id="+Spotiuser.objects.get(user=request.user).device
+    r=requests.put(url,data=json.dumps({"uris":[uri]}),headers={"Authorization":"Bearer "+Spotiuser.objects.get(user=request.user).access_token})
