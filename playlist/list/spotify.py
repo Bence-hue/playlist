@@ -25,7 +25,7 @@ def login_view(request, *args, **kwargs):
         else:
             redirectUrl='https://accounts.spotify.com/en/authorize?client_id=83d5b03d29f64c7bba950c8f081b08ab&response_type=code&redirect_uri='+request.build_absolute_uri('/api/spotify/callback')+'&state='+config["spotistate"]+"&scope=user-modify-playback-state user-read-playback-state playlist-modify-private playlist-modify-public"
             return redirect(redirectUrl)
-    else: return redirect("/admin/settings")
+    else: raise PermissionDenied
 
 @csrf_exempt
 def callback_view(request, *args, **kwargs):
