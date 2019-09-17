@@ -143,3 +143,6 @@ def play(request,uri):
     else:
         url="https://api.spotify.com/v1/me/player/play?device_id="+Spotiuser.objects.get(user=request.user).device
     r=requests.put(url,data=json.dumps({"uris":[uri]}),headers={"Authorization":"Bearer "+Spotiuser.objects.get(user=request.user).access_token})
+
+def status_view(request, *args, **kwargs):
+    return HttpResponse(Spotiuser.objects.filter(user=request.user).exists())
