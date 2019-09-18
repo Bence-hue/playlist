@@ -2,11 +2,11 @@ from django.urls import path,include
 from . import songsviews,adminviews,spotify
 
 spoti=[
-    path('login',spotify.login_view),
-    path('callback',spotify.callback_view),
-    path('devices',spotify.devices_view),
-    path('status',spotify.status_view),
-    path('username',spotify.username_view)
+    path('login/',spotify.login_view),
+    path('callback/',spotify.callback_view),
+    path('devices/',spotify.devices_view),
+    path('status/',spotify.status_view),
+    path('username/',spotify.username_view)
 ]
 
 urlpatterns=[
