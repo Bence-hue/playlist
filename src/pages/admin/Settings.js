@@ -22,7 +22,20 @@ export default class AdminSettings extends Component {
 		spoti: {
 			status: false,
 			username: null,
-			devices: []
+			devices: [
+				{
+					id: "2182adb0cbcdea20a4c11e2eb45ea7b3ca88fcce",
+					name: "BNCTTH",
+					type: "Computer",
+					isSelected: false
+				},
+				{
+					id: "67b4d3bb51973960b9e9c06df5f89ff0378a38c4",
+					name: "Redmi Note 6 Pro",
+					type: "Smartphone",
+					isSelected: false
+				}
+			]
 		}
 	};
 
@@ -48,7 +61,8 @@ export default class AdminSettings extends Component {
 		axios
 			.get("/api/spotify/status/")
 			.then((res) => {
-				if (res === true) {
+				const parsedRes = JSON.parse(res);
+				if (parsedRes === true) {
 					this.setState({ spoti: { ...this.state.spoti, status: true } });
 					axios
 						.get("/api/spotify/username/")
@@ -175,6 +189,13 @@ export default class AdminSettings extends Component {
 			this.toggleIntervalSelector();
 		});
 	};
+
+	spotiLogin = () => {
+		window.location.href = "/api/spotify/login";
+	};
+	spotiLogout = () => {
+		window.location.href = "https://www.spotify.com/hu/account/apps";
+	};
 	render() {
 		const { log, ping, version, sentryErrors } = this.state;
 		const {
@@ -297,7 +318,10 @@ export default class AdminSettings extends Component {
 							<h4 style={styleSentry}>{sentryErrors} hiba</h4>
 						</div>
 					</div>
-					<div className="settings-grid__spoti-login">
+					<div
+						className="settings-grid__spoti-login"
+						onClick={status ? this.spotiLogout : this.spotiLogin}
+					>
 						<div
 							className={`spoti-login__button ${
 								status ? "spoti-btn-authed" : "spoti-btn-unauthed"
@@ -330,7 +354,10 @@ export default class AdminSettings extends Component {
 								}
 								return (
 									<div className="spoti__device-card">
-										<i className={`fas fa-${deviceTypeClassName}`}></i>
+										<i
+											style={styleDeviceIsActive}
+											className={`fas fa-${deviceTypeClassName}`}
+										></i>
 										<h5 style={styleDeviceIsActive}>
 											{device.name}
 											{device.isSelected ? (

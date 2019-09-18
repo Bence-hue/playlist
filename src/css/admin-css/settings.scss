@@ -357,17 +357,107 @@ $borderradius: 35px;
 		}
 
 		.settings-grid__spoti-login {
+			position: relative;
 			grid-row: 5 / 6;
 			grid-column: 1 / 2;
 			@extend %boxshadow;
 			border-radius: $borderradius;
+
+			.spoti-login__button {
+				position: absolute;
+				padding: 5px 70px;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				border-radius: 100px;
+				font-family: "Open Sans";
+				text-transform: uppercase;
+				font-weight: 400;
+				letter-spacing: 2px;
+				font-size: 1.1rem;
+				white-space: nowrap;
+				-webkit-box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.25);
+				-moz-box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.25);
+				box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.25);
+				cursor: pointer;
+				transition: 0.1s all ease-in-out;
+
+				&:hover {
+					transform: translate(-50%, -50%) scale(1.05);
+				}
+
+				p {
+					padding-top: 5px;
+					i {
+						margin-top: -5px;
+						font-size: 2rem;
+						margin-right: 10px;
+						vertical-align: middle;
+					}
+				}
+			}
+
+			.spoti-btn-unauthed {
+				background: white;
+				color: #1ed761;
+			}
+			.spoti-btn-authed {
+				background: #1ed761;
+				color: white;
+			}
 		}
 
 		.settings-grid__spoti-devices {
+			position: relative;
 			grid-row: 5 / 7;
 			grid-column: 5 / 6;
 			@extend %boxshadow;
 			border-radius: $borderradius;
+
+			h2 {
+				text-align: center;
+				margin: 20px 0 0 0;
+				text-transform: uppercase;
+				font-family: "Open Sans";
+				font-weight: 300;
+				letter-spacing: 2px;
+			}
+
+			.spoti-devices__list {
+				position: absolute;
+				top: 58%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				max-height: 72%;
+				width: 60%;
+
+				.spoti__device-card {
+					position: relative;
+					border-top: 1px solid transparent;
+					width: 90%;
+					padding: 0 5%;
+					&:not(:first-child) {
+						border-color: #202020;
+					}
+					i:not(.fa-check-circle) {
+						display: inline-block;
+						width: 40px;
+						text-align: center;
+						margin-right: 0px;
+						font-size: 1.4rem;
+						vertical-align: middle;
+					}
+					h5 {
+						display: inline-block;
+						font-family: "Open Sans";
+						text-transform: uppercase;
+					}
+					.fa-check-circle {
+						margin-left: 5px;
+						font-size: 0.8rem;
+					}
+				}
+			}
 		}
 
 		.settings-grid__log {
