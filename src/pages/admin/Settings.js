@@ -48,6 +48,8 @@ export default class AdminSettings extends Component {
 		axios
 			.get("/api/spotify/status/")
 			.then((res) => {
+				console.log("status response" + res.data);
+
 				const parsedRes = JSON.parse(res);
 				console.log("parsedRes " + parsedRes);
 				if (parsedRes === true) {
