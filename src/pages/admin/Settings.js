@@ -50,7 +50,7 @@ export default class AdminSettings extends Component {
 			.then((res) => {
 				console.log("status response" + res.data);
 
-				const parsedRes = JSON.parse(res);
+				const parsedRes = JSON.parse(res.data);
 				console.log("parsedRes " + parsedRes);
 				if (parsedRes === true) {
 					this.setState({ spoti: { ...this.state.spoti, status: true } });
