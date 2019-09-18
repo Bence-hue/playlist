@@ -365,7 +365,7 @@ $borderradius: 35px;
 
 			.spoti-login__button {
 				position: absolute;
-				padding: 5px 70px;
+				padding: 5px 55px;
 				top: 50%;
 				left: 50%;
 				transform: translate(-50%, -50%);
@@ -422,7 +422,18 @@ $borderradius: 35px;
 				font-weight: 300;
 				letter-spacing: 2px;
 			}
-
+			p {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				text-transform: uppercase;
+				font-family: "Open Sans";
+				font-weight: 300;
+				text-align: center;
+				width: 75%;
+				letter-spacing: 2.5px;
+			}
 			.spoti-devices__list {
 				position: absolute;
 				top: 58%;

@@ -339,45 +339,49 @@ export default class AdminSettings extends Component {
 					</div>
 					<div className="settings-grid__spoti-devices">
 						<h2>Spotify-eszközök</h2>
-						<div className="spoti-devices__list">
-							{devices.map((device) => {
-								let deviceTypeClassName, styleDeviceIsActive;
-								switch (device.type) {
-									case "Computer":
-										deviceTypeClassName = "desktop";
-										break;
-									case "Smartphone":
-										deviceTypeClassName = "mobile";
-										break;
-									default:
-										deviceTypeClassName = "question";
-										break;
-								}
-								if (device.isSelected) {
-									styleDeviceIsActive = { color: "#1ed761" };
-								}
-								return (
-									<div
-										className="spoti__device-card"
-										onClick={this.selectDevice.bind(this, device.id)}
-									>
-										<i
-											style={styleDeviceIsActive}
-											className={`fas fa-${deviceTypeClassName}`}
-										></i>
-										<h5 style={styleDeviceIsActive}>
-											{device.name}
-											{device.isSelected ? (
-												<i
-													style={styleDeviceIsActive}
-													className="far fa-check-circle"
-												></i>
-											) : null}
-										</h5>
-									</div>
-								);
-							})}
-						</div>
+						{status ? (
+							<div className="spoti-devices__list">
+								{devices.map((device) => {
+									let deviceTypeClassName, styleDeviceIsActive;
+									switch (device.type) {
+										case "Computer":
+											deviceTypeClassName = "desktop";
+											break;
+										case "Smartphone":
+											deviceTypeClassName = "mobile";
+											break;
+										default:
+											deviceTypeClassName = "question";
+											break;
+									}
+									if (device.isSelected) {
+										styleDeviceIsActive = { color: "#1ed761" };
+									}
+									return (
+										<div
+											className="spoti__device-card"
+											onClick={this.selectDevice.bind(this, device.id)}
+										>
+											<i
+												style={styleDeviceIsActive}
+												className={`fas fa-${deviceTypeClassName}`}
+											></i>
+											<h5 style={styleDeviceIsActive}>
+												{device.name}
+												{device.isSelected ? (
+													<i
+														style={styleDeviceIsActive}
+														className="far fa-check-circle"
+													></i>
+												) : null}
+											</h5>
+										</div>
+									);
+								})}
+							</div>
+						) : (
+							<p>Először jelentkezz be a spotify fiókodba.</p>
+						)}
 					</div>
 					<div className="settings-grid__log">
 						<h2>Audit log</h2>
