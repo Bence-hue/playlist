@@ -75,7 +75,7 @@ export default class AdminSettings extends Component {
 					this.setState({ spoti: { ...this.state.spoti, status: false } });
 				}
 			})
-			.catch((e) => console.error(e.response));
+			.catch((e) => console.error(e));
 
 		// get sentry errors
 		let url = "/api/sentry/";
