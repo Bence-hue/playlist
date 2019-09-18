@@ -178,10 +178,10 @@ export default class AdminSettings extends Component {
 	};
 
 	spotiLogin = () => {
-		window.location.href = "/api/spotify/login/";
+		window.location.href = "/api/spotify/login";
 	};
 	spotiLogout = () => {
-		window.location.href = "https://www.spotify.com/hu/account/apps/";
+		window.location.href = "https://www.spotify.com/hu/account/apps";
 	};
 	render() {
 		const { log, ping, version, sentryErrors } = this.state;
