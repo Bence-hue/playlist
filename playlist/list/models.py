@@ -41,7 +41,7 @@ class Log(models.Model):
 
 class Spotiuser(models.Model):
     user=models.ForeignKey(User,models.CASCADE,null=True)
-    access_token=models.CharField(max_length=200)
+    access_token=models.CharField(max_length=300)
     refresh_token=models.CharField(max_length=200)
     expiresAt=models.DateTimeField()
     isPlaylistController=models.BooleanField(default=False)
