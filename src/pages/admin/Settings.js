@@ -22,7 +22,20 @@ export default class AdminSettings extends Component {
 		spoti: {
 			status: false,
 			username: null,
-			devices: []
+			devices: [
+				{
+					id: "2182adb0cbcdea20a4c11e2eb45ea7b3ca88fcce",
+					name: "BNCTTH",
+					type: "Computer",
+					isSelected: false
+				},
+				{
+					id: "67b4d3bb51973960b9e9c06df5f89ff0378a38c4",
+					name: "Redmi Note 6 Pro",
+					type: "Smartphone",
+					isSelected: false
+				}
+			]
 		}
 	};
 
@@ -341,7 +354,10 @@ export default class AdminSettings extends Component {
 								}
 								return (
 									<div className="spoti__device-card">
-										<i className={`fas fa-${deviceTypeClassName}`}></i>
+										<i
+											style={styleDeviceIsActive}
+											className={`fas fa-${deviceTypeClassName}`}
+										></i>
 										<h5 style={styleDeviceIsActive}>
 											{device.name}
 											{device.isSelected ? (
