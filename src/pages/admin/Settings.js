@@ -196,6 +196,19 @@ export default class AdminSettings extends Component {
 	spotiLogout = () => {
 		window.location.href = "https://www.spotify.com/hu/account/apps";
 	};
+	selectDevice = (id) => {
+		let url = "/api/spotify/devices/";
+		let params = new URLSearchParams();
+		params.append("id", id);
+		axios.defaults.xsrfCookieName = "csrftoken";
+		axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+		axios
+			.post(url, params)
+			.then(() => {
+				window.location.reload();
+			})
+			.catch((e) => console.log(e.data));
+	};
 	render() {
 		const { log, ping, version, sentryErrors } = this.state;
 		const {
@@ -353,7 +366,10 @@ export default class AdminSettings extends Component {
 									styleDeviceIsActive = { color: "#1ed761" };
 								}
 								return (
-									<div className="spoti__device-card">
+									<div
+										className="spoti__device-card"
+										onClick={this.selectDevice.bind(this, device.id)}
+									>
 										<i
 											style={styleDeviceIsActive}
 											className={`fas fa-${deviceTypeClassName}`}
