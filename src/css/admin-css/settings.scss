@@ -33,13 +33,13 @@ $borderradius: 35px;
 	.settings-grid {
 		display: grid;
 		grid-template-columns: 27.5% 5% 35% 5% 27.5%;
-		grid-template-rows: 20% 3% 32% 45%;
+		grid-template-rows: 18% 3% 30% 3% 30% 18%;
 		position: absolute;
 		top: 20%;
 		left: 50%;
 		transform: translateX(-50%);
 		width: 90%;
-		height: 70%;
+		height: 65%;
 
 		@media #{$resp-mobile} {
 			display: block;
@@ -356,8 +356,22 @@ $borderradius: 35px;
 			}
 		}
 
+		.settings-grid__spoti-login {
+			grid-row: 5 / 6;
+			grid-column: 1 / 2;
+			@extend %boxshadow;
+			border-radius: $borderradius;
+		}
+
+		.settings-grid__spoti-devices {
+			grid-row: 5 / 7;
+			grid-column: 5 / 6;
+			@extend %boxshadow;
+			border-radius: $borderradius;
+		}
+
 		.settings-grid__log {
-			grid-row: 3 / 6;
+			grid-row: 3 / 7;
 			grid-column: 3 / 4;
 			overflow: scroll;
 			background: #fff;
