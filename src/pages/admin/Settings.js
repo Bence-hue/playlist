@@ -60,7 +60,7 @@ export default class AdminSettings extends Component {
 								spoti: { ...this.state.spoti, username: res.data }
 							});
 						})
-						.catch((e) => console.error(e.response));
+						.catch((e) => console.error(e));
 					axios
 						.get("/api/spotify/devices/")
 						.then((res) => {
@@ -70,7 +70,7 @@ export default class AdminSettings extends Component {
 								spoti: { ...this.state.spoti, devices: res.data }
 							});
 						})
-						.catch((e) => console.error(e.response));
+						.catch((e) => console.error(e));
 				} else if (res === false) {
 					this.setState({ spoti: { ...this.state.spoti, status: false } });
 				}
