@@ -48,7 +48,8 @@ export default class AdminSettings extends Component {
 		axios
 			.get("/api/spotify/status/")
 			.then((res) => {
-				if (res === true) {
+				const parsedRes = JSON.parse(res);
+				if (parsedRes === true) {
 					this.setState({ spoti: { ...this.state.spoti, status: true } });
 					axios
 						.get("/api/spotify/username/")
@@ -175,6 +176,13 @@ export default class AdminSettings extends Component {
 			this.toggleIntervalSelector();
 		});
 	};
+
+	spotiLogin = () => {
+		window.location.href = "/api/spotify/login/";
+	};
+	spotiLogout = () => {
+		window.location.href = "https://www.spotify.com/hu/account/apps/";
+	};
 	render() {
 		const { log, ping, version, sentryErrors } = this.state;
 		const {
@@ -297,7 +305,10 @@ export default class AdminSettings extends Component {
 							<h4 style={styleSentry}>{sentryErrors} hiba</h4>
 						</div>
 					</div>
-					<div className="settings-grid__spoti-login">
+					<div
+						className="settings-grid__spoti-login"
+						onClick={status ? this.spotiLogout : this.spotiLogin}
+					>
 						<div
 							className={`spoti-login__button ${
 								status ? "spoti-btn-authed" : "spoti-btn-unauthed"
