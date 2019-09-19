@@ -93,14 +93,14 @@ export default class UpcomingCard extends Component {
 					</p>
 				</div>
 				<div className="upc-control-wrapper">
-					<Check className="upc-icons" onClick={this.handlePlayed} />
-					<Times className="upc-icons" onClick={this.handleDelete} />
 					{playcheck ? (
 						<Playcheck
 							className="upc-icons spoti-playcheck"
 							onClick={this.handleSpotiPlay}
 						/>
 					) : null}
+					<Check className="upc-icons" onClick={this.handlePlayed} />
+					<Times className="upc-icons" onClick={this.handleDelete} />
 				</div>
 			</div>
 		);
