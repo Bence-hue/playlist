@@ -63,6 +63,8 @@ export default class SongCardAdmin extends Component {
 		let url = "/api/spotify/play/",
 			params = new URLSearchParams();
 		params.append("id", this.props.song.spotiuri);
+		axios.defaults.xsrfCookieName = "csrftoken";
+		axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 		axios.post(url, params).then(() => window.location.reload());
 	};
 	toggleCollapse = () => {

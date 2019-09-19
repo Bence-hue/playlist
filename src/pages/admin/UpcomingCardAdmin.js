@@ -4,10 +4,23 @@ import ReactHtmlParser from "react-html-parser";
 
 import { ReactComponent as Check } from "../../assets/check-solid.svg";
 import { ReactComponent as Times } from "../../assets/times-solid.svg";
+import { ReactComponent as Playcheck } from "../../assets/spotify-playcheck.svg";
 
 import "../../css/songlist.css";
 
 export default class UpcomingCard extends Component {
+	state = {
+		playckheck: false
+	};
+	componentDidMount() {
+		axios.get("/api/spotify/status/").then((res) => {
+			if (JSON.parse(res.data.toLowerCase()) === true) {
+				if (this.props.song.spotilink !== "") {
+					this.setState({ playcheck: true });
+				}
+			}
+		});
+	}
 	handlePlayed = () => {
 		let url = "/api/played/";
 		let params = new URLSearchParams();
@@ -40,6 +53,14 @@ export default class UpcomingCard extends Component {
 				console.error(err);
 			});
 	};
+	handleSpotiPlay = () => {
+		let url = "/api/spotify/play/",
+			params = new URLSearchParams();
+		params.append("id", this.props.song.spotiuri);
+		axios.defaults.xsrfCookieName = "csrftoken";
+		axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+		axios.post(url, params).then(() => window.location.reload());
+	};
 	render() {
 		const {
 			title,
@@ -49,6 +70,7 @@ export default class UpcomingCard extends Component {
 			spotititle,
 			spotilink
 		} = this.props.song;
+		const { playcheck } = this.state;
 		return (
 			<div className="upcoming-card upcoming-card-admin">
 				<h2>most következik:</h2>
@@ -73,6 +95,12 @@ export default class UpcomingCard extends Component {
 				<div className="upc-control-wrapper">
 					<Check className="upc-icons" onClick={this.handlePlayed} />
 					<Times className="upc-icons" onClick={this.handleDelete} />
+					{playcheck ? (
+						<Playcheck
+							className="sc-icons spoti-playcheck"
+							onClick={this.handleSpotiPlay}
+						/>
+					) : null}
 				</div>
 			</div>
 		);
