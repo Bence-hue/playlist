@@ -9,6 +9,7 @@ import { ReactComponent as NextArrow } from "../../assets/angle-up-solid.svg";
 import { ReactComponent as Check } from "../../assets/check-solid.svg";
 import { ReactComponent as Times } from "../../assets/times-solid.svg";
 import { ReactComponent as Dots } from "../../assets/ellipsis-h-solid.svg";
+import { ReactComponent as Playcheck } from "../../assets/spotify-playcheck.svg";
 
 export default class SongCardAdmin extends Component {
 	state = {
@@ -52,14 +53,7 @@ export default class SongCardAdmin extends Component {
 		this.setState({ collapsed: !this.state.collapsed });
 	};
 	render() {
-		const {
-			isMobile,
-			isNextArrow,
-			isPrevArrow,
-			handlePrevClick,
-			handleNextClick,
-			id
-		} = this.props;
+		const { isMobile, isNextArrow, isPrevArrow, handlePrevClick, handleNextClick, id } = this.props;
 		const { collapsed } = this.state;
 		const zIndex = {
 			zIndex: id * -1
@@ -89,23 +83,14 @@ export default class SongCardAdmin extends Component {
 				</div>
 			);
 		} else {
-			const {
-				title,
-				artist,
-				yttitle,
-				link,
-				spotititle,
-				spotilink
-			} = this.props.song;
+			const { title, artist, yttitle, link, spotititle, spotilink } = this.props.song;
 			return (
 				<div className="song-card song-card-admin" style={(zIndex, songCard)}>
 					<h1 style={songCardMove}>{artist}</h1>
 					<span style={songCardMove} />
 					<h1 style={songCardMove}>{title}</h1>
-					<div
-						className="sc-control-wrapper"
-						style={isMobile ? songCardYt : {}}
-					>
+					<div className="sc-control-wrapper" style={isMobile ? songCardYt : {}}>
+						<Playcheck className="spoti-playcheck" onClick={this.handleSpotiPlay} />
 						<Check className="sc-icons sc-check" onClick={this.handlePlayed} />
 						<Times className="sc-icons sc-times" onClick={this.handleDelete} />
 					</div>
@@ -114,9 +99,7 @@ export default class SongCardAdmin extends Component {
 						onClick={this.toggleCollapse}
 						style={
 							(songCardMove,
-							isMobile
-								? { transform: "translate(50%, 50%)" }
-								: { transform: "translate(0%, 30%)" })
+							isMobile ? { transform: "translate(50%, 50%)" } : { transform: "translate(0%, 30%)" })
 						}
 					/>
 					<div className="sc-yt-wrapper" style={songCardYt}>
