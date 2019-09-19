@@ -97,7 +97,7 @@ export default class UpcomingCard extends Component {
 					<Times className="upc-icons" onClick={this.handleDelete} />
 					{playcheck ? (
 						<Playcheck
-							className="sc-icons spoti-playcheck"
+							className="upc-icons spoti-playcheck"
 							onClick={this.handleSpotiPlay}
 						/>
 					) : null}
