@@ -143,6 +143,7 @@ def play(request,uri):
     else:
         url="https://api.spotify.com/v1/me/player/play?device_id="+Spotiuser.objects.get(user=request.user).device
     r=requests.put(url,data=json.dumps({"uris":[uri]}),headers={"Authorization":"Bearer "+Spotiuser.objects.get(user=request.user).access_token})
+    return r.status_code==200
 
 def status_view(request, *args, **kwargs):
     return HttpResponse(Spotiuser.objects.filter(user=request.user).exists())
@@ -152,4 +153,10 @@ def username_view(request, *args, **kwargs):
         checkexpiration(request)
         r=requests.get("https://api.spotify.com/v1/me",headers={"Authorization":"Bearer "+Spotiuser.objects.get(user=request.user).access_token})
         return HttpResponse(r.json().get("display_name",""))
+    else: raise PermissionDenied
+
+def logout(request, *args, **kwargs):
+    if request.user.is_authenticated:
+        Spotiuser.objects.get(user=request.user).delete()
+        return redirect('https://www.spotify.com/hu/account/apps/')
     else: raise PermissionDenied
