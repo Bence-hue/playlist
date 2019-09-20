@@ -62,7 +62,7 @@ export default class SongCardAdmin extends Component {
 	handleSpotiPlay = () => {
 		let url = "/api/play/",
 			params = new URLSearchParams();
-		params.append("id", this.props.song.spotiuri);
+		params.append("id", this.props.song.id);
 		axios.defaults.xsrfCookieName = "csrftoken";
 		axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 		axios.post(url, params).then(() => window.location.reload()).catch((e) => console.log(e));
@@ -148,7 +148,7 @@ export default class SongCardAdmin extends Component {
 						<p>
 							<i className="fab fa-youtube" />{" "}
 							<a href={link} target="_blank" rel="noopener noreferrer">
-								{ReactHtmlParser(yttitle)}
+								{ReactHtmlParser(yttitle)}{" "}(id: {id})
 							</a>
 						</p>
 						<p>
