@@ -139,12 +139,14 @@ def devices_view(request,*args,**kwargs):
 def play(request,uri):
     checkexpiration(request)
     r=requests.put("https://api.spotify.com/v1/me/player/shuffle?state=false",headers={"Authorization":"Bearer "+Spotiuser.objects.get(user=request.user).access_token})
+    r.raise_for_status
     if Spotiuser.objects.get(user=request.user).device=="" or Spotiuser.objects.get(user=request.user).device is None:
         url="https://api.spotify.com/v1/me/player/play"
     else:
         url="https://api.spotify.com/v1/me/player/play?device_id="+Spotiuser.objects.get(user=request.user).device
     r=requests.put(url,data=json.dumps({"context_uri":"spotify:playlist:"+Setting.objects.get(name="playlist").value,"offset":{"uri":uri}}),headers={"Authorization":"Bearer "+Spotiuser.objects.get(user=request.user).access_token})
     print(r.content)
+    r.raise_for_status
     return r.status_code==204
 
 def status_view(request, *args, **kwargs):
