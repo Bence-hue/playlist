@@ -185,7 +185,7 @@ export default class AdminSettings extends Component {
 		window.location.href = "/api/spotify/login";
 	};
 	spotiLogout = () => {
-		window.location.href = "https://www.spotify.com/hu/account/apps";
+		window.location.href = "/api/spotify/logout/";
 	};
 	selectDevice = (id) => {
 		let url = "/api/spotify/devices/";
