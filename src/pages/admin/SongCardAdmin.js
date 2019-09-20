@@ -60,7 +60,7 @@ export default class SongCardAdmin extends Component {
 			});
 	};
 	handleSpotiPlay = () => {
-		let url = "/api/spotify/play/",
+		let url = "/api/play/",
 			params = new URLSearchParams();
 		params.append("id", this.props.song.spotiuri);
 		axios.defaults.xsrfCookieName = "csrftoken";
