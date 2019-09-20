@@ -59,7 +59,7 @@ export default class UpcomingCard extends Component {
 		params.append("id", this.props.song.spotiuri);
 		axios.defaults.xsrfCookieName = "csrftoken";
 		axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-		axios.post(url, params).then(() => window.location.reload());
+		axios.post(url, params).then(() => window.location.reload()).catch((e) => console.log(e));
 	};
 	render() {
 		const {
