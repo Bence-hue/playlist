@@ -20,7 +20,7 @@ export default class ListSongsAdmin extends Component {
 	};
 
 	componentDidMount() {
-		let url = "/api/list/?mode=unplayed";
+		let url = "http://bnctth.ml:9837/api/list/?mode=unplayed";
 		axios.get(url).then((res) => this.setState({ songs: res.data }));
 	}
 

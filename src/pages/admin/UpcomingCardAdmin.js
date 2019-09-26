@@ -15,9 +15,13 @@ export default class UpcomingCard extends Component {
 	componentDidMount() {
 		axios.get("/api/spotify/status/").then((res) => {
 			if (JSON.parse(res.data.toLowerCase()) === true) {
-				if (this.props.song.spotilink !== "") {
-					this.setState({ playcheck: true });
-				}
+				axios.get("/api/spotify/devices/").then((res) => {
+					if (JSON.parse(res.data.isAnySelected.toLowerCase()) === true) {
+						if (this.props.song.spotilink !== "") {
+							this.setState({ playcheck: true });
+						}
+					}
+				});
 			}
 		});
 	}
@@ -59,7 +63,10 @@ export default class UpcomingCard extends Component {
 		params.append("id", this.props.song.spotiuri);
 		axios.defaults.xsrfCookieName = "csrftoken";
 		axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-		axios.post(url, params).then(() => window.location.reload()).catch((e) => console.log(e));
+		axios
+			.post(url, params)
+			.then(() => window.location.reload())
+			.catch((e) => console.log(e));
 	};
 	render() {
 		const {
