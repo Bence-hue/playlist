@@ -363,6 +363,11 @@ $borderradius: 35px;
 			@extend %boxshadow;
 			border-radius: $borderradius;
 
+			@media #{$resp-mobile} {
+				height: 110px;
+				margin-bottom: 20px;
+			}
+
 			.spoti-login__button {
 				position: absolute;
 				padding: 5px 55px;
@@ -382,6 +387,11 @@ $borderradius: 35px;
 				cursor: pointer;
 				transition: 0.1s all ease-in-out;
 
+				@media #{$resp-mobile} {
+					padding: 3px 35px;
+					font-size: 0.9rem;
+				}
+
 				&:hover {
 					transform: translate(-50%, -50%) scale(1.05);
 				}
@@ -393,6 +403,10 @@ $borderradius: 35px;
 						font-size: 2rem;
 						margin-right: 10px;
 						vertical-align: middle;
+						@media #{$resp-mobile} {
+							font-size: 1.5rem;
+							margin-right: 5px;
+						}
 					}
 				}
 			}
@@ -414,6 +428,11 @@ $borderradius: 35px;
 			@extend %boxshadow;
 			border-radius: $borderradius;
 
+			@media #{$resp-mobile} {
+				height: 270px;
+				margin-bottom: 20px;
+			}
+
 			h2 {
 				text-align: center;
 				margin: 20px 0 0 0;
@@ -421,6 +440,11 @@ $borderradius: 35px;
 				font-family: "Open Sans";
 				font-weight: 300;
 				letter-spacing: 2px;
+				@media #{$resp-mobile} {
+					position: relative;
+					margin: 0;
+					top: 25px;
+				}
 			}
 			p {
 				position: absolute;
