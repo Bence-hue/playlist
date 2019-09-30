@@ -49,13 +49,11 @@ export default class AdminSettings extends Component {
 			.get("/api/spotify/status/")
 			.then((res) => {
 				const parsedRes = JSON.parse(res.data.toLowerCase());
-				console.log("parsedRes " + parsedRes);
 				if (parsedRes === true) {
 					this.setState({ spoti: { ...this.state.spoti, status: true } });
 					axios
 						.get("/api/spotify/username/")
 						.then((res) => {
-							console.log("spoti username" + res.data);
 							this.setState({
 								spoti: { ...this.state.spoti, username: res.data }
 							});
@@ -64,10 +62,8 @@ export default class AdminSettings extends Component {
 					axios
 						.get("/api/spotify/devices/")
 						.then((res) => {
-							console.log("spoti devices" + res.data);
-
 							this.setState({
-								spoti: { ...this.state.spoti, devices: res.data }
+								spoti: { ...this.state.spoti, devices: res.data.devices }
 							});
 						})
 						.catch((e) => console.error(e));
@@ -198,7 +194,7 @@ export default class AdminSettings extends Component {
 			.then(() => {
 				window.location.reload();
 			})
-			.catch((e) => console.log(e.data));
+			.catch((e) => console.error(e.data));
 	};
 	render() {
 		const { log, ping, version, sentryErrors } = this.state;
