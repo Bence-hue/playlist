@@ -126,8 +126,9 @@ def play_view(request, *args, **kwargs):
         if request.method == 'POST' and Spotiuser.objects.filter(user=request.user).exists():
             id = request.POST.get("id", [""])
             if Song.objects.get(id=id).spotiuri:
-                play(request,Song.objects.get(id=id).spotiuri)
-            return played_view(request,*args,**kwargs)
+                if play(request,Song.objects.get(id=id).spotiuri):
+                    return played_view(request,*args,**kwargs)
+            return HttpResponse(status=400)
         else:
             return HttpResponse(status=405)
     else:

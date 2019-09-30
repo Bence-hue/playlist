@@ -138,11 +138,25 @@ def devices_view(request,*args,**kwargs):
 
 def play(request,uri):
     checkexpiration(request)
+    r=requests.put("https://api.spotify.com/v1/me/player/shuffle?state=false",headers={"Authorization":"Bearer "+Spotiuser.objects.get(user=request.user).access_token})
+    r.raise_for_status
+    r=requests.get("https://api.spotify.com/v1/playlists/"+Setting.objects.get(name="playlist").value+"/tracks",headers={"Authorization":"Bearer "+Spotiuser.objects.get(user=request.user).access_token})
     if Spotiuser.objects.get(user=request.user).device=="" or Spotiuser.objects.get(user=request.user).device is None:
         url="https://api.spotify.com/v1/me/player/play"
     else:
         url="https://api.spotify.com/v1/me/player/play?device_id="+Spotiuser.objects.get(user=request.user).device
-    r=requests.put(url,data=json.dumps({"uris":[uri]}),headers={"Authorization":"Bearer "+Spotiuser.objects.get(user=request.user).access_token})
+    if contains(r.json(),uri):
+        r=requests.put(url,data=json.dumps({"context_uri":"spotify:playlist:"+Setting.objects.get(name="playlist").value,"offset":{"uri":uri}}),headers={"Authorization":"Bearer "+Spotiuser.objects.get(user=request.user).access_token})
+    else:
+        r=requests.put(url,data=json.dumps({"uris":[uri]}),headers={"Authorization":"Bearer "+Spotiuser.objects.get(user=request.user).access_token})
+    print(r.content)
+    r.raise_for_status
+    return r.status_code==204
+
+def contains(pl,uri):
+    for l in pl["items"]:
+        if l["track"]["uri"]==uri: return True
+    return False
 
 def status_view(request, *args, **kwargs):
     return HttpResponse(Spotiuser.objects.filter(user=request.user).exists())
@@ -152,4 +166,10 @@ def username_view(request, *args, **kwargs):
         checkexpiration(request)
         r=requests.get("https://api.spotify.com/v1/me",headers={"Authorization":"Bearer "+Spotiuser.objects.get(user=request.user).access_token})
         return HttpResponse(r.json().get("display_name",""))
+    else: raise PermissionDenied
+
+def logout(request, *args, **kwargs):
+    if request.user.is_authenticated:
+        Spotiuser.objects.get(user=request.user).delete()
+        return redirect('https://www.spotify.com/hu/account/apps/')
     else: raise PermissionDenied

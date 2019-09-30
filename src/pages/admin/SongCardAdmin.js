@@ -13,8 +13,22 @@ import { ReactComponent as Playcheck } from "../../assets/spotify-playcheck.svg"
 
 export default class SongCardAdmin extends Component {
 	state = {
-		collapsed: true
+		collapsed: true,
+		playcheck: false
 	};
+	componentDidMount() {
+		axios.get("/api/spotify/status/").then((res) => {
+			if (JSON.parse(res.data.toLowerCase()) === true) {
+				axios.get("/api/spotify/devices/").then((res) => {
+					if (JSON.parse(res.data.isAnySelected.toLowerCase()) === true) {
+						if (this.props.song.spotilink !== "") {
+							this.setState({ playcheck: true });
+						}
+					}
+				});
+			}
+		});
+	}
 	handlePlayed = () => {
 		let url = "/api/played/";
 		let params = new URLSearchParams();
@@ -49,12 +63,38 @@ export default class SongCardAdmin extends Component {
 				console.error(err.response.status);
 			});
 	};
+	handleSpotiPlay = () => {
+		let url = "/api/play/",
+			params = new URLSearchParams();
+		params.append("id", this.props.song.id);
+		axios.defaults.xsrfCookieName = "csrftoken";
+		axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+		axios
+			.post(url, params)
+			.then(() => window.location.reload())
+			.catch((e) => console.log(e));
+	};
 	toggleCollapse = () => {
 		this.setState({ collapsed: !this.state.collapsed });
 	};
 	render() {
-		const { isMobile, isNextArrow, isPrevArrow, handlePrevClick, handleNextClick, id } = this.props;
-		const { collapsed } = this.state;
+		const {
+			isMobile,
+			isNextArrow,
+			isPrevArrow,
+			handlePrevClick,
+			handleNextClick,
+			id
+		} = this.props;
+		const {
+			title,
+			artist,
+			yttitle,
+			link,
+			spotititle,
+			spotilink
+		} = this.props.song;
+		const { collapsed, playcheck } = this.state;
 		const zIndex = {
 			zIndex: id * -1
 		};
@@ -83,14 +123,21 @@ export default class SongCardAdmin extends Component {
 				</div>
 			);
 		} else {
-			const { title, artist, yttitle, link, spotititle, spotilink } = this.props.song;
 			return (
 				<div className="song-card song-card-admin" style={(zIndex, songCard)}>
 					<h1 style={songCardMove}>{artist}</h1>
 					<span style={songCardMove} />
 					<h1 style={songCardMove}>{title}</h1>
-					<div className="sc-control-wrapper" style={isMobile ? songCardYt : {}}>
-						<Playcheck className="spoti-playcheck" onClick={this.handleSpotiPlay} />
+					<div
+						className="sc-control-wrapper"
+						style={isMobile ? songCardYt : {}}
+					>
+						{playcheck ? (
+							<Playcheck
+								className="sc-icons spoti-playcheck"
+								onClick={this.handleSpotiPlay}
+							/>
+						) : null}
 						<Check className="sc-icons sc-check" onClick={this.handlePlayed} />
 						<Times className="sc-icons sc-times" onClick={this.handleDelete} />
 					</div>
@@ -99,14 +146,16 @@ export default class SongCardAdmin extends Component {
 						onClick={this.toggleCollapse}
 						style={
 							(songCardMove,
-							isMobile ? { transform: "translate(50%, 50%)" } : { transform: "translate(0%, 30%)" })
+							isMobile
+								? { transform: "translate(50%, 50%)" }
+								: { transform: "translate(0%, 30%)" })
 						}
 					/>
 					<div className="sc-yt-wrapper" style={songCardYt}>
 						<p>
 							<i className="fab fa-youtube" />{" "}
 							<a href={link} target="_blank" rel="noopener noreferrer">
-								{ReactHtmlParser(yttitle)}
+								{ReactHtmlParser(yttitle)} (id: {id})
 							</a>
 						</p>
 						<p>

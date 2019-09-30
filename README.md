@@ -78,7 +78,7 @@ git clone https://github.com/jelszo-co/playlist.git
 
 Vagy
 
-git clone git@github.com:Tasztalos69/jelszo-co.git
+git clone https://github.com/jelszo-co/playlist.git
 ```
 
 ```sh
