@@ -40,7 +40,7 @@ def callback_view(request, *args, **kwargs):
                 'client_secret':config["spotisecret"]
             })
             rj=r.json()
-            su=Spotiuser.objects.create(access_token=rj["access_token"],refresh_token=rj["refresh_token"],expiresAt=datetime.datetime.now()+datetime.timedelta(seconds=rj["expires_in"]),isPlaylistController=True)
+            su=Spotiuser.objects.create(access_token=rj["access_token"],refresh_token=rj["refresh_token"],expiresAt=datetime.datetime.now()+datetime.timedelta(seconds=rj["expires_in"]),isPlaylistController=True,device='')
             su.save()
     elif request.GET.get("state","")==config["spotistate"]:
         Spotiuser.objects.filter(user=request.user).delete()
@@ -52,7 +52,7 @@ def callback_view(request, *args, **kwargs):
                 'client_secret':config["spotisecret"]
         })
         rj=r.json()
-        su=Spotiuser.objects.create(user=request.user,access_token=rj["access_token"],refresh_token=rj["refresh_token"],expiresAt=datetime.datetime.now()+datetime.timedelta(seconds=rj["expires_in"]))
+        su=Spotiuser.objects.create(user=request.user,access_token=rj["access_token"],refresh_token=rj["refresh_token"],expiresAt=datetime.datetime.now()+datetime.timedelta(seconds=rj["expires_in"]),device='')
         su.save()
         r=requests.put("https://api.spotify.com/v1/playlists/"+Setting.objects.get(name="playlist").value+"/followers",json.dumps({"public":False}),headers={"Authorization":"Bearer "+Spotiuser.objects.get(user=request.user).access_token,"Content-Type":"application/json"})
         print(r.text,r.status_code,r.content,r.url)
@@ -126,7 +126,8 @@ def devices_view(request,*args,**kwargs):
             for d in r.json()["devices"]:
                 print(d)
                 devices.append({"id":d["id"],"name":d["name"],"type":d["type"],"isSelected":Spotiuser.objects.get(user=request.user).device==d["id"]})
-            return HttpResponse(json.dumps(devices),content_type="application/json")
+            response={'isAnySelected':Spotiuser.objects.get(user=request.user).device!="",'devices':devices}
+            return HttpResponse(json.dumps(response),content_type="application/json")
         except Exception as e: return HttpResponse(e,status=404)
     else:
         try:
