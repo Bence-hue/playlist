@@ -120,8 +120,11 @@ def played_view(request, *args, **kwargs):
             object = Song.objects.filter(id=id)
             if object.exists():
                 object.update(played=True, playedAt=datetime.datetime.now())
-                d=FCMDevices.object.filter(device_id=object[0].user)
-                d.send_message("Jól fülelj!","Épp most játszuk le az általad kért {}-t {}-tól!".format(object[0].title,object[0].artist))
+                try:
+                    d=FCMDevices.object.filter(device_id=object[0].user)
+                    d.send_message("Jól fülelj!","Épp most játszuk le az általad kért {}-t {}-tól!".format(object[0].title,object[0].artist))
+                except Exception:
+                    pass
                 delete(object[0].spotiuri)
                 Log.objects.create(user=request.user,title="played",content=object[0].artist+" - "+object[0].title+" (id: "+str(object[0].id)+")")
                 return HttpResponse(status=200)
