@@ -83,9 +83,15 @@ def new_view(request, *args, **kwargs):
                     else:  # ha van meg le nem jatszott ilyen
                         return HttpResponse("{\"played\":False}", status=422)
                 else:  # ha az utobbi 15 percben kuldott
-                    remaining = int((datetime.timedelta(minutes=int(Setting.objects.get(name="songLimitMinute").value)) - (timezone.now() - lastrecord[0].createdAt)).total_seconds())
-                    print(remaining)
-                    return HttpResponse(str(int(remaining / 60)) + ":" + "{:02d}".format(remaining % 60), status=429)
+                    r = (datetime.timedelta(minutes=int(Setting.objects.get(name="songLimitMinute").value)) - (timezone.now() - lastrecord[0].createdAt))
+                    rs=int(r.total_seconds())
+                    if r<=datetime.timedelta(minutes=15):
+                        return HttpResponse("{} perc és {} másodperc".format(rs//60,rs%60), status=429)
+                    elif r<datetime.timedelta(hours=1):
+                        return HttpResponse("{} perc".format(rs//60+1),status=429)
+                    else:
+                        return HttpResponse("{} óra".format(rs//3600+1),status=429)
+                        
             else:  # ha blokkolva van idore
                 ei = (blocks.filter(expireAt__gte=timezone.now())[len(blocks.filter(expireAt__gte=timezone.now())) - 1].expireAt - timezone.now()).days + 1
                 if ei > 7:
