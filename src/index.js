@@ -4,6 +4,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import * as Sentry from "@sentry/browser";
 import * as firebase from "firebase/app";
+import axios from "axios";
 import "firebase/messaging";
 
 Sentry.init({
@@ -32,7 +33,19 @@ messaging
 		return messaging.getToken();
 	})
 	.then((token) => {
-		// sendTokenToServer(token);
+		let url = "/api/setFcmToken/",
+			params = new URLSearchParams();
+		params.append("token", token);
+		axios.defaults.xsrfCookieName = "csrftoken";
+		axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+		axios
+			.post(url, params)
+			.then((res) => {
+				console.log("Token set");
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	})
 	.catch((err) => {
 		console.log(err);
