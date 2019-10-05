@@ -90,4 +90,4 @@ def e500(request,*args,**kwargs):
     return redirect('/500')
 
 def svpn(request,*args,**kwargs):
-    return FileResponse(open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),"static/firebase-messaging-sw.js"),"r"))
+    return FileResponse(open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),"static/firebase-messaging-sw.js"),"rb"))
