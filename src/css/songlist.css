@@ -379,6 +379,14 @@
 	transform: translateY(-50%);
 }
 
+.upc-control-wrapper .spoti-playcheck {
+	background: white;
+	border-radius: 150px;
+	padding: 6px;
+	width: 30px;
+	height: 30px;
+}
+
 .upc-icons,
 .sc-icons {
 	width: 40px;

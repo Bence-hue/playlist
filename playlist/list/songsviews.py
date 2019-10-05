@@ -1,4 +1,4 @@
-from .models import BlockedUser, Song, Setting,Log
+from .models import BlockedUser, Song, Setting,Log,Spotiuser
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -11,7 +11,7 @@ from django.core import serializers
 from django.core.exceptions import PermissionDenied
 from django.utils import timezone
 from django.core.mail import EmailMessage
-from .spotify import new, delete
+from .spotify import new, delete, play
 
 with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "datas.json"), "r") as cffile:
     config = json.loads(cffile.readline())
@@ -19,7 +19,7 @@ with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 # @csrf_exempt
 def new_view(request, *args, **kwargs):
     if request.method == 'POST':
-        if Setting.objects.get(name="canRequestSong").value==0: return HttpResponse(status=403)
+        if int(Setting.objects.get(name="canRequestSong").value)==0: return HttpResponse(status=403)
         data = request.POST
         print(data)
         URL = "https://www.googleapis.com/youtube/v3/search"
@@ -71,8 +71,8 @@ def new_view(request, *args, **kwargs):
         blocks = BlockedUser.objects.filter(userid=user)
         if not blocks.filter(permanent=True).exists():
             if not blocks.filter(expireAt__gte=timezone.now()).exists():
-                lastrecord = Song.objects.filter(createdAt__gte=timezone.now() - datetime.timedelta(minutes=Setting.objects.get(name="songLimitMinute").value),user=user)
-                if len(lastrecord) < Setting.objects.get(name="songLimitNumber").value:
+                lastrecord = Song.objects.filter(createdAt__gte=timezone.now() - datetime.timedelta(minutes=int(Setting.objects.get(name="songLimitMinute").value)),user=user)
+                if len(lastrecord) < int(Setting.objects.get(name="songLimitNumber").value):
                     if not Song.objects.filter(link=link, played=False).exclude(link="").exists():
                         if not Song.objects.filter(link=link, played=True,playedAt__gte=timezone.now() - datetime.timedelta(weeks=1)).exclude(link="").exists():
                             stitle,slink,suri=new(artist+" "+title)
@@ -83,9 +83,15 @@ def new_view(request, *args, **kwargs):
                     else:  # ha van meg le nem jatszott ilyen
                         return HttpResponse("{\"played\":False}", status=422)
                 else:  # ha az utobbi 15 percben kuldott
-                    remaining = int((datetime.timedelta(minutes=Setting.objects.get(name="songLimitMinute").value) - (timezone.now() - lastrecord[0].createdAt)).total_seconds())
-                    print(remaining)
-                    return HttpResponse(str(int(remaining / 60)) + ":" + "{:02d}".format(remaining % 60), status=429)
+                    r = (datetime.timedelta(minutes=int(Setting.objects.get(name="songLimitMinute").value)) - (timezone.now() - lastrecord[0].createdAt))
+                    rs=int(r.total_seconds())
+                    if r<=datetime.timedelta(minutes=15):
+                        return HttpResponse("{} perc és {} másodperc".format(rs//60,rs%60), status=429)
+                    elif r<datetime.timedelta(hours=1):
+                        return HttpResponse("{} perc".format(rs//60+1),status=429)
+                    else:
+                        return HttpResponse("{} óra".format(rs//3600+1),status=429)
+                        
             else:  # ha blokkolva van idore
                 ei = (blocks.filter(expireAt__gte=timezone.now())[len(blocks.filter(expireAt__gte=timezone.now())) - 1].expireAt - timezone.now()).days + 1
                 if ei > 7:
@@ -119,6 +125,20 @@ def played_view(request, *args, **kwargs):
             raise PermissionDenied
     else:
         return HttpResponse(status=405)
+
+@csrf_exempt
+def play_view(request, *args, **kwargs):
+    if request.user.is_authenticated:
+        if request.method == 'POST' and Spotiuser.objects.filter(user=request.user).exists():
+            id = request.POST.get("id", [""])
+            if Song.objects.get(id=id).spotiuri:
+                if play(request,Song.objects.get(id=id).spotiuri):
+                    return played_view(request,*args,**kwargs)
+            return HttpResponse(status=400)
+        else:
+            return HttpResponse(status=405)
+    else:
+        raise PermissionDenied
 
 
 # @csrf_exempt

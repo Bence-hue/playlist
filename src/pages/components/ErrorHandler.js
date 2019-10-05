@@ -5,7 +5,7 @@ export default class ErrorHandler extends Component {
 	state = { error: false };
 	componentDidCatch(error, info) {
 		this.setState({ error: true });
-		console.log(error, info);
+		console.error(error, info);
 	}
 	render() {
 		if (this.state.error) {

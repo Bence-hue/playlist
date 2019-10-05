@@ -18,7 +18,12 @@ export default class AdminSettings extends Component {
 		version: "",
 		sentryErrors: 0,
 		intervalDropdown: false,
-		isActionProhibited: false
+		isActionProhibited: false,
+		spoti: {
+			status: false,
+			username: null,
+			devices: []
+		}
 	};
 
 	componentDidMount() {
@@ -38,6 +43,35 @@ export default class AdminSettings extends Component {
 		axios.get("https://playlist.jelszo.co").then((res) => {
 			this.setState({ ping: new Date() - start });
 		});
+
+		// get spotify
+		axios
+			.get("/api/spotify/status/")
+			.then((res) => {
+				const parsedRes = JSON.parse(res.data.toLowerCase());
+				if (parsedRes === true) {
+					this.setState({ spoti: { ...this.state.spoti, status: true } });
+					axios
+						.get("/api/spotify/username/")
+						.then((res) => {
+							this.setState({
+								spoti: { ...this.state.spoti, username: res.data }
+							});
+						})
+						.catch((e) => console.error(e));
+					axios
+						.get("/api/spotify/devices/")
+						.then((res) => {
+							this.setState({
+								spoti: { ...this.state.spoti, devices: res.data.devices }
+							});
+						})
+						.catch((e) => console.error(e));
+				} else if (res === false) {
+					this.setState({ spoti: { ...this.state.spoti, status: false } });
+				}
+			})
+			.catch((e) => console.error(e));
 
 		// get sentry errors
 		let url = "/api/sentry/";
@@ -142,6 +176,26 @@ export default class AdminSettings extends Component {
 			this.toggleIntervalSelector();
 		});
 	};
+
+	spotiLogin = () => {
+		window.location.href = "/api/spotify/login";
+	};
+	spotiLogout = () => {
+		window.location.href = "/api/spotify/logout/";
+	};
+	selectDevice = (id) => {
+		let url = "/api/spotify/devices/";
+		let params = new URLSearchParams();
+		params.append("id", id);
+		axios.defaults.xsrfCookieName = "csrftoken";
+		axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+		axios
+			.post(url, params)
+			.then(() => {
+				window.location.reload();
+			})
+			.catch((e) => console.error(e.data));
+	};
 	render() {
 		const { log, ping, version, sentryErrors } = this.state;
 		const {
@@ -150,6 +204,7 @@ export default class AdminSettings extends Component {
 			songLimitNumber,
 			schoolDayOnly
 		} = this.state.settings;
+		const { status, username, devices } = this.state.spoti;
 		let songLimitMinuteDisplay;
 		switch (this.state.settings.songLimitMinute) {
 			case 15:
@@ -262,6 +317,67 @@ export default class AdminSettings extends Component {
 							<h3>Sentry:</h3>
 							<h4 style={styleSentry}>{sentryErrors} hiba</h4>
 						</div>
+					</div>
+					<div
+						className="settings-grid__spoti-login"
+					>
+						<div
+							className={`spoti-login__button ${
+								status ? "spoti-btn-authed" : "spoti-btn-unauthed"
+							}`}
+							onClick={status ? this.spotiLogout : this.spotiLogin}
+						>
+							<p>
+								<i className="fab fa-spotify"></i>
+								{status ? username : "bejelentkezés"}
+							</p>
+						</div>
+					</div>
+					<div className="settings-grid__spoti-devices">
+						<h2>Spotify-eszközök</h2>
+						{status ? (
+							<div className="spoti-devices__list">
+								{devices.map((device) => {
+									let deviceTypeClassName, styleDeviceIsActive;
+									switch (device.type) {
+										case "Computer":
+											deviceTypeClassName = "desktop";
+											break;
+										case "Smartphone":
+											deviceTypeClassName = "mobile";
+											break;
+										default:
+											deviceTypeClassName = "question";
+											break;
+									}
+									if (device.isSelected) {
+										styleDeviceIsActive = { color: "#1ed761" };
+									}
+									return (
+										<div
+											className="spoti__device-card"
+											onClick={this.selectDevice.bind(this, device.id)}
+										>
+											<i
+												style={styleDeviceIsActive}
+												className={`fas fa-${deviceTypeClassName}`}
+											></i>
+											<h5 style={styleDeviceIsActive}>
+												{device.name}
+												{device.isSelected ? (
+													<i
+														style={styleDeviceIsActive}
+														className="far fa-check-circle"
+													></i>
+												) : null}
+											</h5>
+										</div>
+									);
+								})}
+							</div>
+						) : (
+							<p>Először jelentkezz be a spotify fiókodba.</p>
+						)}
 					</div>
 					<div className="settings-grid__log">
 						<h2>Audit log</h2>

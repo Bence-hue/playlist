@@ -33,13 +33,13 @@ $borderradius: 35px;
 	.settings-grid {
 		display: grid;
 		grid-template-columns: 27.5% 5% 35% 5% 27.5%;
-		grid-template-rows: 20% 3% 32% 45%;
+		grid-template-rows: 18% 3% 30% 3% 30% 18%;
 		position: absolute;
 		top: 20%;
 		left: 50%;
 		transform: translateX(-50%);
 		width: 90%;
-		height: 70%;
+		height: 65%;
 
 		@media #{$resp-mobile} {
 			display: block;
@@ -356,8 +356,148 @@ $borderradius: 35px;
 			}
 		}
 
+		.settings-grid__spoti-login {
+			position: relative;
+			grid-row: 5 / 6;
+			grid-column: 1 / 2;
+			@extend %boxshadow;
+			border-radius: $borderradius;
+
+			@media #{$resp-mobile} {
+				height: 110px;
+				margin-bottom: 20px;
+			}
+
+			.spoti-login__button {
+				position: absolute;
+				padding: 5px 55px;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				border-radius: 100px;
+				font-family: "Open Sans";
+				text-transform: uppercase;
+				font-weight: 400;
+				letter-spacing: 2px;
+				font-size: 1.1rem;
+				white-space: nowrap;
+				-webkit-box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.25);
+				-moz-box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.25);
+				box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.25);
+				cursor: pointer;
+				transition: 0.1s all ease-in-out;
+
+				@media #{$resp-mobile} {
+					padding: 3px 35px;
+					font-size: 0.9rem;
+				}
+
+				&:hover {
+					transform: translate(-50%, -50%) scale(1.05);
+				}
+
+				p {
+					padding-top: 5px;
+					i {
+						margin-top: -5px;
+						font-size: 2rem;
+						margin-right: 10px;
+						vertical-align: middle;
+						@media #{$resp-mobile} {
+							font-size: 1.5rem;
+							margin-right: 5px;
+						}
+					}
+				}
+			}
+
+			.spoti-btn-unauthed {
+				background: white;
+				color: #1ed761;
+			}
+			.spoti-btn-authed {
+				background: #1ed761;
+				color: white;
+			}
+		}
+
+		.settings-grid__spoti-devices {
+			position: relative;
+			grid-row: 5 / 7;
+			grid-column: 5 / 6;
+			@extend %boxshadow;
+			border-radius: $borderradius;
+
+			@media #{$resp-mobile} {
+				height: 270px;
+				margin-bottom: 20px;
+			}
+
+			h2 {
+				text-align: center;
+				margin: 20px 0 0 0;
+				text-transform: uppercase;
+				font-family: "Open Sans";
+				font-weight: 300;
+				letter-spacing: 2px;
+				@media #{$resp-mobile} {
+					position: relative;
+					margin: 0;
+					top: 25px;
+				}
+			}
+			p {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				text-transform: uppercase;
+				font-family: "Open Sans";
+				font-weight: 300;
+				text-align: center;
+				width: 75%;
+				letter-spacing: 2.5px;
+			}
+			.spoti-devices__list {
+				position: absolute;
+				top: 58%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				max-height: 72%;
+				width: 60%;
+
+				.spoti__device-card {
+					position: relative;
+					border-top: 1px solid transparent;
+					width: 90%;
+					padding: 0 5%;
+					cursor: pointer;
+					&:not(:first-child) {
+						border-color: #202020;
+					}
+					i:not(.fa-check-circle) {
+						display: inline-block;
+						width: 40px;
+						text-align: center;
+						margin-right: 0px;
+						font-size: 1.4rem;
+						vertical-align: middle;
+					}
+					h5 {
+						display: inline-block;
+						font-family: "Open Sans";
+						text-transform: uppercase;
+					}
+					.fa-check-circle {
+						margin-left: 5px;
+						font-size: 0.8rem;
+					}
+				}
+			}
+		}
+
 		.settings-grid__log {
-			grid-row: 3 / 6;
+			grid-row: 3 / 7;
 			grid-column: 3 / 4;
 			overflow: scroll;
 			background: #fff;

@@ -35,7 +35,6 @@ export default class Landing extends Component {
 		axios.get(url).then((res) => this.setState({ latest: res.data }));
 
 		const urlParams = queryString.parse(this.props.location.search);
-		console.log(urlParams);
 
 		if (urlParams.noNew === "true") {
 			this.setState({ nonewModal: true });
@@ -51,7 +50,11 @@ export default class Landing extends Component {
 		const lat = this.state.latest;
 		return (
 			<React.Fragment>
-				<Modal toggler={this.state.nonewModal} title={"Bocsi, most nem..."} content={"Sajnos most nem lehet zenét kérni."}/>
+				<Modal
+					toggler={this.state.nonewModal}
+					title={"Bocsi, most nem..."}
+					content={"Sajnos most nem lehet zenét kérni."}
+				/>
 				<Header kolcsey={true} />
 				<div id="lastadded">
 					<h3>Legutóbb hozzáadott:</h3>

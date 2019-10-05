@@ -1,35 +1,35 @@
 header {
-	background-color: #15a867;
+  background-color: #15a867;
 }
 
 input:invalid,
 textarea:invalid {
-	box-shadow: none;
+  box-shadow: none;
 }
 
 input:focus,
 textarea:focus,
 button:focus {
-	outline: none;
+  outline: none;
 }
 *::selection {
-	background: #139c81;
-	color: white;
+  background: #139c81;
+  color: white;
 }
 
 input[type="number"] {
-	-moz-appearance: textfield;
+  -moz-appearance: textfield;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-	-webkit-appearance: none;
-	margin: 0;
-	display: none;
+  -webkit-appearance: none;
+  margin: 0;
+  display: none;
 }
 
 @media only screen and (max-width: 900px) {
-	.preloader-img {
-		transform: translate(-50%, -65%) scale(0.6);
-	}
+  .preloader-img {
+    transform: translate(-50%, -65%) scale(0.6);
+  }
 }
