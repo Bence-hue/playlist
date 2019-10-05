@@ -121,7 +121,7 @@ def played_view(request, *args, **kwargs):
             if object.exists():
                 object.update(played=True, playedAt=datetime.datetime.now())
                 try:
-                    d=FCMDevices.object.filter(device_id=object[0].user)
+                    d=FCMDevice.object.filter(device_id=object[0].user)
                     d.send_message("Jól fülelj!","Épp most játszuk le az általad kért {}-t {}-tól!".format(object[0].title,object[0].artist))
                 except Exception:
                     pass
