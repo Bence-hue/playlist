@@ -64,7 +64,7 @@ def blockuser_view(request, *args, **kwargs):
                     "status":"permanent"}))
                 try:
                     d=FCMDevice.objects.filter(device_id=data.get("userid"))
-                    d.send_message("Ejnye!","Valamit nagyon elszúrhattál! Többé nem kérhetsz zenét.")
+                    d.send_message("Ejnye!","Valamit nagyon elszúrhattál! Többé nem kérhetsz zenét.",icon="https://playlist.jelszo.co/static/pnicon.png")
                 except: pass
             else:
                 BlockedUser.objects.create(userid=data.get("userid"), permanent=False,expireAt=datetime.datetime.now() + datetime.timedelta(weeks=int(data.get("expirein", 1))))
@@ -73,7 +73,7 @@ def blockuser_view(request, *args, **kwargs):
                     "status":"{} hétre".format(data.get("expirein", 1))}))
                 try:
                     d=FCMDevice.objects.filter(device_id=data.get("userid"))
-                    d.send_message("Ejnye!","Valamit nagyon elszúrhattál! {} hétig nem kérhetsz zenét.".format(data.get("expirein", 1)))
+                    d.send_message("Ejnye!","Valamit nagyon elszúrhattál! {} hétig nem kérhetsz zenét.".format(data.get("expirein", 1)),icon="https://playlist.jelszo.co/static/pnicon.png")
                 except: pass
             for l in Song.objects.filter(user=data.get("userid"), played=False, hide=False):
                 delete(l.spotiuri)
@@ -111,7 +111,7 @@ def unblockuser_view(request, *args, **kwargs):
                 Log.objects.create(user=request.user,title="unban",content=request.POST.get("userid"))
             try:
                 d=FCMDevice.objects.filter(device_id=request.POST.get("userid"))
-                d.send_message("Jó hír!","Újra kérhetsz zenét!",icon="https://playlist.jelszo.co/static/mstile-310x310.png")
+                d.send_message("Jó hír!","Újra kérhetsz zenét!",icon="https://playlist.jelszo.co/static/pnicon.png")
             except: pass
             return HttpResponse(status=200)
         else:
