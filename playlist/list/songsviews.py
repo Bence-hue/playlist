@@ -222,3 +222,5 @@ def pnregister(request, *args, **kwargs):
     if not FCMDevice.objects.filter(device_id=request.COOKIES.get("userid")).exists():
         d=FCMDevice.objects.create(registration_id=request.POST.get("token"),device_id=request.COOKIES.get("userid"),type='web')
         d.send_message("Siker!","Ilyen értesítést fogsz kapni")
+        return HttpResponse(status=201)
+    return HttpResponse(status=200)
