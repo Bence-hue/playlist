@@ -60,7 +60,7 @@ export default class UpcomingCard extends Component {
 	handleSpotiPlay = () => {
 		let url = "/api/play/",
 			params = new URLSearchParams();
-		params.append("id", this.props.song.spotiuri);
+		params.append("id", this.props.song.id);
 		axios.defaults.xsrfCookieName = "csrftoken";
 		axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 		axios
@@ -69,14 +69,7 @@ export default class UpcomingCard extends Component {
 			.catch((e) => console.log(e));
 	};
 	render() {
-		const {
-			title,
-			artist,
-			yttitle,
-			link,
-			spotititle,
-			spotilink
-		} = this.props.song;
+		const { title, artist, yttitle, link, spotititle, spotilink } = this.props.song;
 		const { playcheck } = this.state;
 		return (
 			<div className="upcoming-card upcoming-card-admin">
@@ -101,10 +94,7 @@ export default class UpcomingCard extends Component {
 				</div>
 				<div className="upc-control-wrapper">
 					{playcheck ? (
-						<Playcheck
-							className="upc-icons spoti-playcheck"
-							onClick={this.handleSpotiPlay}
-						/>
+						<Playcheck className="upc-icons spoti-playcheck" onClick={this.handleSpotiPlay} />
 					) : null}
 					<Check className="upc-icons" onClick={this.handlePlayed} />
 					<Times className="upc-icons" onClick={this.handleDelete} />
