@@ -111,7 +111,7 @@ def unblockuser_view(request, *args, **kwargs):
                 Log.objects.create(user=request.user,title="unban",content=request.POST.get("userid"))
             try:
                 d=FCMDevice.objects.filter(device_id=request.POST.get("userid"))
-                d.send_message("Jó hír!","Újra kérhetsz zenét!")
+                d.send_message("Jó hír!","Újra kérhetsz zenét!",data={"icon":"https://playlist.jelszo.co/static/mstile-310x310.png"})
             except: pass
             return HttpResponse(status=200)
         else:
