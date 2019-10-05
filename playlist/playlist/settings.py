@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'list',
     'frontend',
     'corsheaders', 
+    'fcm_django'
 ]
 
 MIDDLEWARE = [
@@ -149,3 +150,8 @@ EMAIL_USE_TLS=True
 EMAIL_HOST_USER=config["username"]
 
 EMAIL_HOST_PASSWORD=config["password"]
+
+FCM_DJANGO_SETTINGS = {
+        "FCM_SERVER_KEY": config["fcmsk"],
+        "DELETE_INACTIVE_DEVICES": True,
+}

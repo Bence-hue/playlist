@@ -10,6 +10,8 @@ cryptography==2.7
 Django==2.2.4
 django-cors-headers==3.0.2
 django-push-notifications==1.6.1
+django-uuidfield==0.5.0
+fcm-django==0.2.21
 h2==2.6.2
 hpack==3.0.0
 http-ece==1.1.0
@@ -23,11 +25,13 @@ py-vapid==1.7.0
 pycodestyle==2.5.0
 pycparser==2.19
 pycrypto==2.6.1
+pyfcm==1.4.5
 PyJWT==1.7.1
 pylint==2.3.1
 pytz==2019.1
 pywebpush==1.10.0
 requests==2.22.0
+requests-toolbelt==0.9.1
 sentry-sdk==0.11.1
 simple-crypt==4.1.7
 six==1.12.0
