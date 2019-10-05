@@ -51,9 +51,9 @@ messaging
 		console.log(err);
 	});
 
-messaging.onMessage((payload) => {
-	console.log("onMessage: ", payload);
-});
+// messaging.onMessage((payload) => {
+// 	console.log("onMessage: ", payload);
+// });
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
