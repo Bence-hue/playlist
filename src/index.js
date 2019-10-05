@@ -4,7 +4,6 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import * as Sentry from "@sentry/browser";
 import * as firebase from "firebase/app";
-import "firebase/analytics";
 import "firebase/messaging";
 
 Sentry.init({
@@ -30,10 +29,18 @@ messaging
 	.requestPermission()
 	.then(() => {
 		console.log("Perm granted");
+		return messaging.getToken();
+	})
+	.then((token) => {
+		sendTokenToServer(token);
 	})
 	.catch((err) => {
 		console.log(err);
 	});
+
+messaging.onMessage((payload) => {
+	console.log("onMessage: ", payload);
+});
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
