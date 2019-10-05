@@ -320,12 +320,12 @@ export default class AdminSettings extends Component {
 					</div>
 					<div
 						className="settings-grid__spoti-login"
-						onClick={status ? this.spotiLogout : this.spotiLogin}
 					>
 						<div
 							className={`spoti-login__button ${
 								status ? "spoti-btn-authed" : "spoti-btn-unauthed"
 							}`}
+							onClick={status ? this.spotiLogout : this.spotiLogin}
 						>
 							<p>
 								<i className="fab fa-spotify"></i>
