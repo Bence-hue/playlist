@@ -32,7 +32,7 @@ messaging
 		return messaging.getToken();
 	})
 	.then((token) => {
-		sendTokenToServer(token);
+		// sendTokenToServer(token);
 	})
 	.catch((err) => {
 		console.log(err);
