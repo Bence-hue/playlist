@@ -8,37 +8,16 @@
 		<!-- PAGE COMPATIBILITY -->
 		<link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
 		<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-		<meta
-			name="msapplication-config"
-			content="%PUBLIC_URL%/browserconfig.xml"
-		/>
-		<link
-			rel="apple-touch-icon"
-			sizes="180x180"
-			href="%PUBLIC_URL%/apple-touch-icon.png"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="32x32"
-			href="%PUBLIC_URL%/favicon-32x32.png"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="16x16"
-			href="%PUBLIC_URL%/favicon-16x16.png"
-		/>
+		<meta name="msapplication-config" content="%PUBLIC_URL%/browserconfig.xml" />
+		<link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon-16x16.png" />
 		<meta name="apple-mobile-web-app-title" content="Playlist" />
 		<meta name="application-name" content="Playlist" />
 
 		<meta name="msapplication-navbutton-color" content="#15A867" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="#15A867" />
-		<link
-			rel="mask-icon"
-			href="%PUBLIC_URL%/safari-pinned-tab.svg"
-			color="#15a867"
-		/>
+		<link rel="mask-icon" href="%PUBLIC_URL%/safari-pinned-tab.svg" color="#15a867" />
 		<meta name="msapplication-TileColor" content="#15a867" />
 		<meta name="theme-color" content="#15A867" />
 		<meta name="mobile-web-app-capable" content="yes" />
@@ -70,10 +49,7 @@
 		/>
 
 		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script
-			async
-			src="https://www.googletagmanager.com/gtag/js?id=UA-69522476-2%22%3E"
-		></script>
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-69522476-2%22%3E"></script>
 		<script async>
 			window.dataLayer = window.dataLayer || [];
 			function gtag() {
@@ -86,9 +62,81 @@
 	</head>
 	<body>
 		<noscript>
-			Kérlek endedélyezd a JavaScriptet a böngésződ beállításaiban ahhoz, hogy
-			megtekinthesd az oldalt.
+			Kérlek endedélyezd a JavaScriptet a böngésződ beállításaiban ahhoz, hogy megtekinthesd az
+			oldalt.
 		</noscript>
 		<div id="root"></div>
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
+
+		<!-- TODO: Add SDKs for Firebase products that you want to use
+     	https://firebase.google.com/docs/web/setup#available-libraries -->
+		<script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-analytics.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/6.6.2/firebase-messaging.js"></script>
+
+		<script>
+			// Your web app's Firebase configuration
+			var firebaseConfig = {
+				apiKey: "AIzaSyCSnUYWR95Go_re_d6ClkK0AXgCXJJ5gNI",
+				authDomain: "playlist-248218.firebaseapp.com",
+				databaseURL: "https://playlist-248218.firebaseio.com",
+				projectId: "playlist-248218",
+				storageBucket: "",
+				messagingSenderId: "687275559983",
+				appId: "1:687275559983:web:12a27164caeadf2c3f8ada",
+				measurementId: "G-HZRTRM0P1J"
+			};
+			// Initialize Firebase
+			firebase.initializeApp(firebaseConfig);
+			firebase.analytics();
+			const messaging = firebase.messaging();
+			messaging.usePublicVapidKey(
+				"BEumBgeaNS-cDLgwwjnUqKfKJs9l10mDn1-99N9RXY-0LaWGUA3I5vB_80k6jKWp2A61NzeM4siW6e1kF3uyzjc"
+			);
+			Notification.requestPermission().then((permission) => {
+				if (permission === "granted") {
+					console.log("Notification permission granted.");
+					messaging
+						.getToken()
+						.then((currentToken) => {
+							if (currentToken) {
+								sendTokenToServer(currentToken);
+								updateUIForPushEnabled(currentToken);
+							} else {
+								// Show permission request.
+								console.log("No Instance ID token available. Request permission to generate one.");
+								// Show permission UI.
+								updateUIForPushPermissionRequired();
+								setTokenSentToServer(false);
+							}
+						})
+						.catch((err) => {
+							console.log("An error occurred while retrieving token. ", err);
+							showToken("Error retrieving Instance ID token. ", err);
+							setTokenSentToServer(false);
+						});
+				} else {
+					console.log("Unable to get permission to notify.");
+				}
+			});
+			// Callback fired if Instance ID token is updated.
+			messaging.onTokenRefresh(() => {
+				messaging
+					.getToken()
+					.then((refreshedToken) => {
+						console.log("Token refreshed.");
+						// Indicate that the new Instance ID token has not yet been sent to the
+						// app server.
+						setTokenSentToServer(false);
+						// Send Instance ID token to app server.
+						sendTokenToServer(refreshedToken);
+						// ...
+					})
+					.catch((err) => {
+						console.log("Unable to retrieve refreshed token ", err);
+						showToken("Unable to retrieve refreshed token ", err);
+					});
+			});
+		</script>
 	</body>
 </html>
