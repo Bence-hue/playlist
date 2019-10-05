@@ -122,6 +122,8 @@ def played_view(request, *args, **kwargs):
                 object.update(played=True, playedAt=datetime.datetime.now())
                 delete(object[0].spotiuri)
                 Log.objects.create(user=request.user,title="played",content=object[0].artist+" - "+object[0].title+" (id: "+str(object[0].id)+")")
+                d=FCMDevice.objects.all()
+                d.send_message("Megy!","Végre van push notink")
                 return HttpResponse(status=200)
             else:
                 return HttpResponse(status=422)
