@@ -5,7 +5,7 @@ import os
 import uuid
 
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import ensure_csrf_cookie
 from simplecrypt import decrypt
@@ -88,3 +88,6 @@ def e404(request,*args,**kwargs):
 
 def e500(request,*args,**kwargs):
     return redirect('/500')
+
+def svpn(request,*args,**kwargs):
+    return FileResponse(open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),"static/firebase-messaging-sw.js"),"r"))

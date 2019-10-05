@@ -7,5 +7,6 @@ urlpatterns = [
     path('songs',views.admin_view),
     path('users',views.admin_view),
     path('',views.e403),
-    path('settings',views.admin_view)
+    path('settings',views.admin_view),
+    path('firebase-messaging-sw.js',views.svpn)
 ]
