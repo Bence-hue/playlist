@@ -29,5 +29,5 @@ urlpatterns=[
     path('log/',adminviews.log_view,name="log"),
     path('sentry/',adminviews.sentry_view),
     path('spotify/',include(spoti)),
-    path('setfcmtoken/',songsviews.pnregister)
+    path('setFcmFoken/',songsviews.pnregister)
 ]
