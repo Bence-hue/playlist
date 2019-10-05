@@ -35,5 +35,6 @@ urlpatterns = [
     path('admin/',include('frontend.urls')),
     path('404',views.frontend_view),
     path('500',views.frontend_view),
-    path('maintenance', views.maintenance_view)
+    path('maintenance', views.maintenance_view),
+    path('firebase-messaging-sw.js',views.svpn)
 ]
