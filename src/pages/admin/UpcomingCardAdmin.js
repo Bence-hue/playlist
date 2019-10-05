@@ -16,7 +16,7 @@ export default class UpcomingCard extends Component {
 		axios.get("/api/spotify/status/").then((res) => {
 			if (JSON.parse(res.data.toLowerCase()) === true) {
 				axios.get("/api/spotify/devices/").then((res) => {
-					if (JSON.parse(res.data.isAnySelected.toLowerCase()) === true) {
+					if (JSON.parse(res.data.isAnySelected) === true) {
 						if (this.props.song.spotilink !== "") {
 							this.setState({ playcheck: true });
 						}
