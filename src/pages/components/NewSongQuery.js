@@ -19,8 +19,8 @@ export default class NewSongQuery extends Component {
 		flavorspan: "előadóját",
 		artist: "",
 		title: "",
-		toggleAnim: true,
-		toggleFinal: false,
+		toggleAnim: false,
+		toggleFinal: true,
 		toggleErr: false,
 		err: {
 			title: "",
@@ -170,6 +170,7 @@ export default class NewSongQuery extends Component {
 	};
 
 	promptNoti = () => {
+		console.log("function running");
 		const firebaseConfig = {
 			apiKey: "AIzaSyCSnUYWR95Go_re_d6ClkK0AXgCXJJ5gNI",
 			authDomain: "playlist-248218.firebaseapp.com",
@@ -181,44 +182,42 @@ export default class NewSongQuery extends Component {
 			measurementId: "G-HZRTRM0P1J"
 		};
 		firebase.initializeApp(firebaseConfig);
+		console.log("Firebase app initialized");
 		const messaging = firebase.messaging();
 		messaging.usePublicVapidKey(
 			"BEumBgeaNS-cDLgwwjnUqKfKJs9l10mDn1-99N9RXY-0LaWGUA3I5vB_80k6jKWp2A61NzeM4siW6e1kF3uyzjc"
 		);
+		console.log("Vapid key added");
+		console.log("Begin noti prompt");
+		messaging.requestPermission().then(() => {
+			console.log("Perm granted");
+			// return messaging.getToken();
+		});
 		messaging
 			.getToken()
-			.then((res) => {
-				console.log("Got token");
-			})
-			.catch((err) => {
-				console.log("Begin noti prompt");
-				messaging
-					.requestPermission()
-					.then(() => {
-						console.log("Perm granted");
-						return messaging.getToken();
-					})
-					.then((token) => {
-						console.log("Token initialization started");
-						console.log(token);
-						let url = "/api/setFcmToken/",
-							params = new URLSearchParams();
-						params.append("token", token);
-						axios.defaults.xsrfCookieName = "csrftoken";
-						axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-						axios
-							.post(url, params)
-							.then((res) => {
-								console.log("Token set");
-								window.location.href = "https://playlist.jelszo.co";
-							})
-							.catch((err) => {
-								console.log(err);
-							});
+			.then((token) => {
+				console.log("Token sending started");
+				console.log(token);
+				let url = "/api/setFcmToken/",
+					params = new URLSearchParams();
+				params.append("token", token);
+				axios.defaults.xsrfCookieName = "csrftoken";
+				axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+				axios
+					.post(url, params)
+					.then((res) => {
+						console.log("Token set");
+						window.location.href = "https://playlist.jelszo.co";
 					})
 					.catch((err) => {
-						console.log(err);
+						console.error("Stuck! at request.");
+
+						console.error(err);
 					});
+			})
+			.catch((err) => {
+				console.error("Stuck! at double .then");
+				console.error(err);
 			});
 	};
 
