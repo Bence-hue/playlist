@@ -186,29 +186,38 @@ export default class NewSongQuery extends Component {
 			"BEumBgeaNS-cDLgwwjnUqKfKJs9l10mDn1-99N9RXY-0LaWGUA3I5vB_80k6jKWp2A61NzeM4siW6e1kF3uyzjc"
 		);
 		messaging
-			.requestPermission()
-			.then(() => {
-				console.log("Perm granted");
-				return messaging.getToken();
+			.getToken()
+			.then((res) => {
+				console.log(res);
 			})
-			.then((token) => {
-				console.log(token);
-				let url = "/api/setFcmToken/",
-					params = new URLSearchParams();
-				params.append("token", token);
-				axios.defaults.xsrfCookieName = "csrftoken";
-				axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-				axios
-					.post(url, params)
-					.then((res) => {
-						console.log("Token set");
+			.catch((err) => {
+				messaging
+					.requestPermission()
+					.then(() => {
+						console.log("Perm granted");
+						return messaging.getToken();
+					})
+					.then((token) => {
+						console.log("Token initialization started");
+						console.log(token);
+						let url = "/api/setFcmToken/",
+							params = new URLSearchParams();
+						params.append("token", token);
+						axios.defaults.xsrfCookieName = "csrftoken";
+						axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+						axios
+							.post(url, params)
+							.then((res) => {
+								console.log("Token set");
+								window.location.href = "https://playlist.jelszo.co";
+							})
+							.catch((err) => {
+								console.log(err);
+							});
 					})
 					.catch((err) => {
 						console.log(err);
 					});
-			})
-			.catch((err) => {
-				console.log(err);
 			});
 	};
 
