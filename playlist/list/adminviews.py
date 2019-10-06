@@ -73,7 +73,7 @@ def blockuser_view(request, *args, **kwargs):
                     "status":"{} hétre".format(data.get("expirein", 1))}))
                 try:
                     d=FCMDevice.objects.filter(device_id=data.get("userid"))
-                    d.send_message("Ejnye!","Valamit nagyon elszúrhattál! {} hétig nem kérhetsz zenét.".format(data.get("expirein", 1)),icon="https://playlist.jelszo.co/static/pnicon.png")
+                    d.send_message("Ejnye!","Valamit nagyon elszúrhattál! {} nem kérhetsz zenét.".format(blockedFor(int(data.get("expirein", 1)))),icon="https://playlist.jelszo.co/static/pnicon.png")
                 except: pass
             for l in Song.objects.filter(user=data.get("userid"), played=False, hide=False):
                 delete(l.spotiuri)
@@ -85,6 +85,13 @@ def blockuser_view(request, *args, **kwargs):
     else:
         return HttpResponse(status=405)
 
+def blockedFor(d):
+    if d<7:
+        return "{} napig".format(d)
+    elif d%7==0:
+        return "{} hétig".format(d//7)
+    else:
+        return "{} hétig és {} napig".format(f//7,d%7)
 
 def unblockuser_view(request, *args, **kwargs):
     if request.method == 'POST':
