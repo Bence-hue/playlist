@@ -19,8 +19,8 @@ export default class NewSongQuery extends Component {
 		flavorspan: "előadóját",
 		artist: "",
 		title: "",
-		toggleAnim: false,
-		toggleFinal: true,
+		toggleAnim: true,
+		toggleFinal: false,
 		toggleErr: false,
 		err: {
 			title: "",
@@ -182,21 +182,30 @@ export default class NewSongQuery extends Component {
 			measurementId: "G-HZRTRM0P1J"
 		};
 		firebase.initializeApp(firebaseConfig);
-		console.log("Firebase app initialized");
 		const messaging = firebase.messaging();
 		messaging.usePublicVapidKey(
 			"BEumBgeaNS-cDLgwwjnUqKfKJs9l10mDn1-99N9RXY-0LaWGUA3I5vB_80k6jKWp2A61NzeM4siW6e1kF3uyzjc"
 		);
-		console.log("Vapid key added");
-		console.log("Begin noti prompt");
 		messaging
 			.requestPermission()
 			.then(() => {
-				console.log("Granted");
+				console.log("Perm granted");
 				return messaging.getToken();
 			})
 			.then((token) => {
-				console.log(token);
+				let url = "/api/setFcmToken/",
+					params = new URLSearchParams();
+				params.append("token", token);
+				axios.defaults.xsrfCookieName = "csrftoken";
+				axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+				axios
+					.post(url, params)
+					.then((res) => {
+						console.log("Token set");
+					})
+					.catch((err) => {
+						console.log(err);
+					});
 			})
 			.catch((err) => {
 				console.log(err);
@@ -207,7 +216,7 @@ export default class NewSongQuery extends Component {
 		return (
 			<React.Fragment>
 				<Modal
-					toggler={this.state.toggleFinal}
+					toggler={false}
 					title={"Értesítések"}
 					content={
 						"Ha szeretnél értesítést kapni, amikor a te zenédet játsszuk, kérlek fogadd el a következő felugró ablakban az értesítéseket."
