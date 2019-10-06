@@ -188,9 +188,10 @@ export default class NewSongQuery extends Component {
 		messaging
 			.getToken()
 			.then((res) => {
-				console.log(res);
+				console.log("Got token");
 			})
 			.catch((err) => {
+				console.log("Begin noti prompt");
 				messaging
 					.requestPermission()
 					.then(() => {
