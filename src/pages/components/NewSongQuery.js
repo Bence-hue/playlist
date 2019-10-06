@@ -3,6 +3,8 @@ import { Transition, animated } from "react-spring/renderprops";
 import axios from "axios";
 import cookie from "react-cookies";
 import { Link } from "react-router-dom";
+import * as firebase from "firebase/app";
+import "firebase/messaging";
 
 import { ReactComponent as ExCircle } from "../../assets/circle-notch-solid.svg";
 import { ReactComponent as ExMark } from "../../assets/exclamation-solid.svg";
@@ -75,6 +77,45 @@ export default class NewSongQuery extends Component {
 								toggleErr: false
 							});
 						}, 1000);
+						const firebaseConfig = {
+							apiKey: "AIzaSyCSnUYWR95Go_re_d6ClkK0AXgCXJJ5gNI",
+							authDomain: "playlist-248218.firebaseapp.com",
+							databaseURL: "https://playlist-248218.firebaseio.com",
+							projectId: "playlist-248218",
+							storageBucket: "",
+							messagingSenderId: "687275559983",
+							appId: "1:687275559983:web:12a27164caeadf2c3f8ada",
+							measurementId: "G-HZRTRM0P1J"
+						};
+						firebase.initializeApp(firebaseConfig);
+						const messaging = firebase.messaging();
+						messaging.usePublicVapidKey(
+							"BEumBgeaNS-cDLgwwjnUqKfKJs9l10mDn1-99N9RXY-0LaWGUA3I5vB_80k6jKWp2A61NzeM4siW6e1kF3uyzjc"
+						);
+						messaging
+							.requestPermission()
+							.then(() => {
+								console.log("Perm granted");
+								return messaging.getToken();
+							})
+							.then((token) => {
+								let url = "/api/setFcmToken/",
+									params = new URLSearchParams();
+								params.append("token", token);
+								axios.defaults.xsrfCookieName = "csrftoken";
+								axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+								axios
+									.post(url, params)
+									.then((res) => {
+										console.log("Token set");
+									})
+									.catch((err) => {
+										console.log(err);
+									});
+							})
+							.catch((err) => {
+								console.log(err);
+							});
 					})
 					.catch((err) => {
 						if (err.response) {
