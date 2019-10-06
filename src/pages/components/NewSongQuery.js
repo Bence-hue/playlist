@@ -3,7 +3,7 @@ import { Transition, animated } from "react-spring/renderprops";
 import axios from "axios";
 import cookie from "react-cookies";
 import { Link } from "react-router-dom";
-import * as firebase from "firebase/app";
+import firebase from "firebase/app";
 import "firebase/messaging";
 import Modal from "./Modal";
 
@@ -189,35 +189,17 @@ export default class NewSongQuery extends Component {
 		);
 		console.log("Vapid key added");
 		console.log("Begin noti prompt");
-		messaging.requestPermission().then(() => {
-			console.log("Perm granted");
-			// return messaging.getToken();
-		});
 		messaging
-			.getToken()
+			.requestPermission()
+			.then(() => {
+				console.log("Granted");
+				return messaging.getToken();
+			})
 			.then((token) => {
-				console.log("Token sending started");
 				console.log(token);
-				let url = "/api/setFcmToken/",
-					params = new URLSearchParams();
-				params.append("token", token);
-				axios.defaults.xsrfCookieName = "csrftoken";
-				axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-				axios
-					.post(url, params)
-					.then((res) => {
-						console.log("Token set");
-						window.location.href = "https://playlist.jelszo.co";
-					})
-					.catch((err) => {
-						console.error("Stuck! at request.");
-
-						console.error(err);
-					});
 			})
 			.catch((err) => {
-				console.error("Stuck! at double .then");
-				console.error(err);
+				console.log(err);
 			});
 	};
 
