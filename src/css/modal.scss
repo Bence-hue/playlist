@@ -91,6 +91,10 @@ $resp-mobile: "only screen and (max-width : 900px)";
 				padding: 0;
 				letter-spacing: 2px;
 				font-weight: 600;
+				@media #{$resp-mobile} {
+					margin-bottom: 5px;
+					font-size: 1.2rem;
+				}
 			}
 			.noauth-modal__span {
 				display: block;
@@ -104,6 +108,8 @@ $resp-mobile: "only screen and (max-width : 900px)";
 				@media #{$resp-mobile} {
 					width: 140%;
 					margin: 0 -20%;
+					width: 100%;
+					margin: 0;
 				}
 			}
 			p {
@@ -112,7 +118,39 @@ $resp-mobile: "only screen and (max-width : 900px)";
 				font-weight: 400;
 				font-style: italic;
 				letter-spacing: 1px;
+				white-space: normal;
+				@media #{$resp-mobile} {
+					font-size: 0.8rem;
+				}
 			}
+			button {
+				margin-top: 10px;
+				background: rgb(19, 156, 97);
+				background: linear-gradient(
+					-45deg,
+					rgba(19, 156, 97, 1) 0%,
+					rgba(19, 88, 59, 1) 100%
+				);
+				border: none;
+				border-radius: 20px;
+				padding: 5px 20px;
+				color: white;
+				font-weight: 600;
+				font-size: 1rem;
+				letter-spacing: 1px;
+				cursor: pointer;
+				transition: 0.1s all ease-in-out;
+
+				&:hover {
+					transform: scale(1.1);
+				}
+			}
+		}
+	}
+	.noauth-modal-buttoned {
+		height: 220px;
+		@media #{$resp-mobile} {
+			height: 200px;
 		}
 	}
 }

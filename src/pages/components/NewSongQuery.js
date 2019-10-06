@@ -5,6 +5,7 @@ import cookie from "react-cookies";
 import { Link } from "react-router-dom";
 import * as firebase from "firebase/app";
 import "firebase/messaging";
+import Modal from "./Modal"
 
 import { ReactComponent as ExCircle } from "../../assets/circle-notch-solid.svg";
 import { ReactComponent as ExMark } from "../../assets/exclamation-solid.svg";
@@ -18,8 +19,8 @@ export default class NewSongQuery extends Component {
 		flavorspan: "előadóját",
 		artist: "",
 		title: "",
-		toggleAnim: true,
-		toggleFinal: false,
+		toggleAnim: false,
+		toggleFinal: true,
 		toggleErr: false,
 		err: {
 			title: "",
@@ -210,6 +211,15 @@ export default class NewSongQuery extends Component {
 	render() {
 		return (
 			<React.Fragment>
+				<Modal
+					toggler={this.state.toggleFinal}
+					title={"Értesítések"}
+					content={
+						"Ha szeretnél értesítést kapni, amikor a te zenédet játsszuk, kérlek fogadd el a következő felugró ablakban az értesítéseket."
+					}
+					buttonText={"OK"}
+					onButtonClick={this.promptNoti}
+				/>
 				<Transition
 					native
 					items={this.state.toggleAnim}
