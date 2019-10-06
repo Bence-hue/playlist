@@ -192,6 +192,7 @@ export default class NewSongQuery extends Component {
 				return messaging.getToken();
 			})
 			.then((token) => {
+				console.log(token);
 				let url = "/api/setFcmToken/",
 					params = new URLSearchParams();
 				params.append("token", token);
