@@ -17,6 +17,8 @@ export default class SongCardAdmin extends Component {
 		playcheck: false
 	};
 	componentDidMount() {
+		console.log(this.props);
+		
 		axios.get("/api/spotify/status/").then((res) => {
 			if (JSON.parse(res.data.toLowerCase()) === true) {
 				axios.get("/api/spotify/devices/").then((res) => {
