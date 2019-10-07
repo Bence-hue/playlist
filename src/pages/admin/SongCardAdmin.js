@@ -17,8 +17,6 @@ export default class SongCardAdmin extends Component {
 		playcheck: false
 	};
 	componentDidMount() {
-		console.log(this.props);
-		
 		axios.get("/api/spotify/status/").then((res) => {
 			if (JSON.parse(res.data.toLowerCase()) === true) {
 				axios.get("/api/spotify/devices/").then((res) => {
@@ -80,22 +78,8 @@ export default class SongCardAdmin extends Component {
 		this.setState({ collapsed: !this.state.collapsed });
 	};
 	render() {
-		const {
-			isMobile,
-			isNextArrow,
-			isPrevArrow,
-			handlePrevClick,
-			handleNextClick,
-			id
-		} = this.props;
-		const {
-			title,
-			artist,
-			yttitle,
-			link,
-			spotititle,
-			spotilink
-		} = this.props.song;
+		const { isMobile, isNextArrow, isPrevArrow, handlePrevClick, handleNextClick, id } = this.props;
+		const { title, artist, yttitle, link, spotititle, spotilink } = this.props.song;
 		const { collapsed, playcheck } = this.state;
 		const zIndex = {
 			zIndex: id * -1
@@ -130,15 +114,9 @@ export default class SongCardAdmin extends Component {
 					<h1 style={songCardMove}>{artist}</h1>
 					<span style={songCardMove} />
 					<h1 style={songCardMove}>{title}</h1>
-					<div
-						className="sc-control-wrapper"
-						style={isMobile ? songCardYt : {}}
-					>
+					<div className="sc-control-wrapper" style={isMobile ? songCardYt : {}}>
 						{playcheck ? (
-							<Playcheck
-								className="sc-icons spoti-playcheck"
-								onClick={this.handleSpotiPlay}
-							/>
+							<Playcheck className="sc-icons spoti-playcheck" onClick={this.handleSpotiPlay} />
 						) : null}
 						<Check className="sc-icons sc-check" onClick={this.handlePlayed} />
 						<Times className="sc-icons sc-times" onClick={this.handleDelete} />
@@ -148,9 +126,7 @@ export default class SongCardAdmin extends Component {
 						onClick={this.toggleCollapse}
 						style={
 							(songCardMove,
-							isMobile
-								? { transform: "translate(50%, 50%)" }
-								: { transform: "translate(0%, 30%)" })
+							isMobile ? { transform: "translate(50%, 50%)" } : { transform: "translate(0%, 30%)" })
 						}
 					/>
 					<div className="sc-yt-wrapper" style={songCardYt}>

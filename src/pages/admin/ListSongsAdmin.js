@@ -22,6 +22,7 @@ export default class ListSongsAdmin extends Component {
 	componentDidMount() {
 		let url = "/api/list/?mode=unplayed";
 		axios.get(url).then((res) => this.setState({ songs: res.data }));
+		console.log(this.state);
 	}
 
 	render() {
@@ -93,19 +94,10 @@ export default class ListSongsAdmin extends Component {
 		let songPages = [];
 		for (let i = 0; i < SlRound; i++) {
 			if (i === 0) {
-				songPages.push(
-					<SongListPageAdmin key={i} id={i} songs={songs} isFirstPage={true} />
-				);
+				songPages.push(<SongListPageAdmin key={i} id={i} songs={songs} isFirstPage={true} />);
 			}
 			if (i !== 0) {
-				songPages.push(
-					<SongListPageAdmin
-						key={i + 1}
-						id={i}
-						songs={songs}
-						isFirstPage={false}
-					/>
-				);
+				songPages.push(<SongListPageAdmin key={i + 1} id={i} songs={songs} isFirstPage={false} />);
 			}
 		}
 
@@ -238,10 +230,7 @@ export default class ListSongsAdmin extends Component {
 							style={ArrowUpStyle}
 							onClick={handleUpperClick}
 						/>
-						<Indicator
-							currentPage={noData ? currentPage : currentPage + 1}
-							lastPage={SlRound}
-						/>
+						<Indicator currentPage={noData ? currentPage : currentPage + 1} lastPage={SlRound} />
 						<ArrowDown
 							className={
 								noData
@@ -269,10 +258,7 @@ export default class ListSongsAdmin extends Component {
 								}
 								return null;
 							})}
-							<div
-								className="song-card-wrapper"
-								style={mobileSongCardWrapperStyle}
-							>
+							<div className="song-card-wrapper" style={mobileSongCardWrapperStyle}>
 								{songPagesMobile[currentPageMobile]}
 							</div>
 						</div>
