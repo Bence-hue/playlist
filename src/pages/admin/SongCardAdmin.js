@@ -79,6 +79,7 @@ export default class SongCardAdmin extends Component {
 	};
 	render() {
 		const { isMobile, isNextArrow, isPrevArrow, handlePrevClick, handleNextClick, id } = this.props;
+		console.log(this.props);
 		const { title, artist, yttitle, link, spotititle, spotilink } = this.props.song;
 		const { collapsed, playcheck } = this.state;
 		const zIndex = {
