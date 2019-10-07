@@ -80,7 +80,7 @@ export default class SongCardAdmin extends Component {
 	render() {
 		const { isMobile, isNextArrow, isPrevArrow, handlePrevClick, handleNextClick, id } = this.props;
 		console.log(this.props);
-		const { title, artist, yttitle, link, spotititle, spotilink } = this.props.song;
+		const { artist, yttitle, link, spotititle, spotilink } = this.props.song;
 		const { collapsed, playcheck } = this.state;
 		const zIndex = {
 			zIndex: id * -1
@@ -114,7 +114,7 @@ export default class SongCardAdmin extends Component {
 				<div className="song-card song-card-admin" style={(zIndex, songCard)}>
 					<h1 style={songCardMove}>{artist}</h1>
 					<span style={songCardMove} />
-					<h1 style={songCardMove}>{title}</h1>
+					<h1 style={songCardMove}>{this.props.song.title}</h1>
 					<div className="sc-control-wrapper" style={isMobile ? songCardYt : {}}>
 						{playcheck ? (
 							<Playcheck className="sc-icons spoti-playcheck" onClick={this.handleSpotiPlay} />
