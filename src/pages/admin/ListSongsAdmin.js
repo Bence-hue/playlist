@@ -29,6 +29,8 @@ export default class ListSongsAdmin extends Component {
 				console.log(res);
 			})
 			.catch((err) => {
+				console.log("Got errror:");
+				
 				console.error(err);
 			});
 		console.log(this.state);
