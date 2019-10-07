@@ -14,7 +14,17 @@ import { ReactComponent as ArrowDown } from "../../assets/angle-down-solid.svg";
 
 export default class ListSongsAdmin extends Component {
 	state = {
-		songs: [],
+		songs: [
+			{
+				title: "",
+				artist: "",
+				ytlink: "",
+				yttitle: "",
+				spotilink: "",
+				spotititle: "",
+				id: 9999999999999999
+			}
+		],
 		currentPage: 0,
 		currentPageMobile: 0
 	};
@@ -30,7 +40,7 @@ export default class ListSongsAdmin extends Component {
 			})
 			.catch((err) => {
 				console.log("Got errror:");
-				
+
 				console.error(err);
 			});
 		console.log(this.state);
