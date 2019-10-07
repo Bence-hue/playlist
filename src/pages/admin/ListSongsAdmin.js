@@ -23,7 +23,11 @@ export default class ListSongsAdmin extends Component {
 		let url = "/api/list/?mode=unplayed";
 		axios
 			.get(url)
-			.then((res) => this.setState({ songs: res.data }))
+			.then((res) => {
+				this.setState({ songs: res.data });
+				console.log("Got data:");
+				console.log(res);
+			})
 			.catch((err) => {
 				console.error(err);
 			});
