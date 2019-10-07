@@ -80,7 +80,6 @@ export default class SongCardAdmin extends Component {
 	render() {
 		const { isMobile, isNextArrow, isPrevArrow, handlePrevClick, handleNextClick, id } = this.props;
 		console.log(this.props);
-		const { artist, yttitle, link, spotititle, spotilink } = this.props.song;
 		const { collapsed, playcheck } = this.state;
 		const zIndex = {
 			zIndex: id * -1
@@ -112,7 +111,7 @@ export default class SongCardAdmin extends Component {
 		} else {
 			return (
 				<div className="song-card song-card-admin" style={(zIndex, songCard)}>
-					<h1 style={songCardMove}>{artist}</h1>
+					<h1 style={songCardMove}>{this.props.song.artist}</h1>
 					<span style={songCardMove} />
 					<h1 style={songCardMove}>{this.props.song.title}</h1>
 					<div className="sc-control-wrapper" style={isMobile ? songCardYt : {}}>
@@ -133,14 +132,14 @@ export default class SongCardAdmin extends Component {
 					<div className="sc-yt-wrapper" style={songCardYt}>
 						<p>
 							<i className="fab fa-youtube" />{" "}
-							<a href={link} target="_blank" rel="noopener noreferrer">
-								{ReactHtmlParser(yttitle)} (id: {id})
+							<a href={this.props.song.link} target="_blank" rel="noopener noreferrer">
+								{ReactHtmlParser(this.props.song.yttitle)} (id: {id})
 							</a>
 						</p>
 						<p>
 							<i className="fab fa-spotify"></i>{" "}
-							<a href={spotilink} target="_blank" rel="noopener noreferrer">
-								{spotititle}
+							<a href={this.props.song.spotilink} target="_blank" rel="noopener noreferrer">
+								{this.props.song.spotititle}
 							</a>
 						</p>
 					</div>
