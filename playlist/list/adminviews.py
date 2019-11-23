@@ -3,7 +3,7 @@ import json
 import os
 import datetime
 import uuid
-import requests
+import requests,jwt
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -26,7 +26,6 @@ with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 @csrf_exempt
 def adminlogin_view(request, *args, **kwargs):
     if request.method == 'POST':
-        print(request.META["HTTP_REFERER"])
         remember=bool(request.POST.get('remember', False))
         username = request.POST.get('username', "")
         password = request.POST.get('password', "")
@@ -37,8 +36,9 @@ def adminlogin_view(request, *args, **kwargs):
             respons=redirect(url)
             respons.delete_cookie("url")
             if remember:
-                print("cookieset")
-                respons.set_cookie("login",base64.b64encode(encrypt(config["SECRET_KEY"],username+";"+password)).decode(),60*60*24*30)
+                payload={'id':user.id,'username':user.username}
+                token=jwt.encode(payload,config["SECRET_KEY"])
+                respons.set_cookie("login",token,60*60*24*30)
             return respons
         else:
             return redirect("/admin/login?badauth=true")
