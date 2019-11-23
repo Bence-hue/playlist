@@ -1,17 +1,21 @@
-from .models import BlockedUser, Song, Setting,Log,Spotiuser
-from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse
-from django.shortcuts import redirect, render
+import datetime
 import json
 import os
-import datetime
 import uuid
+
 import requests
+
 from django.core import serializers
 from django.core.exceptions import PermissionDenied
-from django.utils import timezone
 from django.core.mail import EmailMessage
-from .spotify import new, delete, play
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
+from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
+from fcm_django.models import FCMDevice
+
+from .models import BlockedUser, Log, Setting, Song, Spotiuser
+from .spotify import delete, new, play
 
 with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "datas.json"), "r") as cffile:
     config = json.loads(cffile.readline())
@@ -116,6 +120,11 @@ def played_view(request, *args, **kwargs):
             object = Song.objects.filter(id=id)
             if object.exists():
                 object.update(played=True, playedAt=datetime.datetime.now())
+                try:
+                    d=FCMDevice.objects.filter(device_id=object[0].user)
+                    d.send_message("Jól fülelj!","Épp most játszuk le az általad kért {}-t {}-tól!".format(object[0].title,object[0].artist),icon="https://playlist.jelszo.co/static/pnicon.png")
+                except Exception:
+                    pass
                 delete(object[0].spotiuri)
                 Log.objects.create(user=request.user,title="played",content=object[0].artist+" - "+object[0].title+" (id: "+str(object[0].id)+")")
                 return HttpResponse(status=200)
@@ -213,3 +222,10 @@ def email_view(request, *args, **kwargs):
         return HttpResponse(status=200)
     else:
         return HttpResponse(status=405)
+
+def pnregister(request, *args, **kwargs):
+    if not FCMDevice.objects.filter(device_id=request.COOKIES.get("userid")).exists():
+        d=FCMDevice.objects.create(registration_id=request.POST.get("token"),device_id=request.COOKIES.get("userid"),type='web')
+        d.send_message("Siker!","Ilyen értesítést fogsz kapni")
+        return HttpResponse(status=201)
+    return HttpResponse(status=200)

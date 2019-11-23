@@ -28,5 +28,6 @@ urlpatterns=[
     path('settings/<s>/',adminviews.settings_view,name="settings"),
     path('log/',adminviews.log_view,name="log"),
     path('sentry/',adminviews.sentry_view),
-    path('spotify/',include(spoti))
+    path('spotify/',include(spoti)),
+    path('setFcmToken/',songsviews.pnregister)
 ]

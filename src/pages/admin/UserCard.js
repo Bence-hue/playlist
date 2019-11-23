@@ -45,21 +45,21 @@ export default class UserCard extends Component {
 		switch (period) {
 			case "1w":
 				params.append("permanent", false);
-				params.append("expirein", 1);
+				params.append("expirein", 7);
 				break;
 			case "1m":
 				params.append("permanent", false);
-				params.append("expirein", 4);
+				params.append("expirein", 30);
 				break;
 			case "3m":
 				params.append("permanent", false);
-				params.append("expirein", 12);
+				params.append("expirein", 90);
 				break;
 			case "p":
 				params.append("permanent", true);
 				break;
 			case "c":
-				params.append("expirein", this.state.customInterval / 7);
+				params.append("expirein", this.state.customInterval);
 				params.append("permanent", false);
 				break;
 			default:

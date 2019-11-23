@@ -77,7 +77,7 @@ export default class About extends Component {
 			<div>
 				<Header kolcsey={false} />
 				<div id="about-us">
-					<h1>Az oldalról...</h1>
+					<h1>Rólunk</h1>
 					<p>
 						A Playlistet 3 Kölcsey-s diák fejleszti, annak reményében, hogy
 						jobbá tegyék az iskolarádiót, és így valamennyire megkönnyítsék az

@@ -16,6 +16,7 @@ from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 from simplecrypt import encrypt
 from .spotify import add,delete
+from fcm_django.models import FCMDevice
 
 from .models import BlockedUser, Log, Setting, Song
 
@@ -61,11 +62,19 @@ def blockuser_view(request, *args, **kwargs):
                 Log.objects.create(user=request.user,title="ban",content=json.dumps({
                     "userid":data.get("userid"),
                     "status":"permanent"}))
+                try:
+                    d=FCMDevice.objects.filter(device_id=data.get("userid"))
+                    d.send_message("Ejnye!","Valamit nagyon elszúrhattál! Többé nem kérhetsz zenét.",icon="https://playlist.jelszo.co/static/pnicon.png")
+                except: pass
             else:
                 BlockedUser.objects.create(userid=data.get("userid"), permanent=False,expireAt=datetime.datetime.now() + datetime.timedelta(weeks=int(data.get("expirein", 1))))
                 Log.objects.create(user=request.user,title="ban",content=json.dumps({
                     "userid":data.get("userid"),
                     "status":"{} hétre".format(data.get("expirein", 1))}))
+                try:
+                    d=FCMDevice.objects.filter(device_id=data.get("userid"))
+                    d.send_message("Ejnye!","Valamit nagyon elszúrhattál! {} nem kérhetsz zenét.".format(blockedFor(int(data.get("expirein", 1)))),icon="https://playlist.jelszo.co/static/pnicon.png")
+                except: pass
             for l in Song.objects.filter(user=data.get("userid"), played=False, hide=False):
                 delete(l.spotiuri)
                 l.hide = True
@@ -76,6 +85,13 @@ def blockuser_view(request, *args, **kwargs):
     else:
         return HttpResponse(status=405)
 
+def blockedFor(d):
+    if d<7:
+        return "{} napig".format(d)
+    elif d%7==0:
+        return "{} hétig".format(d//7)
+    else:
+        return "{} hétig és {} napig".format(f//7,d%7)
 
 def unblockuser_view(request, *args, **kwargs):
     if request.method == 'POST':
@@ -100,6 +116,10 @@ def unblockuser_view(request, *args, **kwargs):
                 add(l.spotiuri)
                 l.save()
                 Log.objects.create(user=request.user,title="unban",content=request.POST.get("userid"))
+            try:
+                d=FCMDevice.objects.filter(device_id=request.POST.get("userid"))
+                d.send_message("Jó hír!","Újra kérhetsz zenét!",icon="https://playlist.jelszo.co/static/pnicon.png")
+            except: pass
             return HttpResponse(status=200)
         else:
             return HttpResponse(status=401)
@@ -185,7 +205,7 @@ def user_blockedFor(l):
     else:
         return {"isPerma": False, "ExpireIn": (l.expireAt - timezone.now()).days + 1}
 
-@csrf_exempt
+# @csrf_exempt
 def settings_view(request, *args, **kwargs):
     if request.user.is_authenticated:
         if request.method=='POST':

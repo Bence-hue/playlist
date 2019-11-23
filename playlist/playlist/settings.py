@@ -33,7 +33,7 @@ sentry_sdk.init(
 SECRET_KEY = config.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["localhost","78.92.104.203","127.0.0.1","192.168.1.71","bnctth.ml","playlist.jelszo.co","217.144.54.230"]
 
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'list',
     'frontend',
     'corsheaders', 
+    'fcm_django'
 ]
 
 MIDDLEWARE = [
@@ -149,3 +150,8 @@ EMAIL_USE_TLS=True
 EMAIL_HOST_USER=config["username"]
 
 EMAIL_HOST_PASSWORD=config["password"]
+
+FCM_DJANGO_SETTINGS = {
+        "FCM_SERVER_KEY": config["fcmsk"],
+        "DELETE_INACTIVE_DEVICES": True,
+}

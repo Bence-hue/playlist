@@ -78,22 +78,8 @@ export default class SongCardAdmin extends Component {
 		this.setState({ collapsed: !this.state.collapsed });
 	};
 	render() {
-		const {
-			isMobile,
-			isNextArrow,
-			isPrevArrow,
-			handlePrevClick,
-			handleNextClick,
-			id
-		} = this.props;
-		const {
-			title,
-			artist,
-			yttitle,
-			link,
-			spotititle,
-			spotilink
-		} = this.props.song;
+		const { isMobile, isNextArrow, isPrevArrow, handlePrevClick, handleNextClick, id } = this.props;
+		console.log(this.props);
 		const { collapsed, playcheck } = this.state;
 		const zIndex = {
 			zIndex: id * -1
@@ -125,18 +111,12 @@ export default class SongCardAdmin extends Component {
 		} else {
 			return (
 				<div className="song-card song-card-admin" style={(zIndex, songCard)}>
-					<h1 style={songCardMove}>{artist}</h1>
+					<h1 style={songCardMove}>{this.props.song.artist}</h1>
 					<span style={songCardMove} />
-					<h1 style={songCardMove}>{title}</h1>
-					<div
-						className="sc-control-wrapper"
-						style={isMobile ? songCardYt : {}}
-					>
+					<h1 style={songCardMove}>{this.props.song.title}</h1>
+					<div className="sc-control-wrapper" style={isMobile ? songCardYt : {}}>
 						{playcheck ? (
-							<Playcheck
-								className="sc-icons spoti-playcheck"
-								onClick={this.handleSpotiPlay}
-							/>
+							<Playcheck className="sc-icons spoti-playcheck" onClick={this.handleSpotiPlay} />
 						) : null}
 						<Check className="sc-icons sc-check" onClick={this.handlePlayed} />
 						<Times className="sc-icons sc-times" onClick={this.handleDelete} />
@@ -146,22 +126,20 @@ export default class SongCardAdmin extends Component {
 						onClick={this.toggleCollapse}
 						style={
 							(songCardMove,
-							isMobile
-								? { transform: "translate(50%, 50%)" }
-								: { transform: "translate(0%, 30%)" })
+							isMobile ? { transform: "translate(50%, 50%)" } : { transform: "translate(0%, 30%)" })
 						}
 					/>
 					<div className="sc-yt-wrapper" style={songCardYt}>
 						<p>
 							<i className="fab fa-youtube" />{" "}
-							<a href={link} target="_blank" rel="noopener noreferrer">
-								{ReactHtmlParser(yttitle)} (id: {id})
+							<a href={this.props.song.link} target="_blank" rel="noopener noreferrer">
+								{ReactHtmlParser(this.props.song.yttitle)} (id: {id})
 							</a>
 						</p>
 						<p>
 							<i className="fab fa-spotify"></i>{" "}
-							<a href={spotilink} target="_blank" rel="noopener noreferrer">
-								{spotititle}
+							<a href={this.props.song.spotilink} target="_blank" rel="noopener noreferrer">
+								{this.props.song.spotititle}
 							</a>
 						</p>
 					</div>
