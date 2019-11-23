@@ -64,20 +64,21 @@ def login_view(request, *args, **kwargs):
         return response
     else:
         if "login" in request.COOKIES:
+            payload=jwt.decode(request.COOKIES["login"][2:-1],config["SECRET_KEY"])
+            print(payload)
+            user=User.objects.get(id=payload["id"],username=payload["username"])
+            if user is not None:
+                login(request, user)
+                url = request.COOKIES.get("url", "/admin/dashboard")
+                response = redirect(url)
+                response.delete_cookie("url")
+                return response
+            else:
+                response = render(request, "index.html")
+                response.delete_cookie("login")
+                return response
             try:
-                payload=jwt.decode(request.COOKIES["login"],config["SECRET_KEY"])
-                pprint(payload)
-                user=User.objects.get(id=payload["id"],username=payload["username"])
-                if user is not None:
-                    login(request, user)
-                    url = request.COOKIES.get("url", "/admin/dashboard")
-                    response = redirect(url)
-                    response.delete_cookie("url")
-                    return response
-                else:
-                    response = render(request, "index.html")
-                    response.delete_cookie("login")
-                    return response
+                pass
             except:
                 response = render(request, "index.html")
                 response.delete_cookie("login")
