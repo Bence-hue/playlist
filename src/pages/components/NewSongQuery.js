@@ -51,7 +51,8 @@ export default class NewSongQuery extends Component {
 		messaging.usePublicVapidKey(
 			"BEumBgeaNS-cDLgwwjnUqKfKJs9l10mDn1-99N9RXY-0LaWGUA3I5vB_80k6jKWp2A61NzeM4siW6e1kF3uyzjc"
 		);
-		console.log("getToken result:" + messaging.getToken());
+		console.log("getToken result: ");
+		console.log(messaging.getToken());
 
 		if (messaging.getToken() === null) {
 			this.setState({ allowNotiRequest: true });
