@@ -22,6 +22,7 @@ export default class NewSongQuery extends Component {
 		toggleAnim: true,
 		toggleFinal: false,
 		toggleNotiRequest: false,
+		allowNotiRequest: true,
 		toggleErr: false,
 		err: {
 			title: "",
@@ -50,10 +51,12 @@ export default class NewSongQuery extends Component {
 		messaging.usePublicVapidKey(
 			"BEumBgeaNS-cDLgwwjnUqKfKJs9l10mDn1-99N9RXY-0LaWGUA3I5vB_80k6jKWp2A61NzeM4siW6e1kF3uyzjc"
 		);
-		if (messaging.getToken()) {
-			this.setState({ allowNotiRequest: false });
-		} else {
+		console.log("getToken result:" + messaging.getToken());
+
+		if (messaging.getToken() === null) {
 			this.setState({ allowNotiRequest: true });
+		} else {
+			this.setState({ allowNotiRequest: false });
 		}
 		this.promptNoti = () => {
 			console.log("function running");
@@ -135,7 +138,7 @@ export default class NewSongQuery extends Component {
 								toggleFinal: true,
 								toggleErr: false
 							});
-							if (this.state.allowNotiRequest) {
+							if (this.state.allowNotiRequest === true) {
 								this.setState({ toggleNotiRequest: true });
 							}
 						}, 1000);
