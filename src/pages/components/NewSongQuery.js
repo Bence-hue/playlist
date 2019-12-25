@@ -54,7 +54,11 @@ export default class NewSongQuery extends Component {
 		console.log("getToken result: ");
 		console.log(messaging.getToken());
 
-		if (messaging.getToken() === null) {
+		if (
+			messaging.getToken().then((res) => {
+				return res;
+			}) === null
+		) {
 			this.setState({ allowNotiRequest: true });
 		} else {
 			this.setState({ allowNotiRequest: false });
