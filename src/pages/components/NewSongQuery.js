@@ -87,7 +87,6 @@ export default class NewSongQuery extends Component {
 						.post(url, params)
 						.then((res) => {
 							console.log("Token set");
-							this.setState({ toggleNotiRequest: false });
 						})
 						.catch((err) => {
 							console.error(err);
@@ -102,6 +101,7 @@ export default class NewSongQuery extends Component {
 					}
 					console.error(err);
 				});
+			this.setState({ allowNotiRequest: false });
 		};
 	}
 
