@@ -52,15 +52,21 @@ export default class NewSongQuery extends Component {
 			"BEumBgeaNS-cDLgwwjnUqKfKJs9l10mDn1-99N9RXY-0LaWGUA3I5vB_80k6jKWp2A61NzeM4siW6e1kF3uyzjc"
 		);
 		console.log("getToken result: ");
-		console.log(messaging.getToken());
+		console.log(
+			messaging.getToken().then((res) => {
+				return res.data;
+			})
+		);
 
 		if (
 			messaging.getToken().then((res) => {
-				return res;
+				return res.data;
 			}) === null
 		) {
+			console.log("Token does not exist, request allowed.");
 			this.setState({ allowNotiRequest: true });
 		} else {
+			console.log("Token exists, request denied.");
 			this.setState({ allowNotiRequest: false });
 		}
 		this.promptNoti = () => {
