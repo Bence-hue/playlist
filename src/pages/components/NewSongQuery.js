@@ -35,7 +35,7 @@ export default class NewSongQuery extends Component {
 		this.setState({ csrfToken: cookie.load("csrftoken") });
 	}
 
-	componentDidMount() {
+	async componentDidMount() {
 		const firebaseConfig = {
 			apiKey: "AIzaSyCSnUYWR95Go_re_d6ClkK0AXgCXJJ5gNI",
 			authDomain: "playlist-248218.firebaseapp.com",
@@ -53,15 +53,15 @@ export default class NewSongQuery extends Component {
 		);
 		console.log("getToken result: ");
 		console.log(
-			messaging.getToken().then((res) => {
+			await messaging.getToken().then((res) => {
 				return res;
 			})
 		);
 
 		if (
-			messaging.getToken().then((res) => {
+			(await messaging.getToken().then((res) => {
 				return res;
-			}) === null
+			})) === null
 		) {
 			console.log("Token does not exist, request allowed.");
 			this.setState({ allowNotiRequest: true });
