@@ -54,13 +54,13 @@ export default class NewSongQuery extends Component {
 		console.log("getToken result: ");
 		console.log(
 			messaging.getToken().then((res) => {
-				return res.data;
+				return res;
 			})
 		);
 
 		if (
 			messaging.getToken().then((res) => {
-				return res.data;
+				return res;
 			}) === null
 		) {
 			console.log("Token does not exist, request allowed.");
