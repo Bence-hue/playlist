@@ -216,7 +216,7 @@ export default class NewSongQuery extends Component {
 		return (
 			<React.Fragment>
 				<Modal
-					toggler={false}
+					toggler={this.state.toggleFinal}
 					title={"Értesítések"}
 					content={
 						"Ha szeretnél értesítést kapni, amikor a te zenédet játsszuk, kérlek fogadd el a következő felugró ablakban az értesítéseket."
@@ -237,10 +237,10 @@ export default class NewSongQuery extends Component {
 						((props) => (
 							<animated.div style={props}>
 								<form
-									className="songquery"
+									className='songquery'
 									onSubmit={this.onSubmit}
-									autoComplete="off"
-									title=""
+									autoComplete='off'
+									title=''
 								>
 									<h1>
 										{this.state.flavortext} <span>{this.state.flavorspan}</span>
@@ -249,17 +249,17 @@ export default class NewSongQuery extends Component {
 									<input
 										autoFocus
 										required
-										type="text"
+										type='text'
 										name={this.state.active}
 										value={
 											this.state.active === "artist"
 												? this.state.artist
 												: this.state.title
 										}
-										placeholder="Ide írd be..."
+										placeholder='Ide írd be...'
 										onChange={this.onChange}
 									/>
-									<input type="submit" value="tovább" />
+									<input type='submit' value='tovább' />
 								</form>
 							</animated.div>
 						))
@@ -277,10 +277,10 @@ export default class NewSongQuery extends Component {
 						show &&
 						((props) => (
 							<animated.div style={props}>
-								<div className="final-wrapper">
-									<CheckCircle className="final-svg" />
+								<div className='final-wrapper'>
+									<CheckCircle className='final-svg' />
 									<h1>Kész!</h1>
-									<Link to="/">
+									<Link to='/'>
 										<button>kezdőlap</button>
 									</Link>
 								</div>
@@ -300,12 +300,12 @@ export default class NewSongQuery extends Component {
 						show &&
 						((props) => (
 							<animated.div style={props}>
-								<div className="error-wrapper">
-									<ExCircle className="err-svg" />
-									<ExMark className="err-svg" />
+								<div className='error-wrapper'>
+									<ExCircle className='err-svg' />
+									<ExMark className='err-svg' />
 									<h1>{this.state.err.title}</h1>
 									<p>{this.state.err.flavor}</p>
-									<Link to="/">
+									<Link to='/'>
 										<button>kezdőlap</button>
 									</Link>
 								</div>
