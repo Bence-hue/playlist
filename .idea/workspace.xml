@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e279c32c-def2-4309-8f89-29b67856bd5a" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIEW_PUSH_PROTECTED_ONLY" value="true" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1VTpAMHaiK2EZIYxPcSKF19rjd6" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
+      <module name="playlist" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$PROJECT_DIR$/venv/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/playlist" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="http://127.0.0.1:8000/" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="true" />
+      <option name="customRunCommand" value="python3 manage.py runserver" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e279c32c-def2-4309-8f89-29b67856bd5a" name="Default Changelist" comment="" />
+      <created>1577286794281</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1577286794281</updated>
+      <workItem from="1577286798414" duration="8002000" />
+      <workItem from="1577351190047" duration="1000" />
+      <workItem from="1577727106991" duration="37000" />
+      <workItem from="1578239916995" duration="964000" />
+      <workItem from="1578240984089" duration="2525000" />
+    </task>
+    <task id="LOCAL-00001" summary="songsview is now readable">
+      <created>1577291996738</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1577291996738</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="songsview is now readable" />
+    <option name="LAST_COMMIT_MESSAGE" value="songsview is now readable" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="590" y="177" width="810" height="759" key="#JSON" timestamp="1577289029189">
+      <screen x="70" y="27" width="1850" height="1053" />
+    </state>
+    <state x="590" y="177" width="810" height="759" key="#JSON/70.27.1850.1053@70.27.1850.1053" timestamp="1577289029189" />
+    <state x="436" y="212" width="1084" height="766" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578240733584">
+      <screen x="48" y="28" width="1872" height="1052" />
+    </state>
+    <state x="436" y="212" key="#com.intellij.execution.impl.EditConfigurationsDialog/48.28.1872.1052@48.28.1872.1052" timestamp="1578240733584" />
+    <state x="453" y="211" width="1084" height="766" key="#com.intellij.execution.impl.EditConfigurationsDialog/70.27.1850.1053@70.27.1850.1053" timestamp="1577287182945" />
+    <state x="558" y="62" width="864" height="989" key="CommitChangelistDialog2" timestamp="1577291996551">
+      <screen x="70" y="27" width="1850" height="1053" />
+    </state>
+    <state x="558" y="62" width="864" height="989" key="CommitChangelistDialog2/70.27.1850.1053@70.27.1850.1053" timestamp="1577291996551" />
+    <state x="778" y="352" width="424" height="491" key="FileChooserDialogImpl" timestamp="1577287170446">
+      <screen x="70" y="27" width="1850" height="1053" />
+    </state>
+    <state x="778" y="352" width="424" height="491" key="FileChooserDialogImpl/70.27.1850.1053@70.27.1850.1053" timestamp="1577287170446" />
+    <state width="1804" height="252" key="GridCell.Tab.0.bottom" timestamp="1577287201549">
+      <screen x="70" y="27" width="1850" height="1053" />
+    </state>
+    <state width="1804" height="252" key="GridCell.Tab.0.bottom/70.27.1850.1053@70.27.1850.1053" timestamp="1577287201549" />
+    <state width="1804" height="252" key="GridCell.Tab.0.center" timestamp="1577287201548">
+      <screen x="70" y="27" width="1850" height="1053" />
+    </state>
+    <state width="1804" height="252" key="GridCell.Tab.0.center/70.27.1850.1053@70.27.1850.1053" timestamp="1577287201548" />
+    <state width="1804" height="252" key="GridCell.Tab.0.left" timestamp="1577287201548">
+      <screen x="70" y="27" width="1850" height="1053" />
+    </state>
+    <state width="1804" height="252" key="GridCell.Tab.0.left/70.27.1850.1053@70.27.1850.1053" timestamp="1577287201548" />
+    <state width="1804" height="252" key="GridCell.Tab.0.right" timestamp="1577287201548">
+      <screen x="70" y="27" width="1850" height="1053" />
+    </state>
+    <state width="1804" height="252" key="GridCell.Tab.0.right/70.27.1850.1053@70.27.1850.1053" timestamp="1577287201548" />
+    <state x="467" y="230" width="1022" height="737" key="SettingsEditor" timestamp="1578240209144">
+      <screen x="48" y="28" width="1872" height="1052" />
+    </state>
+    <state x="467" y="230" key="SettingsEditor/48.28.1872.1052@48.28.1872.1052" timestamp="1578240209144" />
+    <state x="484" y="229" width="1022" height="737" key="SettingsEditor/70.27.1850.1053@70.27.1850.1053" timestamp="1577287171213" />
+    <state x="590" y="271" width="800" height="572" key="Vcs.Push.Dialog.v2" timestamp="1577292007271">
+      <screen x="70" y="27" width="1850" height="1053" />
+    </state>
+    <state x="590" y="271" width="800" height="572" key="Vcs.Push.Dialog.v2/70.27.1850.1053@70.27.1850.1053" timestamp="1577292007271" />
+  </component>
+</project>

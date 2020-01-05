@@ -14,11 +14,10 @@ import json
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-with open(os.path.join(BASE_DIR,"datas.json"), "r") as cffile:
+with open(os.path.join(BASE_DIR, "datas.json"), "r") as cffile:
     config = json.loads(cffile.readline())
 
 # Quick-start development settings - unsuitable for production
@@ -35,8 +34,8 @@ SECRET_KEY = config.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["localhost","78.92.104.203","127.0.0.1","192.168.1.71","bnctth.ml","playlist.jelszo.co","217.144.54.230"]
-
+ALLOWED_HOSTS = ["localhost", "78.92.104.203", "127.0.0.1", "192.168.1.71", "bnctth.ml", "playlist.jelszo.co",
+                 "217.144.54.230"]
 
 # Application definition
 
@@ -49,8 +48,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'list',
     'frontend',
-    'corsheaders', 
-    'fcm_django'
+    'corsheaders',
+    'fcm_django',
+    'jwt_auth',
 ]
 
 MIDDLEWARE = [
@@ -62,14 +62,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-] 
+    'jwt_auth.middleware.JWTAuthMiddleware',
+]
 
 ROOT_URLCONF = 'playlist.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'frontend/build'), ],
+        'DIRS': [os.path.join(BASE_DIR, 'frontend/build'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -82,8 +83,12 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'playlist.wsgi.application'
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'jwt_auth.authenticate.JWTBackend',
+]
 
+WSGI_APPLICATION = 'playlist.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -94,7 +99,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -114,7 +118,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -128,7 +131,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
@@ -137,21 +139,21 @@ STATICFILES_DIRS = (
     os.path.join(os.path.join(BASE_DIR, 'frontend'), 'build', 'static'),
     os.path.join(os.path.join(BASE_DIR, 'frontend'), 'build')
 )
-STATIC_ROOT=os.path.join(BASE_DIR,"static")
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-CORS_ORIGIN_ALLOW_ALL=True
+CORS_ORIGIN_ALLOW_ALL = True
 
-EMAIL_HOST="mail.privateemail.com"
+EMAIL_HOST = "mail.privateemail.com"
 
-EMAIL_PORT=587
+EMAIL_PORT = 587
 
-EMAIL_USE_TLS=True
+EMAIL_USE_TLS = True
 
-EMAIL_HOST_USER=config["username"]
+EMAIL_HOST_USER = config["username"]
 
-EMAIL_HOST_PASSWORD=config["password"]
+EMAIL_HOST_PASSWORD = config["password"]
 
 FCM_DJANGO_SETTINGS = {
-        "FCM_SERVER_KEY": config["fcmsk"],
-        "DELETE_INACTIVE_DEVICES": True,
+    "FCM_SERVER_KEY": config["fcmsk"],
+    "DELETE_INACTIVE_DEVICES": True,
 }

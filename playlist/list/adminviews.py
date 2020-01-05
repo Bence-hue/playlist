@@ -14,7 +14,6 @@ from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
-from simplecrypt import encrypt
 from .spotify import add,delete
 from fcm_django.models import FCMDevice
 
