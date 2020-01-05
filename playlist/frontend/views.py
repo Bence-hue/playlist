@@ -10,7 +10,6 @@ from django.http import HttpResponse, FileResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.contrib.auth.models import User
-from simplecrypt import decrypt
 from django.core.exceptions import PermissionDenied
 
 from list.models import Setting
