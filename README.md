@@ -1,7 +1,7 @@
 
 
 <p align="center">
-<img height="100" width="100" alt="Logo" src="/public/playlist.png" />
+<img alt="Logo" src="/public/playlist.png" />
   <h2 align="center">PLAYLIST</h2>
 
   <p align="center">
