@@ -21,7 +21,7 @@ export default class SongCardAdmin extends Component {
 			if (JSON.parse(res.data.toLowerCase()) === true) {
 				axios.get("/api/spotify/devices/").then((res) => {
 					if (JSON.parse(res.data.isAnySelected) === true) {
-						if (this.props.song.spotilink !== "") {
+						if (this.props.song.spotilink !== undefined) {
 							this.setState({ playcheck: true });
 						}
 					}
