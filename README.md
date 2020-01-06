@@ -2,7 +2,6 @@
 
 <p align="center">
 <img alt="Logo" src="/public/playlist.png" />
-  <h2 align="center">PLAYLIST</h2>
 
   <p align="center">
     A Kölcsey Ferenc Gimnázium iskolarádiójának kívánságlistás weboldala.
