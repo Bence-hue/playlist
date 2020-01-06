@@ -122,7 +122,7 @@ def played_view(request, *args, **kwargs):
                 object.update(played=True, playedAt=datetime.datetime.now())
                 try:
                     d=FCMDevice.objects.filter(device_id=object[0].user)
-                    d.send_message("Jól fülelj!","Épp most játszuk le az általad kért {}-t {}-tól!".format(object[0].title,object[0].artist),icon="https://playlist.jelszo.co/static/pnicon.png")
+                    d.send_message("Jól fülelj!","Épp most játszuk le az általad kért zenét: {}: {}".format(object[0].artist,object[0].title),icon="https://playlist.jelszo.co/static/pnicon.png")
                 except Exception:
                     pass
                 delete(object[0].spotiuri)
