@@ -75,10 +75,6 @@ Ha a szerver működése is érdekel, válaszd ezt a lehetőséget.
 ### 1. Clone
 ```sh
 git clone https://github.com/jelszo-co/playlist.git
-
-Vagy
-
-git clone https://github.com/jelszo-co/playlist.git
 ```
 
 ```sh
