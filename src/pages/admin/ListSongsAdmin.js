@@ -29,9 +29,9 @@ export default class ListSongsAdmin extends Component {
 		currentPageMobile: 0
 	};
 
-	componentDidMount() {
+	async componentDidMount() {
 		let url = "/api/list/?mode=unplayed";
-		axios
+		await axios
 			.get(url)
 			.then((res) => {
 				this.setState({ songs: res.data });
